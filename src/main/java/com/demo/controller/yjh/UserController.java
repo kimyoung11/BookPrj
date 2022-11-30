@@ -18,7 +18,7 @@ import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.user.yjh.UserService;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("user/yjh")
 public class UserController {
 	@Autowired
 	private UserService service;
@@ -74,6 +74,6 @@ public class UserController {
 		
 		rttr.addAttribute("id", user.getId());
 
-		return "redirect:/user/editInfo";
+		return "redirect:/user/yjh/editInfo";
 	}
 }

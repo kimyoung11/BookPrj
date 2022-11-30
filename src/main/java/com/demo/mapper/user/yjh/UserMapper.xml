@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.demo.mapper.user.UserMapper">
+  <mapper namespace="com.demo.mapper.user.yjh.UserMapper">
   	
   	<update id="updateUser">
   		UPDATE User
@@ -53,7 +53,7 @@
   		WHERE u_id = #{id};
   	</select>
   	
-  	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.UserDto">
+  	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT o.o_number orderNum,
 	   		   o.o_count orderCount,
        		   o.o_date orderDate,
@@ -63,14 +63,14 @@
 		WHERE u_id = #{id};
   	</select>
   	
-  	<select id="selectBookLikeListByUser" resultType="com.demo.domain.user.UserDto">
+  	<select id="selectBookLikeListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   	SELECT
 	   	   b.b_title bookTitle
     FROM BookLike L LEFT JOIN Book b ON L.b_code = b.b_code
     WHERE L.u_id = 'son';    
   	</select>
   	
-  	<select id="selectReviewListByUser" resultType="com.demo.domain.user.UserDto">
+  	<select id="selectReviewListByUser" resultType="com.demo.domain.user.yjh.UserDto">
 		SELECT 
 			  r_content reviewContent,
 			  r_star reviewStar,
@@ -79,7 +79,7 @@
 		WHERE u_id = #{id};
   	</select>
   	
-  	<select id="selectQuestListByUser" resultType="com.demo.domain.user.UserDto">
+  	<select id="selectQuestListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT q_title,
 	   		   q_content,
        		   q_date
@@ -87,7 +87,7 @@
 		WHERE u_id = #{id};
   	</select>
   	
-  	<resultMap type="com.demo.domain.user.UserDto" id="orderMap">
+  	<resultMap type="com.demo.domain.user.yjh.UserDto" id="orderMap">
   		<id column="u_id" property="id"/>
   		<result column="o_number" property="orderNum"/>
   		<result column="o_count" property="orderCount"/>
@@ -96,7 +96,7 @@
   		<result column="b_title" property="bookTitle"/>
   	</resultMap>
   	
-  	<resultMap type="com.demo.domain.user.UserDto" id="userMap">
+  	<resultMap type="com.demo.domain.user.yjh.UserDto" id="userMap">
   		<id column="u_id" property="id"/>
   		<result column="u_pw" property="pw"/>
   		<result column="u_name" property="name"/>
