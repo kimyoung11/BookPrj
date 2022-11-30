@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.demo.mapper.user.UserMapper">
+  	
+  	<update id="updateUser">
+  		UPDATE User
+  		SET
+  			u_pw = #{pw},
+  			u_email = #{email},
+  			u_phone = #{phone},
+  			u_address = #{address}
+  		WHERE u_id = #{id};	
+  	</update>
+  	
+  	<select id="selectUserInfo" resultMap="userMap">
+  		SELECT u_id, u_pw, u_name, u_phone, u_email, u_address
+  		FROM User
+  		WHERE u_id = #{id}
+  	</select>
+  	
+  	<select id="countLikeByUserId" resultType="int">
+  	 	SELECT COUNT(*) FROM BookLike
+		WHERE u_id = #{id};
+  	</select>
+  	
+  	<select id="countCartByUserId" resultType="int">
+  	 	SELECT SUM(c_count) FROM Cart
+		WHERE u_id = #{id};
+  	</select>
+  	
+  	<select id="selectUserPageInfo" resultMap="userMap">
+  		SELECT 
+  				u.u_id,
+	   			COUNT(DISTINCT L.u_id) countLike,	
+	   			SUM(c_count) countCart
+		FROM 	
+				User u 
+				LEFT JOIN BookLike L ON u.u_id = L.u_id
+				LEFT JOIN Cart c ON u.u_id = c.u_id
+  		WHERE 	
+  				u.u_id = #{id}
+  	</select>
+  	
+  	<select id="selectOrderByUser" resultMap="orderMap">
+  		SELECT o_number,
+  			   o_date,
+  			   o_status,
+  			   o_count orderCount
+  		FROM Orders	   	
+  		WHERE u_id = #{id};
+  	</select>
+  	
+  	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.UserDto">
+  		SELECT o.o_number orderNum,
+	   		   o.o_count orderCount,
+       		   o.o_date orderDate,
+       		   o.o_status orderStatus,
+       		   b.b_title bookTitle
+		FROM Orders o LEFT JOIN Book b ON o.b_code = b.b_code
+		WHERE u_id = #{id};
+  	</select>
+  	
+  	<select id="selectBookLikeListByUser" resultType="com.demo.domain.user.UserDto">
+  	SELECT
+	   	   b.b_title bookTitle
+    FROM BookLike L LEFT JOIN Book b ON L.b_code = b.b_code
+    WHERE L.u_id = 'son';    
+  	</select>
+  	
+  	<select id="selectReviewListByUser" resultType="com.demo.domain.user.UserDto">
+		SELECT 
+			  r_content reviewContent,
+			  r_star reviewStar,
+		      b.b_title bookTitle
+		FROM Review r LEFT JOIN Book b ON r.b_code = b.b_code
+		WHERE u_id = #{id};
+  	</select>
+  	
+  	<select id="selectQuestListByUser" resultType="com.demo.domain.user.UserDto">
+  		SELECT q_title,
+	   		   q_content,
+       		   q_date
+		FROM Quest
+		WHERE u_id = #{id};
+  	</select>
+  	
+  	<resultMap type="com.demo.domain.user.UserDto" id="orderMap">
+  		<id column="u_id" property="id"/>
+  		<result column="o_number" property="orderNum"/>
+  		<result column="o_count" property="orderCount"/>
+  		<result column="o_date" property="orderDate"/>
+  		<result column="o_status" property="orderStatus"/>
+  		<result column="b_title" property="bookTitle"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.demo.domain.user.UserDto" id="userMap">
+  		<id column="u_id" property="id"/>
+  		<result column="u_pw" property="pw"/>
+  		<result column="u_name" property="name"/>
+  		<result column="u_phone" property="phone"/>
+  		<result column="u_email" property="email"/>
+  		<result column="u_address" property="address"/>
+  	</resultMap>
+  </mapper>
