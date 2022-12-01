@@ -5,16 +5,19 @@ import java.util.List;
 import com.demo.domain.customer.NoticeDto;
 
 public interface NoticeMapper {
-
+	/* 공지사항 추가하기 */
 	int insert(NoticeDto notice);
 
+	/* list content 보여주기 */
 	NoticeDto select(int n_id);
+	
 
 	/* pagination */
-	
-	List<NoticeDto> noticeList(int offset, int records, String type, String keyword);
+	List<NoticeDto> noticeList(int offset, int records/* , String type, String keyword */);
 
-	int allCount(String type, String keyword);
+	int allCount(/* String type, String keyword */);
+
+
 
 
 

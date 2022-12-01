@@ -1,6 +1,9 @@
 package com.demo.domain.customer;
 
-public class pageInfo {
+import lombok.Data;
+
+@Data
+public class PageInfo {
 	private boolean hasPrevButton;
 	private boolean hasNextButton;
 	private int jumpPrevPageNumber;

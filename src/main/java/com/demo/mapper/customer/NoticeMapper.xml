@@ -23,7 +23,29 @@
 		Notice
 	ORDER BY n_id DESC
 	LIMIT #{offset}, #{records}
+
+
+
 </select>
+
+<select id="allCount" resultType="int">
+	SELECT COUNT(*) FROM Notice
+<!-- 	WHERE
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'n_title'">
+			OR n_title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'n_content'">
+			OR n_content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'n_id'">
+			OR n_id LIKE #{keyword}
+			</if>
+		</trim> -->
+</select>
+
 
 <!-- 공지사항 content 보여줌 -->
 <select id="select" resultType="com.demo.domain.customer.NoticeDto">
@@ -40,23 +62,6 @@
 </select>
 
 
-<select id="allCount" resultType="int">
-	SELECT COUNT(*) FROM Board
-	WHERE
-		<trim prefixOverrides="OR">
-			<if test="type == 'all' or type == 'title'">
-			OR title LIKE #{keyword}
-			</if>
-			
-			<if test="type == 'all' or type == 'content'">
-			OR content LIKE #{keyword}
-			</if>
-			
-			<if test="type == 'all' or type == 'writer'">
-			OR writer LIKE #{keyword}
-			</if>
-		</trim>
-</select>
 
 
 </mapper>

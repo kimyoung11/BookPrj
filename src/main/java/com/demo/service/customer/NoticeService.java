@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.domain.customer.NoticeDto;
-import com.demo.domain.customer.pageInfo;
+import com.demo.domain.customer.PageInfo;
 import com.demo.mapper.customer.NoticeMapper;
-import com.study.domain.board.PageInfo;
 
 @Service
 public class NoticeService {
@@ -24,22 +23,18 @@ public class NoticeService {
 		
 	}
 
-	/*
-	 * public List<NoticeDto> listNotice() { return mapper.noticeList(); }
-	 */	
-
 	public NoticeDto listContent(int n_id) {
 		return mapper.select(n_id);
 	}
 
-	public List<NoticeDto> listNotice(int page, String type, String keyword, PageInfo pageInfo) {
+
+	/* LIST pagination */
+	public List<NoticeDto> listNotice(int page, /* String type, String keyword, */ PageInfo pageInfo) {
 		int records = 10;
 		int offset = (page -1) * records;
 		
-		int allCount = mapper.allCount(type, "%" + keyword + "%");
+		int allCount = mapper.allCount(/* type, "%" + keyword + "%" */);
 		int lastPage = (allCount - 1) / records + 1;
-		
-		pageInfo.setLastPageNumber(lastPage);
 		
 		int leftPageNumber = (page - 1) / 10 * 10 + 1;
 		int rightPageNumber = leftPageNumber + 9;
@@ -63,8 +58,12 @@ public class NoticeService {
 		pageInfo.setRightPageNumber(rightPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
 		
-		return mapper.noticeList(offset, records, type, "%" + keyword + "%");
+		return mapper.noticeList(offset, records/* , type, "%" + keyword + "%" */);
 	}
+
+
+
+
 
 
 }

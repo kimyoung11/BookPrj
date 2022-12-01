@@ -82,50 +82,92 @@ a {
 			</tbody>
 		</table>
 
-		<!-- pagination -->
+
+
+
 		<div class="row">
 			<div class="col">
 				<nav class="mt-3" aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
-						
-						<!-- 1페이지가 아니면 맨 앞 버튼 -->
-						<c:if test="${pageInfo.currentPageNumber ne 1 }">
-					  		<li class="page-item"><a class="page-link" href="#"><i
-									class="fa-solid fa-angles-left"></i></a></li>
-					    </c:if>
 
-						
-								
-						<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNum">
-							<c:url value="/customer/notice" var="pageLink">
-								<c:param name="page" value="${pageNum }"></c:param>
-							</c:url>
-							<li class="page-item ${pageInfo.currentPageNumber eq pageNumber ? 'active' : ''}">
-								<a class="page-link" href="pageLink">${pageNum }</a></li>
-						</c:forEach>
-						
+					<%-- 맨앞 버튼은 1페이지가 아니면 존재함 --%>
+				  	<c:if test="${pageInfo.currentPageNumber ne 1 }">
+				  		
+				  		<c:url value="/customer/notice" var="listLink">
+				  			<c:param name="page" value="1" />
+				  			<%-- <c:param name="q" value="${param.q }" />
+				  			<c:param name="t" value="${param.t }" /> --%>
+				  		</c:url>
+
 						<li class="page-item">
-						<a class="page-link" href=""><iclass="fa-solid fa-angles-right"></i></a></li>
-								
-								
-					<c:if test="${pageInfo.currentPageNumber ne pageInfo.lastPageNumber }">
-				    	<c:url value="/boardEx/list" var="listLink">
-				    		<c:param value="${pageInfo.lastPageNumber }" name="page" />
-				    	</c:url>
-				    	<li class="page-item">
-				    		<a href="${listLink }" class="page-link">맨뒤버튼</a>
-				    	</li>
-			    	</c:if>
-
-
+							<a class="page-link" href="${listLink }">
+								<i class="fa-solid fa-angles-left"></i>
+							</a>
+						</li>
+				  	</c:if>
+				  	
+				  	<c:if test="${pageInfo.hasPrevButton }">
+				  		<c:url value="/customer/notice" var="listLink">
+				  			<c:param name="page" value="${pageInfo.jumpPrevPageNumber }"/>
+				  			<%-- <c:param name="q" value="${param.q }" />
+				  			<c:param name="t" value="${param.t }" /> --%>
+				  		</c:url>
+				  		<li class="page-item">
+				  			<a href="${listLink }" class="page-link">
+				  				<i class="fa-solid fa-angle-left"></i>
+				  			</a>
+				  		</li>
+				  	</c:if>
+				  
+				  	<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
+				  		<c:url value="/customer/notice" var="listLink">
+				  			<c:param name="page" value="${pageNumber }" />
+		<%-- 		  			<c:param name="q" value="${param.q }" />
+				  			<c:param name="t" value="${param.t }" /> --%>
+				  		</c:url>
+					    <li class="page-item
+					    
+					    	<%-- 현재페이지에 active 클래스 추가 --%>
+					    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
+					    
+					    "><a class="page-link" href="${listLink }">${pageNumber }</a></li>
+				  	</c:forEach>
+				  	
+				  	<c:if test="${pageInfo.hasNextButton }">
+				  		<c:url value="/customer/notice" var="listLink">
+				  			<c:param name="page" value="${pageInfo.jumpNextPageNumber }"></c:param>
+			<%-- 	  			<c:param name="q" value="${param.q }" />
+				  			<c:param name="t" value="${param.t }" /> --%>
+				  		</c:url>
+				  		<li class="page-item">
+				  			<a href="${listLink }" class="page-link">
+				  				<i class="fa-solid fa-angle-right"></i>
+				  			</a>
+				  		</li>
+				  	</c:if>
+				  	
+				  	
+				  	<c:if test="${pageInfo.currentPageNumber ne pageInfo.lastPageNumber }">
+				  		<c:url value="/customer/notice" var="listLink">
+				  			<c:param value="${pageInfo.lastPageNumber }" name="page" />
+				<%--   			<c:param name="q" value="${param.q }" />
+				  			<c:param name="t" value="${param.t }" /> --%>
+				  		</c:url>
+				  		<!-- li.page-item>a.page-link{맨뒤버튼} -->
+				  		<li class="page-item">
+				  			<a href="${listLink }" class="page-link">
+				  				<i class="fa-solid fa-angles-right"></i>
+				  			</a>
+				  		</li>
+				  	</c:if>
 								
 					</ul>
 				</nav>
 			</div>
 		</div>
+		</div>
 		<!-- pagination-end -->
-	</div>
-	
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"

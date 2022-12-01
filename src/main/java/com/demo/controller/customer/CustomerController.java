@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.domain.customer.NoticeDto;
+import com.demo.domain.customer.PageInfo;
 import com.demo.service.customer.NoticeService;
+
 
 @Controller
 @RequestMapping("customer")
@@ -22,17 +23,22 @@ public class CustomerController {
 	@Autowired
 	private NoticeService service; 
 
+	
 	@GetMapping("notice")
-	public void notice(@RequestParam(name = "page", defaultValue = "1") int page,
-						NoticeDto notice,
+	public void notice(	@RequestParam(name = "page", defaultValue = "1") int page,
+			/*
+			 * @RequestParam(name = "t", defaultValue = "all") String type,
+			 * 
+			 * @RequestParam(name = "q", defaultValue = "") String keyword,
+			 */
+						PageInfo pageInfo,
+			/* NoticeDto notice, */
 						Model model) {
 		// business logic
-		List<NoticeDto> list = service.listNotice(page);
+		List<NoticeDto> list = service.listNotice(page, /* type, keyword, */ pageInfo);
 		
 		// add attribute
 		model.addAttribute("noticeList", list);
-		
-		System.out.println(notice);
 		
 
 	}
@@ -51,10 +57,9 @@ public class CustomerController {
 	@GetMapping("listContent/{n_id}")
 	public String listContent(@PathVariable int n_id,
 			Model model) {
-		System.out.println(n_id);
+		
 		// business logic (게시물 db에서 가져오기)
 		 NoticeDto notice = service.listContent(n_id); 
-		 System.out.println(notice);
 		 
 		 model.addAttribute("noticeContent", notice);
 		 
