@@ -11,5 +11,7 @@ public interface OrdersMapper {
 
 	List<CartDto> selectCart();
 
+	int deleteCart();
+
 }
 	

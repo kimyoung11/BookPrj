@@ -16,12 +16,16 @@ FROM
 
 <select id="selectCart" resultType="com.demo.domain.ths.CartDto">
 SELECT
-	b_img, b_title, b_price, c_count
+	b_img, b_title, b_price, c_count, u_id, b.b_code
 FROM 
 	Book b JOIN Cart c ON b.b_code = c.b_code;
 </select>
 
-
+<delete id="deleteCart">
+DELETE FROM Cart
+WHERE 
+ u_id = #{u_id} AND b_code = #{b_code}
+</delete>
 
 
 </mapper>

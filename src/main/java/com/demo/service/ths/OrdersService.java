@@ -21,4 +21,8 @@ public class OrdersService {
 	public List<CartDto> cartlist() {
 		return ordersMapper.selectCart();
 	}
+
+	public int deleteCart() {
+		return ordersMapper.deleteCart();
+	}
 }

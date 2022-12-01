@@ -29,6 +29,12 @@ public class MainController {
 		model.addAttribute("cartlist", cart);
 	}
 	
+	@PostMapping("deleteCart")
+	public String deleteCart(Model model) {
+		service.deleteCart();
+		return "redirect:/ths/cart";
+	}
+	
 	@GetMapping("orderpage")
 	public void orderpage() {
 		
