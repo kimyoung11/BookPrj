@@ -7,5 +7,6 @@ public class CartDto {
 	private String b_img;
 	private String b_title;
 	private String b_price;
+	private int c_count;
 	
 }

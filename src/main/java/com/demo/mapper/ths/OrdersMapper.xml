@@ -16,9 +16,9 @@ FROM
 
 <select id="selectCart" resultType="com.demo.domain.ths.CartDto">
 SELECT
-	b_img, b_title, b_price
+	b_img, b_title, b_price, c_count
 FROM 
-	Book;
+	Book b JOIN Cart c ON b.b_code = c.b_code;
 </select>
 
 
