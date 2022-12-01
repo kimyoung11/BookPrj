@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.customer.NoticeMapper">
+
+<!-- 공지사항 추가 -->
+<insert id="insert" >
+	INSERT INTO Notice (n_title, n_content, ad_id)
+	VALUES (#{n_title}, #{n_content}, #{ad_id})
+</insert>
+
+<!-- 공지사항 list 보여줌 -->
+<select id="noticeList" resultType="com.demo.domain.customer.NoticeDto">
+	SELECT 
+		n_id,
+		n_title,
+		n_content,
+		n_date,
+		ad_id
+	FROM  
+		Notice
+	ORDER BY n_id DESC
+	LIMIT #{offset}, #{records}
+</select>
+
+<!-- 공지사항 content 보여줌 -->
+<select id="select" resultType="com.demo.domain.customer.NoticeDto">
+	SELECT 
+		n_id,
+		n_title,
+		n_content,
+		n_date,
+		ad_id
+	FROM  
+		Notice
+	WHERE
+		n_id = #{n_id}
+</select>
+
+
+<select id="allCount" resultType="int">
+	SELECT COUNT(*) FROM Board
+	WHERE
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'title'">
+			OR title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'content'">
+			OR content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'writer'">
+			OR writer LIKE #{keyword}
+			</if>
+		</trim>
+</select>
+
+
+</mapper>
