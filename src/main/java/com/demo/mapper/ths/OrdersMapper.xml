@@ -3,18 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.demo.mapper.OrdersMapper">
+<mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
 
 
-<select id="select" resultType="com.demo.domain.OrdersDto">
+<select id="select" resultType="com.demo.domain.ths.OrdersDto">
 SELECT 
 	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
 FROM 
 	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id;
 </select>
 
-
+<select id="selectCart" resultType="com.demo.domain.ths.CartDto">
+SELECT
+	b_img, b_title, b_price
+FROM 
+	Book;
+</select>
 
 
 

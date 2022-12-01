@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,6 @@ a {
 }
     </style>
 <body>
-<h1>Navber</h1>
     <div class="container-md text-center">
         <div class="row">
         <h2>장바구니</h2>
@@ -57,27 +57,45 @@ a {
                     <th>상품명</th>
                     <th>수량</th>
                     <th>금액</th>
+                    <th>합계금액</th>
                 </tr>
             </thead>
             <tbody >
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td><a href=""><img style="height: 100px;" src="/img/01.png" alt=""></a></td>
-                    <td>책 제목 입력 입력 입력</td>
-                    <td>
-                        <input style="float: left; width: 33%; " type="button" onclick="bookCount('minus')" value="-"></input>
-                        <div style="float: left; width: 33%;" id="howManyBook">1</div>
-                        <input style="float: left; width: 33%;" type="button" onclick="bookCount('plus')" value="+"></input>
-
-                    </td>
-                    <td >5000원</td>
-                </tr>
+            	<c:forEach items="${cartlist }" var="cart" varStatus="status">
+	            	<tr>
+	       				<td>
+	       					<input checked name="pricecheck" type="checkbox" value="priceTarget${status.index }">
+	       				</td>
+	       				
+	       				<td>
+	       					<img src="${cart.b_img }" alt="" style="width: 80px; height: 100px;">
+	       				</td>
+	       				
+	            		<td>
+	            			${cart.b_title }
+	            		</td>
+	            		
+	            		<td>
+	            			<input value="1" onchange="sumAllPrice(this)" data-price="${cart.b_price }" data-price-target="#priceTarget${status.index }" class="cntInput" id="cnt${status.index }" style="width: 50px" type="number">개
+	            		</td>
+	            		
+	            		<td id="price">
+	            		${cart.b_price }
+	            		</td>
+	            		
+	            		<td class="totalPrice" id="priceTarget${status.index }">
+	            		${cart.b_price }
+	            		</td>
+	            	</tr>
+            	</c:forEach>
             </tbody>
         </table>
 
             <div class="card">
                 <div class="card-body">
-                    선택된 상품의 합계 금액 = ???원
+                    선택된 상품의 합계 금액 = 
+ 					<span id = dvalue></span>                   
+                    <span id = "totalPriceHolder"></span>
                 </div>
               </div>
 
@@ -89,50 +107,46 @@ a {
     </div>
     </div>
 
-
-
-
-    <div id="footer">
-        <footer class="text-center text-lg-start bg-light text-muted">
-  
-        
-          <!-- Section: Links  -->
-          <section class="" style="background-color: black;">
-            <div class="row w-50 ms-auto mx-auto">
-              <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
-            </div>
-          </section>
-          <!-- Section: Links  -->
-        
-          <!-- Copyright -->
-          <div class="text-center p-4" style="background-color: black;">
-            © 2022 Copyright:
-            <a class="text-reset fw-bold" href="#">사이트 홈페이지</a>
-          </div>
-          <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-      </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
       <script>
-         function bookCount(type){
-            const resultNum = document.getElementById("howManyBook");
-            let number = resultNum.innerText;
-                if(type == "plus") {
-                    number = parseInt(number) + 1;
-                } else if(type == "minus") {
-                    if(number <= 0) {
-                        alert("0보다 큰 수량을 설정해주세요.")
-                        resultNum.innerText = 0;
-                    } else {
-                        number = parseInt(number) - 1;
-                    }
-                } 
-                resultNum.innerText = number
-            }
+      	const bprice = document.querySelectorAll(".totalPrice");
+      	let bpSum = 0;
+      	for (const e of bprice) {
+      		bpSum = bpSum + parseInt(e.innerText);
+      	}
+      	document.getElementById("totalPriceHolder").innerText = bpSum;
+      
+      
+         function sumAllPrice(elem){
+        	 console.log(elem.value);
+        	 console.log(elem.dataset.price);
+        	 const a = elem.value;
+        	 const b = elem.dataset.price;
+        	 console.log(a * b);
+        	 console.log(elem.dataset.priceTarget);
+        	 document.querySelector(elem.dataset.priceTarget).innerText = a * b;
+        	 
+        	const c =  document.querySelectorAll(".totalPrice");
+        	console.log(c);
+        	
+        	let sum = 0;
+        	for(const d of c) { 
+        		sum = sum + Number(d.innerText);
+        	}
+        	console.log(sum);
+        	document.getElementById("totalPriceHolder").innerText = sum;
+         }
+         
+        /*  const arr = [];
+         const checkedPrice = document.getElementByName("pricecheck");
+        	for(const f : checkedPrice) {
+        		if(checkedPrice[f].checked == true) {
+        			arr.push(checkedPrice[f].value);
+        		}
+        		
+        		console.log(arr);
+        	} */
+         
 	</script>
 </body>
 </html>

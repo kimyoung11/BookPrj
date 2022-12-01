@@ -1,12 +1,13 @@
-package com.demo.service;
+package com.demo.service.ths;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.domain.OrdersDto;
-import com.demo.mapper.OrdersMapper;
+import com.demo.domain.ths.CartDto;
+import com.demo.domain.ths.OrdersDto;
+import com.demo.mapper.ths.OrdersMapper;
 
 @Service
 public class OrdersService {
@@ -15,5 +16,9 @@ public class OrdersService {
 	
 	public List<OrdersDto> ordermanage() {
 		return ordersMapper.select();
+	}
+
+	public List<CartDto> cartlist() {
+		return ordersMapper.selectCart();
 	}
 }

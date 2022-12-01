@@ -1,4 +1,4 @@
-package com.demo.domain;
+package com.demo.domain.ths;
 
 import java.time.LocalDateTime;
 
