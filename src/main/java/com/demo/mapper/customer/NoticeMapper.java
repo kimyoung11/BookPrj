@@ -13,9 +13,13 @@ public interface NoticeMapper {
 	
 
 	/* pagination */
-	List<NoticeDto> noticeList(int offset, int records/* , String type, String keyword */);
+	List<NoticeDto> noticeList(int offset, int records);
 
-	int allCount(/* String type, String keyword */);
+	int allCount();
+
+	int update(NoticeDto notice);
+
+	int delete(int id);
 
 
 

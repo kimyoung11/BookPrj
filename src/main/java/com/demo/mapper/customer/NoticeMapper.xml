@@ -23,27 +23,11 @@
 		Notice
 	ORDER BY n_id DESC
 	LIMIT #{offset}, #{records}
-
-
-
 </select>
+
 
 <select id="allCount" resultType="int">
 	SELECT COUNT(*) FROM Notice
-<!-- 	WHERE
-		<trim prefixOverrides="OR">
-			<if test="type == 'all' or type == 'n_title'">
-			OR n_title LIKE #{keyword}
-			</if>
-			
-			<if test="type == 'all' or type == 'n_content'">
-			OR n_content LIKE #{keyword}
-			</if>
-			
-			<if test="type == 'all' or type == 'n_id'">
-			OR n_id LIKE #{keyword}
-			</if>
-		</trim> -->
 </select>
 
 
@@ -60,6 +44,24 @@
 	WHERE
 		n_id = #{n_id}
 </select>
+
+
+<!-- 공지사항 수정하기 -->
+<update id="update">
+	UPDATE Notice
+	SET
+		n_title = #{n_title},
+		n_content = #{n_content}
+	WHERE 
+		n_id = #{n_id}
+</update>
+
+
+<!-- 공지사항 삭제하기 -->
+<delete id="delete">
+	DELETE FROM Notice
+	WHERE n_id = #{n_id}
+</delete>
 
 
 

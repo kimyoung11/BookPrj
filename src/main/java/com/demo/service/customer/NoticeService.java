@@ -23,17 +23,24 @@ public class NoticeService {
 		
 	}
 
-	public NoticeDto listContent(int n_id) {
+	
+	/* get이랑 겹침 */
+	 public NoticeDto listContent(int n_id) { return mapper.select(n_id); }
+	 
+	
+	
+	/* 수정하기 데이터 가져오기 */
+	public NoticeDto get(int n_id) {
 		return mapper.select(n_id);
 	}
 
 
 	/* LIST pagination */
-	public List<NoticeDto> listNotice(int page, /* String type, String keyword, */ PageInfo pageInfo) {
+	public List<NoticeDto> listNotice(int page, PageInfo pageInfo) {
 		int records = 10;
 		int offset = (page -1) * records;
 		
-		int allCount = mapper.allCount(/* type, "%" + keyword + "%" */);
+		int allCount = mapper.allCount();
 		int lastPage = (allCount - 1) / records + 1;
 		
 		int leftPageNumber = (page - 1) / 10 * 10 + 1;
@@ -58,8 +65,21 @@ public class NoticeService {
 		pageInfo.setRightPageNumber(rightPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
 		
-		return mapper.noticeList(offset, records/* , type, "%" + keyword + "%" */);
+		return mapper.noticeList(offset, records);
 	}
+    
+	/* 데이터 수정하기 */
+	public int updateList(NoticeDto notice) {
+		return mapper.update(notice);
+	}
+
+
+	public int remove(int id) {
+		return mapper.delete(id);
+		
+	}
+
+
 
 
 

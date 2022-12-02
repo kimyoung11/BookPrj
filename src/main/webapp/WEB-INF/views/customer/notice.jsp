@@ -83,7 +83,7 @@ a {
 		</table>
 
 
-
+<!-- pagination -->
 
 		<div class="row">
 			<div class="col">
@@ -95,8 +95,6 @@ a {
 				  		
 				  		<c:url value="/customer/notice" var="listLink">
 				  			<c:param name="page" value="1" />
-				  			<%-- <c:param name="q" value="${param.q }" />
-				  			<c:param name="t" value="${param.t }" /> --%>
 				  		</c:url>
 
 						<li class="page-item">
@@ -109,8 +107,6 @@ a {
 				  	<c:if test="${pageInfo.hasPrevButton }">
 				  		<c:url value="/customer/notice" var="listLink">
 				  			<c:param name="page" value="${pageInfo.jumpPrevPageNumber }"/>
-				  			<%-- <c:param name="q" value="${param.q }" />
-				  			<c:param name="t" value="${param.t }" /> --%>
 				  		</c:url>
 				  		<li class="page-item">
 				  			<a href="${listLink }" class="page-link">
@@ -122,8 +118,6 @@ a {
 				  	<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
 				  		<c:url value="/customer/notice" var="listLink">
 				  			<c:param name="page" value="${pageNumber }" />
-		<%-- 		  			<c:param name="q" value="${param.q }" />
-				  			<c:param name="t" value="${param.t }" /> --%>
 				  		</c:url>
 					    <li class="page-item
 					    
@@ -136,8 +130,6 @@ a {
 				  	<c:if test="${pageInfo.hasNextButton }">
 				  		<c:url value="/customer/notice" var="listLink">
 				  			<c:param name="page" value="${pageInfo.jumpNextPageNumber }"></c:param>
-			<%-- 	  			<c:param name="q" value="${param.q }" />
-				  			<c:param name="t" value="${param.t }" /> --%>
 				  		</c:url>
 				  		<li class="page-item">
 				  			<a href="${listLink }" class="page-link">
@@ -150,8 +142,6 @@ a {
 				  	<c:if test="${pageInfo.currentPageNumber ne pageInfo.lastPageNumber }">
 				  		<c:url value="/customer/notice" var="listLink">
 				  			<c:param value="${pageInfo.lastPageNumber }" name="page" />
-				<%--   			<c:param name="q" value="${param.q }" />
-				  			<c:param name="t" value="${param.t }" /> --%>
 				  		</c:url>
 				  		<!-- li.page-item>a.page-link{맨뒤버튼} -->
 				  		<li class="page-item">

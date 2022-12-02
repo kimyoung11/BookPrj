@@ -42,34 +42,13 @@ a {
 	<div id="align-center" class="container">
 	<h1>공지사항 작성</h1>
 	
-	<form action="${pageContext.request.contextPath }/customer/notice" method="post">
+	<%-- ${pageContext.request.contextPath }/customer/notice --%>
+	<form action="" method="post">
 		제목 <input type="text" placeholder="공지제목" name="n_title" ><br>
 		본문 <textarea placeholder="공지본문" name="n_content"></textarea><br>
 		<input type="hidden" name="ad_id" value="111">
 		<input type="submit" value="등록">
-	</form>	
-	
-	
-	<table class="table" style="margin-top: 50px; line-height: 50px;">
-			<thead style="border-top: solid 1px;">
-				<tr>
-					<th>NO</th>
-					<th>공지사항</th>
-					<th>날짜</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${noticeList }" var="notice">
-					<tr>
-						<th>${notice.n_id }</th>
-						<td class="align-left">
-							<div class="noticeTitle" data-value="${notice.n_id }" onclick="clickNotice(this)">${notice.n_title }</div>
-						</td>
-						<td>${notice.n_date }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</div>
-</body>
+	</form>		
+	</div>
+</body>		
 </html>
