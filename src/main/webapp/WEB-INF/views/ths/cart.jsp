@@ -75,8 +75,9 @@ a {
 					<c:forEach items="${cartlist }" var="cart" varStatus="status">
 						<tr>
 							<td><input 
-								data-user-id="user id"
-								data-book-code="book code"
+								data-user-id="${cart.u_id }"
+								data-book-code="${cart.b_code }"
+								data-cart-count="${cart.c_count }"
 								value="${cart.b_price }" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
 
 							<td><img src="${cart.b_img }" alt=""style="width: 80px; height: 100px;"></td>
@@ -118,6 +119,11 @@ a {
 		<c:url value="/ths/deleteCart" var="deleteLink" />
 		<form action="${deleteLink }" id="deleteForm" method="post"></form>
 	</div>
+	
+	<div style="display: none;">
+		<c:url value="/ths/order" var="toOrderLink" />
+		<form action="${toOrderLink }" id="toOrderForm" method="post"></form>
+	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -156,6 +162,7 @@ a {
 		}
         
        	// 선택삭제 기능
+       
        	document.querySelector("#deleteButton").addEventListener("click", function(){
        		// 1. 비어있는 form 가져오기
        		const form = document.forms.deleteForm;
@@ -179,6 +186,38 @@ a {
        		form.submit();
        		
        	});
+       	
+       	
+     // 선택 결제 기능
+        
+       	document.querySelector("#orderButton").addEventListener("click", function(){
+       		// 1. 비어있는 form 가져오기
+       		const form = document.forms.toOrderForm;
+       		// 2. 체크된 체크박스들 가져오기
+       		const boxList = document.querySelectorAll("input[name='pricecheck']:checked");
+       		
+       		for (const box of boxList) {
+	       		// 3. 체크박스에 있는 값들로 input 만들어서
+	       		const userId = box.dataset.userId;
+	       		const bookCode = box.dataset.bookCode;
+	       		const cartCount = box.dataset.cartCount
+	       		
+	       		const userIdInput = `<input name="u_id" value="\${userId}" />`;
+	       		const bookCodeInput = `<input name="b_code" value="\${bookCode}" />`;
+	       		const cartCountInput = `<input name="c_count" value="\${cartCount}" />`;
+	       		
+	       		// 4. 비어있는 form에 채우기
+       			form.insertAdjacentHTML('beforeend', userIdInput);
+       			form.insertAdjacentHTML('beforeend', bookCodeInput);
+       			form.insertAdjacentHTML('beforeend', cartCountInput);
+       		}
+       		
+       		// 5. form 전송하기
+       		form.submit();
+       		
+       	});
+       	
+      
          
 	</script>
 </body>

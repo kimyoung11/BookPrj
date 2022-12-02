@@ -26,18 +26,35 @@ public class MainController {
 	@GetMapping("cart")
 	public void cart(Model model) {
 		List<CartDto> cart = service.cartlist();
+		System.out.println(cart);
 		model.addAttribute("cartlist", cart);
 	}
 	
 	@PostMapping("deleteCart")
-	public String deleteCart(Model model) {
-		service.deleteCart();
+	public String deleteCart(@RequestParam List<String> u_id, @RequestParam List<Integer> b_code) {
+		service.deleteCart(u_id, b_code);
+		System.out.println(u_id);
+		System.out.println(b_code);
 		return "redirect:/ths/cart";
 	}
 	
-	@GetMapping("orderpage")
-	public void orderpage() {
+	@GetMapping("order")
+	public void order() {
 		
+	}
+	
+	@PostMapping("order")
+	public void order1(
+			@RequestParam List<String> u_id, 
+			@RequestParam List<Integer> b_code, 
+			@RequestParam List<Integer> c_count,
+			Model model) {
+		List<CartDto> Orderlist = service.cartToOrder(u_id, b_code, c_count);
+		model.addAttribute("toOrderlist", Orderlist);
+		model.addAttribute("fromCart", true);
+		System.out.println(u_id);
+		System.out.println(b_code);
+		System.out.println(c_count);
 	}
 	
 	@GetMapping("ordermanage") public void ordermanage(Model model) {

@@ -22,7 +22,13 @@ public class OrdersService {
 		return ordersMapper.selectCart();
 	}
 
-	public int deleteCart() {
-		return ordersMapper.deleteCart();
+	public void deleteCart(List<String> u_id, List<Integer> b_code) {
+		for(int i = 0; i < u_id.size(); i++) {
+			ordersMapper.deleteCart(u_id.get(i), b_code.get(i));
+		}
+	}
+
+	public List<CartDto> cartToOrder(List<String> u_id, List<Integer> b_code, List<Integer> c_count) {
+		return ordersMapper.cartToOrder();
 	}
 }
