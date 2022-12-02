@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.demo.mapper.book.BookMapper">
+	
+	<select id="list" resultType="com.demo.domain.book.BookDto">
+		SELECT *
+		FROM Book
+	</select>
+	
+	<select id="selectByCode" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book where b_code = #{b_code}
+	</select>
+	
+	<select id="selectByGenre" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book where b_genre = #{b_genre}
+	</select>
+	
+	<select id="selectByDate" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book ORDER BY b_pubDate DESC
+	</select>
+	
+	<insert id="insertLike">
+		INSERT INTO BookLike Values(#{b_code},#{u_id})
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM BookLike where b_code = #{b_code} and u_id=#{u_id}
+	</delete>
+	
+	<select id="selectLikeCount" resultType="int">
+		SELECT COUNT(*) FROM BookLike 
+		WHERE b_code = #{b_code} and u_id=#{u_id} 
+	</select>
+	
+	<update id="updateBookLike">
+		UPDATE Book SET b_like = (select count(b_like) 
+		FROM BookLike 
+		WHERE b_code = #{b_code}) 
+		WHERE b_code = #{b_code} 
+	</update> 
+	
+	<select id="selectBookLike" resultType="int">
+		SELECT COUNT(*) FROM BookLike 
+		WHERE b_code=#{b_code}
+	</select>
+	
+</mapper>
