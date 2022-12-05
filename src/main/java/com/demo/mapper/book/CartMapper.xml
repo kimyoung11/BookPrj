@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.demo.mapper.book.CartMapper">
+
+	<select id="selectById" resultType="com.demo.domain.book.CartDto">
+		SELECT * FROM Cart where u_id=#{u_id};
+	</select>
+	
+	<insert id="insert">
+		INSERT IGNORE INTO Cart(c_count,u_id,b_code) VALUES (#{c_count},#{u_id},#{b_code})
+	</insert>
+</mapper>
