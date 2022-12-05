@@ -1,6 +1,7 @@
 package com.demo.service.book;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class BookService {
 
 	public int getBookLike(Integer b_code) {
 		return bookMapper.selectBookLike(b_code);
+	}
+
+	public List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) {
+		return bookMapper.autoComplete(paramMap);
 	}
 
 	

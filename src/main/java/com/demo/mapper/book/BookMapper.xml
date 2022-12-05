@@ -47,4 +47,10 @@
 		WHERE b_code=#{b_code}
 	</select>
 	
+	<select id="autoComplete" parameterType="map" resultType="map">
+		SELECT b_title
+		FROM Book
+		WHERE b_title LIKE '%'|| #{value}|| '%'
+	</select>
+	
 </mapper>

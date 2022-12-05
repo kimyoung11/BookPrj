@@ -1,11 +1,12 @@
 package com.demo.mapper.book;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demo.domain.book.BookDto;
-import com.demo.domain.book.CartDto;
+
 
 @Mapper
 public interface BookMapper {
@@ -27,6 +28,8 @@ public interface BookMapper {
 	public int updateBookLike(int b_code);
 
 	public int selectBookLike(int b_code);
+
+	public List<Map<String, Object>> autoComplete(Map<String, Object> paramMap);
 
 	
 	

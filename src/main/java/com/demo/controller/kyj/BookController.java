@@ -42,6 +42,16 @@ public class BookController {
 	public void main() {
 	}
 	
+	@PostMapping("autoComplete")
+	@ResponseBody
+	public Map<String, Object> autocomplete(@RequestParam Map<String, Object> paramMap) {
+		System.out.println("호출됨");
+		List<Map<String,Object>> resultList = bookService.autocomplete(paramMap);
+		paramMap.put("resultList", resultList);
+		
+		return paramMap;
+	}
+	
 	@GetMapping("list")
 	public String list(Model model) {//all books page
 	
@@ -59,7 +69,7 @@ public class BookController {
 	
 	@GetMapping("list/{b_genre}")
 	public String listByGenre(@PathVariable String b_genre,Model model) {
-		System.out.println(b_genre);
+		//System.out.println(b_genre);
 		List<BookDto> list = bookService.getByGenre(b_genre);
 		//System.out.println(list);
 		model.addAttribute("bookList", list);
