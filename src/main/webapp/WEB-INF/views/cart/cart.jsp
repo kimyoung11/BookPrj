@@ -117,12 +117,12 @@ a {
 	</div>
 	
 	<div style="display: none;">
-		<c:url value="/ths/deleteCart" var="deleteLink" />
+		<c:url value="/cart/deleteCart" var="deleteLink" />
 		<form action="${deleteLink }" id="deleteForm" method="post"></form>
 	</div>
 	
 	<div style="display: none;">
-		<c:url value="/ths/order" var="toOrderLink" />
+		<c:url value="/cart/order" var="toOrderLink" />
 		<form action="${toOrderLink }" id="toOrderForm" method="post"></form>
 	</div>
 	

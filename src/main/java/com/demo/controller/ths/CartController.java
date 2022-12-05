@@ -17,8 +17,8 @@ import com.demo.domain.ths.OrdersDto;
 import com.demo.service.ths.OrdersService;
 
 @Controller
-@RequestMapping("ths")
-public class MainController {
+@RequestMapping("cart")
+public class CartController {
 	
 	@Autowired
 	private OrdersService service;
@@ -35,7 +35,7 @@ public class MainController {
 		service.deleteCart(u_id, b_code);
 		System.out.println(u_id);
 		System.out.println(b_code);
-		return "redirect:/ths/cart";
+		return "redirect:/cart/cart";
 	}
 	
 	@GetMapping("order")
