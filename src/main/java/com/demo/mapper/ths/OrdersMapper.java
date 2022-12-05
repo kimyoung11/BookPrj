@@ -13,7 +13,7 @@ public interface OrdersMapper {
 
 	void deleteCart(String u_id, int b_code);
 
-	List<CartDto> cartToOrder();
+	CartDto cartToOrder(String u_id, Integer b_code, Integer c_count);
 	
 }
 	

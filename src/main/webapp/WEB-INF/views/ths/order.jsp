@@ -85,8 +85,6 @@
 	<my:headerBar></my:headerBar>
     <div class="container-md">
         <h2>주문 / 결제</h2>
-        <div>${toOrderlist }</div>
-        <div>${cart.c_count }</div>
         <hr id="hr_line">
         <table class="table" style="text-align: center;">
             <thead>
@@ -106,7 +104,7 @@
                     <td class="align-middle">${cart.b_title }</td>
                     <td class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>
-                    <td class="align-middle">${cart.b_price * cart.c_count }</td>
+                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }</td>
                 </tr>
                 </c:forEach>
             	</c:if>
@@ -165,6 +163,10 @@
       </div>
 
 
+    <div style="text-align: center; font-size: 20px; border-top: 1px solid; blue">
+    <br>
+    	최종 결제 금액	: <span id="totalPriceHolder"></span> <br>
+    </div>
     <div style="text-align: center;">
         <button type="button" class="btn btn-primary order-btn">결제하기</button>
     </div>
@@ -173,31 +175,14 @@
     </div>
 </div>
 </div>
-
-    <div id="footer">
-        <footer class="text-center text-lg-start bg-light text-muted">
-
-
-            <!-- Section: Links  -->
-            <section class="" style="background-color: black;">
-                <div class="row w-50 ms-auto mx-auto">
-                    <div class="col">개인정보취급</div>
-                    <div class="col">개인정보취급</div>
-                    <div class="col">개인정보취급</div>
-                    <div class="col">개인정보취급</div>
-                </div>
-            </section>
-            <!-- Section: Links  -->
-
-            <!-- Copyright -->
-            <div class="text-center p-4" style="background-color: black;">
-                © 2022 Copyright:
-                <a class="text-reset fw-bold" href="#">사이트 홈페이지</a>
-            </div>
-            <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-    </div>
+<script>
+	const totalP = document.querySelectorAll("#totalPrice");
+	let totalSum = 0;
+	for (const e of totalP) {
+		totalSum = totalSum + parseInt(e.innerText);
+	}
+	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
+</script>
 </body>
 
 </html>

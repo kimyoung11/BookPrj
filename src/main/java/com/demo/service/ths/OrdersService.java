@@ -1,5 +1,6 @@
 package com.demo.service.ths;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class OrdersService {
 	}
 
 	public List<CartDto> cartToOrder(List<String> u_id, List<Integer> b_code, List<Integer> c_count) {
-		return ordersMapper.cartToOrder();
+		List<CartDto> result = new ArrayList<>();
+		for(int i = 0; i < u_id.size(); i++) {
+			CartDto dto = ordersMapper.cartToOrder(u_id.get(i), b_code.get(i), c_count.get(i));
+			dto.setC_count(c_count.get(i));
+			result.add(dto);
+		}
+		return result;
 	}
 }

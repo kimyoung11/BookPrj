@@ -32,7 +32,7 @@ SELECT
 	c.c_count, c.u_id, c.b_code, b.b_title, b.b_price, b.b_img
 FROM
 	Cart c JOIN Book b ON c.b_code = b.b_code JOIN User u ON u.u_id = c.u_id
-WHERE 
+WHERE
 	c.u_id = #{u_id} AND c.b_code = #{b_code};
 </select>
 

@@ -68,7 +68,7 @@ SELECT
 FROM
 	Cart c JOIN Book b ON c.b_code = b.b_code JOIN User u ON u.u_id = c.u_id
 WHERE
-	c.u_id = "1" AND c.b_code = "1";
+	c.u_id = "2" AND c.b_code = "1";
     
 
     

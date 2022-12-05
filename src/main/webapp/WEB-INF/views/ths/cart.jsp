@@ -86,13 +86,13 @@ a {
 
 							<td><input value="${cart.c_count }" onchange="sumAllPrice(this)"
 								data-checkbox-target="#selectbox${status.index }" data-price="${cart.b_price }"
-								data-price-target="#priceTarget${status.index }" class="cntInput" id="cnt${status.index }" style="width: 50px" type="number">개
-							</td>
+								data-price-target="#priceTarget${status.index }" class="cntInput" id="cnt${status.index }" style="width: 50px" type="number">권
+							</td>	
 
 							<td id="price">${cart.b_price }</td>
 
 							<td class="totalPrice" id="priceTarget${status.index }">
-							${cart.b_price }
+							${cart.b_price * cart.c_count}
 							</td>
 						</tr>
 					</c:forEach>
@@ -107,10 +107,11 @@ a {
 
 
 			<div style="margin-top: 30px; margin-bottom: 30px;">
-				<button id="deleteButton" type="button" class="btn btn-primary delete-btn">선택
-					삭제 하기</button>
-				<button id="orderButton" type="button" class="btn btn-primary order-btn">선택
-					주문 하기</button>
+				<button data-bs-toggle="modal" data-bs-target="#deleteModal"
+   				type="button" class="btn btn-primary delete-btn">선택삭제 하기</button>
+   				
+				<button data-bs-toggle="modal" data-bs-target="#orderModal" 
+				type="button" class="btn btn-primary order-btn">선택주문 하기</button>
 			</div>
 		</div>
 	</div>
@@ -123,6 +124,46 @@ a {
 	<div style="display: none;">
 		<c:url value="/ths/order" var="toOrderLink" />
 		<form action="${toOrderLink }" id="toOrderForm" method="post"></form>
+	</div>
+	
+	<!-- 장바구니 선택 삭제 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">장바구니 목록 삭제</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        장바구니에서 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button id="deleteButton"  type="button" class="btn btn-primary">삭제</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 장바구니 선택 주문 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">결제 페이지 이동</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        결제 페이지로 이동하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button id="orderButton" type="button" class="btn btn-primary">확인</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 	<script
@@ -144,6 +185,7 @@ a {
 	        document.querySelector(elem.dataset.priceTarget).innerText = a * b;
 	        	 
 	       	const checkBox = document.querySelector(elem.dataset.checkboxTarget);
+	       	checkBox.dataset.cartCount = elem.value;
 	       	checkBox.value = a * b;
 	       	
 	       	boxValueChange();
@@ -200,7 +242,7 @@ a {
 	       		// 3. 체크박스에 있는 값들로 input 만들어서
 	       		const userId = box.dataset.userId;
 	       		const bookCode = box.dataset.bookCode;
-	       		const cartCount = box.dataset.cartCount
+	       		const cartCount = box.dataset.cartCount;
 	       		
 	       		const userIdInput = `<input name="u_id" value="\${userId}" />`;
 	       		const bookCodeInput = `<input name="b_code" value="\${bookCode}" />`;
