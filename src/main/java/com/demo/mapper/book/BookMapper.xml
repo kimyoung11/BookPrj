@@ -48,9 +48,9 @@
 	</select>
 	
 	<select id="autoComplete" parameterType="map" resultType="map">
-		SELECT b_title
+		SELECT b_code,b_title
 		FROM Book
-		WHERE b_title LIKE '%'|| #{value}|| '%'
+		WHERE b_title LIKE '${b_title}'
 	</select>
 	
 </mapper>

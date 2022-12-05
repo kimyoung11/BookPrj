@@ -29,7 +29,7 @@ public interface BookMapper {
 
 	public int selectBookLike(int b_code);
 
-	public List<Map<String, Object>> autoComplete(Map<String, Object> paramMap);
+	public List<Map<String, Object>> autoComplete(String b_title);
 
 	
 	

@@ -71,18 +71,21 @@ a {
 		<div class="header-wrapper">
 			<div class="row pt-4">
 				<div class="col-3 align-middle">
+					<a href="${pageContext.request.contextPath}/book/list">
 					<img style="float: right;"
-						src="${request.getContextPath() }/content/logo.png" alt="로고사진" />
+						src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
+					</a>
 				</div>
 				<div class="col-sm-6">
 					<div class="input-group">
-						<form action="">
+						<form id="submitForm">
 							<span class="input-group-text" id="basic-addon1">도서검색</span> 
 							<input
 								type="text" class="form-control" placeholder="검색어 입력..."
-								id="autocomplete" />
-							<button class="btn btn-outline-secondary" type="button"
-								id="button-addon2">
+								id="autocomplete"
+								/>
+							<button class="btn btn-outline-secondary" type="submit"
+								id="button-search">
 								<i class="fa fa-search"></i>
 							</button>
 						</form>
@@ -124,7 +127,7 @@ a {
 					<div class="login-btn">
 						<a href="#">로그인</a>
 					</div>
-					<div class="">
+					<div class="register-btn">
 						<a href="#">회원가입</a>
 					</div>
 				</div>
@@ -134,21 +137,46 @@ a {
 
 	<script>
 		const ctx2 = "${pageContext.request.contextPath}";
+		let bookCode;
 		
       	document.querySelector("#basic-addon1").addEventListener("click",()=>{
       		console.log("클릭되었습니다");
       	})
       	
    		$(function(){
-   			let city = ["서울","부산","대구","광주","울산"];
    			$("#autocomplete").autocomplete({
-   				source : city,
+   				source : function(request, response) {
+					$.ajax({
+						 url : `\${ctx2}/book/autoComplete`,
+						 data : {value: request.term},
+						 success : function(data){
+							 console.log(data);
+							 response(
+								$.map(data.resultList, function(item){
+									return {
+										label : item.b_title,
+										value : item.b_title,
+										value2 : item.b_code
+									};
+								}) 
+							 );
+						 }
+						 ,error : function(){
+							 alert("오류");
+						 }
+					});
+   				},
+   				minLength:1,
    				select: function(event,ui){
-   					console.log(ui.item);
+   					bookCode = ui.item.value2;
+   					console.log("****",bookCode);
+   					document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
    				},
    				focus: function(event,ui){
    					return false;
-   				}
+   				},
+   				autofocus : true,
+   				delay : 100
    			});
    		});
 

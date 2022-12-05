@@ -54,8 +54,9 @@ public class BookService {
 		return bookMapper.selectBookLike(b_code);
 	}
 
-	public List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) {
-		return bookMapper.autoComplete(paramMap);
+	public List<Map<String, Object>> autocomplete(String b_title) {
+		/* System.out.println(paramMap.get("label")); */
+		return bookMapper.autoComplete(b_title);
 	}
 
 	

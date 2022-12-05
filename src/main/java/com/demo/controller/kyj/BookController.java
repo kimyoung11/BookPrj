@@ -42,11 +42,15 @@ public class BookController {
 	public void main() {
 	}
 	
-	@PostMapping("autoComplete")
+	@GetMapping("autoComplete")
 	@ResponseBody
-	public Map<String, Object> autocomplete(@RequestParam Map<String, Object> paramMap) {
+	public Map<String, Object> autocomplete(
+			@RequestParam Map<String, Object> paramMap
+			) {
 		System.out.println("호출됨");
-		List<Map<String,Object>> resultList = bookService.autocomplete(paramMap);
+		System.out.println(paramMap.get("value"));
+		String temp = "%"+(String)paramMap.get("value")+"%";
+		List<Map<String,Object>> resultList = bookService.autocomplete(temp);
 		paramMap.put("resultList", resultList);
 		
 		return paramMap;
