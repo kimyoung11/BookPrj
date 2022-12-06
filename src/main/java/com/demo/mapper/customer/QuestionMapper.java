@@ -8,5 +8,7 @@ public interface QuestionMapper {
 
 	int insert(QuestionDto question);
 
-	 List<QuestionDto> getList();
+	List<QuestionDto> getList();
+
+	QuestionDto select(int q_number);
 }

@@ -25,7 +25,9 @@ public class NoticeService {
 
 	
 	/* get이랑 겹침 */
-	 public NoticeDto listContent(int n_id) { return mapper.select(n_id); }
+	 public NoticeDto listContent(int n_id) { 
+		 return mapper.select(n_id); 
+	}
 	 
 	
 	

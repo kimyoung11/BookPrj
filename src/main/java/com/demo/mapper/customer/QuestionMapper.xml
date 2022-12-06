@@ -21,4 +21,18 @@
 	ORDER BY q_number DESC
 </select>
 
+<select id="select" resultType="com.demo.domain.customer.QuestionDto">
+	SELECT
+		q_number,
+		q_title,
+		q_date,
+		q_content,
+		u_id
+	FROM
+		Quest
+	WHERE
+		q_number = #{q_number}
+</select>
+
+
 </mapper>

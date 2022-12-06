@@ -66,7 +66,7 @@ a {
 					<tr>
 						<th>${question.q_number }</th>
 						<td class="align-left">
-							<div class="questionTitle" data-value="${question.q_number }" onclick="clickNotice(this)">${question.q_title }</div>
+							${question.q_title }
 						</td>
 						<td>${question.q_date }</td>
 						<td>${question.u_id }</td>
@@ -80,6 +80,7 @@ a {
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 
 
 <!-- pagination -->
@@ -162,14 +163,7 @@ a {
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
 	<script>
-/* 	const title = document.querySelector(".questionTitle"); */
-	
-	const ctx = "${pageContext.request.contextPath}";
-	
-	function clickNotice(target){
-		const q_number = target.dataset.value;
-/*  		fetch(`\${ctx}/customer/listContent/\${n_id}`); */
-			location.assign(`\${ctx}/admin/questContent/\${q_number}`); 
+
 	</script>
 </body>
 </html>

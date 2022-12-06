@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,27 +21,41 @@
 
 <title>답변하기</title>
 </head>
+<style>
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+</style>
 <body>
-	    <div class="container">
-    		<div style="text-align: center; margin-top: 30px;" class="mb-5">
+	<div class="container">
+		<div style="text-align: center; margin-top: 30px;" class="mb-5">
 			<h1 style="font-size: 34px">1:1문의답변</h1>
 		</div>
-    
-        <hr style="border:1px solid #000;">
 
-	        <div class="row justify-content-between">
-	            <div class="col-4">
-	            	<p>${noticeContent.n_title }</p></div>
-	            <div class="col-4">
-	            <span>${noticeContent.n_date }</span>
-	        </div>
-	        
-	        </div>
-	        <hr>
-	        <div class="view_body">
-	            	<p>${noticeContent.n_content }</p>
-	        </div>
+		<hr style="border: 1px solid #000;">
 
-        <hr>
+		<div class="row justify-content-between">
+			<div class="col-4">
+				<p>${questContent.q_title }</p>
+			</div>
+			<div class="col-4">
+				<span>${questContent.q_date }</span>
+			</div>
+			<div class="col-4">
+				<span>유저아이디 : ${questContent.u_id }</span>
+			</div>
+		</div>
+		<hr>
+		<div class="view_body">
+			<p>${questContent.q_content }</p>
+		</div>
+
+		<hr>
+		</div>
 </body>
 </html>
