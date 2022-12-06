@@ -38,4 +38,8 @@ public class OrdersService {
 		}
 		return result;
 	}
+
+	public CartDto userData(String u_id) {
+		return ordersMapper.selectUserData(u_id);
+	}
 }

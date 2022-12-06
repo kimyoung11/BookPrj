@@ -52,9 +52,13 @@ public class CartController {
 		List<CartDto> Orderlist = service.cartToOrder(u_id, b_code, c_count);
 		model.addAttribute("toOrderlist", Orderlist);
 		model.addAttribute("fromCart", true);
-		System.out.println(u_id);
-		System.out.println(b_code);
-		System.out.println(c_count);
+		
+		CartDto userData = service.userData(u_id.get(0));
+		model.addAttribute("userData", userData);
+		
+		// System.out.println(u_id);
+		// System.out.println(b_code);
+		// System.out.println(c_count);
 	}
 	
 	@GetMapping("ordermanage") public void ordermanage(Model model) {

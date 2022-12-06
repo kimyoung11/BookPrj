@@ -78,7 +78,7 @@ a {
 								data-user-id="${cart.u_id }"
 								data-book-code="${cart.b_code }"
 								data-cart-count="${cart.c_count }"
-								value="${cart.b_price }" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
+								value="${cart.b_price * cart.c_count}" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
 
 							<td><img src="${cart.b_img }" alt=""style="width: 80px; height: 100px;"></td>
 
@@ -182,12 +182,12 @@ a {
         function sumAllPrice(elem){
 	 		const a = elem.value;
 	       	const b = elem.dataset.price;
-	        document.querySelector(elem.dataset.priceTarget).innerText = a * b;
 	        	 
 	       	const checkBox = document.querySelector(elem.dataset.checkboxTarget);
+	       	// 변경된 수량을 입력
 	       	checkBox.dataset.cartCount = elem.value;
 	       	checkBox.value = a * b;
-	       	
+	       	document.querySelector(elem.dataset.priceTarget).innerText = checkBox.value;
 	       	boxValueChange();
         }
          

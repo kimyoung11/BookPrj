@@ -42,5 +42,14 @@ WHERE
 	<result column= "c_count" property="c_count"/>
 </resultMap>
 
+<select id="selectUserData" resultType="com.demo.domain.ths.CartDto">
+SELECT
+	u_email, u_address, u_phone, u_name
+FROM
+	User
+WHERE 
+	u_id = #{u_id}
+</select>
+
 
 </mapper>
