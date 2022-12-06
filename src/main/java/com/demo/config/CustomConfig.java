@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.demo.mapper")
 public class CustomConfig {
 
-
 }
+
