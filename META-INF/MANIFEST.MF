@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BookPrj
+Bundle-SymbolicName: BookPrj
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: BookPrj
+Export-Package: com.demo,
+ com.demo.controller
