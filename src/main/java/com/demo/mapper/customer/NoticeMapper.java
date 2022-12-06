@@ -20,10 +20,4 @@ public interface NoticeMapper {
 	int update(NoticeDto notice);
 
 	int delete(int id);
-
-
-
-
-
-	
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
+import com.demo.domain.customer.QuestionDto;
 import com.demo.service.customer.NoticeService;
+import com.demo.service.customer.QuestionService;
 
 @Controller
 @RequestMapping("customer")
@@ -21,27 +23,21 @@ public class CustomerController {
 
 	@Autowired
 	private NoticeService service;
+	
+	@Autowired
+	private QuestionService questService;
 
-	/*
-	 * @GetMapping("notice") public void notice( @RequestParam(name = "page",
-	 * defaultValue = "1") int page, PageInfo pageInfo, Model model) { // business
-	 * logic List<NoticeDto> list = service.listNotice(page, type, keyword,
-	 * pageInfo);
-	 * 
-	 * // add attribute model.addAttribute("noticeList", list);
-	 * 
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @PostMapping("notice") public String notice(NoticeDto notice) {
-	 * 
-	 * service.noticeRegister(notice);
-	 * 
-	 * return "redirect:/customer/notice";
-	 * 
-	 * }
-	 */
+// 공지사항 리스트 보여주기	
+	@GetMapping("notice") 
+	public void notice( @RequestParam(name = "page", defaultValue = "1") int page,
+									  PageInfo pageInfo, Model model) { 
+		  // business logic 
+		  List<NoticeDto> list = service.listNotice(page, pageInfo);
+	  
+		  // add attribute
+		  model.addAttribute("noticeList", list);
+	  }
+	
 
 //	공지사항 내용보기
 	@GetMapping("listContent/{n_id}")
@@ -56,7 +52,7 @@ public class CustomerController {
 
 	}
 
-	@GetMapping("listConent")
+	@GetMapping("listContent")
 	public void listContent() {
 
 	}
@@ -67,6 +63,23 @@ public class CustomerController {
 
 	}
 
+	@PostMapping("question")
+	public void qiest(QuestionDto question) {
+		System.out.println(question);
+		
+		questService.questInsert(question);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	자주 묻는 질문
 	@GetMapping("asked")
 	public void ask() {

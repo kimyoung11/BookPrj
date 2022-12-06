@@ -24,7 +24,7 @@
 </head>
 <body>
 	<h1>${notice.n_id}번 게시물</h1>
-	<form action="" method="post">
+	<form id="modifyForm" action="" method="post">
 		<input type="hidden" name="n_id" value="${notice.n_id }">
 		제목 <input type="text" name="n_title" value="${notice.n_title }" > <br>
 		본문 <textarea name="n_content" >${notice.n_content }</textarea> <br>
@@ -33,13 +33,14 @@
 	</form>
 		<input type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
 	
+	<!-- 삭제 -->
 	<c:url value="/admin/remove" var="removeLink"></c:url>
-	<form action="${removeLink }" method="post">
+	<form id="deleteForm" action="${removeLink }" method="post">
 		<input type="hidden" name="id" value="${notice.n_id }">
-		<input type="submit" value="삭제">
 	</form>
+		<input type="submit" value="삭제" data-bs-toggle="modal" data-bs-target="#removeModal">
 	
-	<!-- 모달창 -->	
+	<!-- 수정 모달창 -->	
 	<div class="modal" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -52,16 +53,56 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary">수정</button>
+	        <button id="modifyConfirm" type="button" class="btn btn-primary">수정</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 
+
+		<!-- 삭제 모달창 -->	
+	<div class="modal" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">공지사항 삭제</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <p>공지사항을 삭제하시겠습니까?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button id="removeConfirm" type="button" class="btn btn-primary">삭제</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 crossorigin="anonymous"></script>
 
+<script>
+document.querySelector("#modifyConfirm").addEventListener("click",function(){
+	document.querySelector("#modifyForm").submit();
+})
+document.querySelector("#removeConfirm").addEventListener("click",function(){
+	document.querySelector("#deleteForm").submit();
+})
+</script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

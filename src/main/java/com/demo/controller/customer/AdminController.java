@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
+import com.demo.domain.customer.QuestionDto;
 import com.demo.service.customer.NoticeService;
+import com.demo.service.customer.QuestionService;
 
 @Controller
 @RequestMapping("admin")
@@ -20,6 +22,9 @@ public class AdminController {
 
 	@Autowired
 	private NoticeService service;
+	
+	@Autowired
+	private QuestionService questService;
 
 	@GetMapping("noticeRegister")
 	public void ad_notice() {
@@ -73,10 +78,17 @@ public class AdminController {
 	
 	
 	
+	/* 1:1문의 보기 */
+	@GetMapping("question")
+	public void questList(Model model) {
+		
+		 List<QuestionDto> list = questService.questList();
+		 
+		 model.addAttribute("questionList",list);
+		 
+	}
 	
-	
-	
-	
+	/* 1:1문의 내용보기 */
 	
 	
 	

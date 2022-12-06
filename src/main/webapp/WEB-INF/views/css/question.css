@@ -31,6 +31,11 @@ a {
 }
 
 .container-sm {
-	max-width: 1000px
+	max-width: 1000px;
 }
 
+.guide-top {
+margin-top:20px
+}
+.guide-bottom {
+margin-bottom: 20px;}

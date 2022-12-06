@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,19 +36,46 @@ a {
 .align-left {
 	text-align: left;
 }
+.regist-btn{
+	font-size: 18px;
+	padding: 5px 50px;
+}
 </style>
 </head>
 <body>
 	<div id="align-center" class="container">
-	<h1>공지사항 작성</h1>
-	
-	<%-- ${pageContext.request.contextPath }/customer/notice --%>
-	<form action="" method="post">
-		제목 <input type="text" placeholder="공지제목" name="n_title" ><br>
-		본문 <textarea placeholder="공지본문" name="n_content"></textarea><br>
-		<input type="hidden" name="ad_id" value="111">
-		<input type="submit" value="등록">
-	</form>		
+		<h1 style="font-size: 34px; margin-bottom: 20px;">공지사항 작성</h1>
+
+		<hr class="line" style="border: solid 1px #000;">
+
+		<%-- ${pageContext.request.contextPath }/customer/notice --%>
+		<form action="" method="post">
+			<div class="mb-4 row mt-5">
+				<label class="col-sm-1 col-form-label">공지제목</label>
+				<div class="col-sm-10">
+					<input type="text" name="n_title" class="form-control">
+				</div>
+			</div>
+			<div class="mb-5 row">
+				<label class="col-sm-1 col-form-label">공지본문</label>
+				<div class="col-sm-10">
+					<textarea name="n_content" class="form-control" rows="3"
+						style="padding-bottom: 200px;"></textarea>
+				</div>
+			</div>
+			<hr>
+			<input type="hidden" name="ad_id" value="111"> 
+			<input type="submit" class="btn btn-primary regist-btn" value="등록">
+		</form>
+
+
+
+
+
+
+
+
+
 	</div>
-</body>		
+</body>
 </html>

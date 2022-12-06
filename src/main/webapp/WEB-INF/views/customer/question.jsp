@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +22,13 @@
 	rel="stylesheet">
 <title>1:1문의</title>
 <style>
-<%@include file="/WEB-INF/views/css/question.css"%>
+<%@ include file="/WEB-INF/views/css/question.css"%>
 </style>
 </head>
 <body>
- 	<my:navBar></my:navBar>
- 	<my:subMenu active="question"></my:subMenu>
- 	
+	<my:navBar></my:navBar>
+	<my:subMenu active="question"></my:subMenu>
+
 	<div class="container-md">
 		<div class="row">
 			<div class="col mt-5">
@@ -38,47 +38,58 @@
 				</div>
 
 				<hr class="line" style="border: solid 1px #000;">
-				
+
 				<!-- selected -->
 				<div class="container-sm">
-					<div class="mb-4 row mt-5">
-					<select class=" form-select" aria-label="Default select example">
-						<option selected>문의할 사항을 선택하세요.</option>
-						<option value="1">1:1 문의하기</option>
-						<option value="2">반품ㆍ교환 문의하기</option>
-					</select>
-					</div>
-				<!-- selector-end -->	
-					<div class="mb-4 row mt-5">
-						<label for="inputPassword" class="col-sm-1 col-form-label">문의제목</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control">
+					<form action="" method="post">
+						<div class="mb-4 row mt-5">
+							<select class=" form-select" aria-label="Default select example">
+								<option selected>문의할 사항을 선택하세요.</option>
+								<option value="1">1:1 문의하기</option>
+								<option value="2">반품ㆍ교환 문의하기</option>
+							</select>
 						</div>
-					</div>
-					<div class="mb-5 row">
-						<label for="inputPassword" class="col-sm-1 col-form-label">문의내용</label>
-						<div class="col-sm-10">
-							<textarea class="form-control" rows="3"
-								style="padding-bottom: 200px;"></textarea>
+						<!-- selector-end -->
+	
+						<div class="mb-4 row mt-5">
+							<label class="col-sm-1 col-form-label">문의제목</label>
+							<div class="col-sm-10">
+								<input type="text" name="q_title" class="form-control">
+							</div>
 						</div>
-					</div>
-					<div class="mb-3 row">
-						<label for="inputPassword" class="col-sm-1 col-form-label">첨부파일</label>
-						<div class="col-sm-4">
-							<input type="file" class="form-control">
+						
+						<div class="mb-5 row">
+							<label class="col-sm-1 col-form-label">문의내용</label>
+							<div class="col-sm-10">
+								<textarea name="q_content" class="form-control" rows="3"
+									style="padding-bottom: 200px;"></textarea>
+							</div>
 						</div>
-						<span style="margin-top: 18px;">첨부가능 용량은 파일당 6MB 미만이며, 최대
-							6개까지 가능합니다.</span> <span style="margin-bottom: 20px;">첨부가능 파일
-							확장자: JPG,PNG,GIF</span>
-					</div>
+						
+						<div class="mb-3 row">
+							<label for="inputPassword" class="col-sm-1 col-form-label">첨부파일</label>
+							<div class="col-sm-4">
+								<input type="file" class="form-control">
+							</div>
+							<span class="guide-top">첨부가능 용량은 파일당 6MB 미만이며, 최대 6개까지 가능합니다.</span> 
+							<span class="guide-bottom">첨부가능 파일 확장자: JPG,PNG,GIF</span>
+						</div>
+						
+						<input type="hidden" name="u_id" value="aa">
+
+						<hr>
+						<div style="text-align: center; margin-top: 30px;">
+							<button type=submit class="btn btn-secondary btn-qusetion "
+								style="margin-right: 10px;">문의 등록</button>
+							
+							<button type="button" class="btn btn-secondary btn-qusetion">내
+								문의 보기</button>
+						</div>
+					</form>
 				</div>
-				<hr>
-				<div style="text-align: center; margin-top: 30px;">
-					<button type="button" class="btn btn-secondary btn-qusetion "
-						style="margin-right: 10px;">문의 등록</button>
-					<button type="button" class="btn btn-secondary btn-qusetion">내
-						문의 보기</button>
-				</div>
+					
+
+
 			</div>
 		</div>
 	</div>
