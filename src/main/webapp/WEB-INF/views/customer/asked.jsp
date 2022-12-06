@@ -28,7 +28,7 @@
 </style>
 </head>
 <body>
-	<my:navBar></my:navBar>
+	<my:headerBar></my:headerBar>
 	<my:subMenu active="asked"></my:subMenu>
 	
 <div class="align-items-center" id="bestQuestion">

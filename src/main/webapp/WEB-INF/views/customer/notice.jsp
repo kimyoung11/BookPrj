@@ -53,7 +53,7 @@ a {
 </style>
 </head>
 <body>
-	<my:navBar></my:navBar>
+	<my:headerBar></my:headerBar>
 	<my:subMenu active="notice"></my:subMenu>
 
 	<div id="align-center" class="container">
