@@ -8,7 +8,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -55,7 +58,7 @@
 </style>
 <body>
 	<div class="container-fluid container-wrapper" style="width: 62.5%">
-		<div>${message }</div>
+		<div id="modalComponent"></div>
 		<div class="book-info">
 			<div class="row">
 				<div class="col-4">
@@ -75,12 +78,9 @@
 							<!-- <i class="fa-regular fa-heart fa-xl"></i> -->
 							<!-- <i class="fa-solid fa-heart fa-xl"></i> -->
 						</div>
-						
-					 	${likeCount }
-						${bookCnt }
-						<span id="likeContainer">
-						${book.b_like }
-						</span>
+
+						${likeCount } ${bookCnt } <span id="likeContainer">
+							${book.b_like } </span>
 					</div>
 					<div class="mb-3">회원가</div>
 					${book.b_price }
@@ -91,25 +91,36 @@
 					<div class="mb-3">배송 예정</div>
 					구매 후 3일 이내
 					<div class="mb-3">
-					<c:url value="${pageContext.request.contextPath}/book/order" var="link"></c:url>
-						<form class="d-flex mb-3" action="${link }" style="float: right;" id="submitForm">
+						<c:url value="${pageContext.request.contextPath}/book/order"
+							var="link"></c:url>
+						<form class="d-flex mb-3" action="${link }" style="float: right;"
+							id="submitForm">
 							<input type="hidden" value="${book.b_code }" name="b_code">
-							<input class="cntValidate" type="number" style="width:100px; text-align: center" placeholder="수량 입력" name="c_cnt" required="required" onchange='
+							<input class="cntValidate" type="number"
+								style="width: 100px; text-align: center" placeholder="수량 입력"
+								name="c_cnt" required="required"
+								onchange='
 							document.querySelector("#buyInput").value = this.value'>
 						</form>
 					</div>
 					<hr>
 					<div>
 						<button type="submit" class="btn btn-dark mb-1 buy"
-							style="width: 100%;" value="${book.b_code }" onclick="buyBook()">바로 구매하기</button>
+							style="width: 100%;" value="${book.b_code }" onclick="buyBook()">바로
+							구매하기</button>
 					</div>
 					<div>
-						<c:url value="${pageContext.request.contextPath }/book/cart" var="link2"></c:url>
-						<form class="d-flex mb-3" action="${link2 }" style="float: right;" id="submitForm2">
+						<c:url value="${pageContext.request.contextPath }/book/cart"
+							var="link2"></c:url>
+						<form class="d-flex mb-3" action="${link2 }" style="float: right;"
+							id="submitForm2">
 							<input type="hidden" value="${book.b_code }" name="b_code">
-							<input id="buyInput" class="cntValidate" type="hidden" style="width:100px; text-align: center" placeholder="수량 입력" name="c_cnt" required="required">
+							<input id="buyInput" class="cntValidate" type="hidden"
+								style="width: 100px; text-align: center" placeholder="수량 입력"
+								name="c_cnt" required="required">
 						</form>
-						<button type="button" class="btn btn-dark want" style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
+						<button type="button" class="btn btn-dark want"
+							style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
 					</div>
 				</div>
 			</div>
@@ -250,16 +261,39 @@
 	 }
 	
 
-	 function wantBook(){
+	 function wantBook(target){
 		 const c_cnt =document.querySelector(".cntValidate").value;
 		 if(c_cnt != null && c_cnt >0){
 			 document.querySelector('#submitForm2').submit();
-			 /* alert(message); */
-			 /* location.reload();  */
+			 document.querySelector("#modalComponent").innerHTML =`
+				 <!-- Modal -->
+ 				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 				  <div class="modal-dialog">
+ 				    <div class="modal-content">
+ 				      <div class="modal-header">
+ 				        <h1 class="modal-title fs-5" id="exampleModalLabel">장바구니에 추가되었습니다.</h1>
+ 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ 				      </div>
+ 				      <div class="modal-body">
+ 				      장바구니로 이동하시겠습니까?
+ 				      </div>
+ 				      <div class="modal-footer">
+ 				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+ 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+ 				        
+ 				      </div>
+ 				    </div>
+ 				  </div>
+ 				</div>
+			 `;
+			 const myModal = new bootstrap.Modal("#basketModal",{});
+			 myModal.show();
 		 }else{
 			 alert('책 수량 입력해주세요');
 		 }
-	 }
+		 
+};
+	 
 	 
 	 function buyBook(){
 		 const c_cnt =document.querySelector(".cntValidate").value;

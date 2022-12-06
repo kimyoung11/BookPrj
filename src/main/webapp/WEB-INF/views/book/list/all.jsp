@@ -195,7 +195,13 @@
           
           <div class="container-md">
             <hr />
-            <span id="message"></span>
+            
+            <div id="message">
+            
+            </div>
+			<div id="modalComponent">
+			
+			</div>
 			<c:forEach var="item" items="${bookList }">
             <div class="row content justify-content-center">
             	<c:url value="${pageContext.request.contextPath}/book/detail/${item.b_code}" var="link"></c:url>
@@ -290,13 +296,68 @@
     		body: JSON.stringify(form)
     	}).then((res) => res.json())
     	.then((data) => {
+    		
     		document.querySelector("#message").style.display = "block";
-    		document.querySelector("#message").innerHTML = data.message
+    		document.querySelector("#message").innerHTML = data.message;
     		setTimeout(() =>{
     			document.querySelector("#message").style.display = "none";
     		},2000);
     		console.log(data.message);
-    	});
+ 			return data.message;
+    	})
+    	.then((msg) =>{
+    		const onBasket = '장바구니에 추가완료';
+    		const offBasket = '이미 장바구니에 있습니다.';
+    		if(msg == onBasket){
+    			document.querySelector("#modalComponent").innerHTML=`
+    				<!-- Modal -->
+    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    				  <div class="modal-dialog">
+    				    <div class="modal-content">
+    				      <div class="modal-header">
+    				        <h1 class="modal-title fs-5" id="exampleModalLabel">장바구니에 추가되었습니다.</h1>
+    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    				      </div>
+    				      <div class="modal-body">
+    				      장바구니로 이동하시겠습니까?
+    				      </div>
+    				      <div class="modal-footer">
+    				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+    				        
+    				      </div>
+    				    </div>
+    				  </div>
+    				</div>
+    			`;
+    		}else if(msg == offBasket){
+    			document.querySelector("#modalComponent").innerHTML=`
+    				<!-- Modal -->
+    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    				  <div class="modal-dialog">
+    				    <div class="modal-content">
+    				      <div class="modal-header">
+    				        <h1 class="modal-title fs-5" id="exampleModalLabel">이미 장바구니에 있습니다.</h1>
+    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    				      </div>
+    				      <div class="modal-body">
+    				      	장바구니로 이동하시겠습니까?
+    				      </div>
+    				      <div class="modal-footer">
+    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+    				      </div>
+    				    </div>
+    				  </div>
+    				</div>
+    			`;
+    		}
+    	})
+    	.then(() => {
+    		const myModal = new bootstrap.Modal('#basketModal', {});
+    		myModal.show();
+    	})
+    	;
     }
     
 

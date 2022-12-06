@@ -7,36 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	hello world!~!!!
-	<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+	책등록 페이지
+	<form action="" method="post">
+		책 제목<input type="text" name="b_title"><br>
+		책 글쓴이<input type="text" name="b_writer"><br>
+		책 출판일<input type="text" name="b_pubDate"><br>
+		책 가격<input type="number" name="b_price"><br>
+		책 장르<input type="text" name="b_genre"><br>
+		책 이미지<input type="file" name="b_img" accept="image/png, image/jpg"><br>
+		
+		<input type="submit" value="책 등록하기">
+	</form>
 </body>
 </html>
