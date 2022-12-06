@@ -35,7 +35,7 @@
     </head>
 <body>
 	
-	<my:navBar></my:navBar>
+	<my:headerBar></my:headerBar>
 
 	
     <div class="container">

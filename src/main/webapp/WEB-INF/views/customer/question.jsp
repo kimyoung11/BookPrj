@@ -26,7 +26,7 @@
 </style>
 </head>
 <body>
-	<my:navBar></my:navBar>
+	<my:headerBar></my:headerBar>
 	<my:subMenu active="question"></my:subMenu>
 
 	<div class="container-md">
