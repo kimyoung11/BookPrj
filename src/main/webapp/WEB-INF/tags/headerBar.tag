@@ -8,6 +8,8 @@
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
 <c:url value="/book/list" var="listBest" />
+<c:url value="/cart/cart" var="cartView"></c:url>
+<c:url value="/user/login" var="loginView"></c:url>
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -15,7 +17,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
-* {
+ * {
 	font-family: "Noto Sans KR", sans-serif;
 }
 
@@ -64,6 +66,7 @@ a {
 	width: 20px;
 	height: 20px;
 }
+
 </style>
 
 
@@ -71,16 +74,15 @@ a {
 	<div class="wrapper">
 		<div class="header-wrapper">
 			<div class="row pt-4">
-				<div class="col-3 align-middle">
-					<a href="${pageContext.request.contextPath}/book/list">
+				<div class="col-3">
+					<a href="${pageContext.request.contextPath}/book/main">
 					<img style="float: right;"
 						src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
 					</a>
 				</div>
 				<div class="col-sm-6">
-					<div class="input-group">
-						<form id="submitForm">
-							<span class="input-group-text" id="basic-addon1">도서검색</span> 
+						<form id="submitForm" class="input-group">
+							<span class="input-group-text" id="basic-addon1" >도서검색</span> 
 							<input
 								type="text" class="form-control" placeholder="검색어 입력..."
 								id="autocomplete"
@@ -90,13 +92,12 @@ a {
 								<i class="fa fa-search"></i>
 							</button>
 						</form>
-					</div>
 				</div>
 				<div class="col-sm-3 d-flex justify-content-end">
-					<span class="icons"> <a href="#" class="icon-size"> <i
+					<span class="icons"> <a href="${cartView }" class="icon-size"> <i
 							class="fa-solid fa-basket-shopping fa-fw icon-cart" title="Back"></i>
 					</a>
-					</span> <span class="icons"> <a href="#" class="icon-size"> <i
+					</span> <span class="icons"> <a href="${loginView }" class="icon-size"> <i
 							class="fa-solid fa-user fa-fw icon-mypage" title="Back"></i>
 					</a>
 					</span>

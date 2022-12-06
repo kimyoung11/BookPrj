@@ -40,6 +40,7 @@ public class BookController {
 	
 	@GetMapping("main")
 	public void main() {
+		
 	}
 	
 	@GetMapping("autoComplete")
@@ -147,7 +148,7 @@ public class BookController {
 			rttr.addFlashAttribute("message", "이미 장바구니에 있습니다");
 		}
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(15000);
 		}catch(InterruptedException e) {
 			e.printStackTrace();
 		}

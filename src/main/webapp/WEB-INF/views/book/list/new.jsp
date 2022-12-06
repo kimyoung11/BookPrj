@@ -82,14 +82,13 @@
           margin-left: 200px;
           border-radius: 6px;
       }
-                 
-       #input-group{ padding: 30px;}  
+                   
       
     </style>
   </head>
 <body>
 	<my:headerBar></my:headerBar>
-    <div class="input-group" id="input-group">
+    <div class="input-group" id="input-group" style="padding: 30px;">
     <!-- checkBox-1 -->
     <div class="container container-size"  style="background-color: rgb(224, 224, 224);">
     <div class="row">
@@ -196,7 +195,6 @@
             <hr />
             <span id="message"></span>
 			<c:forEach var="item" items="${bookList }">
-			${item }
             <div class="row content justify-content-center">
             	<c:url value="${pageContext.request.contextPath}/book/detail/${item.b_code}" var="link"></c:url>
               		<a href="${link }" style="width: 159px; height: 234px">
