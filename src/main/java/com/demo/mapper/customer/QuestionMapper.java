@@ -15,4 +15,6 @@ public interface QuestionMapper {
 	int allCount();
 
 	int add(QuestionDto quest);
+
+	List<QuestionDto> answerSelect(int q_number);
 }

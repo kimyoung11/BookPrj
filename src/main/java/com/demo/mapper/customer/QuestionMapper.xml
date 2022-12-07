@@ -54,8 +54,16 @@
 	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content})
 </insert>
 
-
-
+<!-- 1:1문의 답변 보여주기 -->
+<select id="answerSelect" resultType="com.demo.domain.customer.QuestionDto">
+	SELECT 
+		a_content,
+		a_date
+	FROM
+		Answer
+	WHERE
+		q_number = #{q_number}
+</select>
 
 
 </mapper>

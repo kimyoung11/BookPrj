@@ -69,4 +69,8 @@ public class QuestionService {
 		
 	}
 
+	public List<QuestionDto> answerView(int q_number) {
+		return mapper.answerSelect(q_number);
+	}
+
 }

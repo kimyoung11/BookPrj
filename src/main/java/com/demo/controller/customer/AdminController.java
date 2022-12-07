@@ -113,14 +113,19 @@ public class AdminController {
 		model.addAttribute("questContent", question);
 
 	}
-	
-	
+
+	/* 1:1 문의 답변 추가 */
 	@PostMapping("add")
 	public void add(@RequestBody QuestionDto quest) {
-		System.out.println(quest);
 		questService.answerAdd(quest);
 	}
 	
+	/* 1:1 문의 답변 보여주기 */
+	@GetMapping("answerList/{q_number}")
+	@ResponseBody
+	public List<QuestionDto> answerList(@PathVariable int q_number) {
+		return questService.answerView(q_number);
+	}
 	
 
 
