@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.customer.QuestionMapper">
+
+<insert id="insert">
+	INSERT INTO Quest (q_title, q_content, u_id)
+	VALUES (#{q_title}, #{q_content}, #{u_id})
+</insert>
+
+<select id="getList" resultType="com.demo.domain.customer.QuestionDto">
+	SELECT 
+		q_number,
+		q_title,
+		q_date,
+		u_id
+	FROM 
+		Quest
+	ORDER BY q_number DESC
+</select>
+
+</mapper>

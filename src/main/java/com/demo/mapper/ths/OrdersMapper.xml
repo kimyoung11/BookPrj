@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.demo.mapper.ths.OrdersMapper">
+
+
+
+<select id="select" resultType="com.demo.domain.ths.OrdersDto">
+SELECT 
+	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
+FROM 
+	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id;
+</select>
+
+<select id="selectCart" resultType="com.demo.domain.ths.CartDto">
+SELECT
+	b_img, b_title, b_price, c_count, u_id, b.b_code
+FROM 
+	Book b JOIN Cart c ON b.b_code = c.b_code;
+</select>
+
+<delete id="deleteCart">
+DELETE FROM Cart
+WHERE
+ u_id = #{u_id} AND b_code = #{b_code}
+</delete>
+
+<select id="cartToOrder" resultMap="orderMap">
+SELECT
+	c.c_count, c.u_id, c.b_code, b.b_title, b.b_price, b.b_img
+FROM
+	Cart c JOIN Book b ON c.b_code = b.b_code JOIN User u ON u.u_id = c.u_id
+WHERE
+	c.u_id = #{u_id} AND c.b_code = #{b_code};
+</select>
+
+<resultMap type="com.demo.domain.ths.CartDto" id="orderMap">
+	<result column= "u_id" property="u_id"/>
+	<result column= "b_code" property="b_code"/>
+	<result column= "c_count" property="c_count"/>
+</resultMap>
+
+
+</mapper>
