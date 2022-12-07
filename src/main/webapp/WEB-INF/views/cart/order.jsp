@@ -183,6 +183,7 @@
 	}
 	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
 </script>
+<my:footer></my:footer>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ import com.demo.domain.ths.OrdersDto;
 
 public interface OrdersMapper {
 
-	List<OrdersDto> select();
+	List<OrdersDto> select(int offset, int records);
 
 	List<CartDto> selectCart();
 
@@ -16,6 +16,10 @@ public interface OrdersMapper {
 	CartDto cartToOrder(String u_id, Integer b_code, Integer c_count);
 
 	CartDto selectUserData(String u_id);
+
+	int countAll();
+
+	int deleteOrder(int o_number);
 	
 }
 	
