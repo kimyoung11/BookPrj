@@ -59,6 +59,22 @@ public class BookService {
 		return bookMapper.autoComplete(b_title);
 	}
 
+	public int insertBook(BookDto bookDto) {
+		return bookMapper.insertBook(bookDto);
+	}
+
+	public List<BookDto> getBookList() {
+		return bookMapper.selectBookList();
+	}
+
+	public int modifyBook(BookDto bookDto) {
+		return bookMapper.updateBook(bookDto);
+	}
+
+	public int removeBook(int b_code) {
+		return bookMapper.deleteBook(b_code);
+	}
+
 	
 
 

@@ -5,13 +5,25 @@
   
 <mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
+<delete id="deleteOrder">
+DELETE FROM Orders
+WHERE o_number = #{o_number}
+</delete>
 
+<select id="countAll" resultType="int">
+SELECT COUNT(*) 
+FROM Orders
+</select>
 
 <select id="select" resultType="com.demo.domain.ths.OrdersDto">
 SELECT 
 	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
 FROM 
-	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id;
+	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id
+ORDER BY 
+	o_number DESC
+LIMIT
+	#{offset}, #{records}
 </select>
 
 <select id="selectCart" resultType="com.demo.domain.ths.CartDto">
@@ -41,6 +53,15 @@ WHERE
 	<result column= "b_code" property="b_code"/>
 	<result column= "c_count" property="c_count"/>
 </resultMap>
+
+<select id="selectUserData" resultType="com.demo.domain.ths.CartDto">
+SELECT
+	u_email, u_address, u_phone, u_name
+FROM
+	User
+WHERE 
+	u_id = #{u_id}
+</select>
 
 
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.domain.ths.CartDto;
 import com.demo.domain.ths.OrdersDto;
+import com.demo.domain.ths.PageInfo;
 import com.demo.service.ths.OrdersService;
 
 @Controller
@@ -30,6 +31,7 @@ public class CartController {
 		model.addAttribute("cartlist", cart);
 	}
 	
+	// 장바구니 선택 삭제
 	@PostMapping("deleteCart")
 	public String deleteCart(@RequestParam List<String> u_id, @RequestParam List<Integer> b_code) {
 		service.deleteCart(u_id, b_code);
@@ -38,11 +40,13 @@ public class CartController {
 		return "redirect:/cart/cart";
 	}
 	
+	// 장바구니 페이지
 	@GetMapping("order")
 	public void order() {
 		
 	}
 	
+	// 장바구니에서 선택주문
 	@PostMapping("order")
 	public void order1(
 			@RequestParam List<String> u_id, 
@@ -52,18 +56,35 @@ public class CartController {
 		List<CartDto> Orderlist = service.cartToOrder(u_id, b_code, c_count);
 		model.addAttribute("toOrderlist", Orderlist);
 		model.addAttribute("fromCart", true);
-		System.out.println(u_id);
-		System.out.println(b_code);
-		System.out.println(c_count);
+		
+		CartDto userData = service.userData(u_id.get(0));
+		model.addAttribute("userData", userData);
+		
+		// System.out.println(u_id);
+		// System.out.println(b_code);
+		// System.out.println(c_count);
 	}
 	
-	@GetMapping("ordermanage") public void ordermanage(Model model) {
-	List<OrdersDto> orders = service.ordermanage(); model.addAttribute("orders",orders);
+	// 주문 관리 페이지
+	@GetMapping("ordermanage") 
+	public void ordermanage(
+			@RequestParam(name="page", defaultValue = "1") int page, 
+			PageInfo pageInfo,
+			Model model) {
+	List<OrdersDto> orders = service.ordermanage(page, pageInfo); 
+	model.addAttribute("orders",orders);
 	}
 	
+	// 주문 내역 삭제
+	@PostMapping("orderDelete")
+	public String orderDelete(int o_number) {
+		service.orderDelete(o_number);
+		return "redirect:/cart/ordermanage";
+	}
 	
 	@GetMapping("orderend")
 	public void orderend() {
+	
 	}
 	
 }

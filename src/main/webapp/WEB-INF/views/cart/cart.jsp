@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +56,7 @@ a {
 }
 </style>
 <body>
+	<my:headerBar></my:headerBar>
 	<div class="container-md text-center">
 		<div class="row">
 			<h2>장바구니</h2>
@@ -78,7 +80,7 @@ a {
 								data-user-id="${cart.u_id }"
 								data-book-code="${cart.b_code }"
 								data-cart-count="${cart.c_count }"
-								value="${cart.b_price }" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
+								value="${cart.b_price * cart.c_count}" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
 
 							<td><img src="${cart.b_img }" alt=""style="width: 80px; height: 100px;"></td>
 
@@ -108,10 +110,10 @@ a {
 
 			<div style="margin-top: 30px; margin-bottom: 30px;">
 				<button data-bs-toggle="modal" data-bs-target="#deleteModal"
-   				type="button" class="btn btn-primary delete-btn">선택삭제 하기</button>
+   				type="button" class="btn btn-danger delete-btn">선택삭제 하기</button>
    				
 				<button data-bs-toggle="modal" data-bs-target="#orderModal" 
-				type="button" class="btn btn-primary order-btn">선택주문 하기</button>
+				type="button" class="btn btn-success order-btn">선택주문 하기</button>
 			</div>
 		</div>
 	</div>
@@ -140,7 +142,7 @@ a {
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <button id="deleteButton"  type="button" class="btn btn-primary">삭제</button>
+	        <button id="deleteButton" type="button" class="btn btn-primary">삭제</button>
 	      </div>
 	    </div>
 	  </div>
@@ -182,12 +184,12 @@ a {
         function sumAllPrice(elem){
 	 		const a = elem.value;
 	       	const b = elem.dataset.price;
-	        document.querySelector(elem.dataset.priceTarget).innerText = a * b;
 	        	 
 	       	const checkBox = document.querySelector(elem.dataset.checkboxTarget);
+	       	// 변경된 수량을 입력
 	       	checkBox.dataset.cartCount = elem.value;
 	       	checkBox.value = a * b;
-	       	
+	       	document.querySelector(elem.dataset.priceTarget).innerText = checkBox.value;
 	       	boxValueChange();
         }
          
@@ -262,5 +264,6 @@ a {
       
          
 	</script>
+	<my:footer></my:footer>
 </body>
 </html>

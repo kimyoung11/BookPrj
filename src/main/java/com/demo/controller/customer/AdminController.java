@@ -1,20 +1,25 @@
 package com.demo.controller.customer;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.demo.domain.book.BookDto;
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
 import com.demo.domain.customer.QuestionDto;
+import com.demo.service.book.BookService;
 import com.demo.service.customer.NoticeService;
 import com.demo.service.customer.QuestionService;
 
@@ -27,6 +32,9 @@ public class AdminController {
 
 	@Autowired
 	private QuestionService questService;
+
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping("noticeRegister")
 	public void ad_notice() {
@@ -77,6 +85,7 @@ public class AdminController {
 		return "redirect:/admin/notice";
 	}
 
+
 	
 	
 	
@@ -91,6 +100,7 @@ public class AdminController {
 		model.addAttribute("questionList", list);
 
 	}
+
 	
 
 	/* 1:1문의 내용보기 */
@@ -112,6 +122,53 @@ public class AdminController {
 	}
 	
 	
+
+
+	/* 책 등록 */
+	@GetMapping("book")
+	public void book() {
+
+	}
+
+	@PostMapping("book")
+	public void bookRegister(BookDto bookDto) {
+		int cnt = bookService.insertBook(bookDto);
+		System.out.println(cnt);
+	}
+
+	@GetMapping("bookList")
+	public List<BookDto> bookList(Model model) {
+		List<BookDto> temp = bookService.getBookList();
+		//System.out.println(temp);
+		model.addAttribute("bookList", temp);
+		return temp;
+	}
+
+	
+	@GetMapping("modifyBook")
+	public String modifyBook(@RequestParam int b_code,Model model) {
+		System.out.println(b_code);
+		BookDto temp = bookService.getByCode(b_code);
+		System.out.println(temp);
+		model.addAttribute("book",temp);
+		return "admin/modifyBook";
+	}
+	 
+	 @PostMapping("modifyBook")
+	 public String modifyBookDto(BookDto bookDto) {
+		 System.out.println(bookDto);
+		 int cnt = bookService.modifyBook(bookDto);
+		 System.out.println(cnt);
+		 return "redirect:/admin/bookList";
+	 }
+	 
+	 @DeleteMapping("deleteBook")
+	 public String deleteBook(@RequestBody Map<String,String> map) {
+		 System.out.println(map.get("b_code").getClass());
+		 int cnt = bookService.removeBook(Integer.parseInt(map.get("b_code")));
+		 return "redirect:/admin/bookList";
+	 }
+
 	 
 
 }

@@ -41,7 +41,7 @@
     </style>
 </head>
 <body>
-	<h1>관리자 Navber</h1>
+	
     <div class="container-md" style="text-align: center;">
         <h2>주문관리</h2>
         <hr id="hr_line">
@@ -70,21 +70,85 @@
             </thead>
             <tbody>
                 <tr>
-                   <c:forEach items="${orders }" var="order">
+                   <c:forEach items="${orders }" var="order" varStatus="sts">
                    		<tr>
-                   			<td>${order.o_number }</td>
+                   			<td>${order.o_number }</td>	
                    			<td>${order.o_date }</td>
                    			<td>${order.b_title }</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
                    			<td>${order.b_price * order.o_count }</td>
                    			<td>${order.o_status}</td>
-                   			<td></td>
+                   			<td>
+                   			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
+                   			<input name="o_number" type="hidden" value="${order.o_number }">
+                   			<button onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
+                   			</form>
+                   			</td>
                    		</tr>
                    </c:forEach>
                 </tr>
             </tbody>
         </table>
     </div>
+    
+    <!-- 주문 삭제 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="orderDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">주문 목록 삭제</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      	주문 목록에서 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button id="OrderDeleteButton" type="button" class="btn btn-danger">삭제</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    <nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	  	
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=1"><i class="fa-solid fa-angles-left"></i></a></li>
+		
+	 	<li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }"><i class="fa-solid fa-angle-left"></i></a></li>	
+	  
+	 	
+	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
+	    <c:url value="/cart/ordermanage" var="pageLink">
+	    	<c:param name="page" value="${pageNumber }"></c:param>
+	    </c:url>
+	    <li class="page-item
+	    	<%-- 현재 페이지에 active 클래스 추가 --%>
+	    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
+	    "><a class="page-link" href="${pageLink }">${pageNumber }</a></li>
+	    </c:forEach>
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }"><i class="fa-solid fa-angle-right"></i></a></li>
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }"><i class="fa-solid fa-angles-right"></i></a></li>
+	
+	  </ul>
+	</nav>
+
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
+<script>
+	function setFormId(elem){
+		document.querySelector("#OrderDeleteButton").dataset.form = elem.dataset.form
+	}
+
+	document.querySelector("#OrderDeleteButton").addEventListener("click", function(){
+		const form = document.querySelector("#"+this.dataset.form);
+		form.submit();
+	})
+
+</script>
 </body>
 </html>
