@@ -3,6 +3,7 @@ package com.demo.mapper.customer;
 import java.util.List;
 
 import com.demo.domain.customer.NoticeDto;
+import com.demo.domain.customer.QuestionDto;
 
 public interface NoticeMapper {
 	/* 공지사항 추가하기 */
@@ -20,4 +21,5 @@ public interface NoticeMapper {
 	int update(NoticeDto notice);
 
 	int delete(int id);
+
 }

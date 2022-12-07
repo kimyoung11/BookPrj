@@ -10,6 +10,8 @@
 <c:url value="/book/list" var="listBest" />
 <c:url value="/cart/cart" var="cartView"></c:url>
 <c:url value="/user/login" var="loginView"></c:url>
+<c:url value="/customer/asked" var="customerView"></c:url>
+
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -121,7 +123,7 @@ a {
 							<h6>이벤트</h6>
 						</div>
 						<div class="col">
-							<h6>고객센터</h6>
+							<a href="${customerView }"><h6>고객센터</h6></a>
 						</div>
 					</div>
 				</div>

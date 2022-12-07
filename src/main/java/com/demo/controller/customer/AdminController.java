@@ -85,17 +85,44 @@ public class AdminController {
 		return "redirect:/admin/notice";
 	}
 
+
+	
+	
+	
+	
 	/* 1:1문의 보기 */
 	@GetMapping("question")
-	public void questList(Model model) {
+	public void questList( @RequestParam(name = "page", defaultValue = "1") int page,
+			  PageInfo pageInfo, Model model) { 
 
-		List<QuestionDto> list = questService.questList();
+		List<QuestionDto> list = questService.questList(page, pageInfo);
 
 		model.addAttribute("questionList", list);
 
 	}
 
+	
+
 	/* 1:1문의 내용보기 */
+	@GetMapping("answer")
+	public void questContent(int q_number, Model model) {
+		
+		System.out.println(q_number);
+		QuestionDto question = questService.ContentList(q_number);
+		
+		model.addAttribute("questContent", question);
+
+	}
+	
+	
+	@PostMapping("add")
+	public void add(@RequestBody QuestionDto quest) {
+		System.out.println(quest);
+		questService.answerAdd(quest);
+	}
+	
+	
+
 
 	/* 책 등록 */
 	@GetMapping("book")
@@ -141,6 +168,7 @@ public class AdminController {
 		 int cnt = bookService.removeBook(Integer.parseInt(map.get("b_code")));
 		 return "redirect:/admin/bookList";
 	 }
+
 	 
 
 }

@@ -8,5 +8,11 @@ public interface QuestionMapper {
 
 	int insert(QuestionDto question);
 
-	 List<QuestionDto> getList();
+	QuestionDto select(int q_number);
+
+	List<QuestionDto> getList(int offset, int records);
+
+	int allCount();
+
+	int add(QuestionDto quest);
 }
