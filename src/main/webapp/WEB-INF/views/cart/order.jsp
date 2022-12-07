@@ -132,10 +132,10 @@
 
             <div class="col-sm-3 input-group">
                 <input type="text" class="form-control" aria-label="Recipient's username"
-                    aria-describedby="button-addon2" readonly="readonly" value="${user.u_email }">
+                    aria-describedby="button-addon2" readonly="readonly" value="${userData.u_email }">
             </div>
             <div class="row adress-input">
-            <input class="form-control" type="text" placeholder="주소" aria-label="readonly input example"
+            <input class="form-control" type="text" value= "${userData.u_address }" placeholder="주소" aria-label="readonly input example"
             readonly style="margin-right: 10px;">
             <input class="form-control" type="text" placeholder="상세주소">
         </div>
@@ -146,19 +146,19 @@
     <div class="mb-3 row">
         <label for="inputPassword" class="col-sm-2 col-form-label">수령인</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputPassword1" readonly="readonly" value="${user.u_name }">
+          <input type="text" class="form-control" id="inputPassword1" readonly="readonly" value="${userData.u_name }">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="inputPassword" class="col-sm-2 col-form-label">연락처</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputPassword2"  readonly="readonly" value="${user.u_phone }">
+          <input type="text" class="form-control" id="inputPassword2"  readonly="readonly" value="${userData.u_phone }">
         </div>
       </div>
       <div class="mb-3 row">
         <label for="inputPassword" class="col-sm-2 col-form-label">배송요청사항</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="inputPassword3">
+          <input type="text" class="form-control" id="inputPassword3">
         </div>
       </div>
 
@@ -183,6 +183,7 @@
 	}
 	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
 </script>
+<my:footer></my:footer>
 </body>
 
 </html>
