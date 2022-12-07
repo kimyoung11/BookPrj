@@ -85,54 +85,53 @@ a {
 
 <!-- pagination -->
 
-	<%-- 	<div class="row">
+ 	<div class="row">
 			<div class="col">
 				<nav class="mt-3" aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 
-					맨앞 버튼은 1페이지가 아니면 존재함
+					<!-- 맨앞 버튼은 1페이지가 아니면 존재함 -->
 				  	<c:if test="${pageInfo.currentPageNumber ne 1 }">
 				  		
-				  		<c:url value="/customer/notice" var="listLink">
+				  		<c:url value="/admin/question" var="questionLink">
 				  			<c:param name="page" value="1" />
 				  		</c:url>
 
 						<li class="page-item">
-							<a class="page-link" href="${listLink }">
+							<a class="page-link" href="${questionLink }">
 								<i class="fa-solid fa-angles-left"></i>
 							</a>
 						</li>
 				  	</c:if>
 				  	
 				  	<c:if test="${pageInfo.hasPrevButton }">
-				  		<c:url value="/customer/notice" var="listLink">
+				  		<c:url value="/admin/question" var="questionLink">
 				  			<c:param name="page" value="${pageInfo.jumpPrevPageNumber }"/>
 				  		</c:url>
 				  		<li class="page-item">
-				  			<a href="${listLink }" class="page-link">
+				  			<a href="${questionLink }" class="page-link">
 				  				<i class="fa-solid fa-angle-left"></i>
 				  			</a>
 				  		</li>
 				  	</c:if>
 				  
 				  	<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
-				  		<c:url value="/customer/notice" var="listLink">
+				  		<c:url value="/admin/question" var="questionLink">
 				  			<c:param name="page" value="${pageNumber }" />
 				  		</c:url>
-					    <li class="page-item
-					    
-					    	현재페이지에 active 클래스 추가
-					    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
-					    
-					    "><a class="page-link" href="${listLink }">${pageNumber }</a></li>
+				  		
+				  		<!-- 현재페이지에 active 클래스 추가 -->
+					    <li class="page-item ${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }">
+					    	<a class="page-link" href="${questionLink }">${pageNumber }</a>
+					    </li>
 				  	</c:forEach>
 				  	
 				  	<c:if test="${pageInfo.hasNextButton }">
-				  		<c:url value="/customer/notice" var="listLink">
+				  		<c:url value="/admin/question" var="questionLink">
 				  			<c:param name="page" value="${pageInfo.jumpNextPageNumber }"></c:param>
 				  		</c:url>
 				  		<li class="page-item">
-				  			<a href="${listLink }" class="page-link">
+				  			<a href="${questionLink }" class="page-link">
 				  				<i class="fa-solid fa-angle-right"></i>
 				  			</a>
 				  		</li>
@@ -140,12 +139,12 @@ a {
 				  	
 				  	
 				  	<c:if test="${pageInfo.currentPageNumber ne pageInfo.lastPageNumber }">
-				  		<c:url value="/customer/notice" var="listLink">
+				  		<c:url value="/admin/question" var="questionLink">
 				  			<c:param value="${pageInfo.lastPageNumber }" name="page" />
 				  		</c:url>
 				  		<!-- li.page-item>a.page-link{맨뒤버튼} -->
 				  		<li class="page-item">
-				  			<a href="${listLink }" class="page-link">
+				  			<a href="${questionLink }" class="page-link">
 				  				<i class="fa-solid fa-angles-right"></i>
 				  			</a>
 				  		</li>
@@ -155,7 +154,7 @@ a {
 				</nav>
 			</div>
 		</div>
-		</div> --%>
+
 		<!-- pagination-end -->
 
 	<script

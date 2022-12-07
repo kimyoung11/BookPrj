@@ -56,6 +56,53 @@ a {
 		</div>
 
 		<hr>
+		
+		<!-- 1:1 문의 답변달기 -->
+		<div class="col">
+			<input type="hidden" id="adminId" name="ad_id" value="111">
+			<input type="hidden" id="userId" name="u_id" value="aa">
+			<input type="hidden" id="questionNum" value="${questContent.q_number }">	
+			<input type="text" id="answerReply" >
+			<button id="replyButton">답변달기</button>
 		</div>
+	</div>
+
+
+	
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+crossorigin="anonymous"></script>
+	
+<script>
+
+
+const ctx = "${pageContext.request.contextPath}";
+
+document.querySelector("#replyButton").addEventListener("click",function(){
+	const q_number = document.querySelector("#questionNum").value;
+	const ad_id = document.querySelector("#adminId").value;
+	const u_id = document.querySelector("#userId").value;
+	const a_content = document.querySelector("#answerReply").value;
+	
+	const data = {q_number, ad_id, u_id, a_content };
+	
+	console.log(data)
+	
+	fetch( `\${ctx}/admin/add`,{
+		method : "post",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+});
+
+
+
+
+
+</script>
+	
 </body>
 </html>

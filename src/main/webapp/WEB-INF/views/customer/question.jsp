@@ -75,6 +75,7 @@
 							<span class="guide-bottom">첨부가능 파일 확장자: JPG,PNG,GIF</span>
 						</div>
 						
+						<!-- 유저아이디 넘겨줌 -->						
 						<input type="hidden" name="u_id" value="aa">
 
 						<hr>

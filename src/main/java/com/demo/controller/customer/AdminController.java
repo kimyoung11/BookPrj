@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,32 +77,41 @@ public class AdminController {
 		return "redirect:/admin/notice";
 	}
 
+	
+	
+	
+	
 	/* 1:1문의 보기 */
 	@GetMapping("question")
-	public void questList(Model model) {
+	public void questList( @RequestParam(name = "page", defaultValue = "1") int page,
+			  PageInfo pageInfo, Model model) { 
 
-		List<QuestionDto> list = questService.questList();
+		List<QuestionDto> list = questService.questList(page, pageInfo);
 
 		model.addAttribute("questionList", list);
 
 	}
+	
 
 	/* 1:1문의 내용보기 */
-	@GetMapping("answer/{q_number}")
-	public String questContent(@PathVariable int q_number, Model model) {
+	@GetMapping("answer")
+	public void questContent(int q_number, Model model) {
 		
 		System.out.println(q_number);
 		QuestionDto question = questService.ContentList(q_number);
 		
 		model.addAttribute("questContent", question);
 
-		return "admin/answer";
-
 	}
 	
-	@GetMapping("answer")
-	public void answer(){
-		
+	
+	@PostMapping("add")
+	public void add(@RequestBody QuestionDto quest) {
+		System.out.println(quest);
+		questService.answerAdd(quest);
 	}
+	
+	
+	 
 
 }
