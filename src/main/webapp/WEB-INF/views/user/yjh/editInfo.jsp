@@ -8,7 +8,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>1:1문의</title>
+<title>회원정보수정</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -70,6 +70,7 @@ span {
 </head>
 
 <body>
+	<my:headerBar></my:headerBar>
 	<div class="container-md">
 		<div class="row">
 			<form id="editForm" action="" method="post">
@@ -83,7 +84,7 @@ span {
 						<div class="input-group mb-3">
 							<label for="inputID" class="col-2 col-form-label">ID</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" value="${user.id }"
+								<input type="text" class="form-control" value="${user.u_id }"
 									readonly />
 							</div>
 						</div>
@@ -100,7 +101,7 @@ span {
 									<label for="inputPassword" class="col-2 col-form-label">새
 										비밀번호</label> <input type="text" class="form-control"
 										placeholder="새 비밀번호를 입력하세요." aria-label="Recipient's username"
-										aria-describedby="button-addon2" name="pw">
+										aria-describedby="button-addon2" name="u_pw">
 								</div>
 								<div class="input-group mb-3">
 									<label for="inputPassword" class="col-2 col-form-label">새
@@ -117,29 +118,29 @@ span {
 					<div class="mb-2 row mt-2">
 						<label for="inputName" class="col-2 col-form-label">이름</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" value="${user.name }"
+							<input type="text" class="form-control" value="${user.u_name }"
 								readonly />
 						</div>
 					</div>
 					<div class="mb-2 row mt-2">
 						<label for="inputEmail" class="col-2 col-form-label">E-MAIL</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" value="${user.email }"
-								name="email" />
+							<input type="text" class="form-control" value="${user.u_email }"
+								name="u_email" />
 						</div>
 					</div>
 					<div class="mb-2 row mt-2">
 						<label for="inputPhone" class="col-2 col-form-label">전화번호</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" value="${user.phone }"
-								name="phone" />
+							<input type="text" class="form-control" value="${user.u_phone }"
+								name="u_phone" />
 						</div>
 					</div>
 					<div class="mb-2 row mt-2">
 						<label for="inputAddress" class="col-2 col-form-label">주소</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" value="${user.address }"
-								name="address" />
+							<input type="text" class="form-control" value="${user.u_address }"
+								name="u_address" />
 						</div>
 					</div>
 				</div>
@@ -153,6 +154,7 @@ span {
 			</form>
 		</div>
 	</div>
+	<my:footer></my:footer>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

@@ -19,10 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
 import com.demo.domain.book.CartDto;
-import com.demo.domain.book.UserDto;
+import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.book.BookService;
 import com.demo.service.book.CartService;
-import com.demo.service.book.UserService;
+import com.demo.service.user.yjh.UserService;
 
 
 @Controller

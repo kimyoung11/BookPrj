@@ -17,9 +17,13 @@ public class UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	public UserDto getById(String u_id) {
+		return userMapper.selectById(u_id);
+	}
 
-	public UserDto getUserInfo(String id) {
-		return userMapper.selectUserInfo(id);
+	public UserDto getUserInfo(String u_id) {
+		return userMapper.selectUserInfo(u_id);
 	}
 
 	public UserDto getUserPageInfo(String id) {
@@ -31,9 +35,9 @@ public class UserService {
 		return userMapper.selectDetailOrdersByUser(id);
 	}
 	
-	public List<UserDto> getOrderByUser(String id) {
+	public List<UserDto> getOrderByUser(String u_id) {
 		
-		return userMapper.selectOrderByUser(id);
+		return userMapper.selectOrderByUser(u_id);
 	}
 	
 	public int countLikeByUser(String id) {
@@ -61,19 +65,23 @@ public class UserService {
 		return userMapper.updateUser(user);
 	}
 	
-	public List<UserDto> getBookLikeList(String id){
+	public List<UserDto> getBookLikeList(String u_id){
 		
-		return userMapper.selectBookLikeListByUser(id);
+		return userMapper.selectBookLikeListByUser(u_id);
 	}
 	
-	public List<UserDto> getReviewList(String id){
+	public List<UserDto> getReviewList(String u_id){
 		
-		return userMapper.selectReviewListByUser(id);
+		return userMapper.selectReviewListByUser(u_id);
 	}
 	
-	public List<UserDto> getQuestList(String id){
+	public List<UserDto> getMakeReviewList(String u_id){
+		return userMapper.selectMakeReviewListByUser(u_id);
+	}
+	
+	public List<UserDto> getQuestList(String u_id){
 		
-		return userMapper.selectQuestListByUser(id);
+		return userMapper.selectQuestListByUser(u_id);
 	}
 	
 }

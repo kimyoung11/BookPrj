@@ -5,33 +5,37 @@
   
   <mapper namespace="com.demo.mapper.user.yjh.UserMapper">
   	
+  	<select id="selectById" resultType="com.demo.domain.user.yjh.UserDto">
+		SELECT *FROM User where u_id =#{u_id}
+	</select>
+  	
   	<update id="updateUser">
   		UPDATE User
   		SET
-  			u_pw = #{pw},
-  			u_email = #{email},
-  			u_phone = #{phone},
-  			u_address = #{address}
-  		WHERE u_id = #{id};	
+  			u_pw = #{u_pw},
+  			u_email = #{u_email},
+  			u_phone = #{u_phone},
+  			u_address = #{u_address}
+  		WHERE u_id = #{u_id};	
   	</update>
   	
-  	<select id="selectUserInfo" resultMap="userMap">
+  	<select id="selectUserInfo" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT u_id, u_pw, u_name, u_phone, u_email, u_address
   		FROM User
-  		WHERE u_id = #{id}
+  		WHERE u_id = #{u_id};
   	</select>
   	
   	<select id="countLikeByUserId" resultType="int">
   	 	SELECT COUNT(*) FROM BookLike
-		WHERE u_id = #{id};
+		WHERE u_id = #{u_id};
   	</select>
   	
   	<select id="countCartByUserId" resultType="int">
   	 	SELECT SUM(c_count) FROM Cart
-		WHERE u_id = #{id};
+		WHERE u_id = #{u_id};
   	</select>
   	
-  	<select id="selectUserPageInfo" resultMap="userMap">
+  	<select id="selectUserPageInfo" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT 
   				u.u_id,
 	   			COUNT(DISTINCT L.u_id) countLike,	
@@ -41,42 +45,54 @@
 				LEFT JOIN BookLike L ON u.u_id = L.u_id
 				LEFT JOIN Cart c ON u.u_id = c.u_id
   		WHERE 	
-  				u.u_id = #{id}
+  				u.u_id = #{u_id};
   	</select>
   	
-  	<select id="selectOrderByUser" resultMap="orderMap">
-  		SELECT o_number,
+  	<select id="selectOrderByUser" resultType="com.demo.domain.user.yjh.UserDto">
+  		SELECT o_id,
   			   o_date,
   			   o_status,
-  			   o_count orderCount
+  			   o_count
   		FROM Orders	   	
-  		WHERE u_id = #{id};
+  		WHERE u_id = #{u_id};
   	</select>
   	
   	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.yjh.UserDto">
-  		SELECT o.o_number orderNum,
-	   		   o.o_count orderCount,
-       		   o.o_date orderDate,
-       		   o.o_status orderStatus,
-       		   b.b_title bookTitle
+  		SELECT o.o_id o_id,
+	   		   o.o_count o_count,
+       		   o.o_date o_date,
+       		   o.o_status o_status,
+       		   b.b_title b_title
 		FROM Orders o LEFT JOIN Book b ON o.b_code = b.b_code
-		WHERE u_id = #{id};
+		WHERE u_id = #{u_id};
   	</select>
   	
   	<select id="selectBookLikeListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   	SELECT
-	   	   b.b_title bookTitle
+	   	   b.b_title b_title
     FROM BookLike L LEFT JOIN Book b ON L.b_code = b.b_code
-    WHERE L.u_id = 'son';    
+    WHERE L.u_id = #{u_id};    
   	</select>
   	
   	<select id="selectReviewListByUser" resultType="com.demo.domain.user.yjh.UserDto">
 		SELECT 
-			  r_content reviewContent,
-			  r_star reviewStar,
-		      b.b_title bookTitle
+			  r.r_content r_content,
+			  r.r_star r_star,
+			  r.r_id r_id,
+		      b.b_title b_title
 		FROM Review r LEFT JOIN Book b ON r.b_code = b.b_code
-		WHERE u_id = #{id};
+		WHERE u_id = #{u_id};
+  	</select>
+  	
+  	<select id="selectMakeReviewListByUser" resultType="com.demo.domain.user.yjh.UserDto">
+  		SELECT 
+  				od.b_code , b.b_title
+		FROM 
+				OrderDetail od 
+				LEFT OUTER JOIN Review r ON r.b_code = od.b_code
+				LEFT JOIN Book b ON od.b_code = b.b_code
+		WHERE 
+				od.u_id = #{u_id} AND r.u_id IS NULL;
   	</select>
   	
   	<select id="selectQuestListByUser" resultType="com.demo.domain.user.yjh.UserDto">
@@ -84,12 +100,12 @@
 	   		   q_content,
        		   q_date
 		FROM Quest
-		WHERE u_id = #{id};
+		WHERE u_id = #{u_id};
   	</select>
   	
   	<resultMap type="com.demo.domain.user.yjh.UserDto" id="orderMap">
   		<id column="u_id" property="id"/>
-  		<result column="o_number" property="orderNum"/>
+  		<result column="o_id" property="o_id"/>
   		<result column="o_count" property="orderCount"/>
   		<result column="o_date" property="orderDate"/>
   		<result column="o_status" property="orderStatus"/>

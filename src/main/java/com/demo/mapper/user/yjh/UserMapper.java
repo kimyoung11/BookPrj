@@ -5,8 +5,10 @@ import java.util.List;
 import com.demo.domain.user.yjh.UserDto;
 
 public interface UserMapper {
+	
+	UserDto selectById(String u_id);
 
-	UserDto selectUserInfo(String id);
+	UserDto selectUserInfo(String u_id);
 
 	UserDto selectUserPageInfo(String id);
 	
@@ -16,14 +18,16 @@ public interface UserMapper {
 
 	int updateUser(UserDto user);
 	
-	List<UserDto> selectOrderByUser(String id);
+	List<UserDto> selectOrderByUser(String u_id);
 	
-	List<UserDto> selectBookLikeListByUser(String id);
+	List<UserDto> selectBookLikeListByUser(String u_id);
 	
-	List<UserDto> selectReviewListByUser(String id);
+	List<UserDto> selectReviewListByUser(String u_id);
 	
-	List<UserDto> selectQuestListByUser(String id);
+	List<UserDto> selectMakeReviewListByUser(String u_id);
 	
-	UserDto selectDetailOrdersByUser(String id);
+	List<UserDto> selectQuestListByUser(String u_id);
+	
+	UserDto selectDetailOrdersByUser(String u_id);
 	
 }
