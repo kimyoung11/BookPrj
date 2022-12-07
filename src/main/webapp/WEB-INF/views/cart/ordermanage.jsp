@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url value="/cart/ordermanage" var="ordersList"></c:url>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +46,10 @@
     <div class="container-md" style="text-align: center;">
         <h2>주문관리</h2>
         <hr id="hr_line">
-        <div style="text-align: left;">
-            <select name="" id="">
+        <div style="text-align: right;">
+            <form action="${orderList }">
+            
+            <select name="q" id="">
                 <option value="0">상태</option>
                 <option value="1">입금확인</option>
                 <option value="2">배송중</option>
@@ -54,7 +57,10 @@
                 <option value="4">판매완료</option>
                 <option value="5">기타</option>
             </select>
-            <button style="border-color: black; background-color: white;">조회</button>
+            
+            <button type="submit" class="btn btn-primary btn-sm">조회</button>
+            
+            </form>
         </div>
         <table class="table">
             <thead>
@@ -82,7 +88,7 @@
                    			<td>
                    			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
                    			<input name="o_number" type="hidden" value="${order.o_number }">
-                   			<button onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
+                   			<button class="btn btn-outline-danger" onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
                    			</form>
                    			</td>
                    		</tr>
