@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +40,12 @@ public class BookController {
 	private UserService userService;
 	
 	@GetMapping("main")
-	public void main() {
+	public void main(Model model) {
+		List<BookDto> newBook = bookService.newBookList();
+		model.addAttribute("newBookList", newBook);
 		
+		List<BookDto> ranBook = bookService.ranBookList();
+		model.addAttribute("ranBookList", ranBook);
 	}
 	
 	@GetMapping("autoComplete")
@@ -209,4 +214,5 @@ public class BookController {
 		}
 		return hm;
 	}
+	
 }

@@ -59,6 +59,14 @@ public class BookService {
 		return bookMapper.autoComplete(b_title);
 	}
 
+	public List<BookDto> newBookList() {
+		return bookMapper.selectNewBook();
+	}
+
+	public List<BookDto> ranBookList() {
+		return bookMapper.selectRanBook();
+	}
+
 	
 
 

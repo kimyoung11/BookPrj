@@ -84,6 +84,7 @@
 <body>
 	<my:headerBar></my:headerBar>
     <div class="container-md">
+    	<div style="margin-top: 30px"></div>
         <h2>주문 / 결제</h2>
         <hr id="hr_line">
         <table class="table" style="text-align: center;">
@@ -168,7 +169,9 @@
     	최종 결제 금액	: <span id="totalPriceHolder"></span> <br>
     </div>
     <div style="text-align: center;">
-        <button type="button" class="btn btn-primary order-btn">결제하기</button>
+    	<form action="/cart/orderend">
+        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
+    	</form>
     </div>
     </tbody>
     </table>

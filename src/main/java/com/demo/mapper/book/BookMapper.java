@@ -31,6 +31,10 @@ public interface BookMapper {
 
 	public List<Map<String, Object>> autoComplete(String b_title);
 
+	public List<BookDto> selectNewBook();
+
+	public List<BookDto> selectRanBook();
+
 	
 	
 }

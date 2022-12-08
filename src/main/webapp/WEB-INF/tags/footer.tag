@@ -6,6 +6,7 @@
           <!-- Section: Links  -->
           <section class="" style="background-color: black;">
             <div class="row w-50 ms-auto mx-auto">
+              <div style="margin-top: 30px"></div>
               <div class="col">개인정보취급</div>
               <div class="col">개인정보취급</div>
               <div class="col">개인정보취급</div>

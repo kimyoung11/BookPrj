@@ -21,33 +21,14 @@
 	rel="stylesheet">
 </head>
 <body>
-	<div>
-		<h1 style="text-align: center;">주문이 완료되었습니다!</h1>
+	<div style="margin-top: 300px; text-align: center;">
+		<h1>주문이 완료되었습니다!</h1>
+		<br>
+		<form action="/book/list">
+			<button type ="submit" class="btn btn-primary">다른 책 구매하러가기</button>
+		</form>
 	</div>
 	
-<form>
-  <label for="fruit"> 좋아하는 과일 </label>
-  <select id="fruit" name="fruit">
-    <option value="">-- 선택하세요 --</option>
-    <optgroup label="여름">
-      <option value="strawberry">딸기</option>
-      <option value="banana">바나나</option>
-    </optgroup>
-    <optgroup label="여름">
-      <option value="mango">망고</option>
-      <option value="melon">멜론</option>
-      <option value="grape">포도</option>
-      <option value="watermelon">수박</option>
-    </optgroup>
-    <optgroup label="가을">
-      <option value="apple">사과</option>
-      <option value="pear">배</option>
-    </optgroup>
-    <optgroup label="겨울">
-      <option value="mandarine">귤</option>
-    </optgroup>
-  </select>
-</form>
    
    
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
