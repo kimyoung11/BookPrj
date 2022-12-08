@@ -76,10 +76,11 @@ a {
 		<div class="col">
 			<input type="hidden" id="adminId" name="ad_id" value="111">
 			<input type="hidden" id="userId" name="u_id" value="aa">
+			<input type="hidden" id="answerId" name="a_id" >
 			<input type="hidden" id="questionNum" value="${questContent.q_number }">
 			<div class="input-group">
 			  <div class="form-floating">
-				  <textarea class="form-control" placeholder="Leave a comment here" id="answerReply" style="height: 100px"></textarea>
+				  <textarea class="form-control" placeholder="Leave a comment here" id="answerInput" style="height: 100px"></textarea>
 				  <label for="floatingTextarea2">1:1 문의 답변을 해주세요.</label>
 			  </div>
 			  <button class="btn btn-outline-secondary" id="replyButton">전송</button>
@@ -103,27 +104,14 @@ const ctx = "${pageContext.request.contextPath}";
 
 answerView();
 
-/* 답변 보여주기 (get) */
-function answerView () {
-	const q_number = document.querySelector("#questionNum").value;
-	fetch(`\${ctx}/admin/answerList/\${q_number}`)
-	.then(res => res.json())
-	.then(list => {
-		for (const item of list){
-			/* console.log(item.q_number); */
-			const answerDiv = `<div class="alert alert-secondary" role="alert">
-									\${item.a_content} <br> <small> \${item.a_date} </small></div>`;
-			document.querySelector("#answerList").insertAdjacentHTML("beforeend",answerDiv);
-		}
-	})
-}
+
 
 /* 답변 추가하기 */
 document.querySelector("#replyButton").addEventListener("click",function(){
 	const q_number = document.querySelector("#questionNum").value;
 	const ad_id = document.querySelector("#adminId").value;
 	const u_id = document.querySelector("#userId").value;
-	const a_content = document.querySelector("#answerReply").value;
+	const a_content = document.querySelector("#answerInput").value;
 	
 	const data = {q_number, ad_id, u_id, a_content };
 	
@@ -136,8 +124,41 @@ document.querySelector("#replyButton").addEventListener("click",function(){
 		},
 		body : JSON.stringify(data)
 	})
+	.then(data => {
+		document.querySelector("#answerInput").value = "";
+	})
+	.then(() => answerView())
 });
 
+
+/* 답변 보여주기 (get) */
+function answerView () {
+	const q_number = document.querySelector("#questionNum").value;
+
+	fetch(`\${ctx}/admin/answerList/\${q_number}`)
+	.then(res => res.json())
+	.then(list => {
+		
+		/* 답변 내용 중복막기 */
+		const answerList = document.querySelector("#answerList");
+		answerList.innerHTML = "";
+		
+		/* console.log(item.q_number); */
+		/* 답변 내용 보여주기 */
+		for (const item of list){
+			const answerRemoveBtnId = `remveBtn\${item.a_id}`;
+			
+			const answerDiv = `<div class="alert alert-info" role="alert">
+									\${item.a_content} <br> <small> \${item.a_date} </small></div>
+									<button data-answer-id="\${item.a_id}" id="\${answerRemoveBtnId}">삭제</button>`;
+			answerList.insertAdjacentHTML("beforeend",answerDiv);
+			document.querySelector("#" + answerRemoveBtnId).addEventListener("click", function(){
+				/* console.log(this.a_id + "삭제버튼"); */
+				answerView(a_id);
+			})
+		}
+	})
+}
 
 
 

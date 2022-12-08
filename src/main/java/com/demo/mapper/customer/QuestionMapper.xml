@@ -50,8 +50,8 @@
 
 <!-- 1:1문의 답변 추가하기 -->
 <insert id="add">
-	INSERT INTO Answer (q_number, ad_id, u_id, a_content)
-	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content})
+	INSERT INTO Answer (q_number, ad_id, u_id, a_content, a_id)
+	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content}, #{a_id})
 </insert>
 
 <!-- 1:1문의 답변 보여주기 -->
