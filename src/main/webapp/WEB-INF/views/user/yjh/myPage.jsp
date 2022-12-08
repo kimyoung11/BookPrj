@@ -87,6 +87,42 @@
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
+ul {
+	padding: 0;
+}
+
+li {
+	list-style: none;
+	text-align: center;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+span {
+	font-size: 12px;
+	margin-left: 100px;
+}
+
+.btn-bd-primary {
+	-bs-btn-font-weight: 300;
+}
+
+.btn-edit {
+	font-size: 18px;
+	padding: 10px 40px;
+}
+
+.container-sm {
+	max-width: 500px;
+}
+
+.content-size {
+	width: 400px;
+	margin-bottom: 20px;
+}
 
 </style>
 <body>
@@ -100,14 +136,11 @@
 				style="width: 400px; height: 200px; background-color: #bed6e0">
 				<input type="hidden" id="u_id" value="${user.u_id }">
 				<div class="col align-items-center">
-					<c:url value="/user/yjh/editInfo" var="editLink">
-						<c:param name="u_id" value="${user.u_id }" />
-					</c:url>
-					<a class="left-box m-2 row" href="${editLink }"
+					<span class="left-box m-2 row" 
 						style="background: #fff; width: 90px; height: 90px; border-radius: 70%; overflow: hidden; position: relative; box-shadow: 0 0 14px #8cc1db;">
 						<span class="fa-regular fa-user fa-2xl"
 						style="position: absolute; top: 46px; left: 19px"></span>
-					</a>
+					</span>
 					<div class="row">
 						<h5 style="margin-left: 14px">${user.u_id }님</h5>
 					</div>
@@ -125,6 +158,9 @@
 						<h5 style="color: #333; text-align: center">장바구니</h5>
 					</div>
 				</div>
+				<button class="left-box m-2 row" type="button" id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						회원정보수정
+				</button>
 			</div>
 		</div>
 		
@@ -270,15 +306,123 @@
 		  </div>
 		</div>
 		
-		<!-- 리뷰 메세지 토스트 -->
-		<div id="reviewMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+		<!-- 메세지 토스트 -->
+		<div id="messageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
 		  <div class="d-flex">
-		    <div id="reviewMessage1" class="toast-body">
+		    <div id="message1" class="toast-body">
 		    </div>
 		    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 		  </div>
 		</div>
-
+		
+		<!-- 회원정보수정 모달 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-scrollable">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원정보수정</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body ">
+		        <div class="container-md">
+					<div class="row">
+						<div class="col mt-1">
+							<div style="text-align: left" class="mb-4">
+								<h1 style="font-size: 24px">회원정보 수정</h1>
+							</div>
+			
+							<hr class="line" style="border: solid 1px #000" />
+								<div class="container-sm content-size">
+									<div class="input-group mb-3">
+										<label for="inputID" class="col-3 col-form-label">ID</label>
+										<div class="col-sm-5">
+											<input id="modalUserId" type="text" class="form-control" value="${user.u_id }"
+												readonly />
+										</div>
+									</div>
+			
+									<p>
+										<button class="btn btn-secondary" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseExample"
+											aria-expanded="false" aria-controls="collapseExample">
+											비밀번호 변경</button>
+									</p>
+									<div class="collapse" id="collapseExample" style="width: 420px;">
+										<div class="card card-body">
+					                      <div class="mb-2 row mt-2">
+					                        <label for="inputPassword" class="col-4 col-form-label">새
+																		비밀번호</label>
+					                        <div class="col-sm-7">
+					                          <input type="password" id="newPasswordInput1" class="form-control" placeholder="새 비밀번호를 입력하세요."/>
+					                        </div>
+					                      </div>
+					
+					                      <div class="mb-2 row mt-2">
+					                        <label for="inputPassword" class="col-4 col-form-label">비밀번호 확인</label>
+					                        <div class="col-sm-7">
+					                          <input type="password" id="newPasswordInput2" class="form-control" placeholder="비밀번호를 확인하세요."/>
+					                        </div>
+					                      </div>								
+										</div>
+										<div id="passwordText" class="form-text"></div>
+									</div>
+								</div>
+							</div>
+							<hr />
+							<div class="container-sm content-size">
+								<div class="mb-2 row mt-2">
+									<label for="inputName" class="col-3 col-form-label">이름</label>
+									<div class="col-sm-5">
+										<input id="userName" type="text" class="form-control"
+											readonly />
+									</div>
+								</div>
+								<div class="mb-2 row mt-2">
+									<label for="inputEmail" class="col-3 col-form-label">E-MAIL</label>
+									<div class="col-sm-9">
+										<div class="input-group">
+											<input id="emailInput1" type="text" class="form-control"
+												name="u_email" readonly />
+											<button disabled id="emailButton1" type="button" class="btn btn-outline-secondary">
+													중복확인
+											</button>	
+										</div>
+										<div class="form-check form-switch">
+										  <input class="form-check-input" type="checkbox" role="switch" id="emailCheckSwitch">
+										  <label class="form-check-label" for="flexSwitchCheckDefault">이메일 변경</label>
+										  <div id="emailText" class="form-text"></div>
+										</div>
+											
+									</div>
+									
+								</div>
+								<div class="mb-2 row mt-2">
+									<label for="inputPhone" class="col-3 col-form-label">전화번호</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" id="userPhone"
+											name="u_phone" />
+									</div>
+								</div>
+								<div class="mb-2 row mt-2">
+									<label for="inputAddress" class="col-3 col-form-label">주소</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="userAddress"
+											name="u_address" />
+									</div>
+								</div>
+							</div>
+						<hr />
+					</div>
+				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary btn-edit" id="editConfirmButton" data-bs-dismiss="modal">수정</button>
+		        <button type="button" class="btn btn-secondary btn-edit" data-bs-dismiss="modal" >취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
 	<my:footer></my:footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -287,6 +431,8 @@
 <script>
 
 const ctx = "${pageContext.request.contextPath}";
+
+const u_id = document.querySelector("#u_id").value; 
 
 // ↓↓↓↓↓↓↓ 테이블 비동기 방식으로 변경하기 위한 테이블 생성 변수들 ↓↓↓↓↓↓↓↓
 
@@ -352,11 +498,10 @@ orderList();
 
 
 //리뷰 crud 메세지 toast
-const toast = new bootstrap.Toast(document.querySelector("#reviewMessageToast"));
+const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
 
 // 주문 배송 페이지 나오기
 function orderList(){
-	const u_id = document.querySelector("#u_id").value;
 	fetch(`\${ctx}/user/yjh/orderList/\${u_id}`)
 	.then(res => res.json())
 	.then(orderList => {
@@ -409,8 +554,6 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 
 // 작성한 리뷰 나오는 함수
 function myReview(){
-	
-	const u_id = document.querySelector("#u_id").value;
 	
 	fetch(`\${ctx}/user/yjh/reviewList/\${u_id}`)
 	.then(res => res.json())
@@ -576,7 +719,7 @@ document.querySelector("#reviewSendButton").addEventListener("click", function()
 	})
 	.then(res => res.json())
 	.then(data => {
-		document.querySelector("#reviewMessage1").innerText = data.message;
+		document.querySelector("#message1").innerText = data.message;
 		toast.show();
 	})
 	.then(() => myReview());
@@ -601,7 +744,7 @@ document.querySelector("#reviewModifyButton").addEventListener("click", function
 	})
 	.then(res => res.json())
 	.then(data => {
-		document.querySelector("#reviewMessage1").innerText = data.message;
+		document.querySelector("#message1").innerText = data.message;
 		toast.show();
 	})
 	.then(() => myReview());
@@ -615,7 +758,7 @@ function removeReview(reviewId){
 	})
 	.then(res => res.json())
 	.then(data => {
-		document.querySelector("#reviewMessage1").innerText = data.message;
+		document.querySelector("#message1").innerText = data.message;
 		toast.show();
 	})
 	.then(() => myReview());
@@ -651,8 +794,169 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 	});
 })
 
+
+//리뷰 수정 모달에 데이터 들어간다
+function readReviewAndSetModalForm(r_id){
+	fetch(`\${ctx}/review/yjh/get/\${r_id}`)
+	.then(res => res.json())
+	.then(review => {
+		document.querySelector("#reviewModifyContent").value = review.r_content;	
+	})	
+}
+	
+// 회원정보 수정 모달에 데이터 들어간다
+function readUserInfoAndSetModal(u_id){
+	fetch(`\${ctx}/user/yjh/editInfo/\${u_id}`)
+	.then(res => res.json())
+	.then(user => {
+		document.querySelector("#modalUserId").value = user.u_id;
+		document.querySelector("#userName").value = user.u_name;
+		document.querySelector("#userAddress").value = user.u_address;
+		document.querySelector("#userPhone").value = user.u_phone;
+		document.querySelector("#emailInput1").value = user.u_email; 
+		
+	})	
+}
+	
+readUserInfoAndSetModal(u_id);
+	
+let availablePassword = true;
+let availableEmail = true;
+
+// 회원정보수정버튼 클릭
+document.querySelector("#editConfirmButton").addEventListener("click", function(){
+	const u_id = document.querySelector("#modalUserId").value;
+	const u_pw = document.querySelector("#newPasswordInput1").value;
+	const u_name = document.querySelector("#userName").value;
+	const u_email = document.querySelector("#emailInput1").value;
+	const u_phone = document.querySelector("#userPhone").value;
+	const u_address = document.querySelector("#userAddress").value;
+		
+	const data = {
+			u_id, u_pw, u_name, u_email, u_phone, u_address
+	};
+		
+	fetch(ctx + "/user/yjh/editInfo" ,  {
+		method : "put",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#message1").innerText = data.message;
+		toast.show();
+	})
+	.then(() => myReview());
+})
+
+// 수정버튼 활성/비활성
+function enableModifyButton(){
+	const editButton = document.querySelector("#editConfirmButton");
+		
+	if(availablePassword && availableEmail){
+		//수정 버튼 활성화
+		editButton.removeAttribute("disabled")
+	} else {
+		//수정 버튼 비활성화
+		editButton.setAttribute("disabled", "");
+	}
+}
+
+// 새 비밀번호 일치여부 및 비밀번호 정규 표현식 적용
+const newPasswordInput1 = document.querySelector("#newPasswordInput1");
+const newPasswordInput2 = document.querySelector("#newPasswordInput2");
+const passwordText = document.querySelector("#passwordText");
+const passwordCheck = /(?=.*[0-9])(?=.*[a-z])(?=.*\W)(?=\S+$).{8,20}/ ;
+newPasswordInput1.addEventListener("keyup", matchPassword);
+newPasswordInput2.addEventListener("keyup", matchPassword);
+
+function matchPassword(){
+	availablePassword = false;
+	if(!passwordCheck.test(newPasswordInput1.value)|| (newPasswordInput1.value).length<8){
+		passwordText.innerText = "비밀번호는 영대소문자,숫자로 구성된 8글자 이상으로 조합하시오."	
+	} else {
+			
+		if(newPasswordInput1.value == newPasswordInput2.value){
+			passwordText.innerText = "암호가 일치합니다."
+			availablePassword = true;
+		} else {
+			passwordText.innerText = "암호가 일치하지 않습니다."		
+		}
+	}
+		
+	enableModifyButton();
+}
+
+
+// 이메일 변경 관련
+const emailButton1 = document.querySelector("#emailButton1");
+const emailInput1 = document.querySelector("#emailInput1");
+const emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/ ;
+const emailText = document.querySelector("#emailText");
+
+// 이메일 변경시 중복 검사 및 정규표현식
+
+// 이메일 중복확인 버튼 클릭하면 일어나는일
+emailButton1.addEventListener("click", function(){
+	availableEmail = false;
+		
+	const email = emailInput1.value;
+		
+	fetch(`\${ctx}/user/yjh/changeEmail`,{
+		method : "post",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify({email})
+	})
+	   .then(res => res.json())
+	   .then(data => {
+		   emailText.innerText = data.message;
+		   if(data.status == "not change"){
+			   availableEmail = true;
+		   }
+			   
+		   enableModifyButton();
+	   })
+	
+})
+
+// 이메일 input창 키보드 입력시
+emailInput1.addEventListener("keyup", function(){
+	availableEmail = false;
+	const oldEmail = emailInput1.dataset.oldEmail;
+	const newEmail = emailInput1.value;
+		
+	if(oldEmail==newEmail){
+		//기존 이메일과 같으면
+		emailText.innerText = "";
+		emailButton1.setAttribute("disabled", "disabled");
+		availableEmail = true;
+	} else{
+		//기존 이메일과 다르면 중복체크 활성화
+		emailText.innerText = "이메일 중복확인을 해주세요";
+		emailButton1.removeAttribute("disabled");
+	}
+	
+	enableModifyButton();
+})
+// 이메일 변경시 체크
+document.querySelector("#emailCheckSwitch").addEventListener("change",function(){
+	
+	if(this.checked){
+		emailInput1.removeAttribute("readonly");		
+	} else {
+		emailInput1.setAttribute("readonly","");		
+	}
+})
 // 모달 내용 초기화
-$('.modal').on('hidden.bs.modal', function (e) {
+$("#makeReviewModal").on('hidden.bs.modal', function (e) {
+	$(this).find('form')[0].reset();
+}) 
+
+$("#modifyReviewModal").on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();
 })
 

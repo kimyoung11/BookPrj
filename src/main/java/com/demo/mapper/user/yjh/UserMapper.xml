@@ -4,6 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.demo.mapper.user.yjh.UserMapper">
+  
+  	<select id="selectByEmail" resultType="com.demo.domain.user.yjh.UserDto">
+  		SELECT u_id, u_pw, u_name, u_phone, u_email, u_address
+		FROM User
+		WHERE u_email = #{u_email}; 
+  	
+  	</select>
   	
   	<select id="selectById" resultType="com.demo.domain.user.yjh.UserDto">
 		SELECT *FROM User where u_id =#{u_id}

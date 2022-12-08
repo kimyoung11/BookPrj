@@ -29,5 +29,7 @@ public interface UserMapper {
 	List<UserDto> selectQuestListByUser(String u_id);
 	
 	UserDto selectDetailOrdersByUser(String u_id);
+
+	UserDto selectByEmail(String email);
 	
 }

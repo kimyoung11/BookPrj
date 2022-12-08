@@ -83,5 +83,10 @@ public class UserService {
 		
 		return userMapper.selectQuestListByUser(u_id);
 	}
+
+	public UserDto getEmail(String email) {
+
+		return userMapper.selectByEmail(email);
+	}
 	
 }

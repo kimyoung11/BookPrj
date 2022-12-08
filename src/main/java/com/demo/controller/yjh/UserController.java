@@ -1,5 +1,6 @@
 package com.demo.controller.yjh;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.user.yjh.UserService;
 
@@ -22,7 +26,25 @@ import com.demo.service.user.yjh.UserService;
 public class UserController {
 	@Autowired
 	private UserService service;
-
+	
+	
+	@PostMapping("changeEmail")
+	@ResponseBody
+	public Map<String, Object> changeEmail(@RequestBody Map<String, String> req){
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto user = service.getEmail(req.get("email"));
+		
+		if(user == null) {
+			map.put("status", "not change");
+			map.put("message", "사용 가능한 이메일입니다.");
+		} else {
+			map.put("status", "change");
+			map.put("message", "이미 존재하는 이메일입니다.");
+		}
+		
+		return map;
+	}
 	
 	@GetMapping("bookLikeList/{u_id}")
 	@ResponseBody
@@ -77,21 +99,30 @@ public class UserController {
 		 
 	}
 
-	@GetMapping("editInfo")
-	public void getUserInfo(String u_id, Model model) {
+	@GetMapping("editInfo/{u_id}")
+	@ResponseBody
+	public UserDto getUserInfo(@PathVariable String u_id) {
 
-		UserDto user = service.getUserInfo(u_id);
-
-		model.addAttribute("user", user);
+		return service.getUserInfo(u_id);
+		
 	}
+	
 
-	@PostMapping("editInfo")
-	public String editUserInfo(UserDto user, RedirectAttributes rttr) {
+	@PutMapping("editInfo")
+	@ResponseBody
+	public Map<String, Object> editInfo(@RequestBody UserDto user) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int cnt = service.updateUser(user);
 
-		service.updateUser(user);
-
-		rttr.addAttribute("u_id", user.getU_id());
-
-		return "redirect:/user/yjh/editInfo";
+		if(cnt==1) {
+			map.put("message", "회원정보가 수정되었습니다.");
+		} else {
+			map.put("message", "회원정보가 수정되지 않았습니다.");
+		}
+		
+		return map;
 	}
+	
 }
