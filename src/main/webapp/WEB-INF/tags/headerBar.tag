@@ -23,12 +23,19 @@
 
 .wrapper {
 	box-shadow: 0px 0px 20px grey;
+	/* position: relative;
+	top: 0;
+	height: 5em;
+	width: 1200px; */
+	
 }
 
 .header-wrapper {
 	width: 1200px;
 	margin: 0 auto;
 	z-index: 10000;
+	
+	
 }
 
 h6 {

@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
-import com.demo.service.review.yjh.ReviewService;
 import com.demo.service.user.yjh.UserService;
 
 @Controller
