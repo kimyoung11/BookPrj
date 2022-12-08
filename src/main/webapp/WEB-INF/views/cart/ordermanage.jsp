@@ -8,16 +8,12 @@
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>주문 관리</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             font-family: 'Noto Sans KR', sans-serif;
@@ -39,26 +35,49 @@
             color: green;
             opacity: 1;
         }
+        
+        td {
+        	vertical-align: middle;
+        }
+        
+        select {
+        width: 100px;
+        border-radius: 5px;
+        border-width: 1px;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        }
+        
+        #selectButton{
+        width: 50px;
+        border-radius: 5px;
+        border: 0.5px;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        color: white;
+        background-color: #0d6efd;
+        }
     </style>
 </head>
 <body>
 	
     <div class="container-md" style="text-align: center;">
-        <h2>주문관리</h2>
+        <a href="/cart/ordermanage"><h2>주문관리</h2></a>
         <hr id="hr_line">
-        <div style="text-align: right;">
+        <div style= "vertical-align: middle; text-align: right">
             <form action="${orderList }">
             
-            <select name="q" id="">
-                <option value="0">상태</option>
-                <option value="1">입금확인</option>
-                <option value="2">배송중</option>
-                <option value="3">배송완료</option>
-                <option value="4">판매완료</option>
-                <option value="5">기타</option>
+            <select name="q">
+                <option value="">전체</option>
+                <option ${param.q == "입금확인" ? "selected" : "" } value="입금확인">입금확인</option>
+                <option ${param.q == "배송중" ? "selected" : "" } value="배송중">배송중</option>
+                <option ${param.q == "배송완료" ? "selected" : "" } value="배송완료">배송완료</option>
+                <option ${param.q == "판매완료" ? "selected" : "" } value="판매완료">판매완료</option>
             </select>
             
-            <button type="submit" class="btn btn-primary btn-sm">조회</button>
+            <button id="selectButton" type="submit">조회</button>
             
             </form>
         </div>
@@ -78,7 +97,7 @@
                 <tr>
                    <c:forEach items="${orders }" var="order" varStatus="sts">
                    		<tr>
-                   			<td>${order.o_number }</td>	
+                   			<td >${order.o_number }</td>	
                    			<td>${order.o_date }</td>
                    			<td>${order.b_title }</td>
                    			<td>${order.u_name}</td>
@@ -121,30 +140,28 @@
     <nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	  	
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=1"><i class="fa-solid fa-angles-left"></i></a></li>
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left"></i></a></li>
 		
-	 	<li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }"><i class="fa-solid fa-angle-left"></i></a></li>	
+	 	<li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left"></i></a></li>	
 	  
 	 	
 	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
 	    <c:url value="/cart/ordermanage" var="pageLink">
 	    	<c:param name="page" value="${pageNumber }"></c:param>
+	    	<c:param name="q" value="${param.q }"></c:param>
 	    </c:url>
 	    <li class="page-item
 	    	<%-- 현재 페이지에 active 클래스 추가 --%>
 	    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
 	    "><a class="page-link" href="${pageLink }">${pageNumber }</a></li>
 	    </c:forEach>
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }"><i class="fa-solid fa-angle-right"></i></a></li>
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }"><i class="fa-solid fa-angles-right"></i></a></li>
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right"></i></a></li>
+	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right"></i></a></li>
 	
 	  </ul>
 	</nav>
 
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
 	function setFormId(elem){
 		document.querySelector("#OrderDeleteButton").dataset.form = elem.dataset.form
