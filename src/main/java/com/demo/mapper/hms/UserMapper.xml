@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.hms.UserMapper">
+	
+	<!-- userID 중복 확인 -->
+	<select id="selectByUserId" resultType="com.demo.mapper.hms.UserVo">
+	SELECT    
+            u_id AS u_id,
+            u_pw AS u_pw,
+            u_name AS u_name,
+            u_phone AS u_phone,
+            u_email AS u_email,
+            u_address AS u_address    
+        FROM 
+        	User
+        WHERE 
+        	u_id = #{u_id} 
+	</select>
+	
+	<!-- userPhone 중복 확인 -->
+	<select id="selectByUserPhone" resultType="com.demo.mapper.hms.UserVo">
+	SELECT    
+            u_id AS u_id,
+            u_pw AS u_pw,
+            u_name AS u_name,
+            u_phone AS u_phone,
+            u_email AS u_email,
+            u_address AS u_address    
+        FROM 
+        	User
+        WHERE 
+        	u_phone = #{u_phone} 
+	</select>
+	
+	<!-- userEmail 중복 확인 -->
+	<select id="selectByUserEmail" resultType="com.demo.mapper.hms.UserVo">
+	SELECT    
+            u_id AS u_id,
+            u_pw AS u_pw,
+            u_name AS u_name,
+            u_phone AS u_phone,
+            u_email AS u_email,
+            u_address AS u_address    
+        FROM 
+        	User
+        WHERE 
+        	u_email = #{u_email} 
+	</select>
+	
+	<select id="loginCheck" resultType="string">
+	SELECT 
+		u_id
+	FROM 
+		User
+	WHERE
+		u_id = #{u_id}
+	AND u_pw = #{u_pw}
+	</select>
+
+	<select id="viewUser" resultType="com.demo.mapper.hms.UserVo">
+        SELECT    
+            u_id AS u_id,
+            u_pw AS u_pw,
+            u_name AS u_name,
+            u_phone AS u_phone,
+            u_email AS u_email,
+            u_address AS u_address  
+        FROM 
+        	User
+        WHERE 
+        	u_id = #{u_id} 
+        AND u_pw = #{u_pw}
+    </select>
+     
+    <!-- SQL문 삽입, 회원가입 -->
+    <insert id="insert">
+	INSERT INTO User (u_id
+					, u_pw
+					, u_name
+					, u_phone
+					, u_email
+					, u_address)
+	VALUES (#{u_id}
+		  , #{u_pw}
+		  , #{u_name}
+		  , #{u_phone}
+		  , #{u_email}
+		  , #{u_address})
+	</insert>
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
