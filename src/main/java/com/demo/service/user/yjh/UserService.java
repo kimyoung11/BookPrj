@@ -18,6 +18,8 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	
+	
 	public UserDto getById(String u_id) {
 		return userMapper.selectById(u_id);
 	}
