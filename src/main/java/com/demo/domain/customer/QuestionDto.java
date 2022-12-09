@@ -25,5 +25,9 @@ public class QuestionDto {
 	/* 날짜 json 스트링 형식으로 변경 */
 	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime a_date;
+	
+	
+	/* file */
+	private String fileName;
 
 }

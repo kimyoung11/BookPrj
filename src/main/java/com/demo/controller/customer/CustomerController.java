@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
@@ -64,14 +65,14 @@ public class CustomerController {
 	}
 
 	@PostMapping("question")
-	public void qiest(QuestionDto question) {
-		System.out.println(question);
+	public void qiest(QuestionDto question,
+				 MultipartFile file) {
+//		System.out.println(file.getOriginalFilename());
 		
-		questService.questInsert(question);
+		questService.questInsert(question, file);
 		
 	}
 
-	
 	
 //	자주 묻는 질문
 	@GetMapping("asked")
@@ -79,4 +80,6 @@ public class CustomerController {
 
 	}
 
+	
+	
 }

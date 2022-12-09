@@ -1,9 +1,12 @@
 package com.demo.service.customer;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
@@ -17,8 +20,30 @@ public class QuestionService {
 	private QuestionMapper mapper;
 	
 	/* 1:1 문의 추가 */
-	public void questInsert(QuestionDto question) {
+	@Transactional
+	public void questInsert(QuestionDto question, MultipartFile file) {
+		
+//		db에 문의 게시물 추가 
 		mapper.insert(question);
+		
+		
+		if (file != null && file.getSize() > 0) {
+//  	db에 파일 정보 저장  
+		mapper.insertFile(question.getQ_number(), file.getOriginalFilename() );
+		}
+//		파일명, 게시물 아이디 		
+		
+//		파일 저장 (받은 파일을 목적지로 전달 (목적지는 파일타입 ) 경로명 있어야함  )
+		File folder = new File("/Users/jeonglina/Desktop/Study/upload/prj/question/" + question.getQ_number());
+		folder.mkdirs();
+		File dest = new File(folder, file.getOriginalFilename());
+		try{
+			file.transferTo(dest);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	/* 1:1 문의 리스트 */

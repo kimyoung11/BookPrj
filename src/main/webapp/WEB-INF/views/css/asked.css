@@ -6,25 +6,6 @@
 	padding: 0;
 }
 
-h3 {
-	padding: 20px;
-	font-size: 34px;
-	margin-bottom: 20px;
-}
-
-ul {
-	padding: 0;
-}
-
-li {
-	list-style: none;
-	text-align: center;
-}
-
-a {
-	color: #333;
-	text-decoration: none;
-}
 
 #bestQuestion {
 	justify-content: center;

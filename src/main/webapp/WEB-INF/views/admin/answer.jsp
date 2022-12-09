@@ -68,9 +68,9 @@ a {
 				</div>
 		</div>
 		
-		
-
-		
+		<div>
+			<img src=/imgUrl/${questContent.q_number }/${questContent.fileName}" alt="">
+		</div>
 		
 		<!-- 1:1 문의 답변달기 -->
 		<div class="col">
@@ -89,8 +89,6 @@ a {
 	</div>
 	
 	
-
-
 	
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

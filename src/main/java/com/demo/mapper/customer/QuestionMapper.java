@@ -2,6 +2,8 @@ package com.demo.mapper.customer;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.demo.domain.customer.QuestionDto;
 
 public interface QuestionMapper {
@@ -17,4 +19,6 @@ public interface QuestionMapper {
 	int add(QuestionDto quest);
 
 	List<QuestionDto> answerSelect(int q_number);
+
+	int insertFile(int q_number, String fileName);
 }

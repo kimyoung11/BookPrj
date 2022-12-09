@@ -6,9 +6,15 @@
 <mapper namespace="com.demo.mapper.customer.QuestionMapper">
 
 <!-- 1:1 문의 추가 -->
-<insert id="insert">
+<insert id="insert" useGeneratedKeys="true" keyProperty="q_number">
 	INSERT INTO Quest (q_title, q_content, u_id)
 	VALUES (#{q_title}, #{q_content}, #{u_id})
+</insert>
+
+<!-- 파일 정보 저장 추가 -->
+<insert id="insertFile">
+	 INSERT INTO File (f_name, q_number)
+	 VALUES (#{fileName}, #{q_number})
 </insert>
 
 
@@ -35,15 +41,16 @@
 <!-- 1:1 문의 콘텐츠 보여줌 -->
 <select id="select" resultType="com.demo.domain.customer.QuestionDto">
 	SELECT
-		q_number,
-		q_title,
-		q_content,
-		q_date,
-		u_id
+		q.q_number,
+		q.q_title,
+		q.q_content,
+		q.q_date,
+		q.u_id,
+		f.f_name fileName
 	FROM
-		Quest
+		Quest q LEFT JOIN File f ON q.q_number = f.q_number
 	WHERE
-		q_number = #{q_number}
+		q.q_number = #{q_number}
 </select>
 
 
@@ -64,6 +71,7 @@
 	WHERE
 		q_number = #{q_number}
 </select>
+
 
 
 </mapper>

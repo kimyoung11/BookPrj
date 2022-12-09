@@ -41,7 +41,7 @@
 
 				<!-- selected -->
 				<div class="container-sm">
-					<form action="" method="post">
+					<form action="" method="post" enctype="multipart/form-data">
 						<div class="mb-4 row mt-5">
 							<select class=" form-select" aria-label="Default select example">
 								<option selected>문의할 사항을 선택하세요.</option>
@@ -69,7 +69,7 @@
 						<div class="mb-3 row">
 							<label for="inputPassword" class="col-sm-1 col-form-label">첨부파일</label>
 							<div class="col-sm-4">
-								<input type="file" class="form-control">
+								<input name="file" accept="image/*" type="file" class="form-control">
 							</div>
 							<span class="guide-top">첨부가능 용량은 파일당 6MB 미만이며, 최대 6개까지 가능합니다.</span> 
 							<span class="guide-bottom">첨부가능 파일 확장자: JPG,PNG,GIF</span>
