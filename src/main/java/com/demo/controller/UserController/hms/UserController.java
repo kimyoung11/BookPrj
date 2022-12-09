@@ -50,7 +50,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("user/main");
+			mav.setViewName("book/main");
 			mav.addObject("msg", "success");
 		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
 			mav.setViewName("user/fail");
@@ -68,7 +68,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public ModelAndView logout(HttpSession session) {
 		memberUserService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/login");
+		mav.setViewName("book/main");
 		mav.addObject("msg", "logout");
 		
 		return mav;
@@ -88,7 +88,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 		
 		// 가입 성공
 		rttr.addFlashAttribute("message", "회원가입 되었습니다.");
-		return "user/main";
+		return "book/main";
 	}
 
 	// 05. 아이디 중복 확인
