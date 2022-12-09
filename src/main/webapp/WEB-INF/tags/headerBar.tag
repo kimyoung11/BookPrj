@@ -8,9 +8,11 @@
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
 <c:url value="/book/list" var="listBest" />
-<c:url value="/cart/cart" var="cartView"></c:url>
-<c:url value="/user/login" var="loginView"></c:url>
-<c:url value="/customer/asked" var="customerView"></c:url>
+<c:url value="/cart/cart" var="cartView" />
+<c:url value="/user/login.do" var="loginView" />
+<c:url value="/customer/asked" var="customerView" />
+<c:url value="/user/signup" var="signUp" />
+<c:url value="/user/logout.do" var="logOut" />
 
 
 <link rel="stylesheet"
@@ -136,10 +138,18 @@ a {
 				</div>
 				<div class="col-sm-3 d-flex justify-content-end">
 					<div class="login-btn">
-						<a href="#">로그인</a>
+					<c:if test="${u_id == null}">
+						<a href="${loginView}">로그인</a>
+					</c:if>
+					<c:if test="${u_id != null}">
+						<a href="${logOut}">로그아웃</a>
+					</c:if>
 					</div>
+					
 					<div class="register-btn">
-						<a href="#">회원가입</a>
+						<c:if test="${u_id == null}">
+							<a href="${signUp}">회원가입</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

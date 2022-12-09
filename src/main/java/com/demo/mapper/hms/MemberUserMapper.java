@@ -3,7 +3,7 @@ package com.demo.mapper.hms;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface UserMapper {
+public interface MemberUserMapper {
 
 	int insert(UserVo vo);
 

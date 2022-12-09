@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.demo.domain.hms.UserService;
-import com.demo.mapper.hms.UserMapper;
+import com.demo.mapper.hms.MemberUserMapper;
 import com.demo.mapper.hms.UserVo;
+import com.demo.service.hms.MemberUserService;
 
 @Controller // 현재 클래스를 Spring에서 관리하는 Controller bean 생성
 @RequestMapping("/user/*") // 모든 Mapping은 /user/를 상속
@@ -31,7 +31,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired // @Inject를 대신함
-	UserService userService;
+	MemberUserService memberUserService;
 
 	// 01. 로그인 화면
 
@@ -47,10 +47,10 @@ public class UserController { // 로그인, 로그아웃 매핑
 
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
-		boolean result = userService.loginCheck(vo, session);
+		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("user/main");
+			mav.setViewName("book/main");
 			mav.addObject("msg", "success");
 		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
 			mav.setViewName("user/fail");
@@ -66,9 +66,9 @@ public class UserController { // 로그인, 로그아웃 매핑
 
 	@RequestMapping("logout.do")
 	public ModelAndView logout(HttpSession session) {
-		userService.logout(session);
+		memberUserService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/login");
+		mav.setViewName("book/main");
 		mav.addObject("msg", "logout");
 		
 		return mav;
@@ -84,11 +84,11 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public String signup(@ModelAttribute UserVo vo, RedirectAttributes rttr) {
 		System.out.println(vo); // 작동 되는지 확인
 
-		int cnt = userService.insert(vo);
+		int cnt = memberUserService.insert(vo);
 		
 		// 가입 성공
 		rttr.addFlashAttribute("message", "회원가입 되었습니다.");
-		return "user/main";
+		return "book/main";
 	}
 
 	// 05. 아이디 중복 확인
@@ -97,7 +97,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public Map<String, Object> existId(@PathVariable String u_id) {
 		Map<String, Object> map = new HashMap<>();
 
-		UserVo vo = userService.getByu_id(u_id);
+		UserVo vo = memberUserService.getByu_id(u_id);
 
 		if (vo == null) {
 			map.put("status", "not exist");
@@ -116,7 +116,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public Map<String, Object> existPhone(@PathVariable String u_phone) {
 		Map<String, Object> map = new HashMap<>();
 
-		UserVo vo = userService.getByu_phone(u_phone);
+		UserVo vo = memberUserService.getByu_phone(u_phone);
 
 		if (vo == null) {
 			map.put("status", "not exist");
@@ -135,7 +135,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public Map<String, Object> existEmail(@PathVariable String u_email) {
 		Map<String, Object> map = new HashMap<>();
 
-		UserVo vo = userService.getByu_email(u_email);
+		UserVo vo = memberUserService.getByu_email(u_email);
 
 		if (vo == null) {
 			map.put("status", "not exist");

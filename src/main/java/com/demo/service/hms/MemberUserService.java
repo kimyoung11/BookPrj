@@ -1,18 +1,18 @@
-package com.demo.domain.hms;
+package com.demo.service.hms;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.mapper.hms.UserMapper;
+import com.demo.mapper.hms.MemberUserMapper;
 import com.demo.mapper.hms.UserVo;
 
 @Service // 현재 클래스를 스프링에서 관리하는 service bean으로 등록
-public class UserService { // 인터페이스 구현
+public class MemberUserService { // 인터페이스 구현
 	
 	@Autowired
-	UserMapper mapper;
+	MemberUserMapper mapper;
 	
 	// 3. 회원가입
 	public int insert(UserVo vo) {

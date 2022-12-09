@@ -209,4 +209,10 @@ public class BookController {
 		}
 		return hm;
 	}
+	
+	/*
+	 * @RequestMapping("logout.do") public String logout() { return
+	 * "redirect:/book/main"; }
+	 */
+	
 }
