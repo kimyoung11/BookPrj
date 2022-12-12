@@ -164,11 +164,12 @@ public class UserController {
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("book/main");
-			mav.addObject("msg", "success");
+			mav.setViewName("redirect:/book/main");
+			/* mav.addObject("id", vo.getu_id()); */
+			session.setAttribute("id", vo.getu_id());
 		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
-			mav.setViewName("user/fail");
-			mav.addObject("msg", "failure");
+			mav.setViewName("redirect:/user/login.do");
+			/* mav.addObject("msg", "failure"); */
 		}
 		return mav;
 	}
@@ -182,8 +183,8 @@ public class UserController {
 	public ModelAndView logout(HttpSession session) {
 		memberUserService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("book/main");
-		mav.addObject("msg", "logout");
+		mav.setViewName("redirect:/book/main");
+		/* mav.addObject("msg", "logout"); */
 		
 		return mav;
 	}
@@ -261,4 +262,11 @@ public class UserController {
 
 		return map;
 	}
+	
+	// 08. 아이디 찾기 
+	@RequestMapping("/findID.do")
+	public String findID() {
+		return "/user/findID";
+	}
+
 }
