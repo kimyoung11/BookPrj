@@ -218,7 +218,9 @@
                 </li>
                 <li>
                 ${item.b_code }
+
                 <c:if test="${u_id !=null}">
+
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
                   </a>                
@@ -237,6 +239,17 @@
                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
                     구매하기
                   </a>
+                 </c:if>
+                 <c:if test="${u_id==null }">
+                 	<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+	                 	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+	                 		장바구니
+	                 	</a>
+	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
+                    구매하기
+                  </a>
+                 </c:if>
+
                 </li>
                 <hr />
                 
@@ -290,6 +303,7 @@
     }*/
     
     function wantBook(target){
+
 /*     	console.log(target); */
     	console.log(target.dataset.item);
     	const bookData = target.dataset.item; //1

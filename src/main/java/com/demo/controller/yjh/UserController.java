@@ -81,9 +81,10 @@ public class UserController {
 
 	// 마이페이지 유저정보
 	 @GetMapping("myPage") 
-	 public void getUserPageInfo(String id, Model model) {
-	  
-	 UserDto user = service.getUserPageInfo(id);
+	 public void getUserPageInfo(HttpSession session, Model model) {
+	 
+	 String u_id = (String)session.getAttribute("id");
+	 UserDto user = service.getUserPageInfo(u_id);
 	 
 	 model.addAttribute("user", user);
 	 
