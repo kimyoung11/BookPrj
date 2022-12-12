@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
@@ -97,14 +98,14 @@ public class BookController {
 	
 	@GetMapping("detail/{b_code}")
 	public String get(@PathVariable int b_code,
-			Model model) {
-		String u_id = "aa";
+			Model model,HttpSession session) {
+		String u_id = (String)session.getAttribute("id");
 //		List<BookDto> temp = service.getByCodeAndId(u_id,b_code);
 		BookDto temp = bookService.getByCode(b_code); //1번책
 //		System.out.println(temp);
 		
 		int likeStatus = bookService.getLikeCount(b_code, u_id);
-		System.out.println(likeStatus);
+		System.out.println("this is likeStatus:" + likeStatus);
 		if(likeStatus ==0)
 			model.addAttribute("likeStatus", "false");
 		else if(likeStatus ==1)
@@ -115,8 +116,8 @@ public class BookController {
 	
 	
 	@GetMapping("order/{b_code}")
-	public String orderBasket(@PathVariable int b_code,Model model, int number) {
-		String u_id="aa";
+	public String orderBasket(@PathVariable int b_code,Model model, int number,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
 		//System.out.println("this is b_code" + b_code);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
@@ -133,7 +134,7 @@ public class BookController {
 	
 	@PostMapping("cart")
 	@ResponseBody
-	public Map<String,Object> addToCart(@RequestBody CartDto cart) {
+	public Map<String,Object> addToCart(@RequestBody CartDto cart,HttpSession session) {
 		cart.setC_count(1);
 		CartDto temp = cart;
 		System.out.println(temp);
@@ -149,8 +150,8 @@ public class BookController {
 	}
 	
 	@GetMapping("cart")
-	public String cartBasket(@RequestParam int b_code, @RequestParam int c_cnt,RedirectAttributes rttr) {
-		String u_id="aa";
+	public String cartBasket(@RequestParam int b_code, @RequestParam int c_cnt,RedirectAttributes rttr,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
 		//System.out.println("실행 된거 맞나?"+ " " + c_cnt); //3번책 7권
 		rttr.addAttribute("b_code", b_code);
 		int isInsert = cartService.insertToCart(c_cnt,u_id,b_code);
@@ -168,8 +169,8 @@ public class BookController {
 	}
 	
 	@GetMapping("order")
-	public void order(@RequestParam int b_code,@RequestParam int c_cnt,Model model) {
-		String u_id="aa";
+	public void order(@RequestParam int b_code,@RequestParam int c_cnt,Model model,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
 		//System.out.println("this is order:" + b_code + " " + c_cnt);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
@@ -182,10 +183,11 @@ public class BookController {
 	
 	@PostMapping("like")
 	@ResponseBody
-	public Map<String,Object> like1(@RequestBody Map<String, Object> map) {
+	public Map<String,Object> like1(@RequestBody Map<String, Object> map,HttpSession session) {
 		//System.out.println("호출 완료");
-		//System.out.println(map);
-		int likeStatus = bookService.addLike((Integer)map.get("b_code"),(String)map.get("u_id"));
+		String u_id = (String) session.getAttribute("id");
+		System.out.println("this is u_id:" + u_id);
+		int likeStatus = bookService.addLike((Integer)map.get("b_code"),u_id);
 		bookService.addBookLike((Integer)map.get("b_code"));
 		int bookCnt = bookService.getBookLike((Integer)map.get("b_code"));
 		System.out.println(bookCnt);
@@ -203,10 +205,11 @@ public class BookController {
 	
 	@PutMapping("like")
 	@ResponseBody
-	public Map<String,Object> like2(@RequestBody Map<String, Object> map) {
+	public Map<String,Object> like2(@RequestBody Map<String, Object> map,HttpSession session) {
+		String u_id = (String) session.getAttribute("id");
 		System.out.println("호출 완료2");
 		System.out.println(map);
-		int likeStatus = bookService.removeLike((Integer)map.get("b_code"),(String)map.get("u_id"));
+		int likeStatus = bookService.removeLike((Integer)map.get("b_code"),u_id);
 		bookService.addBookLike((Integer)map.get("b_code"));
 		int bookCnt = bookService.getBookLike((Integer)map.get("b_code"));
 		System.out.println(bookCnt); 
