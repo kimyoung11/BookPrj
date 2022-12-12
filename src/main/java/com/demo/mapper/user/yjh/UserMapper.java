@@ -12,9 +12,9 @@ public interface UserMapper {
 
 	UserDto selectUserPageInfo(String id);
 	
-	int countLikeByUserId(String userId);
+	int countLikeByUserId(String u_id);
 	
-	int countCartByUserId(String userId);
+	int countCartByUserId(String u_id);
 
 	int updateUser(UserDto user);
 	

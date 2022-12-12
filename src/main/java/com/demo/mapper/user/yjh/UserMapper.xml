@@ -44,15 +44,13 @@
   	
   	<select id="selectUserPageInfo" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT 
-  				u.u_id,
-	   			COUNT(DISTINCT L.u_id) countLike,	
-	   			SUM(c_count) countCart
+  				u_id,
+				(SELECT COUNT(b_code) FROM BookLike) countLike,
+       			(SELECT SUM(c_count) FROM Cart) countCart
 		FROM 	
-				User u 
-				LEFT JOIN BookLike L ON u.u_id = L.u_id
-				LEFT JOIN Cart c ON u.u_id = c.u_id
+				User 
   		WHERE 	
-  				u.u_id = #{u_id};
+  				u_id = #{u_id};
   	</select>
   	
   	<select id="selectOrderByUser" resultType="com.demo.domain.user.yjh.UserDto">
@@ -93,13 +91,13 @@
   	
   	<select id="selectMakeReviewListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT 
-  				od.b_code , b.b_title
+  				O.b_code , b.b_title
 		FROM 
-				OrderDetail od 
-				LEFT OUTER JOIN Review r ON r.b_code = od.b_code
-				LEFT JOIN Book b ON od.b_code = b.b_code
+				OrderDetail O 
+				LEFT OUTER JOIN Review r ON r.b_code = O.b_code
+				LEFT JOIN Book b ON O.b_code = b.b_code
 		WHERE 
-				od.u_id = #{u_id} AND r.u_id IS NULL;
+				O.u_id = #{u_id} AND r.u_id IS NULL;
   	</select>
   	
   	<select id="selectQuestListByUser" resultType="com.demo.domain.user.yjh.UserDto">

@@ -19,7 +19,7 @@ import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.service.review.yjh.ReviewService;
 
 @RestController
-@RequestMapping("review/yjh") 
+@RequestMapping("review") 
 	public class ReviewController {
 
 	@Autowired 
