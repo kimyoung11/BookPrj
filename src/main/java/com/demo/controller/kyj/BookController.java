@@ -1,10 +1,17 @@
 package com.demo.controller.kyj;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -209,4 +216,11 @@ public class BookController {
 		}
 		return hm;
 	}
+	
+	@RequestMapping("chat")
+	@GetMapping
+	private String chat(Locale locale,Model model) {
+		return "chat";
+	}
+
 }
