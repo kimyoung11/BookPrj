@@ -13,6 +13,7 @@
 <c:url value="/customer/asked" var="customerView" />
 <c:url value="/user/signup" var="signUp" />
 <c:url value="/user/logout.do" var="logOut" />
+<c:url value="/user/myPage" var="myPage" />
 
 
 <link rel="stylesheet"
@@ -130,7 +131,7 @@ a {
 					<!-- mypage -->
 						<c:if test="${u_id != null}">
 							<span class="icons"> 
-								<a href="#" class="icon-size"> 
+								<a href="${myPage}" class="icon-size"> 
 									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>			
 								</a>
 							</span>

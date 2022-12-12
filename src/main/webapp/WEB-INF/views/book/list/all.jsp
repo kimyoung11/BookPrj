@@ -218,9 +218,19 @@
                 </li>
                 <li>
                 ${item.b_code }
+                <c:if test="${u_id !=null}">
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
+                  </a>                
+                </c:if>
+                <c:if test="${u_id ==null }">
+                <c:url value="${pageContext.request.contextPath}/user/login.do" var="login"></c:url>
+                	<a type="button" class="btn btn-secondary cart-btn want" href="
+                	${login }
+                	">
+                    장바구니
                   </a>
+                </c:if>
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
                   	<c:param name="number" value="1"/>
                   </c:url>
@@ -284,7 +294,7 @@
     	console.log(target.dataset.item);
     	const bookData = target.dataset.item; //1
     	const form ={
-    			u_id : 'aa',
+    			u_id : '<%=(String)session.getAttribute("id")%>',
     			b_code : `\${bookData}`
     	};
     	

@@ -178,6 +178,7 @@
     </div>
 </div>
 </div>
+<my:footer></my:footer>
 <script>
 	const totalP = document.querySelectorAll("#totalPrice");
 	let totalSum = 0;
@@ -185,8 +186,9 @@
 		totalSum = totalSum + parseInt(e.innerText);
 	}
 	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
+	
+	
 </script>
-<my:footer></my:footer>
 </body>
 
 </html>
