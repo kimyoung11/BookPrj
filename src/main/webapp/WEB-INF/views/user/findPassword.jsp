@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h1>실패</h1>
+
 </body>
 </html>
