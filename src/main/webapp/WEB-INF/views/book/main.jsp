@@ -327,6 +327,14 @@ section.faq {
   right: 20px;
   display: none;
 }
+
+#btn-back-to-top2 {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  display: inline;
+  height: 50px;
+}
 </style>
 <body>
 	<my:headerBar></my:headerBar>
@@ -411,16 +419,10 @@ section.faq {
                 <div class="carousel-container">
                     <h6>NEW 주목받는 신작</h6>
                     <div id="slider-div">
-	                    <div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/01.png"></div>
-	                	<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/02.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/03.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/04.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/05.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/01.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/02.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/03.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/04.png"></div>
-	               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/05.png"></div>
+                    	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
+	                    <div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
+                    	</c:forEach>
+	                	
                     </div>
                 </div>
             </div>
@@ -431,16 +433,9 @@ section.faq {
             <div class="carousel-container">
                 <h6>스테디셀러</h6>
                 <div id="slider-div2">
-                	<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/04.png"></div>
-                	<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/03.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/02.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/01.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/02.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/05.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/04.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/03.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/02.png"></div>
-               		<div class="img-wrapper"><img src="${pageContext.request.contextPath}/content/small_size/01.png"></div>
+                	<c:forEach items="${ranBookList }" var="book">
+	                	<div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
+                	</c:forEach>
                </div>
            </div>
        </div>
@@ -463,26 +458,55 @@ section.faq {
                   <li>
                     <input type="checkbox" checked> 
                     <i></i>
-                    <h2 style="font-weight: 500;">환불요청</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae debitis iusto voluptatum doloribus rem, qui nesciunt labore tempore fugit iste deserunt incidunt error provident repudiandae laudantium quo ipsa unde perspiciatis, nihil autem distinctio! Deserunt, aspernatur.</p>
+                    <h2 style="font-weight: 500;">주문취소시 환불은 어떻게 되나요?</h2>
+                    <p> 결제수단별 환불 안내 <br>
+						(1) 신용카드 (간편결제 포함) <br>
+						- 전체 취소 : 카드사 매입전은 당일 취소되며, 카드사 매입 후는 카드사에 따라 2일~ 최대 2주(공휴일 제외) 소요됩니다. <br>
+						- 부분 취소 : 카드사 매입 후 취소 처리되며, 카드사에 따라 2일~ 최대 2주(공휴일 제외) 소요됩니다. (당일 부분취소한 경우도 동일함) <br>
+						<br>
+						(2) 실시간 계좌이체 <br>  
+						- 전체 취소 : 승인한 당일 실시간 계좌이체 시, 결제한 본인 계좌로 입금됩니다.  <br>
+						- 부분 취소 : 익일에 실시간 계좌이체 시, 결제한 본인 계좌로 입금됩니다.
+						</p>
                   </li>
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">환불요청</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quasi, quia provident facere recusandae itaque assumenda fuga veniam dicta earum dolorem architecto facilis nisi pariatur.</p>
+                    <h2 style="font-weight: 500;">주문하면 얼마 만에 받아볼 수 있나요?</h2>
+                    <p>
+                    고객님께서 주문하신 상품을 실제 받으시는 날은 "예상출고일 + 배송일"입니다. <br>
+					'예상출고일'이란 근무일 기준으로 도서가 준비되는 시간 만을 안내하는 것이며, 배송시간은 예상출고일 외 택배를 통해 고객님께 실제 배달되는 기간을 말합니다. <br>
+					'출고예정일'은 상품에 따라 준비기간이 다르며 배송 시간은 지역에 따라 약간씩 다르나 보통 1~3일정도 소요됩니다. (도서산간지역은 최대 7일 소요) <br> 
+					<br>
+					* 예상출고일은 영업일 기준으로 산정되며, 일요일과 공휴일 및 기타 휴무일에는 배송되지 않습니다. (우체국 배송은 토요일 휴무로 배송 불가함) <br>	
+					* 주문한 상품의 당사에 재고가 없을 때는 거래처로 다시 주문 요청한 후 출고되므로 3∼7일내외 정도 더 소요됩니다. <br>
+					* 천재지변 등의 불가항력적 사유로 인한 배송 지연은 그 해당기간 동안의 배송소요 기간에서 제외됩니다. <br>
+                    </p>
                   </li>
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">환불요청</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam quas placeat assumenda mollitia magni consequatur dolorum, quod nihil distinctio aperiam officia alias! Voluptate dolore ex officiis sit, magnam non a, eligendi pariatur aut, earum dolores tenetur ipsam id illo deleniti. Laudantium deserunt eaque ipsam voluptatum consequuntur voluptatibus sed minima ad accusamus debitis eos similique laboriosam, molestiae? Consequatur neque tempore quis. Eligendi, in ut aspernatur esse nesciunt libero.</p>
+                    <h2 style="font-weight: 500;">인터넷 주문도서의 반품이 가능한가요?</h2>
+                    <p>
+                    	1.고객님의 변심 또는 주문오류로 인한 반품신청일때,
+                    	타 도서로의 교환이 불가하며, <br>
+						교보문고에서 주문하신 상품의 경우, 반품 교환이 가능한 종류에 한해 상품을 수령하신 날로부터 <br>7일 이내 반품신청이 가능합니다.
+						반송료는 고객님께서 부담하시게 됩니다.  <br>
+						단, 반품하실 도서는 사용하지 않고, 상품 자체의 비닐 래핑이 되어있는 책은 비닐 래핑은 벗기지 않으며, <br>
+						음반의 경우 비닐개봉을 하지 않은 상태로 재생하지 않는 상태일 때 가능합니다. <br>
+						<br>
+						2. 주문하신 상품의 결함 및 계약내용과 다를 경우, 문제점 발견 후 30일 이내 반품신청이 가능합니다. <br>
+					</p>
                   </li>
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">환불요청</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam quas placeat assumenda mollitia magni consequatur dolorum, quod nihil distinctio aperiam officia alias! Voluptate dolore ex officiis sit, magnam non a, eligendi pariatur aut, earum dolores tenetur ipsam id illo deleniti. Laudantium deserunt eaque ipsam voluptatum consequuntur voluptatibus sed minima ad accusamus debitis eos similique laboriosam, molestiae? Consequatur neque tempore quis. Eligendi, in ut aspernatur esse nesciunt libero.</p>
+                    <h2 style="font-weight: 500;">현금영수증은 어떻게 신청할 수 있나요?</h2>
+                    <p>
+                    인터넷으로 현금성결제수단(온라인송금,실시간계좌이체,예치금 결제)으로 주문하실 경우 주문과정의 결제 화면에서 결제방법 선택 하시면 휴대폰번호나 카드번호,사업자등록번호를 입력하시는 것으로 직접 신청하실 수 있습니다. <br> 
+                    ※ 현금영수증의 경우 현금영수증 발급시기는 금권이 오고간 시기 혹은 현금을 입금한 시기에 발생되어야 하며, 발급없이 지나간 건에 대해서는 발급받으실 수 없습니다. <br>
+                    인터넷 주문시에는 결제한 익일 국세청에 신고되어 2~3일 내에 발행내역을 확인할 수 있습니다. *현금영수증을 발행한 경우 계산서 발급이 안되오니 이 점 참고하시길 바랍니다.
+                    </p>
                   </li>
                   <br>
                   <br>
@@ -490,11 +514,34 @@ section.faq {
                 </ul>
               </div>
               <button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top"><i class="fas fa-arrow-up"></i></button>
+              <button type="button" class="btn btn-secondary" id="btn-back-to-top2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="fas fa-regular fa-comment fa-xl"></i></button>
+        </div>
+        <div>
+        	
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="${pageContext.request.contextPath}/book/chat" width="480" height="500" frameborder="0" allowtransparency="true"></iframe> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
         </div>
         <div id="footer">
             <my:footer></my:footer>
         </div>
-
+		
 	<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

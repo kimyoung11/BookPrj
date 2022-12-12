@@ -16,11 +16,11 @@ public class OrdersService {
 	@Autowired
 	private OrdersMapper ordersMapper;
 	
-	public List<OrdersDto> ordermanage(int page, PageInfo pageInfo) {
+	public List<OrdersDto> ordermanage(int page, String keyword, PageInfo pageInfo) {
 		int records = 5;
 		int offset = (page - 1) * records;
 		
-		int countAll = ordersMapper.countAll();
+		int countAll = ordersMapper.countAll("%" + keyword + "%");
 		int lastPage = (countAll - 1) /  records + 1;
 		
 		int leftPageNumber = (page -1) / records * records + 1;
@@ -37,7 +37,7 @@ public class OrdersService {
 		pageInfo.setLeftPageNumber(leftPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
 		
-		return ordersMapper.select(offset, records);
+		return ordersMapper.select(offset, records, "%" + keyword + "%");
 	}
 
 	public List<CartDto> cartlist() {

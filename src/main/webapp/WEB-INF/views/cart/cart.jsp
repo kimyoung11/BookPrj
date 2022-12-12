@@ -57,6 +57,7 @@ a {
 </style>
 <body>
 	<my:headerBar></my:headerBar>
+	<div style="margin-top: 30px"></div>
 	<div class="container-md text-center">
 		<div class="row">
 			<h2>장바구니</h2>

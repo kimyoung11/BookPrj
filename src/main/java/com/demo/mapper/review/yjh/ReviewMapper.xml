@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.demo.mapper.review.yjh.ReviewMapper">
+  
+  
+  	<select id="selectReview" resultType="com.demo.domain.review.yjh.ReviewDto">
+  		SELECT r_content , r_star
+		FROM Review
+		WHERE r_id = #{r_id};
+  	</select>
+  
+  	<update id="updateReview">
+  		UPDATE Review
+		SET r_star = #{r_star},
+			r_content = #{r_content}
+		WHERE r_id = #{r_id}; 
+  	</update>
+  
+  	<insert id="insertReview">
+  		INSERT INTO Review (r_content, r_star, b_code, u_id)
+		VALUES(#{r_content}, #{r_star}, #{b_code}, #{u_id});
+  	</insert>
+  	
+  	<delete id="deleteReview">
+  		DELETE FROM Review
+  		WHERE r_id = #{r_id};
+  	</delete>
+  	
+  </mapper>
