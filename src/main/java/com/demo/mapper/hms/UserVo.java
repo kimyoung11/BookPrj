@@ -31,6 +31,7 @@ public class UserVo { // 데이터 저장소
 	// User Name
 	public String getu_name() {
 		return u_name;
+		
 	}
 	public void setu_name(String u_name) {
 		this.u_name = u_name;
