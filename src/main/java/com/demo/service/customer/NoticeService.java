@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
+import com.demo.domain.customer.QuestionDto;
 import com.demo.mapper.customer.NoticeMapper;
 
 @Service
@@ -25,7 +26,9 @@ public class NoticeService {
 
 	
 	/* get이랑 겹침 */
-	 public NoticeDto listContent(int n_id) { return mapper.select(n_id); }
+	 public NoticeDto listContent(int n_id) { 
+		 return mapper.select(n_id); 
+	}
 	 
 	
 	
@@ -61,6 +64,8 @@ public class NoticeService {
 		pageInfo.setJumpPrevPageNumber(jumpPrevPageNumber);
 		pageInfo.setJumpNextPageNumber(jumpNextPageNumber);
 		pageInfo.setCurrentPageNumber(page);
+		
+
 		pageInfo.setLeftPageNumber(leftPageNumber);
 		pageInfo.setRightPageNumber(rightPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
@@ -78,6 +83,7 @@ public class NoticeService {
 		return mapper.delete(id);
 		
 	}
+
 
 
 

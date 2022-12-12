@@ -70,14 +70,7 @@ public class CustomerController {
 		questService.questInsert(question);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 //	자주 묻는 질문

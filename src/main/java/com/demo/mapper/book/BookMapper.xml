@@ -64,4 +64,33 @@
 		WHERE b_title LIKE '${b_title}'
 	</select>
 	
+	<insert id="insertBook">
+		INSERT INTO Book(b_title, b_writer, b_pubDate, b_price, b_genre, b_img)
+		VALUES (#{b_title},#{b_writer},#{b_pubDate},#{b_price},#{b_genre},#{b_img})
+	</insert>
+	
+	<select id="selectBookList" resultType="com.demo.domain.book.BookDto">
+		SELECT 
+		b_code,b_title,b_writer,b_pubDate,b_price,b_genre,b_img 
+		FROM Book
+	</select>
+	
+	<update id="updateBook">
+	UPDATE Book
+	SET
+		b_title = #{b_title},
+		b_writer = #{b_writer},
+		b_pubDate = #{b_pubDate},
+		b_price = #{b_price},
+		b_genre =#{b_genre},
+		b_img = #{b_img}
+	WHERE
+		b_code = #{b_code}
+	</update>
+	
+	<delete id="deleteBook">
+		DELETE FROM Book
+		WHERE b_code = #{b_code}
+	</delete>
+	
 </mapper>

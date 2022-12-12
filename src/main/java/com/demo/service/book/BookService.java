@@ -65,6 +65,22 @@ public class BookService {
 
 	public List<BookDto> ranBookList() {
 		return bookMapper.selectRanBook();
+
+	public int insertBook(BookDto bookDto) {
+		return bookMapper.insertBook(bookDto);
+	}
+
+	public List<BookDto> getBookList() {
+		return bookMapper.selectBookList();
+	}
+
+	public int modifyBook(BookDto bookDto) {
+		return bookMapper.updateBook(bookDto);
+	}
+
+	public int removeBook(int b_code) {
+		return bookMapper.deleteBook(b_code);
+
 	}
 
 	

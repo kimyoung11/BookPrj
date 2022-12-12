@@ -8,8 +8,12 @@
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
 <c:url value="/book/list" var="listBest" />
-<c:url value="/cart/cart" var="cartView"></c:url>
-<c:url value="/user/login" var="loginView"></c:url>
+<c:url value="/cart/cart" var="cartView" />
+<c:url value="/user/login.do" var="loginView" />
+<c:url value="/customer/asked" var="customerView" />
+<c:url value="/user/signup" var="signUp" />
+<c:url value="/user/logout.do" var="logOut" />
+
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -23,12 +27,19 @@
 
 .wrapper {
 	box-shadow: 0px 0px 20px grey;
+	/* position: relative;
+	top: 0;
+	height: 5em;
+	width: 1200px; */
+	
 }
 
 .header-wrapper {
 	width: 1200px;
 	margin: 0 auto;
 	z-index: 10000;
+	
+	
 }
 
 h6 {
@@ -121,16 +132,24 @@ a {
 							<h6>이벤트</h6>
 						</div>
 						<div class="col">
-							<h6>고객센터</h6>
+							<a href="${customerView }"><h6>고객센터</h6></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-3 d-flex justify-content-end">
 					<div class="login-btn">
-						<a href="#">로그인</a>
+					<c:if test="${u_id == null}">
+						<a href="${loginView}">로그인</a>
+					</c:if>
+					<c:if test="${u_id != null}">
+						<a href="${logOut}">로그아웃</a>
+					</c:if>
 					</div>
+					
 					<div class="register-btn">
-						<a href="#">회원가입</a>
+						<c:if test="${u_id == null}">
+							<a href="${signUp}">회원가입</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

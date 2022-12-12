@@ -12,4 +12,11 @@ public class QuestionDto {
 	private LocalDateTime q_date;
 	private String q_img;
 	private String u_id;
+	
+	
+	/* answer */
+	private int a_id;
+	private String ad_id;
+	private String a_content;
+
 }
