@@ -65,6 +65,7 @@ public class BookService {
 
 	public List<BookDto> ranBookList() {
 		return bookMapper.selectRanBook();
+	
 	}
 
 	public int insertBook(BookDto bookDto) {
