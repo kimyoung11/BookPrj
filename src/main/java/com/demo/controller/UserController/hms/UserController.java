@@ -50,11 +50,12 @@ public class UserController { // 로그인, 로그아웃 매핑
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("book/main");
-			mav.addObject("msg", "success");
-		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
-			mav.setViewName("user/fail");
-			mav.addObject("msg", "failure");
+			mav.setViewName("redirect:/book/main");
+			mav.addObject("id", vo.getu_id());
+			session.setAttribute("id", vo.getu_id());
+		} else { // 로그인 실패 시 login.jsp로 이동 mav.setViewName("user/login");
+			mav.setViewName("user/login");
+			/* mav.addObject("id", "failure"); */
 		}
 		return mav;
 	}
@@ -68,7 +69,7 @@ public class UserController { // 로그인, 로그아웃 매핑
 	public ModelAndView logout(HttpSession session) {
 		memberUserService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("book/main");
+		mav.setViewName("redirect:/book/main");
 		mav.addObject("msg", "logout");
 		
 		return mav;
@@ -147,5 +148,12 @@ public class UserController { // 로그인, 로그아웃 매핑
 
 		return map;
 	}
-
+	
+	// 08. 아이디 찾기 
+	@RequestMapping("/findID.do")
+	public String findID() {
+		return "/user/findID";
+	}
+		
+		
 }

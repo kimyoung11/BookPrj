@@ -97,16 +97,49 @@ a {
 							</button>
 						</form>
 				</div>
-				<div class="col-sm-3 d-flex justify-content-end">
-					<span class="icons"> <a href="${cartView }" class="icon-size"> <i
-							class="fa-solid fa-basket-shopping fa-fw icon-cart" title="Back"></i>
-					</a>
-					</span> <span class="icons"> <a href="${loginView }" class="icon-size"> <i
-							class="fa-solid fa-user fa-fw icon-mypage" title="Back"></i>
-					</a>
-					</span>
+				
+				
+				
+				
+				
+				
+					<div class="col-sm-3 d-flex justify-content-end">
+					<!-- cart -->
+						<c:if test="${u_id != null}">
+							<span class="icons"> 
+								<a href="${cartView}" class="icon-size"> 
+									<i class="fa-solid fa-basket-shopping fa-fw icon-cart" title="장바구니"></i>
+								</a>	
+							</span>
+						</c:if>	
+						<c:if test="${u_id == null}">
+							<span class="icons"> 
+								<a href="${loginView}" class="icon-size"> 
+									<i class="fa-solid fa-basket-shopping fa-fw icon-cart" title="장바구니"></i>
+								</a>	
+							</span>
+						</c:if>
+				
+					<!-- mypage -->
+						<c:if test="${u_id != null}">
+							<span class="icons"> 
+								<a href="#" class="icon-size"> 
+									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>			
+								</a>
+							</span>
+						</c:if>	
+						<c:if test="${u_id == null}">
+							<span class="icons"> 
+								<a href="${loginView}" class="icon-size"> 
+									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>
+								</a>	
+							</span>
+						</c:if>	
+							
+					</div>		
 				</div>
-			</div>
+				
+			
 
 			<div class="row mt-1 pt-2 pb-3">
 				<div class="col-2"></div>
@@ -129,6 +162,7 @@ a {
 						</div>
 					</div>
 				</div>
+				
 				<div class="col-sm-3 d-flex justify-content-end">
 					<div class="login-btn">
 					<c:if test="${u_id == null}">

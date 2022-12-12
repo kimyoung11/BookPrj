@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
 	$(document).ready(function() {
 		$("#btnLogin").click(function() {
@@ -119,6 +121,7 @@ li {
 </style>
 </head>
 <body>
+<c:if test="${u_id == null}">
 	<div class="container-md">
 		<div class="box justify-content-center">
 			<div id="form" class="row justify-content-center">
@@ -141,7 +144,7 @@ li {
 						<div class="input-group flex-nowrap">
 							<span class="input-group-text" style="background-color: #fff;">
 								<i class="fa-solid fa-lock"></i>
-							</span> <input type="text" class="form-control pt-3 pb-3"
+							</span> <input type="password" class="form-control pt-3 pb-3"
 								placeholder="비밀번호" name="u_pw" id="u_pw" aria-label="Username">
 						</div>
 						
@@ -171,7 +174,10 @@ li {
 			</div>
 		</div>
 	</div>
-
+</c:if>
+<c:if test="${u_id != null}">
+<h1>이미 로그인 되었습니다</h1>
+</c:if>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
