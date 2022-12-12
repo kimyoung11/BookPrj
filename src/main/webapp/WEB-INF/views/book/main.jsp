@@ -327,6 +327,14 @@ section.faq {
   right: 20px;
   display: none;
 }
+
+#btn-back-to-top2 {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  display: inline;
+  height: 50px;
+}
 </style>
 <body>
 	<my:headerBar></my:headerBar>
@@ -506,11 +514,34 @@ section.faq {
                 </ul>
               </div>
               <button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top"><i class="fas fa-arrow-up"></i></button>
+              <button type="button" class="btn btn-secondary" id="btn-back-to-top2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="fas fa-regular fa-comment fa-xl"></i></button>
+        </div>
+        <div>
+        	
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="${pageContext.request.contextPath}/book/chat" width="480" height="500" frameborder="0" allowtransparency="true"></iframe> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
         </div>
         <div id="footer">
             <my:footer></my:footer>
         </div>
-
+		
 	<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
