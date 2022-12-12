@@ -69,9 +69,10 @@ public class CartController {
 	@GetMapping("ordermanage") 
 	public void ordermanage(
 			@RequestParam(name="page", defaultValue = "1") int page, 
+			@RequestParam(name="q", defaultValue = "") String keyword,
 			PageInfo pageInfo,
 			Model model) {
-	List<OrdersDto> orders = service.ordermanage(page, pageInfo); 
+	List<OrdersDto> orders = service.ordermanage(page, keyword, pageInfo); 
 	model.addAttribute("orders",orders);
 	}
 	

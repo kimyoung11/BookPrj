@@ -59,6 +59,13 @@ public class BookService {
 		return bookMapper.autoComplete(b_title);
 	}
 
+	public List<BookDto> newBookList() {
+		return bookMapper.selectNewBook();
+	}
+
+	public List<BookDto> ranBookList() {
+		return bookMapper.selectRanBook();
+
 	public int insertBook(BookDto bookDto) {
 		return bookMapper.insertBook(bookDto);
 	}
@@ -73,6 +80,7 @@ public class BookService {
 
 	public int removeBook(int b_code) {
 		return bookMapper.deleteBook(b_code);
+
 	}
 
 	
