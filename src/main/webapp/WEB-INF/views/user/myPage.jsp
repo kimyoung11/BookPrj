@@ -16,202 +16,118 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-	crossorigin="anonymous" />
+	crossorigin="anonymous" />	
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
-	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
+
 <title>Insert title here</title>
 </head>
 <style>
-* {
-	font-family: "Noto Sans KR", sans-serif;
-	margin: 0;
-	padding: 0;
-}
-#reviewForm fieldset {
-	display: inline-block;
-	direction: rtl;
-	border: 0;
-}
-#reviewForm2 fieldset {
-	display: inline-block;
-	direction: rtl;
-	border: 0;
-}
+<%@include file="/WEB-INF/views/css/profileCard.css"%>
+<%@include file="/WEB-INF/views/css/myPageNav.css"%>
 
-#reviewForm fieldset legend {
-	text-align: right;
-}
-#reviewForm2 fieldset legend {
-	text-align: right;
-}
-
-#reviewForm input[type=radio] {
-	display: none;
-}
-#reviewForm2 input[type=radio] {
-	display: none;
-}
-
-#reviewForm label {
-	font-size: 3em;
-	color: transparent;
-	text-shadow: 0 0 0 #f0f0f0;
-}
-#reviewForm2 label {
-	font-size: 3em;
-	color: transparent;
-	text-shadow: 0 0 0 #f0f0f0;
-}
-
-#reviewForm label:hover {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#reviewForm2 label:hover {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-
-#reviewForm label:hover ~ label {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#reviewForm2 label:hover ~ label {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-
-#reviewForm input[type=radio]:checked ~ label {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#reviewForm2 input[type=radio]:checked ~ label {
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-
-ul {
-	padding: 0;
-}
-
-li {
-	list-style: none;
-	text-align: center;
-}
-
-a {
-	color: #333;
-	text-decoration: none;
-}
-
-span {
-	font-size: 12px;
-	margin-left: 100px;
-}
-
-.btn-bd-primary {
-	-bs-btn-font-weight: 300;
-}
-
-.btn-edit {
-	font-size: 18px;
-	padding: 10px 40px;
-}
-
-.container-sm {
-	max-width: 500px;
-}
-
-.content-size {
-	width: 400px;
-	margin-bottom: 20px;
-}
 
 </style>
 <body>
+	
 	<my:headerBar></my:headerBar>
 	<div class="container-md bg" style="width: 1200px">
 		<div class="top-section">
-			<h4 style="font-weight: 600; padding-top: 30px; padding-bottom: 30px">
-				마이페이지</h4>
-			<div
-				class="login-box mb-3 mt-3 rounded d-flex align-items-center flex-row p-3"
-				style="width: 400px; height: 200px; background-color: #bed6e0">
-				<input type="hidden" id="u_id" value="${user.u_id }">
-				<div class="col align-items-center">
-					<span class="left-box m-2 row" 
-						style="background: #fff; width: 90px; height: 90px; border-radius: 70%; overflow: hidden; position: relative; box-shadow: 0 0 14px #8cc1db;">
-						<span class="fa-regular fa-user fa-2xl"
-						style="position: absolute; top: 46px; left: 19px"></span>
-					</span>
-					<div class="row">
-						<h5 style="margin-left: 14px">${user.u_id }님</h5>
-					</div>
-				</div>
-				<div class="right-box d-flex align-items-center gap-2"
-					style="margin-right: 12px">
-					<div class="like-box rounded"
-						style="width: 100px; height: 100px; background-color: #fff; margin-right: 5px; box-shadow: 0 0 14px #8cc1db;">
-						<h1 class="mt-2" style="color: #333; text-align: center">${user.countLike}</h1>
-						<h5 style="color: #333; text-align: center">좋아요</h5>
-					</div>
-					<div class="backet-box rounded"
-						style="width: 100px; height: 100px; background-color: #fff; box-shadow: 0 0 14px #8cc1db;">
-						<h1 class="mt-2" style="color: #333; text-align: center">${user.countCart }</h1>
-						<h5 style="color: #333; text-align: center">장바구니</h5>
-					</div>
-				</div>
-				<button class="left-box m-2 row" type="button" id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
-						회원정보수정
-				</button>
-			</div>
-		</div>
-		
-		<div class="mid-section mb-3">
-	        <div class="btn-group d-flex gap-2" role="group">
-	          	<button id="OrderListButton1" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-	            주문 배송 내역
-		        </button>
-		        
-		        <button id="LikeListButton1" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-		            좋아요 보기
-		        </button>
-		        
-		        <button id="ReviewListButton1" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-		            리뷰 관리
-		        </button>
-		      
-		        <button id="QuestListButton1" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-		            내 문의
-		        </button>
-	        </div>
-        </div>
-         <!--리뷰 버튼 출력 -->
-		        <div class="btn-group d-flex gap-2" role="group" id="reviewButtonGroup">
-		        
-		       </div> 
-        
-        <!-- 테이블 출력 -->
-		        <div class="row mt-3 mb-3">
-		        	<div class="col">
-		        		<div class="list-group" id="tableContainer">
-		        			<div class="list-section">
-								<table class="table" id="dataTable"
-									style="border: 2px solid black; border-radius: 10px">
-									<thead id = "tableHead">
-										
-									</thead>
-									<tbody id = "tableBody">
-											
-									</tbody>
-								</table>
-								<br />
-							</div>
-		        		</div>
-		        	</div>
-		        </div>
+				<div class="navbar">
+                    <ul>
+                        <li class="active">
+                            <a href="#" id="OrderListButton1">
+                                주문내역
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="LikeListButton1">
+                                좋아요 보기
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="ReviewListButton1">
+                                리뷰 관리
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="QuestListButton1">
+                                내 문의
+                            </a>
+                        </li>
+                        
+                        <div class="indicator"></div>
+                    </ul>
+                       	
+                </div>   
+                
+              <div class="row mb-5">
+				<div class="col profile-card">
+                    <div id="setButton">
+                        <button class="btn btn-white"  id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                    </div>
+			        <div class="image">
+			        	<img src="${pageContext.request.contextPath}/content/profile1.jpg" alt="로고사진" class="profile-img" />
+			        </div>
+			        <div class="text-data">
+			            <span class="name">${user.u_id }
+                        </span>   
+			        </div>
+			        <input type="hidden" id="u_id" value="${user.u_id }">  
+			        
+			
+			        <div class="analytics">
+			            <div class="data">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="iconName">좋아요</span>
+                            <span class="number">${user.countLike }</span>
+			            </div>
+			            <div class="data">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="iconName">장바구니</span>
+                            <span class="number">${user.countCart }</span>
+			            </div>
+                        <div class="data">
+                            <i class="fa-solid fa-ticket"></i>
+                            <span class="iconName">쿠폰</span>
+                            <span class="number">2</span>
+			            </div>
+			        </div>
+			    </div>
+				    <div class="col">
+					    <!--리뷰 버튼 출력 -->
+				        <div class=" btn-group d-flex gap-2" role="group" id="reviewButtonGroup">
+				        
+				       </div> 
+				       <!-- 테이블 출력 -->
+				        <div class="mt-3 mb-3">
+				        	<div class="col">
+				        		<div class="list-group" id="tableContainer">
+				        			<div class="list-section">
+										<table class="table" id="dataTable"
+											style="border: 2px solid black; border-radius: 10px">
+											<thead id = "tableHead">
+												
+											</thead>
+											<tbody id = "tableBody">
+													
+											</tbody>
+										</table>
+										<br />
+									</div>
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+			       
+                </div>
         
 		        
 		 
 	</div>
-	
 	
 	<!-- 리뷰 작성 모달 -->
 		<div class="modal fade" id="makeReviewModal" tabindex="-1"
@@ -422,7 +338,7 @@ span {
 		    </div>
 		  </div>
 		</div>
-		
+	</div>
 	<my:footer></my:footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -502,7 +418,7 @@ const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
 
 // 주문 배송 페이지 나오기
 function orderList(){
-	fetch(`\${ctx}/user/yjh/orderList/\${u_id}`)
+	fetch(`\${ctx}/user/orderList/\${u_id}`)
 	.then(res => res.json())
 	.then(orderList => {
 		const orderListData = document.querySelector("#orderListData");
@@ -532,7 +448,7 @@ document.querySelector("#OrderListButton1").addEventListener("click", function()
 // 좋아요 페이지 나오기
 document.querySelector("#LikeListButton1").addEventListener("click", function(){
 	const u_id = document.querySelector("#u_id").value;
-	fetch(`\${ctx}/user/yjh/bookLikeList/\${u_id}`)
+	fetch(`\${ctx}/user/bookLikeList/\${u_id}`)
 	.then(res => res.json())
 	.then(bookLikeList => {
 		const tableContainer = document.querySelector("#tableContainer");
@@ -555,7 +471,7 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 // 작성한 리뷰 나오는 함수
 function myReview(){
 	
-	fetch(`\${ctx}/user/yjh/reviewList/\${u_id}`)
+	fetch(`\${ctx}/user/reviewList/\${u_id}`)
 	.then(res => res.json())
 	.then(reviewList => {
 		const tableContainer = document.querySelector("#tableContainer");
@@ -661,7 +577,7 @@ document.querySelector("#ReviewListButton1").addEventListener("click", function(
 
 // 리뷰 수정 모달에 데이터 들어간다
 function readReviewAndSetModalForm(r_id){
-	fetch(`\${ctx}/review/yjh/get/\${r_id}`)
+	fetch(`\${ctx}/review/get/\${r_id}`)
 	.then(res => res.json())
 	.then(review => {
 		document.querySelector("#reviewModifyContent").value = review.r_content;	
@@ -673,7 +589,7 @@ function readReviewAndSetModalForm(r_id){
 function makeReviewList(){
 		const u_id = document.querySelector("#u_id").value;
 		
-		fetch(`\${ctx}/user/yjh/makeReviewList/\${u_id}`)
+		fetch(`\${ctx}/user/makeReviewList/\${u_id}`)
 		.then(res => res.json())
 		.then(makeReviewList => {
 			document.querySelector("#tableContainer").innerHTML = "";
@@ -710,7 +626,7 @@ document.querySelector("#reviewSendButton").addEventListener("click", function()
 	const data = {
 			b_code , r_content, r_star, u_id
 	};
-	fetch(`\${ctx}/review/yjh/add`, {
+	fetch(`\${ctx}/review/add`, {
 		method : "post",
 		headers : {
 			"Content-Type" : "application/json"
@@ -735,7 +651,7 @@ document.querySelector("#reviewModifyButton").addEventListener("click", function
 	const data = {
 			r_id , r_content, r_star
 	};
-	fetch(`\${ctx}/review/yjh/modify`, {
+	fetch(`\${ctx}/review/modify`, {
 		method : "put",
 		headers : {
 			"Content-Type" : "application/json"
@@ -753,7 +669,7 @@ document.querySelector("#reviewModifyButton").addEventListener("click", function
 
 // 리뷰 삭제 함수
 function removeReview(reviewId){
-	fetch(`\${ctx}/review/yjh/remove/\${reviewId}`, {
+	fetch(`\${ctx}/review/remove/\${reviewId}`, {
 		method : "delete"
 	})
 	.then(res => res.json())
@@ -772,7 +688,7 @@ document.querySelector("#reviewRemoveButton").addEventListener("click" , functio
 // 문의 리스트 나오기
 document.querySelector("#QuestListButton1").addEventListener("click", function(){
 	const u_id = document.querySelector("#u_id").value;
-	fetch(`\${ctx}/user/yjh/questList/\${u_id}`)
+	fetch(`\${ctx}/user/questList/\${u_id}`)
 	.then(res => res.json())
 	.then(questList => {
 		const tableContainer = document.querySelector("#tableContainer");
@@ -797,7 +713,7 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 
 //리뷰 수정 모달에 데이터 들어간다
 function readReviewAndSetModalForm(r_id){
-	fetch(`\${ctx}/review/yjh/get/\${r_id}`)
+	fetch(`\${ctx}/review/get/\${r_id}`)
 	.then(res => res.json())
 	.then(review => {
 		document.querySelector("#reviewModifyContent").value = review.r_content;	
@@ -806,7 +722,7 @@ function readReviewAndSetModalForm(r_id){
 	
 // 회원정보 수정 모달에 데이터 들어간다
 function readUserInfoAndSetModal(u_id){
-	fetch(`\${ctx}/user/yjh/editInfo/\${u_id}`)
+	fetch(`\${ctx}/user/editInfo/\${u_id}`)
 	.then(res => res.json())
 	.then(user => {
 		document.querySelector("#modalUserId").value = user.u_id;
@@ -836,7 +752,7 @@ document.querySelector("#editConfirmButton").addEventListener("click", function(
 			u_id, u_pw, u_name, u_email, u_phone, u_address
 	};
 		
-	fetch(ctx + "/user/yjh/editInfo" ,  {
+	fetch(ctx + "/user/editInfo" ,  {
 		method : "put",
 		headers : {
 			"Content-Type" : "application/json"
@@ -904,7 +820,7 @@ emailButton1.addEventListener("click", function(){
 		
 	const email = emailInput1.value;
 		
-	fetch(`\${ctx}/user/yjh/changeEmail`,{
+	fetch(`\${ctx}/user/changeEmail`,{
 		method : "post",
 		headers : {
 			"Content-Type" : "application/json"
@@ -959,6 +875,21 @@ $("#makeReviewModal").on('hidden.bs.modal', function (e) {
 $("#modifyReviewModal").on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();
 })
+
+// navbar 이동
+const navBar = document.querySelector(".navbar")
+       allLi = document.querySelectorAll("li");
+        
+       allLi.forEach((li, index) => {
+        li.addEventListener("click" , e =>{
+        e.preventDefault(); //preventing from submitting
+        navBar.querySelector(".active").classList.remove("active");
+        li.classList.add("active");
+                
+const indicator = document.querySelector(".indicator");
+      indicator.style.transform = `translateX(calc(${index * 90}px))`;
+      });
+});
 
 </script>	
 </body>
