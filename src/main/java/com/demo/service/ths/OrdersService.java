@@ -40,8 +40,8 @@ public class OrdersService {
 		return ordersMapper.select(offset, records, "%" + keyword + "%");
 	}
 
-	public List<CartDto> cartlist() {
-		return ordersMapper.selectCart();
+	public List<CartDto> cartlist(String u_id) {
+		return ordersMapper.selectCart(u_id);
 	}
 
 	public void deleteCart(List<String> u_id, List<Integer> b_code) {

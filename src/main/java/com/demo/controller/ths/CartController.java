@@ -2,6 +2,8 @@ package com.demo.controller.ths;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,9 @@ public class CartController {
 	private OrdersService service;
 	
 	@GetMapping("cart")
-	public void cart(Model model) {
-		List<CartDto> cart = service.cartlist();
+	public void cart(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("id");
+		List<CartDto> cart = service.cartlist(u_id);
 		System.out.println(cart);
 		model.addAttribute("cartlist", cart);
 	}

@@ -34,7 +34,9 @@ LIMIT
 SELECT
 	b_img, b_title, b_price, c_count, u_id, b.b_code
 FROM 
-	Book b JOIN Cart c ON b.b_code = c.b_code;
+	Book b JOIN Cart c ON b.b_code = c.b_code
+WHERE
+	u_id = #{u_id}
 </select>
 
 <delete id="deleteCart">

@@ -9,7 +9,7 @@ public interface OrdersMapper {
 
 	List<OrdersDto> select(int offset, int records, String keyword);
 
-	List<CartDto> selectCart();
+	List<CartDto> selectCart(String u_id);
 
 	void deleteCart(String u_id, int b_code);
 
