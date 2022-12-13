@@ -41,12 +41,12 @@
 
 				<!-- selected -->
 				<div class="container-sm">
-					<form action="" method="post" enctype="multipart/form-data">
+					<form id="registerForm1" action="" method="post" enctype="multipart/form-data">
 						<div class="mb-4 row mt-5">
-							<select class=" form-select" aria-label="Default select example">
+							<select id="selectBox" class=" form-select" aria-label="Default select example">
 								<option selected>문의할 사항을 선택하세요.</option>
-								<option value="1">1:1 문의하기</option>
-								<option value="2">반품ㆍ교환 문의하기</option>
+								<option value="1:1문의">1:1 문의하기</option>
+								<option value="반품교환문의">반품ㆍ교환 문의하기</option>
 							</select>
 						</div>
 						<!-- selector-end -->
@@ -69,7 +69,7 @@
 						<div class="mb-3 row">
 							<label for="inputPassword" class="col-sm-1 col-form-label">첨부파일</label>
 							<div class="col-sm-4">
-								<input name="file" accept="image/*" type="file" class="form-control">
+								<input multiple name="files" accept="image/*" type="file" class="form-control">
 							</div>
 							<span class="guide-top">첨부가능 용량은 파일당 6MB 미만이며, 최대 6개까지 가능합니다.</span> 
 							<span class="guide-bottom">첨부가능 파일 확장자: JPG,PNG,GIF</span>
@@ -80,7 +80,7 @@
 
 						<hr>
 						<div style="text-align: center; margin-top: 30px;">
-							<button type=submit class="btn btn-secondary btn-qusetion "
+							<button id="submitButton1" type=submit class="btn btn-secondary btn-qusetion "
 								style="margin-right: 10px;">문의 등록</button>
 							
 							<button type="button" class="btn btn-secondary btn-qusetion">내
@@ -89,7 +89,16 @@
 					</form>
 				</div>
 					
-
+<%-- 댓글 메시지 토스트 --%>
+	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="d-flex">
+	    <div id="replyMessage1" class="toast-body">
+	     	1:1 문의 등록이 완료되었습니다.
+	    </div>
+	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	</div>
+	
 
 			</div>
 		</div>
@@ -100,5 +109,69 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
+<script>
+
+/* 셀렉트 박스 값 가져오기 */
+function getQuest() {
+	const selectBox = $("#selectBox option:selected").text();
+	console.log(selectBox);
+	
+}	
+
+
+
+
+document.querySelector("#submitButton1").addEventListener("click", function(e) {
+	// submit 진행 중지
+	e.preventDefault();
+	
+	// 제목input 입력한 값 가져와서
+	// 빈칸만 있는지 확인?
+	let titleValue = document.querySelector(`#registerForm1 input[name="q_title"]`).value
+	// 본문 textarea 입력한 값 가져와서
+	// 빈칸만 있는지 확인?
+	let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
+	// 작성자 input 값 가져와서
+	// 빈칸만 있는지 확인?
+	// let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
+			
+	// 위 테스트 다 통과하면 submit
+	if (titleValue.trim() != "" 
+			&& contentValue.trim() != "" ) {
+		
+		document.querySelector("#registerForm1").submit();
+	} else {
+		문의를 작성해주세요.
+	}
+	
+	
+});
+
+
+
+//댓글 crud 메시지 토스트
+const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
+
+document.querySelector("#submitButton1").addEventListener("click", function() {
+	const content = document.querySelector("#modifyReplyInput").value;
+	const id = this.dataset.replyId;
+	const data = {id, content};
+	
+	fetch(`\${ctx}/reply/modify`, {
+		method : "put",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
+	})
+	.then(() => listReply());
+});
+
+</script>
 </body>
 </html>

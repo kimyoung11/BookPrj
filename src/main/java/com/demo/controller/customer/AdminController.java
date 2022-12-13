@@ -107,7 +107,6 @@ public class AdminController {
 	@GetMapping("answer")
 	public void questContent(int q_number, Model model) {
 		
-		System.out.println(q_number);
 		QuestionDto question = questService.ContentList(q_number);
 		
 		model.addAttribute("questContent", question);
@@ -116,6 +115,7 @@ public class AdminController {
 
 	/* 1:1 문의 답변 추가 */
 	@PostMapping("add")
+	@ResponseBody
 	public void add(@RequestBody QuestionDto quest) {
 		questService.answerAdd(quest);
 	}

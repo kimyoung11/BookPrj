@@ -39,13 +39,14 @@
 
 
 <!-- 1:1 문의 콘텐츠 보여줌 -->
-<select id="select" resultType="com.demo.domain.customer.QuestionDto">
+<select id="select" resultMap="questionMap">
 	SELECT
 		q.q_number,
 		q.q_title,
 		q.q_content,
 		q.q_date,
 		q.u_id,
+		f.f_id fileId,
 		f.f_name fileName
 	FROM
 		Quest q LEFT JOIN File f ON q.q_number = f.q_number
@@ -53,23 +54,37 @@
 		q.q_number = #{q_number}
 </select>
 
+<resultMap type="com.demo.domain.customer.QuestionDto" id="questionMap">
+		<id column="q_number" property="q_number"></id>
+		<result column="q_title" property="q_title"/>
+		<result column="q_content" property="q_content"/>
+		<result column="q_date" property="q_date"/>
+		<collection property="fileName" ofType="string">
+			<result property="fileName" column="fileName"/>
+		</collection>
+</resultMap>
+
 
 
 <!-- 1:1문의 답변 추가하기 -->
 <insert id="add">
-	INSERT INTO Answer (q_number, ad_id, u_id, a_content, a_id)
-	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content}, #{a_id})
+	INSERT INTO Answer (q_number, ad_id, u_id, a_content )
+	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content} )
 </insert>
 
 <!-- 1:1문의 답변 보여주기 -->
 <select id="answerSelect" resultType="com.demo.domain.customer.QuestionDto">
 	SELECT 
 		a_content,
-		a_date
+		a_date,
+		q_number,
+		u_id
 	FROM
 		Answer
 	WHERE
 		q_number = #{q_number}
+	ORDER BY
+        q_number DESC
 </select>
 
 
