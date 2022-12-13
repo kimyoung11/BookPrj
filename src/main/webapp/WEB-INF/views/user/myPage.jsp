@@ -8,61 +8,63 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-	integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-	crossorigin="anonymous" />	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
-
-<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<title>마이페이지</title>
 </head>
 <style>
 <%@include file="/WEB-INF/views/css/profileCard.css"%>
 <%@include file="/WEB-INF/views/css/myPageNav.css"%>
-
-
+<%@include file="/WEB-INF/views/css/reviewModal.css"%>
+<%@include file="/WEB-INF/views/css/orderStatus.css"%>
 </style>
 <body>
-	
-	<my:headerBar></my:headerBar>
-	<div class="container-md bg" style="width: 1200px">
+
+<!-- 헤더 태그 -->	
+<my:headerBar></my:headerBar>
+<div class="nav-wrapper">
+	<!-- 마이페이지 nav/tab -->
+   <div class="navbar">
+      <ul>
+        <li class="active navli">
+           <a href="#" id="OrderListButton1">
+            나의 쇼핑
+           </a>
+        </li>
+        
+        <li class="navli">
+          <a href="#" id="LikeListButton1">
+          좋아요
+          </a>
+        </li>
+        
+       <li class="navli">
+          <a href="#" id="ReviewListButton1">
+            나의 리뷰
+          </a>
+        </li>
+        
+         <li class="navli">
+           <a href="#" id="QuestListButton1">
+           나의 문의
+           </a>
+         </li>
+       </ul>                        
+        <div class="line">
+           <div class="indicator"></div>
+        </div>
+   </div>     
+</div> 
+
+<div class="container-md bg mt-5" style="width: 1200px">
 		<div class="top-section">
-				<div class="navbar">
-                    <ul>
-                        <li class="active">
-                            <a href="#" id="OrderListButton1">
-                                주문내역
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="LikeListButton1">
-                                좋아요 보기
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="ReviewListButton1">
-                                리뷰 관리
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="QuestListButton1">
-                                내 문의
-                            </a>
-                        </li>
-                        
-                        <div class="indicator"></div>
-                    </ul>
-                       	
-                </div>   
-                
               <div class="row mb-5">
+              	<!-- 프로필 -->
 				<div class="col profile-card">
                     <div id="setButton">
                         <button class="btn btn-white"  id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -77,8 +79,6 @@
                         </span>   
 			        </div>
 			        <input type="hidden" id="u_id" value="${user.u_id }">  
-			        
-			
 			        <div class="analytics">
 			            <div class="data">
                             <i class="fa-solid fa-heart"></i>
@@ -97,49 +97,42 @@
 			            </div>
 			        </div>
 			    </div>
+			    
+	<!-- 각종 현황 내용 ajax 출력되는 구역 -->
+		<div class="col">
+			     <!--리뷰 버튼 출력 -->
+				 <div class=" btn-group d-flex gap-2" role="group" id="reviewButtonGroup"></div>
+				 <!-- 배송 현황 출력 -->
+				 <div id="orderStatus"></div> 
+				 <!-- 테이블 출력 -->
+				   <div class="mt-3 mb-3">
 				    <div class="col">
-					    <!--리뷰 버튼 출력 -->
-				        <div class=" btn-group d-flex gap-2" role="group" id="reviewButtonGroup">
-				        
-				       </div> 
-				       <!-- 테이블 출력 -->
-				        <div class="mt-3 mb-3">
-				        	<div class="col">
-				        		<div class="list-group" id="tableContainer">
-				        			<div class="list-section">
-										<table class="table" id="dataTable"
-											style="border: 2px solid black; border-radius: 10px">
-											<thead id = "tableHead">
-												
-											</thead>
-											<tbody id = "tableBody">
-													
-											</tbody>
-										</table>
-										<br />
-									</div>
-				        		</div>
-				        	</div>
-				        </div>
-				    </div>
+				     <div class="list-group" id="tableContainer">
+				      <div class="list-section">
+						<table class="table" id="dataTable" style="border: 2px solid black; border-radius: 10px">
+							<thead id = "tableHead"></thead>
+							<tbody id = "tableBody"></tbody>
+						</table>
+					<br/>
+				</div>
+			</div>
+	      </div>
+		 </div>
+	    </div>
 			       
-                </div>
+	 </div>
         
-		        
-		 
-	</div>
+</div>
 	
 	<!-- 리뷰 작성 모달 -->
-		<div class="modal fade" id="makeReviewModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="makeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form class="mb-3" id="reviewForm" method="post">
+					<form class="mb-3 reviewModal" id="reviewForm" method="post">
 						<div class="modal-body">
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span> 
@@ -156,10 +149,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<button id="reviewSendButton" type="button" data-bs-dismiss="modal"
-								class="btn btn-primary">작성</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							<button id="reviewSendButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">작성</button>
 						</div>
 					</form>
 				</div>
@@ -167,16 +158,14 @@
 		</div>
 		
 		<!-- 리뷰 수정 모달 -->
-		<div class="modal fade" id="modifyReviewModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade reviewModal" id="modifyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 수정</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form class="mb-3" id="reviewForm2" method="post">
+					<form class="mb-3 " id="reviewForm2" method="post">
 						<div class="modal-body">
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span> 
@@ -193,18 +182,15 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<button id="reviewModifyButton" type="button" data-bs-dismiss="modal"
-								class="btn btn-primary">수정</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							<button id="reviewModifyButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">수정</button>
 						</div>
 					</form>
 				</div>
 			</div>
-		</div>
-		
+		</div>		
 		<!-- 리뷰 삭제 모달 -->
-		<div class="modal fade" id="removeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade reviewModal" id="removeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -220,8 +206,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
-		
+		</div>		
 		<!-- 메세지 토스트 -->
 		<div id="messageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
 		  <div class="d-flex">
@@ -258,16 +243,13 @@
 									</div>
 			
 									<p>
-										<button class="btn btn-secondary" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseExample"
-											aria-expanded="false" aria-controls="collapseExample">
-											비밀번호 변경</button>
+										<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+										비밀번호 변경</button>
 									</p>
 									<div class="collapse" id="collapseExample" style="width: 420px;">
 										<div class="card card-body">
 					                      <div class="mb-2 row mt-2">
-					                        <label for="inputPassword" class="col-4 col-form-label">새
-																		비밀번호</label>
+					                        <label for="inputPassword" class="col-4 col-form-label">새 비밀번호</label>
 					                        <div class="col-sm-7">
 					                          <input type="password" id="newPasswordInput1" class="form-control" placeholder="새 비밀번호를 입력하세요."/>
 					                        </div>
@@ -289,16 +271,14 @@
 								<div class="mb-2 row mt-2">
 									<label for="inputName" class="col-3 col-form-label">이름</label>
 									<div class="col-sm-5">
-										<input id="userName" type="text" class="form-control"
-											readonly />
+										<input id="userName" type="text" class="form-control" readonly />
 									</div>
 								</div>
 								<div class="mb-2 row mt-2">
 									<label for="inputEmail" class="col-3 col-form-label">E-MAIL</label>
 									<div class="col-sm-9">
 										<div class="input-group">
-											<input id="emailInput1" type="text" class="form-control"
-												name="u_email" readonly />
+											<input id="emailInput1" type="text" class="form-control" name="u_email" readonly />
 											<button disabled id="emailButton1" type="button" class="btn btn-outline-secondary">
 													중복확인
 											</button>	
@@ -307,23 +287,19 @@
 										  <input class="form-check-input" type="checkbox" role="switch" id="emailCheckSwitch">
 										  <label class="form-check-label" for="flexSwitchCheckDefault">이메일 변경</label>
 										  <div id="emailText" class="form-text"></div>
-										</div>
-											
-									</div>
-									
+										</div>										
+									</div>									
 								</div>
 								<div class="mb-2 row mt-2">
 									<label for="inputPhone" class="col-3 col-form-label">전화번호</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="userPhone"
-											name="u_phone" />
+										<input type="text" class="form-control" id="userPhone"name="u_phone" />
 									</div>
 								</div>
 								<div class="mb-2 row mt-2">
 									<label for="inputAddress" class="col-3 col-form-label">주소</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" id="userAddress"
-											name="u_address" />
+									   <input type="text" class="form-control" id="userAddress"name="u_address" />
 									</div>
 								</div>
 							</div>
@@ -339,16 +315,52 @@
 		  </div>
 		</div>
 	</div>
+	<!-- footer바 태그 -->
 	<my:footer></my:footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-		crossorigin="anonymous"></script>
-		
-<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"> </script>		
 
+<script>
 const ctx = "${pageContext.request.contextPath}";
 
 const u_id = document.querySelector("#u_id").value; 
+
+//navbar 이동
+const navBar = document.querySelector(".navbar");
+const allLi = document.querySelectorAll(".navli");
+        
+ allLi.forEach((li, index) => {
+    li.addEventListener("click" , e =>{
+     e.preventDefault();
+     navBar.querySelector(".active").classList.remove("active");
+     li.classList.add("active");
+     const indicator = document.querySelector(".indicator");
+     indicator.style.transform = `translateX(calc(\${index * 100}px))`;     
+     });
+ });
+ 
+ // 배송현황 비동기 방식 생성 변수
+ const orderStatusDiv = `
+ 		<h5 style="font-weight: bold; margin-top: -25px;" class="mb-3">주문/배송 내역</h5>
+		<div class="orderData">	
+		<div class="tracking">
+			<div class="data">
+				<span class="status-count">0</span>
+				<span class="titleName">상품 준비중</span>
+			</div>
+			<div class="data">
+				<span class="status-count">0</span>
+				<span class="titleName">배송 시작</span>
+			</div>
+			<div class="data">
+				<span class="status-count">2</span>
+				<span class="titleName">배송중</span>
+			</div>
+			<div class="data">
+				<span class="status-count">2</span>
+				<span class="titleName">배송 완료</span>
+			</div>
+		</div>
+	</div>`;
 
 // ↓↓↓↓↓↓↓ 테이블 비동기 방식으로 변경하기 위한 테이블 생성 변수들 ↓↓↓↓↓↓↓↓
 
@@ -357,11 +369,9 @@ const tableDiv = `
 	<div class="list-section">
 		<table class="table"
 			style="border: 2px solid black; border-radius: 10px">
-			<thead id = "tableHead">
-				
+			<thead id = "tableHead">				
 			</thead>
-			<tbody id = "tableBody">
-					
+			<tbody id = "tableBody">					
 			</tbody>
 		</table>
 		<br />
@@ -405,25 +415,30 @@ const questTableHead =
 		<th scope="col">작성일</th>
 	</tr>`;
 
-
 // ↓↓↓↓↓↓↓ 마이 페이지 각종 리스트 비동기 실행 함수들 ↓↓↓↓↓↓↓↓
-	
 	
 // 페이지 실행시 주문리스트 바로 출력
 orderList();
-
 
 //리뷰 crud 메세지 toast
 const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
 
 // 주문 배송 페이지 나오기
 function orderList(){
+	
+	document.getElementById("OrderListButton1").style.color ="#4070f4";
+    document.getElementById("LikeListButton1").style.color ="black";
+    document.getElementById("ReviewListButton1").style.color ="black";
+    document.getElementById("QuestListButton1").style.color ="black";
+	
 	fetch(`\${ctx}/user/orderList/\${u_id}`)
 	.then(res => res.json())
 	.then(orderList => {
 		const orderListData = document.querySelector("#orderListData");
 		document.querySelector("#reviewButtonGroup").innerHTML = "";
 		document.querySelector("#tableContainer").innerHTML = "";
+		document.querySelector("#orderStatus").innerHTML = "";
+		document.querySelector("#orderStatus").insertAdjacentHTML("beforeend", orderStatusDiv);
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);		
 		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", orderTableHead);
 		
@@ -447,22 +462,27 @@ document.querySelector("#OrderListButton1").addEventListener("click", function()
 		
 // 좋아요 페이지 나오기
 document.querySelector("#LikeListButton1").addEventListener("click", function(){
+	
+	this.style.color ="#4070f4";
+    document.getElementById("OrderListButton1").style.color ="black";
+    document.getElementById("ReviewListButton1").style.color ="black";
+    document.getElementById("QuestListButton1").style.color ="black";
+    
 	const u_id = document.querySelector("#u_id").value;
 	fetch(`\${ctx}/user/bookLikeList/\${u_id}`)
 	.then(res => res.json())
 	.then(bookLikeList => {
 		const tableContainer = document.querySelector("#tableContainer");
+		document.querySelector("#orderStatus").innerHTML = "";
 		document.querySelector("#reviewButtonGroup").innerHTML = "";
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
 		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", b_likeTableHead);
 		for (const b_like of bookLikeList) {
 			const b_likeTableBody = 
-				`
-				<tr>
+				`<tr>
 					<td>\${b_like.b_title}</td>
-				</tr>
-				`;
+				</tr>`;
 			document.querySelector("#tableBody").insertAdjacentHTML("beforeend", b_likeTableBody);
 		}
 	});
@@ -471,10 +491,17 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 // 작성한 리뷰 나오는 함수
 function myReview(){
 	
+	document.getElementById("OrderListButton1").style.color ="black";
+    document.getElementById("LikeListButton1").style.color ="black";
+    document.getElementById("ReviewListButton1").style.color ="#4070f4";
+    document.getElementById("QuestListButton1").style.color ="black";
+	
+	
 	fetch(`\${ctx}/user/reviewList/\${u_id}`)
 	.then(res => res.json())
 	.then(reviewList => {
 		const tableContainer = document.querySelector("#tableContainer");
+		document.querySelector("#orderStatus").innerHTML = "";
 		document.querySelector("#reviewButtonGroup").innerHTML = "";
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
@@ -497,12 +524,10 @@ function myReview(){
 					<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
 					<td>\${review.r_content}</td>
 					<td>
-					<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" 
-						data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
+					<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
 						수정
 					</button>
-					<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger" 
-						data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
+					<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
 						삭제
 					</button>	
 				</td>
@@ -583,7 +608,6 @@ function readReviewAndSetModalForm(r_id){
 		document.querySelector("#reviewModifyContent").value = review.r_content;	
 	})	
 }
-
 
 // 작성 가능한 리뷰 목록 나오는 함수
 function makeReviewList(){
@@ -687,11 +711,18 @@ document.querySelector("#reviewRemoveButton").addEventListener("click" , functio
 
 // 문의 리스트 나오기
 document.querySelector("#QuestListButton1").addEventListener("click", function(){
+	
+	document.getElementById("OrderListButton1").style.color ="black";
+    document.getElementById("LikeListButton1").style.color ="black";
+    document.getElementById("ReviewListButton1").style.color ="black";
+    document.getElementById("QuestListButton1").style.color ="#4070f4";
+	
 	const u_id = document.querySelector("#u_id").value;
 	fetch(`\${ctx}/user/questList/\${u_id}`)
 	.then(res => res.json())
 	.then(questList => {
 		const tableContainer = document.querySelector("#tableContainer");
+		document.querySelector("#orderStatus").innerHTML = "";
 		document.querySelector("#reviewButtonGroup").innerHTML = "";
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
@@ -709,7 +740,6 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 		}
 	});
 })
-
 
 //리뷰 수정 모달에 데이터 들어간다
 function readReviewAndSetModalForm(r_id){
@@ -805,14 +835,11 @@ function matchPassword(){
 	enableModifyButton();
 }
 
-
 // 이메일 변경 관련
 const emailButton1 = document.querySelector("#emailButton1");
 const emailInput1 = document.querySelector("#emailInput1");
 const emailCheck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/ ;
 const emailText = document.querySelector("#emailText");
-
-// 이메일 변경시 중복 검사 및 정규표현식
 
 // 이메일 중복확인 버튼 클릭하면 일어나는일
 emailButton1.addEventListener("click", function(){
@@ -835,8 +862,7 @@ emailButton1.addEventListener("click", function(){
 		   }
 			   
 		   enableModifyButton();
-	   })
-	
+	   })	
 })
 
 // 이메일 input창 키보드 입력시
@@ -870,25 +896,10 @@ document.querySelector("#emailCheckSwitch").addEventListener("change",function()
 // 모달 내용 초기화
 $("#makeReviewModal").on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();
-}) 
+}); 
 
 $("#modifyReviewModal").on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();
-})
-
-// navbar 이동
-const navBar = document.querySelector(".navbar")
-       allLi = document.querySelectorAll("li");
-        
-       allLi.forEach((li, index) => {
-        li.addEventListener("click" , e =>{
-        e.preventDefault(); //preventing from submitting
-        navBar.querySelector(".active").classList.remove("active");
-        li.classList.add("active");
-                
-const indicator = document.querySelector(".indicator");
-      indicator.style.transform = `translateX(calc(${index * 90}px))`;
-      });
 });
 
 </script>	

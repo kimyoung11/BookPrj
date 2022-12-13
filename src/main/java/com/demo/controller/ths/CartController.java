@@ -52,15 +52,16 @@ public class CartController {
 	// 장바구니에서 선택주문
 	@PostMapping("order")
 	public void order1(
-			@RequestParam List<String> u_id, 
+			HttpSession session, 
 			@RequestParam List<Integer> b_code, 
 			@RequestParam List<Integer> c_count,
 			Model model) {
+		String u_id = (String) session.getAttribute("id");
 		List<CartDto> Orderlist = service.cartToOrder(u_id, b_code, c_count);
 		model.addAttribute("toOrderlist", Orderlist);
 		model.addAttribute("fromCart", true);
 		
-		CartDto userData = service.userData(u_id.get(0));
+		CartDto userData = service.userData(u_id);
 		model.addAttribute("userData", userData);
 		
 		// System.out.println(u_id);
@@ -90,5 +91,7 @@ public class CartController {
 	public void orderend() {
 	
 	}
+	
+	
 	
 }
