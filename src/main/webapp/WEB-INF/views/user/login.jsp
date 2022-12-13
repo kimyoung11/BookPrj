@@ -127,7 +127,7 @@ li {
 			<div id="form" class="row justify-content-center">
 				<div class="col-12 col-md-5">
 					<div class="logo">
-						<img src="../image/logo.png" alt="logo">
+						<img src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
 					</div>
 					
 					<form action="loginCheck.do" name="form1" method="post">
