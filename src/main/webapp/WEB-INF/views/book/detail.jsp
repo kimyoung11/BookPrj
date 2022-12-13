@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.net.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +58,7 @@
 }
 </style>
 <body>
+	<my:headerBar></my:headerBar>
 	<div class="container-fluid container-wrapper" style="width: 62.5%">
 		<div id="modalComponent"></div>
 		<div class="book-info">
@@ -219,7 +221,7 @@
 		
 		const data = {
 				b_code : ${book.b_code},
-				u_id : 'aa'
+				u_id : `<%= session.getAttribute("id")%>`
 		}
 		console.log(data);
 		if(toggle === true){

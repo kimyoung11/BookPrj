@@ -2,6 +2,8 @@ package com.demo.controller.ths;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,9 @@ public class CartController {
 	private OrdersService service;
 	
 	@GetMapping("cart")
-	public void cart(Model model) {
-		List<CartDto> cart = service.cartlist();
+	public void cart(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("id");
+		List<CartDto> cart = service.cartlist(u_id);
 		System.out.println(cart);
 		model.addAttribute("cartlist", cart);
 	}
@@ -49,15 +52,16 @@ public class CartController {
 	// 장바구니에서 선택주문
 	@PostMapping("order")
 	public void order1(
-			@RequestParam List<String> u_id, 
+			HttpSession session, 
 			@RequestParam List<Integer> b_code, 
 			@RequestParam List<Integer> c_count,
 			Model model) {
+		String u_id = (String) session.getAttribute("id");
 		List<CartDto> Orderlist = service.cartToOrder(u_id, b_code, c_count);
 		model.addAttribute("toOrderlist", Orderlist);
 		model.addAttribute("fromCart", true);
 		
-		CartDto userData = service.userData(u_id.get(0));
+		CartDto userData = service.userData(u_id);
 		model.addAttribute("userData", userData);
 		
 		// System.out.println(u_id);
@@ -69,9 +73,10 @@ public class CartController {
 	@GetMapping("ordermanage") 
 	public void ordermanage(
 			@RequestParam(name="page", defaultValue = "1") int page, 
+			@RequestParam(name="q", defaultValue = "") String keyword,
 			PageInfo pageInfo,
 			Model model) {
-	List<OrdersDto> orders = service.ordermanage(page, pageInfo); 
+	List<OrdersDto> orders = service.ordermanage(page, keyword, pageInfo); 
 	model.addAttribute("orders",orders);
 	}
 	
@@ -86,5 +91,7 @@ public class CartController {
 	public void orderend() {
 	
 	}
+	
+	
 	
 }

@@ -16,11 +16,11 @@ public class OrdersService {
 	@Autowired
 	private OrdersMapper ordersMapper;
 	
-	public List<OrdersDto> ordermanage(int page, PageInfo pageInfo) {
+	public List<OrdersDto> ordermanage(int page, String keyword, PageInfo pageInfo) {
 		int records = 5;
 		int offset = (page - 1) * records;
 		
-		int countAll = ordersMapper.countAll();
+		int countAll = ordersMapper.countAll("%" + keyword + "%");
 		int lastPage = (countAll - 1) /  records + 1;
 		
 		int leftPageNumber = (page -1) / records * records + 1;
@@ -37,11 +37,11 @@ public class OrdersService {
 		pageInfo.setLeftPageNumber(leftPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
 		
-		return ordersMapper.select(offset, records);
+		return ordersMapper.select(offset, records, "%" + keyword + "%");
 	}
 
-	public List<CartDto> cartlist() {
-		return ordersMapper.selectCart();
+	public List<CartDto> cartlist(String u_id) {
+		return ordersMapper.selectCart(u_id);
 	}
 
 	public void deleteCart(List<String> u_id, List<Integer> b_code) {
@@ -50,10 +50,10 @@ public class OrdersService {
 		}
 	}
 
-	public List<CartDto> cartToOrder(List<String> u_id, List<Integer> b_code, List<Integer> c_count) {
+	public List<CartDto> cartToOrder(String u_id, List<Integer> b_code, List<Integer> c_count) {
 		List<CartDto> result = new ArrayList<>();
-		for(int i = 0; i < u_id.size(); i++) {
-			CartDto dto = ordersMapper.cartToOrder(u_id.get(i), b_code.get(i), c_count.get(i));
+		for(int i = 0; i < b_code.size(); i++) {
+			CartDto dto = ordersMapper.cartToOrder(u_id, b_code.get(i), c_count.get(i));
 			dto.setC_count(c_count.get(i));
 			result.add(dto);
 		}

@@ -8,9 +8,12 @@
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
 <c:url value="/book/list" var="listBest" />
-<c:url value="/cart/cart" var="cartView"></c:url>
-<c:url value="/user/login" var="loginView"></c:url>
-<c:url value="/customer/asked" var="customerView"></c:url>
+<c:url value="/cart/cart" var="cartView" />
+<c:url value="/user/login.do" var="loginView" />
+<c:url value="/customer/asked" var="customerView" />
+<c:url value="/user/signup" var="signUp" />
+<c:url value="/user/logout.do" var="logOut" />
+<c:url value="/user/myPage" var="myPage" />
 
 
 <link rel="stylesheet"
@@ -25,12 +28,19 @@
 
 .wrapper {
 	box-shadow: 0px 0px 20px grey;
+	/* position: relative;
+	top: 0;
+	height: 5em;
+	width: 1200px; */
+	
 }
 
 .header-wrapper {
 	width: 1200px;
 	margin: 0 auto;
 	z-index: 10000;
+	
+	
 }
 
 h6 {
@@ -95,16 +105,49 @@ a {
 							</button>
 						</form>
 				</div>
-				<div class="col-sm-3 d-flex justify-content-end">
-					<span class="icons"> <a href="${cartView }" class="icon-size"> <i
-							class="fa-solid fa-basket-shopping fa-fw icon-cart" title="Back"></i>
-					</a>
-					</span> <span class="icons"> <a href="${loginView }" class="icon-size"> <i
-							class="fa-solid fa-user fa-fw icon-mypage" title="Back"></i>
-					</a>
-					</span>
+				
+				
+				
+				
+				
+				
+					<div class="col-sm-3 d-flex justify-content-end">
+					<!-- cart -->
+						<c:if test="${u_id != null}">
+							<span class="icons"> 
+								<a href="${cartView}" class="icon-size"> 
+									<i class="fa-solid fa-basket-shopping fa-fw icon-cart" title="장바구니"></i>
+								</a>	
+							</span>
+						</c:if>	
+						<c:if test="${u_id == null}">
+							<span class="icons"> 
+								<a href="${loginView}" class="icon-size"> 
+									<i class="fa-solid fa-basket-shopping fa-fw icon-cart" title="장바구니"></i>
+								</a>	
+							</span>
+						</c:if>
+				
+					<!-- mypage -->
+						<c:if test="${u_id != null}">
+							<span class="icons"> 
+								<a href="${myPage}" class="icon-size"> 
+									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>			
+								</a>
+							</span>
+						</c:if>	
+						<c:if test="${u_id == null}">
+							<span class="icons"> 
+								<a href="${loginView}" class="icon-size"> 
+									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>
+								</a>	
+							</span>
+						</c:if>	
+							
+					</div>		
 				</div>
-			</div>
+				
+			
 
 			<div class="row mt-1 pt-2 pb-3">
 				<div class="col-2"></div>
@@ -127,12 +170,21 @@ a {
 						</div>
 					</div>
 				</div>
+				
 				<div class="col-sm-3 d-flex justify-content-end">
 					<div class="login-btn">
-						<a href="#">로그인</a>
+					<c:if test="${u_id == null}">
+						<a href="${loginView}">로그인</a>
+					</c:if>
+					<c:if test="${u_id != null}">
+						<a href="${logOut}">로그아웃</a>
+					</c:if>
 					</div>
+					
 					<div class="register-btn">
-						<a href="#">회원가입</a>
+						<c:if test="${u_id == null}">
+							<a href="${signUp}">회원가입</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -13,6 +13,8 @@ WHERE o_number = #{o_number}
 <select id="countAll" resultType="int">
 SELECT COUNT(*) 
 FROM Orders
+WHERE
+	o_status LIKE #{keyword}
 </select>
 
 <select id="select" resultType="com.demo.domain.ths.OrdersDto">
@@ -20,6 +22,8 @@ SELECT
 	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
 FROM 
 	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id
+WHERE
+	o_status LIKE #{keyword}
 ORDER BY 
 	o_number DESC
 LIMIT
@@ -30,7 +34,9 @@ LIMIT
 SELECT
 	b_img, b_title, b_price, c_count, u_id, b.b_code
 FROM 
-	Book b JOIN Cart c ON b.b_code = c.b_code;
+	Book b JOIN Cart c ON b.b_code = c.b_code
+WHERE
+	u_id = #{u_id}
 </select>
 
 <delete id="deleteCart">
