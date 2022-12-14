@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,7 @@ a {
 }
 </style>
 <body>
+	<my:adminHeader></my:adminHeader>
 	<div class="container">
 		<div style="text-align: center; margin-top: 30px;" class="mb-5">
 			<h1 style="font-size: 34px">1:1문의답변</h1>
@@ -49,7 +51,7 @@ a {
 				<span>${questContent.q_date }</span>
 			</div>
 			<div class="col-4">
-				<span>유저아이디 : ${questContent.u_id }</span>
+				<span> 유저 아이디: ${questContent.u_id }</span>
 			</div>
 		</div>
 		<hr>
@@ -65,7 +67,7 @@ a {
 		<div class="row">
 	  			<div class="col form-floating mb-3">
 					<div id="answerList">
-						<label for="floatingPlaintextInput">Answer</label>
+						
 						
 					</div>
 				</div>
@@ -91,7 +93,7 @@ a {
 			<input type="hidden" id="questionNum" value="${questContent.q_number }">
 			<div class="input-group">
 			  <div class="form-floating">
-				  <textarea class="form-control" placeholder="Leave a comment here" id="answerInput" style="height: 100px"></textarea>
+				  <textarea id="answerInput" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
 				  <label for="floatingTextarea2">1:1 문의 답변을 해주세요.</label>
 			  </div>
 			  <button class="btn btn-outline-secondary" id="replyButton">전송</button>
@@ -99,6 +101,56 @@ a {
 		</div>
 	</div>
 	
+	<%-- 댓글 삭제 확인 모달 --%>
+	<!-- Modal -->
+	<div class="modal fade" id="removeConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">답변 삭제 확인</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	       답변을 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button type="button" data-bs-dismiss="modal" id="removeConfirmModalSubmitButton" class="btn btn-danger">삭제</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<%-- 댓글 수정 모달 --%>
+	<!-- Modal -->
+	<div class="modal fade" id="modifyFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5">답변 수정</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <input type="text" class="form-control" id="modifyReplyInput">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button type="button" data-bs-dismiss="modal" id="modifyFormModalSubmitButton" class="btn btn-primary">수정</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+		<%-- 댓글 메시지 토스트 --%>
+	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="d-flex">
+	    <div id="Message1" class="toast-body">
+	      Hello, world! This is a toast message.
+	    </div>
+	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	</div>
 	
 	
 <script
@@ -116,6 +168,7 @@ answerView();
 
 
 /* 답변 추가하기 */
+/* 입력 후 인풋창에 남아있지 않게 설정 */
 document.querySelector("#replyButton").addEventListener("click", function() {
 	const q_number = document.querySelector("#questionNum").value;
 	const ad_id = document.querySelector("#adminId").value;
@@ -131,7 +184,6 @@ document.querySelector("#replyButton").addEventListener("click", function() {
 		},
 		body : JSON.stringify(data)
 	})
-	.then(res => res.json())
 	.then(data => {
 		document.querySelector("#answerInput").value = "";
 	})
@@ -139,12 +191,11 @@ document.querySelector("#replyButton").addEventListener("click", function() {
 });
 
 
-
-
-
-
+/* 답변 삭제 수정하기 */
 function answerView() {
 	const questionId = document.querySelector("#questionNum").value;
+	// console.log(questionId);
+	
 	fetch(`\${ctx}/admin/answerList/\${questionId}`)
 	.then(res => res.json())
 	.then(list => {
@@ -154,78 +205,92 @@ function answerView() {
 		answerList.innerHTML = "";
 		
 		for (const item of list) {
+			console.log(item);
+			const answerRemoveBtnId = `answerRemoveBtnId\${item.a_id}`;
 			
-			const answerRemoveBtnId = `remveBtn\${item.a_id}`;
-			
-			const answerModifyBtnId = `modifyBtn\${item.a_id}`;
-			// console.log(item.id);
-			const answerDiv = `
+			const answerModifyBtnId = `answerModifyBtnId\${item.a_id}`;
+			console.log(item.a_id);
+		
+			const editButton = `
 				<div>
-					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modifyReplyFormModal" data-reply-id="\${item.a_id}" id="\${answerModifyBtnId}">
-						<i class="fa-solid fa-pen"></i>
+					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modifyFormModal" data-answer-id="\${item.a_id}" id="\${answerModifyBtnId }">
+						수정 
 					</button>
-					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#removeReplyConfirmModal" data-reply-id="\${item.a_id}" id="\${answerRemoveBtnId}">
-						<i class="fa-solid fa-x"></i>
+					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#removeConfirmModal" data-answer-id="\${item.a_id}" id="\${answerRemoveBtnId }">
+						삭제 
 					</button>
+					
 				</div>
 			
 			`
 			const replyDiv = `
 				<div class="list-group-item d-flex">
 					<div class="me-auto">
-						<h5>
+					<label for="floatingPlaintextInput">Answer</label>
+						<h6>
 							<i class="fa-solid fa-user"></i>
-							\${item.writer}
-						</h5>
+							\${item.u_id}
+						</h6>
 						<div>
-							\${item.content}
+							\${item.a_content}
 						</div>
 						<small class="text-muted">
-							<i class="fa-regular fa-clock"></i> 
-							\${item.ago}
+							\${item.a_date}
 						</small>
 					</div>
 					\${item.editable ? editButton : ''}
 				</div>`;
 				
+				answerList.insertAdjacentHTML("beforeend", editButton);
 				answerList.insertAdjacentHTML("beforeend", replyDiv);
 			
-			if (item.editable) {
+			
 				// 수정 폼 모달에 댓글 내용 넣기
 				document.querySelector("#" + answerModifyBtnId)
 					.addEventListener("click", function() {
-						document.querySelector("#modifyFormModalSubmitButton").setAttribute("data-answer-id", this.dataset.replyId);
-						readReplyAndSetModalForm(this.dataset.replyId);
+						document.querySelector("#modifyFormModalSubmitButton").setAttribute("data-answer-id", this.dataset.answerId);
+						readAnswer(this.dataset.answerId);
 					});
 				
 				
-				// 삭제확인 버튼에 replyId 옮기기
 				document.querySelector("#" + answerRemoveBtnId)
 					.addEventListener("click", function() {
 						// console.log(this.id + "번 삭제버튼 클릭됨");
-						console.log(this.dataset.replyId + "번 댓글 삭제할 예정, 모달 띄움")
+						console.log(this.dataset.answerId + "번 댓글 삭제할 예정, 모달 띄움")
 						document.querySelector("#removeConfirmModalSubmitButton").setAttribute("data-answer-id", this.dataset.answerId);
-						// removeReply(this.dataset.replyId);
+						removeAnswer(this.dataset.answerId);
 					});
-			}
+				/* if (item.editable){
+			} */
 		}
+		
 	});
 }
 
+/* 답변 수정할 때 input content 가져오기 */
+function readAnswer(a_id) {
+	console.log(a_id);
+	fetch(`\${ctx}/admin/getAnswer/\${a_id}`)
+	.then(res => res.json())
+	.then(answer => {
+		document.querySelector("#modifyReplyInput").value = answer.a_content;
+	});
+}
 
-
-
-function removeReply(replyId) {
+/* 답변 삭제하기 */ 
+function removeAnswer(answerId) {
+	console.log(answerId);
 	// /reply/remove/{id}, method:"delete"
-	fetch(ctx + "/reply/remove/" + replyId, {
+	fetch(ctx + "/admin/remove/" + answerId, {
 		method: "delete"
 	})
 	.then(res => res.json())
 	.then(data => {
-		document.querySelector("#replyMessage1").innerText = data.message;
+		document.querySelector("#Message1").innerText = data.message;
 		toast.show();
 	})
-	.then(() => listReply());
+	.then(() => answerView());
+	
 }
 
 const replySendButton1 = document.querySelector("#replySendButton1");
@@ -249,13 +314,41 @@ if (replySendButton1 != null) {
 		.then(res => res.json())
 		.then(data => {
 			document.querySelector("#replyInput1").value = "";
-			document.querySelector("#replyMessage1").innerText = data.message;
+			document.querySelector("#Message1").innerText = data.message;
 			toast.show();
 		})
-		.then(() => listReply());
+		.then(() => answerView());
 	});
 }
 
+
+
+
+//댓글 crud 메시지 토스트
+const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
+
+//답변 수정하기
+document.querySelector("#modifyFormModalSubmitButton").addEventListener("click", function() {
+	const content = document.querySelector("#modifyReplyInput").value;
+	const id = this.dataset.answerId;
+	const data = {id, content};
+	console.log("0");
+	fetch(`\${ctx}/admin/modify`, {
+		method : "put",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+	console.log("0");
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#Message1").innerText = data.message;
+		toast.show();
+	})
+	
+	.then(() => answerView());
+});
 </script>
 	
 </body>

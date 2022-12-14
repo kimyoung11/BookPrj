@@ -45,25 +45,16 @@ public class QuestionService {
 			}
 	//		파일명, 게시물 아이디 		
 			uploadFile(question.getQ_number(), file);
-	
-			//		파일 저장 (받은 파일을 목적지로 전달 (목적지는 파일타입 ) 경로명 있어야함  )
 
-//			File folder = new File("/Users/jeonglina/Desktop/Study/upload/prj/question/" + question.getQ_number());
-//			folder.mkdirs();
-//			File dest = new File(folder, file.getOriginalFilename());
-//			try{
-//				file.transferTo(dest);
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//				throw new RuntimeException(e);
-//			}
+
 		  }
 		return cnt;	
 		}
 	
+	/* S3에 파일 저장 */
 	private void uploadFile(int id, MultipartFile file) {
 		try {
-			// S3에 파일 저장
+
 			// 키 생성
 			String key = "question/" + id + "/" + file.getOriginalFilename();
 			
@@ -139,6 +130,20 @@ public class QuestionService {
 
 	public List<QuestionDto> answerView(int q_number) {
 		return mapper.answerSelect(q_number);
+	}
+
+	public int removeById(int a_id) {
+		return mapper.removeAnswer(a_id);
+	}
+
+	/* 1:1 답변 가져오기 (수정모달) */ 
+	public QuestionDto getAnswer(int a_id) {
+		return mapper.selectById(a_id);
+	}
+
+	/* 1:1 답변 수정하기 */
+	public int modify(QuestionDto quest) {
+		return mapper.update(quest);
 	}
 
 }
