@@ -154,6 +154,9 @@
 				</div>
 			</div>
 		</div>
+		<div>
+	${message }
+	</div>
 		<div class="book-detail mt-3 mb-5">
 			<h6>도서 상세정보</h6>
 			<hr style="border: 1px solid black;">

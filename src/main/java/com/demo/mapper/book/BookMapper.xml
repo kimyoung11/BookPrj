@@ -93,4 +93,13 @@
 		WHERE b_code = #{b_code}
 	</delete>
 	
+	<select id="countBook" resultType="int">
+		SELECT COUNT(*)
+		FROM Book;
+	</select>
+
+	<select id="selectAllBook" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book
+	</select>
+
 </mapper>
