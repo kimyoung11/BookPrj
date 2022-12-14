@@ -46,11 +46,25 @@ public class QuestionService {
 	//		파일명, 게시물 아이디 		
 			uploadFile(question.getQ_number(), file);
 
+	
+			//		파일 저장 (받은 파일을 목적지로 전달 (목적지는 파일타입 ) 경로명 있어야함  )
+
+//			File folder = new File("/Users/jeonglina/Desktop/Study/upload/prj/question/" + question.getQ_number());
+//			folder.mkdirs();
+//			File dest = new File(folder, file.getOriginalFilename());
+//			try{
+//				file.transferTo(dest);
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException(e);
+//			}
+
 
 		  }
 		return cnt;	
 		}
 	
+
 	/* S3에 파일 저장 */
 	private void uploadFile(int id, MultipartFile file) {
 		try {
@@ -147,3 +161,4 @@ public class QuestionService {
 	}
 
 }
+

@@ -43,7 +43,11 @@
 				<div class="container-sm">
 					<form id="registerForm1" action="" method="post" enctype="multipart/form-data">
 						<div class="mb-4 row mt-5">
+
+							<select id="selectBox" class=" form-select" aria-label="Default select example">
+
 							<select id="selectBox" name="q_option" class=" form-select" aria-label="Default select example">
+
 								<option selected>문의할 사항을 선택하세요.</option>
 								<option value="1:1문의">1:1 문의하기</option>
 								<option value="반품교환문의">반품ㆍ교환 문의하기</option>
@@ -112,11 +116,19 @@
 <script>
 
 /* 셀렉트 박스 값 가져오기 */
+
+function getQuest() {
+	const selectBox = $("#selectBox option:selected").text();
+	console.log(selectBox);
+	
+}	
+
 /* function getQuest() {
 	const selectBox = $("#selectBox option:selected").text();
 	console.log(selectBox);
 	
 }	  */
+
 
 
 
@@ -133,6 +145,17 @@ document.querySelector("#submitButton1").addEventListener("click", function(e) {
 	let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
 	// 작성자 input 값 가져와서
 	// 빈칸만 있는지 확인?
+
+	// let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
+			
+	// 위 테스트 다 통과하면 submit
+	if (titleValue.trim() != "" 
+			&& contentValue.trim() != "" ) {
+		
+		document.querySelector("#registerForm1").submit();
+	} else {
+		문의를 작성해주세요.
+
 	
 	// let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
 //	let optionValue =  
@@ -146,11 +169,37 @@ document.querySelector("#submitButton1").addEventListener("click", function(e) {
 		document.querySelector("#registerForm1").submit();
 	} else {
 		alert("문의를 작성해주세요.");
+
 	}
 	
 	
 });
 
+
+
+
+//댓글 crud 메시지 토스트
+const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
+
+document.querySelector("#submitButton1").addEventListener("click", function() {
+	const content = document.querySelector("#modifyReplyInput").value;
+	const id = this.dataset.replyId;
+	const data = {id, content};
+	
+	fetch(`\${ctx}/reply/modify`, {
+		method : "put",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
+	})
+	.then(() => listReply());
+});
 
 
 </script>

@@ -3,6 +3,7 @@
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@ a {
 		<div class="row">
 	  			<div class="col form-floating mb-3">
 					<div id="answerList">
-						
+						<label for="floatingPlaintextInput">Answer</label>
 						
 					</div>
 				</div>
@@ -93,7 +94,11 @@ a {
 			<input type="hidden" id="questionNum" value="${questContent.q_number }">
 			<div class="input-group">
 			  <div class="form-floating">
+
+				  <textarea class="form-control" placeholder="Leave a comment here" id="answerInput" style="height: 100px"></textarea>
+
 				  <textarea id="answerInput" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
+
 				  <label for="floatingTextarea2">1:1 문의 답변을 해주세요.</label>
 			  </div>
 			  <button class="btn btn-outline-secondary" id="replyButton">전송</button>
@@ -101,6 +106,7 @@ a {
 		</div>
 	</div>
 	
+
 	<%-- 댓글 삭제 확인 모달 --%>
 	<!-- Modal -->
 	<div class="modal fade" id="removeConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -151,6 +157,7 @@ a {
 	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 	  </div>
 	</div>
+
 	
 	
 <script
@@ -168,7 +175,9 @@ answerView();
 
 
 /* 답변 추가하기 */
+
 /* 입력 후 인풋창에 남아있지 않게 설정 */
+
 document.querySelector("#replyButton").addEventListener("click", function() {
 	const q_number = document.querySelector("#questionNum").value;
 	const ad_id = document.querySelector("#adminId").value;
@@ -184,6 +193,8 @@ document.querySelector("#replyButton").addEventListener("click", function() {
 		},
 		body : JSON.stringify(data)
 	})
+	.then(res => res.json())
+
 	.then(data => {
 		document.querySelector("#answerInput").value = "";
 	})
@@ -323,6 +334,121 @@ if (replySendButton1 != null) {
 
 
 
+function answerView() {
+	const questionId = document.querySelector("#questionNum").value;
+	fetch(`\${ctx}/admin/answerList/\${questionId}`)
+	.then(res => res.json())
+	.then(list => {
+
+		/* 답변 내용 중복막기 */
+		const answerList = document.querySelector("#answerList");
+		answerList.innerHTML = "";
+		
+		for (const item of list) {
+			
+			const answerRemoveBtnId = `remveBtn\${item.a_id}`;
+			
+			const answerModifyBtnId = `modifyBtn\${item.a_id}`;
+			// console.log(item.id);
+			const answerDiv = `
+				<div>
+					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modifyReplyFormModal" data-reply-id="\${item.a_id}" id="\${answerModifyBtnId}">
+						<i class="fa-solid fa-pen"></i>
+					</button>
+					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#removeReplyConfirmModal" data-reply-id="\${item.a_id}" id="\${answerRemoveBtnId}">
+						<i class="fa-solid fa-x"></i>
+					</button>
+				</div>
+			
+			`
+			const replyDiv = `
+				<div class="list-group-item d-flex">
+					<div class="me-auto">
+						<h5>
+							<i class="fa-solid fa-user"></i>
+							\${item.writer}
+						</h5>
+						<div>
+							\${item.content}
+						</div>
+						<small class="text-muted">
+							<i class="fa-regular fa-clock"></i> 
+							\${item.ago}
+						</small>
+					</div>
+					\${item.editable ? editButton : ''}
+				</div>`;
+				
+				answerList.insertAdjacentHTML("beforeend", replyDiv);
+			
+			if (item.editable) {
+				// 수정 폼 모달에 댓글 내용 넣기
+				document.querySelector("#" + answerModifyBtnId)
+					.addEventListener("click", function() {
+						document.querySelector("#modifyFormModalSubmitButton").setAttribute("data-answer-id", this.dataset.replyId);
+						readReplyAndSetModalForm(this.dataset.replyId);
+					});
+				
+				
+				// 삭제확인 버튼에 replyId 옮기기
+				document.querySelector("#" + answerRemoveBtnId)
+					.addEventListener("click", function() {
+						// console.log(this.id + "번 삭제버튼 클릭됨");
+						console.log(this.dataset.replyId + "번 댓글 삭제할 예정, 모달 띄움")
+						document.querySelector("#removeConfirmModalSubmitButton").setAttribute("data-answer-id", this.dataset.answerId);
+						// removeReply(this.dataset.replyId);
+					});
+			}
+		}
+	});
+}
+
+
+
+
+function removeReply(replyId) {
+	// /reply/remove/{id}, method:"delete"
+	fetch(ctx + "/reply/remove/" + replyId, {
+		method: "delete"
+	})
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
+	})
+	.then(() => listReply());
+}
+
+const replySendButton1 = document.querySelector("#replySendButton1");
+if (replySendButton1 != null) {
+	document.querySelector("#replySendButton1").addEventListener("click", function() {
+		const questionId = document.querySelector("#questionNum").value;
+		const content = document.querySelector("#replyInput1").value;
+		
+		const data = {
+			questionId,
+			content
+		};
+		
+		fetch(`\${ctx}/reply/add`, {
+			method : "post",
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			body : JSON.stringify(data)
+		})
+		.then(res => res.json())
+		.then(data => {
+			document.querySelector("#replyInput1").value = "";
+			document.querySelector("#replyMessage1").innerText = data.message;
+			toast.show();
+		})
+		.then(() => listReply());
+	});
+}
+
+
+
 
 //댓글 crud 메시지 토스트
 const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
@@ -349,6 +475,7 @@ document.querySelector("#modifyFormModalSubmitButton").addEventListener("click",
 	
 	.then(() => answerView());
 });
+
 </script>
 	
 </body>

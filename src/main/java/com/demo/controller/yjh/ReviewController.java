@@ -63,7 +63,7 @@ import com.demo.service.review.yjh.ReviewService;
 	}
 
 	@PostMapping("add") 
-	public Map<String, Object> add(@RequestBody ReviewDto review, RedirectAttributes rttr){
+	public Map<String, Object> add(@RequestBody ReviewDto review, RedirectAttributes rttr ){
 		
 		Map<String,Object> map = new HashMap<>();
 		

@@ -173,9 +173,6 @@ public class AdminController {
 	}
 	
 	
-	
-	
-	
 
 	/* 책 등록 */
 	@GetMapping("book")

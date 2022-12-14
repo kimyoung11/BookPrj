@@ -28,3 +28,4 @@ public interface QuestionMapper {
 
 	int update(QuestionDto quest);
 }
+

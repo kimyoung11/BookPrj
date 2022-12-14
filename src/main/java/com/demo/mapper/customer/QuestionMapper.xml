@@ -17,6 +17,12 @@
 	 VALUES (#{fileName}, #{q_number})
 </insert>
 
+<!-- 파일 정보 저장 추가 -->
+<insert id="insertFile">
+	 INSERT INTO File (f_name, q_number)
+	 VALUES (#{fileName}, #{q_number})
+</insert>
+
 
 <!-- 1:1문의 리스트 보여주기 -->
 <select id="getList" resultType="com.demo.domain.customer.QuestionDto">
@@ -88,6 +94,7 @@
         q_number DESC
 </select>
 
+
 <delete id="removeAnswer">
 	DELETE FROM Answer
 	WHERE a_id = #{a_id}
@@ -116,7 +123,6 @@
 		a_id = #{a_id}
 </update>
 </mapper>
-
 
 
 
