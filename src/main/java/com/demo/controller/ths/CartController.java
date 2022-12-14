@@ -114,5 +114,10 @@ public class CartController {
 		return "redirect:/cart/orderend";
 	}
 	
+	@GetMapping("ordermanagedetail")
+	public void ordermanagedetail(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("id");
+		List<OrdersDto> orderDetailList = service.orderDetailList(u_id);
+	}
 	
 }

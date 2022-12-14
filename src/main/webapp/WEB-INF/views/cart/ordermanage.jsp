@@ -85,7 +85,7 @@
             <thead>
                 <tr>
                     <th>주문번호</th>
-                    <th>주문일시</th>
+                    <th>주문일</th>
                     <th>상품명</th>
                     <th>회원명</th>
                     <th>주문수량</th>

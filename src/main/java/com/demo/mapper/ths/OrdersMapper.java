@@ -26,6 +26,8 @@ public interface OrdersMapper {
 	int insertBook(int o_number,String u_id,int b_code);
 
 	int deleteOrderDetail(int o_number);
+
+	List<OrdersDto> selectOrderDetail(String u_id);
 	
 }
 	

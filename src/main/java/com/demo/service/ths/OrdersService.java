@@ -82,4 +82,8 @@ public class OrdersService {
 	public void deleteOrderDetail(int o_number) {
 		ordersMapper.deleteOrderDetail(o_number);
 	}
+
+	public List<OrdersDto> orderDetailList(String u_id) {
+		return ordersMapper.selectOrderDetail(u_id);
+	}
 }
