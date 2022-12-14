@@ -20,6 +20,12 @@ public interface OrdersMapper {
 	int countAll(String keyword);
 
 	int deleteOrder(int o_number);
+
+	int insertOrders(OrdersDto orders);
+
+	int insertBook(int o_number,String u_id,int b_code);
+
+	int deleteOrderDetail(int o_number);
 	
 }
 	

@@ -26,6 +26,7 @@ public class CartController {
 	@Autowired
 	private OrdersService service;
 	
+	
 	@GetMapping("cart")
 	public void cart(HttpSession session, Model model) {
 		String u_id = (String) session.getAttribute("id");
@@ -36,7 +37,8 @@ public class CartController {
 	
 	// 장바구니 선택 삭제
 	@PostMapping("deleteCart")
-	public String deleteCart(@RequestParam List<String> u_id, @RequestParam List<Integer> b_code) {
+	public String deleteCart(HttpSession session, @RequestParam List<Integer> b_code) {
+		String u_id = (String) session.getAttribute("id");
 		service.deleteCart(u_id, b_code);
 		System.out.println(u_id);
 		System.out.println(b_code);
@@ -83,6 +85,7 @@ public class CartController {
 	// 주문 내역 삭제
 	@PostMapping("orderDelete")
 	public String orderDelete(int o_number) {
+		service.deleteOrderDetail(o_number);
 		service.orderDelete(o_number);
 		return "redirect:/cart/ordermanage";
 	}
@@ -92,6 +95,24 @@ public class CartController {
 	
 	}
 	
+	@GetMapping("orderdetail")
+	public void orderdetail() {
+		
+	}
+	
+	@PostMapping("orderdetail")
+	public String orderdetail2(HttpSession session, @RequestParam List<Integer> b_code , OrdersDto orders) {
+		String u_id = (String) session.getAttribute("id");
+		
+		int num = service.insertOrders(orders);
+
+		for(int i=0; i < b_code.size(); i++) {
+			int k = service.insertBook((Integer)orders.getO_number(),u_id, (Integer)b_code.get(i));
+		}
+		
+		service.deleteCart(u_id, b_code);
+		return "redirect:/cart/orderend";
+	}
 	
 	
 }
