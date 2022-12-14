@@ -95,8 +95,6 @@ a {
 			<div class="input-group">
 			  <div class="form-floating">
 
-				  <textarea class="form-control" placeholder="Leave a comment here" id="answerInput" style="height: 100px"></textarea>
-
 				  <textarea id="answerInput" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
 
 				  <label for="floatingTextarea2">1:1 문의 답변을 해주세요.</label>

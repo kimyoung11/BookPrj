@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -111,7 +113,7 @@ public class AdminController {
 	public void questContent(int q_number, Model model) {
 		
 		QuestionDto question = questService.ContentList(q_number);
-		
+		System.out.println(question);
 		model.addAttribute("questContent", question);
 
 	}

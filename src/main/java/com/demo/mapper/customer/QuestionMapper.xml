@@ -59,6 +59,8 @@
 		<result column="q_title" property="q_title"/>
 		<result column="q_content" property="q_content"/>
 		<result column="q_date" property="q_date"/>
+		<result column="u_id" property="u_id"/>
+		
 		<collection property="fileName" ofType="string">
 			<result property="fileName" column="fileName"/>
 		</collection>
