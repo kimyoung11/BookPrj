@@ -116,18 +116,18 @@ public class BookController {
 	
 	
 	@GetMapping("order/{b_code}")
-	public String orderBasket(@PathVariable int b_code,Model model, int number,HttpSession session) {
+	public String orderBasket(@PathVariable int b_code,Model model, int c_cnt,HttpSession session) {
 		String u_id=(String) session.getAttribute("id");
-		//System.out.println("this is b_code" + b_code);
+		System.out.println("this is b_code" + b_code);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
 		System.out.println(temp);
 		
 		List<CartDto> temp2 = cartService.getById(u_id);
-		//System.out.println(temp2);
+		System.out.println(temp2);
 		model.addAttribute("user",user);
 		model.addAttribute("book", temp);
-		model.addAttribute("cnt",number);
+		model.addAttribute("cnt",c_cnt);
 		return "/book/order";
 	}
 	
@@ -135,10 +135,11 @@ public class BookController {
 	@PostMapping("cart")
 	@ResponseBody
 	public Map<String,Object> addToCart(@RequestBody CartDto cart,HttpSession session) {
+		String u_id = (String)session.getAttribute("id");
 		cart.setC_count(1);
 		CartDto temp = cart;
 		System.out.println(temp);
-		int isInsert = cartService.insertToCart(temp.getC_count(),temp.getU_id(),temp.getB_code());
+		int isInsert = cartService.insertToCart(temp.getC_count(),u_id,temp.getB_code());
 		HashMap<String,Object> hm = new HashMap<>();
 		if(isInsert ==1) {
 			hm.put("message", "장바구니에 추가완료");
@@ -152,7 +153,7 @@ public class BookController {
 	@GetMapping("cart")
 	public String cartBasket(@RequestParam int b_code, @RequestParam int c_cnt,RedirectAttributes rttr,HttpSession session) {
 		String u_id=(String) session.getAttribute("id");
-		//System.out.println("실행 된거 맞나?"+ " " + c_cnt); //3번책 7권
+		//System.out.println("실행 된거 맞나?"+ b_code + " " + c_cnt); //3번책 7권
 		rttr.addAttribute("b_code", b_code);
 		int isInsert = cartService.insertToCart(c_cnt,u_id,b_code);
 		if(isInsert ==1) {
@@ -171,7 +172,7 @@ public class BookController {
 	@GetMapping("order")
 	public void order(@RequestParam int b_code,@RequestParam int c_cnt,Model model,HttpSession session) {
 		String u_id=(String) session.getAttribute("id");
-		//System.out.println("this is order:" + b_code + " " + c_cnt);
+		System.out.println("this is order:" + b_code + " " + c_cnt);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
 //		System.out.println(user);

@@ -220,37 +220,26 @@
                 ${item.b_code }
 
                 <c:if test="${u_id !=null}">
-
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
-                  </a>                
-                </c:if>
-                
-                <c:if test="${u_id ==null }">
-                <c:url value="${pageContext.request.contextPath}/user/login.do" var="login"></c:url>
-                	<a type="button" class="btn btn-secondary cart-btn want" href="
-                	${login }
-                	">
-                    장바구니
-                  </a>
-                </c:if>
-                
-                <c:if test="${u_id!=null }">
+                  </a>      
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
                   	<c:param name="number" value="1"/>
                   </c:url>
-                  <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
+                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
                     구매하기
-                  </a>
-                 </c:if>
-                 
-                 <c:if test="${u_id==null }">
-                 	<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+                  </a>         
+                </c:if>
+                
+                <c:if test="${u_id ==null }">
+                <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
+                	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+	                 		장바구니
+	                 	</a>
 	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
                     구매하기
                   </a>
-                 </c:if>
-
+                </c:if>
                 </li>
                 <hr />
                 

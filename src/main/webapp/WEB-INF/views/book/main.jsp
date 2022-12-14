@@ -422,7 +422,6 @@ section.faq {
                     	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
 	                    <div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
                     	</c:forEach>
-	                	
                     </div>
                 </div>
             </div>
