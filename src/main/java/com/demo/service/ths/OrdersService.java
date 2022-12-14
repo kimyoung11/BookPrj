@@ -3,6 +3,7 @@ package com.demo.service.ths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +45,9 @@ public class OrdersService {
 		return ordersMapper.selectCart(u_id);
 	}
 
-	public void deleteCart(List<String> u_id, List<Integer> b_code) {
-		for(int i = 0; i < u_id.size(); i++) {
-			ordersMapper.deleteCart(u_id.get(i), b_code.get(i));
+	public void deleteCart(String u_id, List<Integer> b_code) {
+		for(int i = 0; i < b_code.size(); i++) {
+			ordersMapper.deleteCart(u_id, b_code.get(i));
 		}
 	}
 
@@ -66,5 +67,19 @@ public class OrdersService {
 
 	public void orderDelete(int o_number) {
 		ordersMapper.deleteOrder(o_number);
+	}
+
+	public int insertOrders(OrdersDto orders) {
+		return ordersMapper.insertOrders(orders);
+	}
+
+
+
+	public int insertBook(Integer o_number, String u_id, Integer b_code) {
+		return ordersMapper.insertBook(o_number,u_id,b_code);
+	}
+
+	public void deleteOrderDetail(int o_number) {
+		ordersMapper.deleteOrderDetail(o_number);
 	}
 }

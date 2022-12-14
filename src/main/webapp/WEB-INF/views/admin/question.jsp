@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@ a {
 </style>
 </head>
 <body>
-
+	<my:adminHeader></my:adminHeader>
 	<div class="container">
 		<div style="text-align: center; margin-top: 30px;" class="mb-5">
 			<h1 style="font-size: 34px">1:1문의 관리자</h1>

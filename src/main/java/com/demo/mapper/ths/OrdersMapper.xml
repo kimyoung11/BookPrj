@@ -5,6 +5,17 @@
   
 <mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
+<insert id="insertOrders" useGeneratedKeys="true" keyProperty="o_number" >
+	INSERT INTO Orders(o_count, u_id)
+	VALUES (#{o_count},#{u_id})
+	
+</insert>
+
+<delete id="deleteOrderDetail">
+DELETE FROM OrderDetail
+WHERE o_number = #{o_number}
+</delete>
+
 <delete id="deleteOrder">
 DELETE FROM Orders
 WHERE o_number = #{o_number}
@@ -21,9 +32,10 @@ WHERE
 SELECT 
 	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
 FROM 
-	Orders o JOIN Book b ON o.b_code = b.b_code JOIN User u ON u.u_id = o.u_id
+	Orders o JOIN OrderDetail od ON o.o_number = od.o_number JOIN Book b ON od.b_code = b.b_code JOIN User u ON u.u_id = o.u_id
 WHERE
 	o_status LIKE #{keyword}
+	GROUP BY o.o_number
 ORDER BY 
 	o_number DESC
 LIMIT
@@ -62,12 +74,16 @@ WHERE
 
 <select id="selectUserData" resultType="com.demo.domain.ths.CartDto">
 SELECT
-	u_email, u_address, u_phone, u_name
+	u_id, u_email, u_address, u_phone, u_name
 FROM
 	User
 WHERE 
 	u_id = #{u_id}
 </select>
 
+<insert id="insertBook">
+	INSERT INTO OrderDetail(o_number,u_id,b_code) 
+	VALUES (#{o_number},#{u_id},#{b_code})
+</insert>
 
 </mapper>

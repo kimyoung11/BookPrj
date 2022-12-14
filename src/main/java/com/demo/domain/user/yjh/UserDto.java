@@ -20,7 +20,7 @@ public class UserDto {
 	private int countLike;
 	private int countCart;
 
-	private int o_id;
+	private int o_number;
 	private int o_count;
 	
 	private String r_content;
@@ -28,12 +28,16 @@ public class UserDto {
 	private int r_id;
 	
 	@JsonFormat(shape = Shape.STRING)
-	private LocalDateTime o_date;
+	private Date o_date;
 	
 	private String o_status;
 	
 	private String b_title;
 	private int b_code;
+    private int b_price;
+    private String b_img;
+    private String b_genre;
+    private int b_like;
 	
 	private String q_title;
 	private String q_content;

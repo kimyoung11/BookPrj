@@ -101,23 +101,11 @@
 	<!-- 각종 현황 내용 ajax 출력되는 구역 -->
 		<div class="col">
 			     <!--리뷰 버튼 출력 -->
-				 <div class=" btn-group d-flex gap-2" role="group" id="reviewButtonGroup"></div>
+				 <div class=" rvbtn_group" id="reviewButtonGroup"></div>
 				 <!-- 배송 현황 출력 -->
 				 <div id="orderStatus"></div> 
 				 <!-- 테이블 출력 -->
-				   <div class="mt-3 mb-3">
-				    <div class="col">
-				     <div class="list-group" id="tableContainer">
-				      <div class="list-section">
-						<table class="table" id="dataTable" style="border: 2px solid black; border-radius: 10px">
-							<thead id = "tableHead"></thead>
-							<tbody id = "tableBody"></tbody>
-						</table>
-					<br/>
-				</div>
-			</div>
-	      </div>
-		 </div>
+				 <div id="tableContainer"></div>
 	    </div>
 			       
 	 </div>
@@ -323,6 +311,7 @@
 const ctx = "${pageContext.request.contextPath}";
 
 const u_id = document.querySelector("#u_id").value; 
+console.log(u_id);
 
 //navbar 이동
 const navBar = document.querySelector(".navbar");
@@ -363,6 +352,8 @@ const allLi = document.querySelectorAll(".navli");
 	</div>`;
 
 // ↓↓↓↓↓↓↓ 테이블 비동기 방식으로 변경하기 위한 테이블 생성 변수들 ↓↓↓↓↓↓↓↓
+// 내역 없을때
+const dataNullText = `<span style="display: inline-block; padding-top: 30px;">내역이 없습니다.</span>`;
 
 // 테이블 뼈대
 const tableDiv = `
@@ -374,16 +365,29 @@ const tableDiv = `
 			<tbody id = "tableBody">					
 			</tbody>
 		</table>
-		<br />
+		<div id="dataTextDiv" align="center"> </div>
 	</div>`;
 
 // 오더 리스트 테이블 헤더
-const orderTableHead = 
-	`<tr>
-		<th scope="col">주문일자</th>
-		<th scope="col">주문번호</th>
-		<th scope="col">배송상태</th>
-	</tr>`;
+const orderTable = 
+	`
+		<div id="orderFrame">
+	        <span style="font-size: 17px; font-weight: bold; display: inline-block; padding: 10px 10px;">주문 정보</span>
+	        <table id="productInfo">
+	            <thead>
+	                <tr>
+	                    <th>주문번호</th>
+	                    <th>주문일자</th>
+	                    <th style="width: 500px;">상품정보</th>
+	                    <th>구매금액</th>
+	                    <th>주문처리상태</th>
+	                </tr>
+	            </thead>
+	            <tbody id="orderTableBody"></tbody>
+	        </table>
+	            <div id="dataTextDiv" align="center"> </div>
+	    </div>
+	`;
 
 // 좋아요 리스트 테이블 헤더
 const b_likeTableHead = 
@@ -439,20 +443,24 @@ function orderList(){
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#orderStatus").innerHTML = "";
 		document.querySelector("#orderStatus").insertAdjacentHTML("beforeend", orderStatusDiv);
-		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);		
-		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", orderTableHead);
+		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", orderTable);		
 		
-		for (const order of orderList) {
-				const orderTableBody = 
-					`
-					<tr>
-						<td>\${order.o_date }</td>
-						<td>\${order.o_id}</td>
-						<td>\${order.o_status}</td>
-					</tr>
-					`;
-			document.querySelector("#tableBody").insertAdjacentHTML("beforeend", orderTableBody);
-		}											
+		if(orderList != 0){			
+			for (const order of orderList) {
+					const orderTableBody = 
+						`<tr>
+							<td>\${order.o_number}</td>
+							<td>\${order.o_date }</td>
+							<td>\${order.o_date }</td>
+							<td>\${order.o_date }</td>
+							<td>\${order.o_status}</td>
+						 </tr>
+						`;
+				document.querySelector("#orderTableBody").insertAdjacentHTML("beforeend", orderTableBody);
+			}											
+		} else {
+			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
+		}
 	});
 }
 // 주문 배송 리스트 버튼 클릭 함수
@@ -478,13 +486,18 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
 		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", b_likeTableHead);
-		for (const b_like of bookLikeList) {
-			const b_likeTableBody = 
-				`<tr>
-					<td>\${b_like.b_title}</td>
-				</tr>`;
-			document.querySelector("#tableBody").insertAdjacentHTML("beforeend", b_likeTableBody);
+		if(bookLikeList != 0){
+			for (const b_like of bookLikeList) {
+				const b_likeTableBody = 
+					`<tr>
+						<td>\${b_like.b_title}</td>
+					</tr>`;
+				document.querySelector("#tableBody").insertAdjacentHTML("beforeend", b_likeTableBody);
+			}			
+		} else {
+			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
 		}
+		
 	});
 })
 
@@ -507,52 +520,19 @@ function myReview(){
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
 		var reviewButtonDiv = 
 			`
-			<button id="myReviewBtn" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-				내가 작성한 리뷰 보기 </button> 
-			<button id="makeReviewBtn" class="btn btn-primary rounded mt-3 mb-3 p-3" style="width: 95%">
-				작성 가능한 리뷰 보기 </button>
+			<div id="rvbtn_group">
+		        <button id="myReviewBtn" type="button">
+		            내가 작성한 리뷰
+		        </button>
+		        <button id="makeReviewBtn" type="button">
+		            작성 가능한 리뷰
+		        </button>
+		    </div>     
 			`;
 		document.querySelector("#reviewButtonGroup").insertAdjacentHTML("beforeend", reviewButtonDiv);
-		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);	
-		for(review of reviewList) {
-			const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
-			const reviewRemoveButtonId = `reviewRemoveButton\${review.r_id}`;
-			const reviewTableBody = 
-				`
-				<tr>
-					<td>\${review.b_title}</td>
-					<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
-					<td>\${review.r_content}</td>
-					<td>
-					<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
-						수정
-					</button>
-					<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
-						삭제
-					</button>	
-				</td>
-				</tr>
-				`;
-			document.querySelector("#tableBody").insertAdjacentHTML("beforeend",reviewTableBody );
-			
-			//리뷰 수정버튼에 내용 넣기
-			document.querySelector("#" + reviewModifyButtonId).addEventListener("click", function(){
-				document.querySelector("#reviewModifyButton").setAttribute("data-review-id", this.dataset.reviewId);
-				readReviewAndSetModalForm(this.dataset.reviewId);
-			})
-			//제거 버튼에 데이터
-			document.querySelector("#" + reviewRemoveButtonId).addEventListener("click", function(){
-				document.querySelector("#reviewRemoveButton").setAttribute("data-review-id", this.dataset.reviewId);
-			})
-			
-		}
-			
-		// 작성한 리뷰 목록 버튼 클릭시
-		document.querySelector("#myReviewBtn").addEventListener("click", function(){
-				
-			document.querySelector("#tableContainer").innerHTML = "";
-			document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
-			document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);
+		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);
+		
+		if(reviewList != 0){
 			for(review of reviewList) {
 				const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
 				const reviewRemoveButtonId = `reviewRemoveButton\${review.r_id}`;
@@ -563,15 +543,13 @@ function myReview(){
 						<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
 						<td>\${review.r_content}</td>
 						<td>
-							<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" 
-								data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
-								수정
-							</button>
-							<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger" 
-								data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
-								삭제
-							</button>	
-						</td>
+						<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
+							수정
+						</button>
+						<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
+							삭제
+						</button>	
+					</td>
 					</tr>
 					`;
 				document.querySelector("#tableBody").insertAdjacentHTML("beforeend",reviewTableBody );
@@ -584,13 +562,70 @@ function myReview(){
 				//제거 버튼에 데이터
 				document.querySelector("#" + reviewRemoveButtonId).addEventListener("click", function(){
 					document.querySelector("#reviewRemoveButton").setAttribute("data-review-id", this.dataset.reviewId);
-				})	
+				})
+				document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+			    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 			}
+			
+		} else {
+			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
+		}
+			
+		// 작성한 리뷰 목록 버튼 클릭시
+		document.querySelector("#myReviewBtn").addEventListener("click", function(){
+				
+			document.querySelector("#tableContainer").innerHTML = "";
+			document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
+			document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);
+			if(reviewList != 0){
+				for(review of reviewList) {
+					const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
+					const reviewRemoveButtonId = `reviewRemoveButton\${review.r_id}`;
+					const reviewTableBody = 
+						`
+						<tr>
+							<td>\${review.b_title}</td>
+							<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
+							<td>\${review.r_content}</td>
+							<td>
+								<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" 
+									data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
+									수정
+								</button>
+								<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger" 
+									data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
+									삭제
+								</button>	
+							</td>
+						</tr>
+						`;
+					document.querySelector("#tableBody").insertAdjacentHTML("beforeend",reviewTableBody );
+					
+					//리뷰 수정버튼에 내용 넣기
+					document.querySelector("#" + reviewModifyButtonId).addEventListener("click", function(){
+						document.querySelector("#reviewModifyButton").setAttribute("data-review-id", this.dataset.reviewId);
+						readReviewAndSetModalForm(this.dataset.reviewId);
+					})
+					//제거 버튼에 데이터
+					document.querySelector("#" + reviewRemoveButtonId).addEventListener("click", function(){
+						document.querySelector("#reviewRemoveButton").setAttribute("data-review-id", this.dataset.reviewId);
+					})	
+				}
+				
+			} else {
+				document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
+			}
+			
+			
+			document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+		    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 		})
 			
 		// 작성 가능한 리뷰 목록 클릭
 		document.querySelector("#makeReviewBtn").addEventListener("click", function(){
 			makeReviewList();
+			document.getElementById("makeReviewBtn").style.backgroundColor ="#4070f4";
+		    document.getElementById("myReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 		})
 	});
 }
@@ -727,16 +762,21 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
 		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", questTableHead);
-		for (const quest of questList) {
-			const questTableBody = 
-				`
-				<tr>
-					<td>\${quest.q_title}</td>
-					<td>\${quest.q_content}</td>
-					<td>\${quest.q_date}</td>
-				</tr>
-				`;
-			document.querySelector("#tableBody").insertAdjacentHTML("beforeend", questTableBody);
+		
+		if(questList != 0){
+			for (const quest of questList) {
+				const questTableBody = 
+					`
+					<tr>
+						<td>\${quest.q_title}</td>
+						<td>\${quest.q_content}</td>
+						<td>\${quest.q_date}</td>
+					</tr>
+					`;
+				document.querySelector("#tableBody").insertAdjacentHTML("beforeend", questTableBody);
+			}			
+		} else {
+			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
 		}
 	});
 })

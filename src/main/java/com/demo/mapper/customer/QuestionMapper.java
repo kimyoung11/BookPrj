@@ -21,4 +21,11 @@ public interface QuestionMapper {
 	List<QuestionDto> answerSelect(int q_number);
 
 	int insertFile(int q_number, String fileName);
+
+	int removeAnswer(int a_id);
+
+	QuestionDto selectById(int a_id);
+
+	int update(QuestionDto quest);
 }
+
