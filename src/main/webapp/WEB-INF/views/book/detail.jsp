@@ -69,17 +69,26 @@
 				<div class="col-8 mt-3">
 					<div class="row">
 						<h4 class="mb-3 col">${book.b_title }</h4>
-						<div class="col-1 likeIcon">
-							<c:if test="${likeStatus }">
-								<i class="fa-solid fa-heart fa-xl"></i>
-							</c:if>
-							<c:if test="${!likeStatus }">
-								<i class="fa-regular fa-heart fa-xl"></i>
-							</c:if>
-							<!-- <i class="fa-regular fa-heart fa-xl"></i> -->
-							<!-- <i class="fa-regular fa-heart fa-xl"></i> -->
-							<!-- <i class="fa-solid fa-heart fa-xl"></i> -->
-						</div>
+						<c:if test="${u_id!=null }">
+							<div class="col-1 likeIcon">
+								<c:if test="${likeStatus }">
+									<i class="fa-solid fa-heart fa-xl"></i>
+								</c:if>
+								<c:if test="${!likeStatus }">
+									<i class="fa-regular fa-heart fa-xl"></i>
+								</c:if>
+							</div>
+						</c:if>
+						<c:if test="${u_id ==null }">
+							<div class="col-1">
+								<c:if test="${likeStatus }">
+									<i class="fa-solid fa-heart fa-xl"></i>
+								</c:if>
+								<c:if test="${!likeStatus }">
+									<i class="fa-regular fa-heart fa-xl"></i>
+								</c:if>
+							</div>
+						</c:if>
 
 						${likeCount } ${bookCnt } <span id="likeContainer">
 							${book.b_like } </span>
@@ -96,7 +105,7 @@
 						<c:url value="${pageContext.request.contextPath}/book/order"
 							var="link"></c:url>
 						<form class="d-flex mb-3" action="${link }" style="float: right;"
-							id="submitForm">
+							id="submitForm1">
 							<input type="hidden" value="${book.b_code }" name="b_code">
 							<input class="cntValidate" type="number"
 								style="width: 100px; text-align: center" placeholder="수량 입력"
@@ -107,9 +116,18 @@
 					</div>
 					<hr>
 					<div>
-						<button type="submit" class="btn btn-dark mb-1 buy"
-							style="width: 100%;" value="${book.b_code }" onclick="buyBook()">바로
-							구매하기</button>
+						<c:if test="${u_id != null }">
+							<button type="button" class="btn btn-dark mb-1 buy"
+								style="width: 100%;" value="${book.b_code }" onclick="buyBook()">바로
+								구매하기</button>
+						</c:if>
+						<c:if test="${u_id ==null }">
+							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+		                 	<a type="button" class="btn btn-dark mb-1 buy"
+								style="width: 100%;" href="${loginLink }">
+		                 		바로 구매하기
+		                 	</a>
+						</c:if>
 					</div>
 					<div>
 						<c:url value="${pageContext.request.contextPath }/book/cart"
@@ -121,8 +139,17 @@
 								style="width: 100px; text-align: center" placeholder="수량 입력"
 								name="c_cnt" required="required">
 						</form>
+						<c:if test="${u_id != null }">
 						<button type="button" class="btn btn-dark want"
 							style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
+						</c:if>
+						<c:if test = "${u_id ==null }">
+							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+	                 	<a type="button" class="btn btn-dark want"
+							style="width: 100%;" href="${loginLink }">
+	                 		장바구니
+	                 	</a>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -263,7 +290,7 @@
 	 }
 	
 
-	 function wantBook(target){
+	 function wantBook(target){ //장바구니
 		 const c_cnt =document.querySelector(".cntValidate").value;
 		 if(c_cnt != null && c_cnt >0){
 			 document.querySelector('#submitForm2').submit();
@@ -297,14 +324,14 @@
 };
 	 
 	 
-	 function buyBook(){
+	 function buyBook(){ //바로구매
 		 const c_cnt =document.querySelector(".cntValidate").value;
 		 console.log(c_cnt);
-		 if(c_cnt != null && c_cnt >0){
-			 document.querySelector('#submitForm').submit();
+		  if(c_cnt != null && c_cnt >0){
+			 document.querySelector('#submitForm1').submit();
 		 }else{	
 			 alert('책 수량 입력해주세요');
-		 }
+		 } 
 	 }
 	 
 	 

@@ -19,20 +19,20 @@
     position: relative;
     border: none;
     color: #fff;
-    bottom: 15px;
+    bottom: 5px;
     font-size: 20px;
-    margin-left:200px;
+    margin-left:160px;
 }
 .profile-card{
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 270px;
+    max-width: 200px;
     width: 30%;
     height: 50%;
     background: #fff;
     border-radius: 24px;
-    padding: 15px;
+    padding: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -62,12 +62,12 @@
     border-radius: 50%;
     border: 3px solid #fff;
 }
-.profile-card .text-data{
+/* .profile-card .text-data{
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #333;
-}
+} */
 .text-data .name{
     font-size: 18px;
     font-weight: 500;
@@ -77,13 +77,13 @@
     align-items: center;
     margin-top: 15px;
 }
-.profile-card .buttons{
+/* .profile-card .buttons{
     display: flex;
     align-items: center;
     margin-top: 25px;
 
-}
-.buttons .button{
+} */
+/* .buttons .button{
     color: #fff;
     font-size: 14px;
     font-weight: 400;
@@ -94,23 +94,23 @@
     background-color: #4070f4;
     cursor: pointer;
     transition: all 0.3s ease;
-}
+} */
 .profile-card .analytics{
     display: flex;
     align-items: center;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 .analytics .data{
     display: grid;
     align-items: center;
     color: #333;
-    padding: 0 14px;
+    padding: 0 10px;
     border-right: 2px solid #e7e7e7;
     justify-items: center;
 }
 
 .data .fa-solid{
-    font-size: 30px;
+    font-size: 25px;
 }
 .data .iconName{
     font-size: 14px;

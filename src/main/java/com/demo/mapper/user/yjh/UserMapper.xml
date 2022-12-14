@@ -54,7 +54,7 @@
   	</select>
   	
   	<select id="selectOrderByUser" resultType="com.demo.domain.user.yjh.UserDto">
-  		SELECT o_id,
+  		SELECT o_number,
   			   o_date,
   			   o_status,
   			   o_count
@@ -63,7 +63,7 @@
   	</select>
   	
   	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.yjh.UserDto">
-  		SELECT o.o_id o_id,
+  		SELECT o.o_number o_number,
 	   		   o.o_count o_count,
        		   o.o_date o_date,
        		   o.o_status o_status,
@@ -74,7 +74,11 @@
   	
   	<select id="selectBookLikeListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   	SELECT
-	   	   b.b_title b_title
+	   	   b.b_title b_title,
+	       b.b_price b_price,
+	       b.b_img b_img,
+	       b.b_genre b_genre,
+	       b.b_like b_like
     FROM BookLike L LEFT JOIN Book b ON L.b_code = b.b_code
     WHERE L.u_id = #{u_id};    
   	</select>
@@ -110,7 +114,7 @@
   	
   	<resultMap type="com.demo.domain.user.yjh.UserDto" id="orderMap">
   		<id column="u_id" property="id"/>
-  		<result column="o_id" property="o_id"/>
+  		<result column="o_number" property="o_number"/>
   		<result column="o_count" property="orderCount"/>
   		<result column="o_date" property="orderDate"/>
   		<result column="o_status" property="orderStatus"/>
