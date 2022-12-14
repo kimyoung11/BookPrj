@@ -53,6 +53,7 @@ a {
 </style>
 </head>
 <body>
+	<my:adminHeader></my:adminHeader>
 	<div id="align-center" class="container">
 			<div id="align-center" class="container">
 		<div style="text-align: center; margin-top: 30px;" class="mb-5">

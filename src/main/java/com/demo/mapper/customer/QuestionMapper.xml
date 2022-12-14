@@ -7,8 +7,8 @@
 
 <!-- 1:1 문의 추가 -->
 <insert id="insert" useGeneratedKeys="true" keyProperty="q_number">
-	INSERT INTO Quest (q_title, q_content, u_id)
-	VALUES (#{q_title}, #{q_content}, #{u_id})
+	INSERT INTO Quest (q_title, q_content, u_id, q_option)
+	VALUES (#{q_title}, #{q_content}, #{u_id}, #{q_option})
 </insert>
 
 <!-- 파일 정보 저장 추가 -->
@@ -59,6 +59,8 @@
 		<result column="q_title" property="q_title"/>
 		<result column="q_content" property="q_content"/>
 		<result column="q_date" property="q_date"/>
+		<result column="u_id" property="u_id"/>
+		
 		<collection property="fileName" ofType="string">
 			<result property="fileName" column="fileName"/>
 		</collection>
@@ -75,6 +77,7 @@
 <!-- 1:1문의 답변 보여주기 -->
 <select id="answerSelect" resultType="com.demo.domain.customer.QuestionDto">
 	SELECT 
+		a_id,
 		a_content,
 		a_date,
 		q_number,
@@ -88,9 +91,34 @@
 </select>
 
 
+<delete id="removeAnswer">
+	DELETE FROM Answer
+	WHERE a_id = #{a_id}
+</delete>
 
+<!-- 1:1 문의 답변 가져오기 -->
+<select id="selectById" resultType="com.demo.domain.customer.QuestionDto">
+ 	SELECT
+ 		a_id,
+ 		q_number,
+ 		a_date,
+ 		a_content,
+ 		ad_id
+ 	FROM 
+ 		Answer
+ 	WHERE
+ 		a_id = #{a_id}
+</select>
+
+
+<!-- 1:1 문의 답변 수정하기 -->
+<update id="update">
+	UPDATE Answer
+	SET a_content = #{a_content}
+	WHERE 
+		a_id = #{a_id}
+</update>
 </mapper>
-
 
 
 

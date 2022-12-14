@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <c:url value="/cart/ordermanage" var="ordersList"></c:url>
 <!DOCTYPE html>
 <html>
@@ -62,6 +63,7 @@
     </style>
 </head>
 <body>
+	<my:adminHeader></my:adminHeader>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
         <a href="/cart/ordermanage"><h2>주문관리</h2></a>

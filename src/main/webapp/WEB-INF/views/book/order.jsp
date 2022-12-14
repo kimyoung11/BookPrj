@@ -150,7 +150,9 @@
 
 
     <div style="text-align: center;">
-        <button type="button" class="btn btn-primary order-btn">결제하기</button>
+    	<form action="/cart/orderend">
+        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
+    	</form>
     </div>
     </tbody>
     </table>
