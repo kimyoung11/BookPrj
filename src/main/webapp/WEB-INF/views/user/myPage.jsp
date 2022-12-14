@@ -323,6 +323,7 @@
 const ctx = "${pageContext.request.contextPath}";
 
 const u_id = document.querySelector("#u_id").value; 
+console.log(u_id);
 
 //navbar 이동
 const navBar = document.querySelector(".navbar");
