@@ -1,15 +1,18 @@
 package com.demo.controller.customer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -127,7 +130,49 @@ public class AdminController {
 		return questService.answerView(q_number);
 	}
 	
-
+	/* 1:1 문의 답변 삭제하기 */
+	@DeleteMapping("remove/{a_id}")
+	@ResponseBody
+	public Map<String, Object> removeAnswer(@PathVariable int a_id) {
+		Map<String, Object> map = new HashMap<>();
+		System.out.println("1");
+		
+		int cnt = questService.removeById(a_id);
+		if (cnt == 1) {
+			map.put("message", "댓글이 삭제되었습니다.");
+		} else {
+			map.put("message", "댓글이 삭제되지 않았습니다.");
+		}
+		return map;
+	}
+	
+	/* 1:1 문의 답변 내용 가져오기(수정) */
+	@GetMapping("getAnswer/{a_id}")
+	@ResponseBody
+	public QuestionDto get(@PathVariable int a_id) {
+		return questService.getAnswer(a_id);
+		
+	}
+	
+	/* 1:1 문의 답변 내용 수정하기 */
+	@PutMapping("modify")
+	@ResponseBody
+	public Map<String, Object> modifyAnswer(@RequestBody QuestionDto quest){
+		Map<String, Object> map = new HashMap<>();
+		
+		int cnt = questService.modify(quest);
+		
+		if(cnt == 1) {
+			map.put("message","답변이 변경되었습니다.");
+		} else {
+			map.put("message", "답변이 수정되지 않았습니다.");
+		}
+		
+		
+		return map;
+	}
+	
+	
 
 	/* 책 등록 */
 	@GetMapping("book")

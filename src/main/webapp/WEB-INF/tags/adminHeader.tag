@@ -4,6 +4,9 @@
 
 <c:url value="/admin/book" var="registerBook"></c:url>
 <c:url value="/admin/bookList" var="bookList"></c:url>
+<c:url value="/admin/noticeRegister" var="registerNotice"></c:url>
+<c:url value="/admin/notice" var="noticeList"></c:url>
+<c:url value="/admin/question" var="questionList"></c:url>
 
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -19,10 +22,10 @@
             공지사항
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">공지사항 작성</a></li>
-            <li><a class="dropdown-item" href="#">공지사항 수정</a></li>
+            <li><a class="dropdown-item" href="${registerNotice }">공지사항 작성</a></li>
+            <li><a class="dropdown-item" href="${noticeList }">공지사항 관리</a></li>
           </ul>
-        <a class="nav-link" href="#">문의 관리</a>
+        <a class="nav-link" href="${questionList }">문의 관리</a>
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             책관리
           </a>

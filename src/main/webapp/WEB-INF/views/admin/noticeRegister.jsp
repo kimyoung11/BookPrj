@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,7 @@ a {
 </style>
 </head>
 <body>
+	<my:adminHeader></my:adminHeader>
 	<div id="align-center" class="container">
 		<h1 style="font-size: 34px; margin-bottom: 20px;">공지사항 작성</h1>
 

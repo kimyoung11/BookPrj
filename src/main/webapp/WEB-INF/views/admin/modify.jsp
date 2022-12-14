@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,22 +24,65 @@
 <title>공지사항 수정</title>
 </head>
 <body>
-	<h1>${notice.n_id}번 게시물</h1>
-	<form id="modifyForm" action="" method="post">
-		<input type="hidden" name="n_id" value="${notice.n_id }">
-		제목 <input type="text" name="n_title" value="${notice.n_title }" > <br>
-		본문 <textarea name="n_content" >${notice.n_content }</textarea> <br>
-		작성일시 <input type="datetime-local" value="${notice.n_date}" readonly>	
-		<br>
-	</form>
-		<input type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
+	<my:adminHeader></my:adminHeader>
+	<div class="container-md">
+		<div class="row">
+			<div class="col mt-5">
+			
+		<div style="text-align: center;" class="mb-5">
+			<h1 style="font-size: 34px;">${notice.n_id}번 게시물</h1>
+		</div>
+
 	
-	<!-- 삭제 -->
-	<c:url value="/admin/remove" var="removeLink"></c:url>
-	<form id="deleteForm" action="${removeLink }" method="post">
-		<input type="hidden" name="id" value="${notice.n_id }">
+	<div class="container-sm">
+	<form id="modifyForm" action="" method="post">
+		
+		<input type="hidden" name="n_id" value="${notice.n_id }">
+		
+		<div class="mb-4 row mt-5">
+				<label class="col-sm-1 col-form-label">공지제목</label>						
+				<div class="col-sm-10">
+					<input type="text" name="n_title" value="${notice.n_title }" class="form-control">
+				</div>
+		</div>
+
+
+						<div class="mb-5 row">
+							<label class="col-sm-1 col-form-label">공지내용</label>
+							<div class="col-sm-10">
+								<textarea name="n_content" class="form-control" rows="3"
+									style="padding-bottom: 200px;">${notice.n_content }</textarea>
+							</div>
+						</div>
+
+						<div class="mb-4 row mt-5">
+							<label class="col-sm-1 col-form-label">작성일시</label>
+							<div class="col-sm-10">
+								<input type="datetime-local" class="form-control" value="${notice.n_date}" readonly>
+							</div>
+						</div>
+						
 	</form>
-		<input type="submit" value="삭제" data-bs-toggle="modal" data-bs-target="#removeModal">
+						
+		<div class="row justify-content-center" style="text-align: center; margin-top: 30px;">		
+			<div class="col-1">
+				<input type="submit" value="수정" class="btn btn-secondary btn-qusetion " data-bs-toggle="modal" data-bs-target="#modifyModal">
+			</div>
+			
+			<!-- 삭제 -->
+			<div class="col-1">
+				<c:url value="/admin/remove" var="removeLink"></c:url>
+				<form id="deleteForm" action="${removeLink }" method="post">
+					<input type="hidden" name="id" value="${notice.n_id }">
+				</form>
+				<input type="submit"  class="btn btn-primary regist-btn" value="삭제" data-bs-toggle="modal" data-bs-target="#removeModal">
+			</div>
+		</div>	
+	
+			</div>
+		</div>
+	</div>
+</div>
 	
 	<!-- 수정 모달창 -->	
 	<div class="modal" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

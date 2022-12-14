@@ -18,6 +18,7 @@ public class QuestionDto {
 	private LocalDateTime q_date;
 	private String q_img;
 	private String u_id;
+	private String q_option;
 	
 	
 	/* answer */

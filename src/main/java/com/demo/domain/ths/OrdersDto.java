@@ -12,5 +12,5 @@ public class OrdersDto {
 	private String b_title;
 	private String u_name;
 	private int b_price;
-	
+	private String u_id;
 }
