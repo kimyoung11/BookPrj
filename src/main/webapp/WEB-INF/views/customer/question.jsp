@@ -44,8 +44,6 @@
 					<form id="registerForm1" action="" method="post" enctype="multipart/form-data">
 						<div class="mb-4 row mt-5">
 
-							<select id="selectBox" class=" form-select" aria-label="Default select example">
-
 							<select id="selectBox" name="q_option" class=" form-select" aria-label="Default select example">
 
 								<option selected>문의할 사항을 선택하세요.</option>
@@ -80,7 +78,7 @@
 						</div>
 						
 						<!-- 유저아이디 넘겨줌 -->						
-						<input type="hidden" name="u_id" value="aa">
+						<input type="hidden" name="u_id" value="<%=(String)session.getAttribute("id")%>">
 
 						<hr>
 						<div style="text-align: center; margin-top: 30px;">

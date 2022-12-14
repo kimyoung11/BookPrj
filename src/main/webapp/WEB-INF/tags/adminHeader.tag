@@ -7,6 +7,8 @@
 <c:url value="/admin/noticeRegister" var="registerNotice"></c:url>
 <c:url value="/admin/notice" var="noticeList"></c:url>
 <c:url value="/admin/question" var="questionList"></c:url>
+<c:url value="/cart/ordermanage" var="ordermanage"></c:url>
+
 
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -26,6 +28,7 @@
             <li><a class="dropdown-item" href="${noticeList }">공지사항 관리</a></li>
           </ul>
         <a class="nav-link" href="${questionList }">문의 관리</a>
+        <a class="nav-link" href="${ordermanage }">주문 관리</a>
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             책관리
           </a>
