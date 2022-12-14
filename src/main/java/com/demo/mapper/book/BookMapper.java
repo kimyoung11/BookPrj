@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demo.domain.book.BookDto;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 
 @Mapper
@@ -43,7 +45,8 @@ public interface BookMapper {
 
 	public int deleteBook(int b_code);
 
+	public int countBook();
+	
+	public Page<BookDto> selectAllBook();
 
-	
-	
 }

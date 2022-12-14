@@ -1,20 +1,14 @@
 package com.demo.controller.kyj;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +26,8 @@ import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.book.BookService;
 import com.demo.service.book.CartService;
 import com.demo.service.user.yjh.UserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 
 @Controller
@@ -70,13 +66,24 @@ public class BookController {
 		return paramMap;
 	}
 	
+	
 	@GetMapping("list")
 	public String list(Model model) {//all books page
-	
 		List<BookDto> list = bookService.listBoard();
 		model.addAttribute("bookList", list);
 		return "book/list/all";
 	}
+	
+	@GetMapping("listBook")
+	public void showBook(Model model) {
+		System.out.println("SDLFKSDFSDF");
+		PageHelper.startPage(1, 10);
+		Page<BookDto> books = bookService.selectAllBook();
+		System.out.println(books);
+		model.addAttribute("books",books.getResult());
+
+	}
+	
 	
 	@GetMapping("list/new")
 	public String listByDate(Model model) {

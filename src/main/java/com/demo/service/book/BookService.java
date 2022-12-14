@@ -1,5 +1,7 @@
 package com.demo.service.book;
 
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.demo.domain.book.BookDto;
 import com.demo.mapper.book.BookMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class BookService {
@@ -85,8 +89,12 @@ public class BookService {
 
 	}
 
+	public int countBook() {
+		return bookMapper.countBook();
+	}
 	
-
-
+	public Page<BookDto> selectAllBook() {
+		return bookMapper.selectAllBook();
+	}
 
 }
