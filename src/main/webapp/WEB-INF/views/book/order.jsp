@@ -158,6 +158,7 @@
     		<input type="hidden" name="u_id" value="${user.u_id}">
     		<input type="hidden" name="o_count" value="${cnt}">
     		<input type="hidden" name="b_code" value="${book.b_code }">
+    		<input type="hidden" name="od_count" value="${cnt}">
     		<input type="hidden" name="o_total" value="${book.b_price * cnt }">
         	<button type="submit" class="btn btn-primary order-btn">결제하기</button>
     	</form>

@@ -160,7 +160,12 @@
        </label>
      </div>
      <div class="form-check col-3">
+      <c:if test="${genre eq '어린이' }">
+       <input class="form-check-input" type="checkbox" value="어린이" id="option6" onclick="clickCheck(this)" checked="checked" disabled="disabled">
+       </c:if>
+       <c:if test="${genre ne '어린이' }">
        <input class="form-check-input" type="checkbox" value="어린이" id="option6" onclick="clickCheck(this)">
+       </c:if>
        <label class="form-check-label" for="option6">
          어린이
        </label>
