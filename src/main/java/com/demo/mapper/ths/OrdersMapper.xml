@@ -5,8 +5,27 @@
   
 <mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
+<update id="changeCount">
+UPDATE Cart SET c_count = #{c_count}
+WHERE u_id = #{u_id} AND b_code = #{b_code}
+</update>
+
+<update id="orderStatusChange">
+UPDATE Orders SET o_status = #{o_status}
+WHERE o_number = #{o_number}
+</update>
+
+<select id="selectOrderDetail" resultType="com.demo.domain.ths.OrdersDto">
+SELECT 
+	b_img, b_title, od_count, b_price, o_date, o.o_number, o_total
+FROM
+	OrderDetail od JOIN Book b ON od.b_code = b.b_code JOIN Orders o ON o.o_number = od.o_number
+WHERE o.o_number = #{o_number}
+</select>
+
 <insert id="insertOrders" useGeneratedKeys="true" keyProperty="o_number" >
-	INSERT INTO Orders(o_count, u_id,o_total)
+
+	INSERT INTO Orders(o_count, u_id, o_total)
 	VALUES (#{o_count},#{u_id},#{o_total})
 	
 </insert>
@@ -30,7 +49,7 @@ WHERE
 
 <select id="select" resultType="com.demo.domain.ths.OrdersDto">
 SELECT 
-	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price
+	o.o_number, o.o_date, o.o_count, o.o_status, b.b_title, u.u_name, b.b_price, o_total
 FROM 
 	Orders o JOIN OrderDetail od ON o.o_number = od.o_number JOIN Book b ON od.b_code = b.b_code JOIN User u ON u.u_id = o.u_id
 WHERE
@@ -82,8 +101,8 @@ WHERE
 </select>
 
 <insert id="insertBook">
-	INSERT INTO OrderDetail(o_number,u_id,b_code) 
-	VALUES (#{o_number},#{u_id},#{b_code})
+	INSERT INTO OrderDetail(o_number, u_id, b_code, od_count) 
+	VALUES (#{o_number}, #{u_id}, #{b_code}, #{od_count})
 </insert>
 
 </mapper>

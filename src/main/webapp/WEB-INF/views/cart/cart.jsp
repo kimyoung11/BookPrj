@@ -174,6 +174,8 @@ a {
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
 	<script>
+	const ctx = "${pageContext.request.contextPath}";
+	
       	const bprice = document.querySelectorAll(".totalPrice");
       	let bpSum = 0;
       	for (const e of bprice) {
@@ -259,8 +261,11 @@ a {
        		
        		// 5. form 전송하기
        		form.submit();
+       			
+       		})
        		
-       	});
+       		
+       		
        	
       
          

@@ -73,10 +73,10 @@
             
             <select name="q">
                 <option value="">전체</option>
-                <option ${param.q == "입금확인" ? "selected" : "" } value="입금확인">입금확인</option>
+                <option ${param.q == "상품준비중" ? "selected" : "" } value="상품준비중">상품준비중</option>
+                <option ${param.q == "배송시작" ? "selected" : "" } value="배송시작">배송시작</option>
                 <option ${param.q == "배송중" ? "selected" : "" } value="배송중">배송중</option>
                 <option ${param.q == "배송완료" ? "selected" : "" } value="배송완료">배송완료</option>
-                <option ${param.q == "판매완료" ? "selected" : "" } value="판매완료">판매완료</option>
             </select>
             
             <button id="selectButton" type="submit">조회</button>
@@ -87,10 +87,10 @@
             <thead>
                 <tr>
                     <th>주문번호</th>
-                    <th>주문일시</th>
+                    <th>주문일</th>
                     <th>상품명</th>
                     <th>회원명</th>
-                    <th>주문수량</th>
+                    <th>합계수량</th>
                     <th>금액</th>
                     <th>진행상태</th>
                 </tr>
@@ -99,17 +99,32 @@
                 <tr>
                    <c:forEach items="${orders }" var="order" varStatus="sts">
                    		<tr>
-                   			<td >${order.o_number }</td>	
+                   			<td><a href="/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
                    			<td>${order.o_date }</td>
                    			<td>${order.b_title }</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
-                   			<td>${order.b_price * order.o_count }</td>
-                   			<td>${order.o_status}</td>
+                   			<td>${order.o_total}원</td>
+                   			<td>
+                   				<select onchange="osValueChange(this)" data-target-input="#osValueInput${sts.index }">
+                   					<option>${order.o_status}</option>
+                   					<option>상품준비중</option>
+                   					<option>배송시작</option>
+                   					<option>배송중</option>
+                   					<option>배송완료</option>
+                   				</select> 
+                   			</td>
+                   			<td>
+	                   			<form action="/cart/orderStatusChange" method="post">
+	                   				<input type="hidden" name="o_number" value="${order.o_number }">
+	                   				<input id="osValueInput${sts.index }" type="hidden" name="o_status">
+	                   				<button class="btn btn-outline-primary">상태변경</button>
+	                   			</form>
+                   			</td>
                    			<td>
                    			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
-                   			<input name="o_number" type="hidden" value="${order.o_number }">
-                   			<button class="btn btn-outline-danger" onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
+                   				<input name="o_number" type="hidden" value="${order.o_number }">
+                   				<button class="btn btn-outline-danger" onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
                    			</form>
                    			</td>
                    		</tr>
@@ -173,6 +188,12 @@
 		const form = document.querySelector("#"+this.dataset.form);
 		form.submit();
 	})
+	
+	function osValueChange(elem) {
+		document.querySelector(elem.dataset.targetInput).value = elem.value;
+	}
+	
+	
 
 </script>
 </body>
