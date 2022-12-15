@@ -114,15 +114,14 @@
                    					<option>배송완료</option>
                    				</select> 
                    			</td>
-                   			<td>
+                   			<td style="display: flex;">
 	                   			<form action="/cart/orderStatusChange" method="post">
 	                   				<input type="hidden" name="o_number" value="${order.o_number }">
 	                   				<input id="osValueInput${sts.index }" type="hidden" name="o_status">
-	                   				<button class="btn btn-outline-primary">상태변경</button>
+	                   				<button style="margin-right: 10px" class="btn btn-outline-primary">상태변경</button>
 	                   			</form>
-                   			</td>
-                   			<td>
-                   			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
+	                   			
+	                   			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
                    				<input name="o_number" type="hidden" value="${order.o_number }">
                    				<button class="btn btn-outline-danger" onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
                    			</form>
