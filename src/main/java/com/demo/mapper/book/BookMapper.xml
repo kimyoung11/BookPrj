@@ -101,5 +101,9 @@
 	<select id="selectAllBook" resultType="com.demo.domain.book.BookDto">
 		SELECT * FROM Book
 	</select>
+	
+	<select id="selectBookByGenre" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book where b_genre =#{b_genre}
+	</select>
 
 </mapper>

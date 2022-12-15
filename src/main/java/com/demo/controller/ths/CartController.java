@@ -104,6 +104,7 @@ public class CartController {
 	@PostMapping("orderdetail")
 	public String orderdetail2(HttpSession session, @RequestParam List<Integer> b_code , OrdersDto orders) {
 		String u_id = (String) session.getAttribute("id");
+		System.out.println(orders);
 		
 		int num = service.insertOrders(orders);
 

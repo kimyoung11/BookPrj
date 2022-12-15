@@ -28,4 +28,10 @@
   		WHERE r_id = #{r_id};
   	</delete>
   	
+  	<select id="selectByBookCode" resultType="com.demo.domain.review.yjh.ReviewDto">
+  		SELECT * 
+  		FROM Review
+  		WHERE b_code =#{b_code};
+  	</select>
+  	
   </mapper>

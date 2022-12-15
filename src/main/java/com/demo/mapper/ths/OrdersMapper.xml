@@ -6,8 +6,8 @@
 <mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
 <insert id="insertOrders" useGeneratedKeys="true" keyProperty="o_number" >
-	INSERT INTO Orders(o_count, u_id)
-	VALUES (#{o_count},#{u_id})
+	INSERT INTO Orders(o_count, u_id,o_total)
+	VALUES (#{o_count},#{u_id},#{o_total})
 	
 </insert>
 
