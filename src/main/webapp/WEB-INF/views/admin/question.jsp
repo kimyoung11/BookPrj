@@ -57,25 +57,35 @@ a {
 			<thead style="border-top: solid 1px;">
 				<tr>
 					<th>NO</th>
-					<th>문의사항</th>
+					<th>문의유형</th>
+					<th>제목</th>
+					<th>작성자</th>
 					<th>날짜</th>
-					<th>유저아이디</th>
+
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${questionList }" var="question">
 					<tr>
 						<th>${question.q_number }</th>
+						<td>${question.q_option }</td>
 						<td class="align-left">
 							${question.q_title }
 						</td>
-						<td>${question.q_date }</td>
 						<td>${question.u_id }</td>
+						<td>${question.q_date }</td>
+						
 						<td>
 						<c:url value="/admin/answer" var="answerLink">
 							<c:param name="q_number" value="${question.q_number }"></c:param>
 						</c:url>
 						<a class="btn btn-primary" href="${answerLink }">답변하기</a>
+						</td>
+						<td>
+						<c:url value="/admin/answerRemove" var="removeLink">
+							<c:param name="q_number" value="${question.q_number }"></c:param>
+						</c:url>
+						<a class="btn btn-danger" href="${removeLink }">삭제하기</a>
 						</td>
 					</tr>
 				</c:forEach>
