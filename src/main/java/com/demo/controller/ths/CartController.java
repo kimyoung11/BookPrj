@@ -97,7 +97,11 @@ public class CartController {
 
 	
 	@GetMapping("orderdetail")
-	public void orderdetail() {
+	public void ordermanagedetail(HttpSession session, Model model, @RequestParam("o_number") int o_number) {
+		System.out.println(o_number);
+		String u_id = (String) session.getAttribute("id");
+		List<OrdersDto> orderDetailList = service.orderDetailList(u_id, o_number);
+		model.addAttribute("orderDetailList", orderDetailList);
 		
 	}
 	
@@ -115,10 +119,12 @@ public class CartController {
 		return "redirect:/cart/orderend";
 	}
 	
-	@GetMapping("ordermanagedetail")
-	public void ordermanagedetail(HttpSession session, Model model) {
-		String u_id = (String) session.getAttribute("id");
-		List<OrdersDto> orderDetailList = service.orderDetailList(u_id);
+	@PostMapping("orderStatusChange")
+	public String orderStatusChange(@RequestParam("o_status") String o_status, @RequestParam("o_number") int o_number) {
+		System.out.println(o_number);
+		System.out.println(o_status);
+		service.orderStatusChange(o_status, o_number);
+		return "redirect:/cart/ordermanage";
 	}
 	
 }

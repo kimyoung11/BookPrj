@@ -37,7 +37,7 @@
             opacity: 1;
         }
         
-        td {
+        th {
         	vertical-align: middle;
         }
         
@@ -51,27 +51,29 @@
     <div class="container-md" style="text-align: center;">
         <a href="/cart/orderdetail"><h2>주문상세</h2></a>
         <hr id="hr_line">
-        <p>주문번호 : 1</p>
-        <p>주문일시 : 2022.12.12</p> <br>
+        <p>주문번호 : ${orderDetailList[0].o_number}</p>
+        <p>주문일시 : ${orderDetailList[0].o_date }</p>
+        <p>결제금액 : </p>
         <table class="table">
         	<thead>
 				<tr>
 					<th>상품 정보</th>
 					<th>상품명</th>
-					<th>주문수량</th>
-					<th>금액</th>
+					<th>수량</th>
+					<th>합계금액</th>
 				</tr>
+				<tbody>
+				<c:forEach items="${orderDetailList}" var="orderDetailList">
 				<tr>
-					<th>이미지</th>
-					<th>책1</th>
-					<th>2</th>
-					<th>2000</th>
+					<th><img src="${orderDetailList.b_img }" alt=""></th>
+					<th>${orderDetailList.b_title }</th>
+					<th>${orderDetailList.od_count }</th>
+					<th>${orderDetailList.b_price * orderDetailList.od_count}원</th>
 				</tr>       	
+				</c:forEach>
+				</tbody>
         	</thead>
         </table>
-        <div>
-        	<h2>합계 금액 : 9000원</h2>
-        </div>
     </div>
 </body>
 </html>

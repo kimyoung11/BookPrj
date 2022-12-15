@@ -5,11 +5,17 @@
   
 <mapper namespace="com.demo.mapper.ths.OrdersMapper">
 
+<update id="orderStatusChange">
+UPDATE Orders SET o_status = #{o_status}
+WHERE o_number = #{o_number}
+</update>
+
 <select id="selectOrderDetail" resultType="com.demo.domain.ths.OrdersDto">
 SELECT 
-	b_img, b_title, o_count, b_price
+	b_img, b_title, od_count, b_price, o_date, o.o_number
 FROM
-	OrderDetail od JOIN Book b ON od.b_code = b.b_code
+	OrderDetail od JOIN Book b ON od.b_code = b.b_code JOIN Orders o ON o.o_number = od.o_number
+WHERE o.o_number = #{o_number}
 </select>
 
 <insert id="insertOrders" useGeneratedKeys="true" keyProperty="o_number" >

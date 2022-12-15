@@ -13,4 +13,6 @@ public class OrdersDto {
 	private String u_name;
 	private int b_price;
 	private String u_id;
+	private String b_img;
+	private int od_count;
 }

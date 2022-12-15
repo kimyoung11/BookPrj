@@ -99,7 +99,7 @@
             </thead>
             <tbody>
             	<c:if test="${fromCart}">
-            	<c:forEach items="${toOrderlist }" var="cart" >
+            	<c:forEach items="${toOrderlist }" var="cart"  varStatus="sts">
                 <tr>
                     <td><a href=""><img class="product_img" src="${cart.b_img }" alt="제품 사진"></a></td>
                     <td class="align-middle">${cart.b_title }</td>
@@ -176,6 +176,7 @@
 	    	<input type="hidden" name="o_count" id="orderCountId">
 	    	<c:forEach items="${toOrderlist }" var="cart">
 	    	<input type="hidden" name="b_code" value="${cart.b_code }">
+	    	<input type="hidden" name="od_count">
 	    	</c:forEach>
 	        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
     	</form>

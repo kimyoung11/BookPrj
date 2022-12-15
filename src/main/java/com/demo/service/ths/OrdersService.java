@@ -83,7 +83,14 @@ public class OrdersService {
 		ordersMapper.deleteOrderDetail(o_number);
 	}
 
-	public List<OrdersDto> orderDetailList(String u_id) {
-		return ordersMapper.selectOrderDetail(u_id);
+	public List<OrdersDto> orderDetailList(String u_id, int o_number) {
+		System.out.println(u_id);
+		System.out.println(o_number);
+		return ordersMapper.selectOrderDetail(u_id, o_number);
+	}
+
+	public void orderStatusChange(String o_status, int o_number) {
+		ordersMapper.orderStatusChange(o_status, o_number);
+		
 	}
 }

@@ -27,7 +27,9 @@ public interface OrdersMapper {
 
 	int deleteOrderDetail(int o_number);
 
-	List<OrdersDto> selectOrderDetail(String u_id);
+	List<OrdersDto> selectOrderDetail(String u_id, int o_number);
+
+	void orderStatusChange(String o_status, int o_number);
 	
 }
 	
