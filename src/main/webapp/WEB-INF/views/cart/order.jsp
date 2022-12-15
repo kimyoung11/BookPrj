@@ -167,7 +167,7 @@
 
     <div style="text-align: center; font-size: 20px; border-top: 1px solid; blue">
     <br>
-    	최종 결제 금액	: <span id="totalPriceHolder"></span> <br>
+    	최종 결제 금액	: <span id="totalPriceHolder">원</span> <br>
     </div>
     <div style="text-align: center;">
     
@@ -176,8 +176,9 @@
 	    	<input type="hidden" name="o_count" id="orderCountId">
 	    	<c:forEach items="${toOrderlist }" var="cart">
 	    	<input type="hidden" name="b_code" value="${cart.b_code }">
-	    	<input type="hidden" name="od_count">
+	    	<input type="hidden" name="od_count" value= ${cart.c_count }>
 	    	</c:forEach>
+	    	<input id="o_total" type="hidden" name="o_total">
 	        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
     	</form>
     	
@@ -194,7 +195,7 @@
 	for (const e of totalP) {
 		totalSum = totalSum + parseInt(e.innerText);
 	}
-	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
+	document.getElementById("totalPriceHolder").innerText = totalSum;
 	
 	const count = document.querySelectorAll("#countPlus")
 	let totalCount = 0;
@@ -202,7 +203,9 @@
 		totalCount = totalCount + parseInt(c.innerText)
 	}
 	document.querySelector("#orderCountId").value = parseInt(totalCount);
-
+	
+	const a = document.querySelector("#totalPriceHolder").innerText;
+	document.querySelector("#o_total").value = a;
 </script>
 </body>
 

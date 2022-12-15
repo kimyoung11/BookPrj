@@ -104,7 +104,7 @@
                    			<td>${order.b_title }</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
-                   			<td>${order.b_price * order.o_count }원</td>
+                   			<td>${order.o_total}원</td>
                    			<td>
                    				<select onchange="osValueChange(this)" data-target-input="#osValueInput${sts.index }">
                    					<option>${order.o_status}</option>

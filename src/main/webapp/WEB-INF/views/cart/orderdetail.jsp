@@ -49,11 +49,11 @@
 <body>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/orderdetail"><h2>주문상세</h2></a>
+        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2>주문상세</h2></a>
         <hr id="hr_line">
         <p>주문번호 : ${orderDetailList[0].o_number}</p>
         <p>주문일시 : ${orderDetailList[0].o_date }</p>
-        <p>결제금액 : </p>
+        <p>결제금액 : ${orderDetailList[0].o_total }</p>
         <table class="table">
         	<thead>
 				<tr>

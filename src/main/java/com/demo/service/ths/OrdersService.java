@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.domain.ths.CartDto;
 import com.demo.domain.ths.OrdersDto;
@@ -13,6 +14,7 @@ import com.demo.domain.ths.PageInfo;
 import com.demo.mapper.ths.OrdersMapper;
 
 @Service
+@Transactional
 public class OrdersService {
 	@Autowired
 	private OrdersMapper ordersMapper;
@@ -75,8 +77,8 @@ public class OrdersService {
 
 
 
-	public int insertBook(Integer o_number, String u_id, Integer b_code) {
-		return ordersMapper.insertBook(o_number,u_id,b_code);
+	public int insertBook(Integer o_number, String u_id, Integer b_code, Integer od_count) {
+		return ordersMapper.insertBook(o_number ,u_id, b_code, od_count);
 	}
 
 	public void deleteOrderDetail(int o_number) {
@@ -93,4 +95,12 @@ public class OrdersService {
 		ordersMapper.orderStatusChange(o_status, o_number);
 		
 	}
+	
+	public void changeCount(String u_id, List<Integer> b_code, List<Integer> c_count) {
+		for(int i = 0; i < b_code.size(); i++) {
+			ordersMapper.changeCount(u_id, b_code.get(i), c_count.get(i));
+		}
+	}
+	
+	
 }
