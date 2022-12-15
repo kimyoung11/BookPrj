@@ -25,7 +25,8 @@
 		q_title,
 		q_content,
 		q_date,
-		u_id
+		u_id,
+		q_option
 	FROM 
 		Quest
 	ORDER BY q_number DESC
@@ -70,8 +71,8 @@
 
 <!-- 1:1문의 답변 추가하기 -->
 <insert id="add">
-	INSERT INTO Answer (q_number, ad_id, u_id, a_content )
-	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content} )
+	INSERT INTO Answer (q_number, u_id, a_content )
+	VALUES (#{q_number}, #{u_id}, #{a_content} )
 </insert>
 
 <!-- 1:1문의 답변 보여주기 -->

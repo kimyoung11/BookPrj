@@ -21,9 +21,11 @@ public class QuestionDto {
 	private String q_option;
 	
 	
+	/* user */
+	private boolean u_isAdmin;
+	
 	/* answer */
 	private int a_id;
-	private String ad_id;
 	private String a_content;
 	
 	/* 날짜 json 스트링 형식으로 변경 */
