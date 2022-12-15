@@ -24,6 +24,7 @@ WHERE o.o_number = #{o_number}
 </select>
 
 <insert id="insertOrders" useGeneratedKeys="true" keyProperty="o_number" >
+
 	INSERT INTO Orders(o_count, u_id, o_total)
 	VALUES (#{o_count},#{u_id},#{o_total})
 	

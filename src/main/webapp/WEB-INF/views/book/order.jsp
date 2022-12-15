@@ -122,7 +122,7 @@
             </div>
             <div class="row adress-input">
             <input class="form-control" type="text" placeholder="주소" aria-label="readonly input example"
-            readonly style="margin-right: 10px;">
+            readonly style="margin-right: 10px;" value="${user.u_address }">
             <input class="form-control" type="text" placeholder="상세주소">
         </div>
         </div>
@@ -147,13 +147,22 @@
           <input type="password" class="form-control" id="inputPassword3">
         </div>
       </div>
+      
+      <div style="text-align: center; font-size: 20px; border-top: 1px solid; blue">
+	    <br>
+	    	최종 결제 금액	: ${book.b_price * cnt }원 <br>
+	    </div>
 
-
-    <div style="text-align: center;">
-    	<form action="/cart/orderend">
-        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
+     <div style="text-align: center;">
+    	<form action="/cart/orderdetail" method="post">
+    		<input type="hidden" name="u_id" value="${user.u_id}">
+    		<input type="hidden" name="o_count" value="${cnt}">
+    		<input type="hidden" name="b_code" value="${book.b_code }">
+    		<input type="hidden" name="o_total" value="${book.b_price * cnt }">
+        	<button type="submit" class="btn btn-primary order-btn">결제하기</button>
     	</form>
-    </div>
+
+    </div> 
     </tbody>
     </table>
     </div>

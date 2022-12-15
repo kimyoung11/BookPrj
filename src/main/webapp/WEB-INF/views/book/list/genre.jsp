@@ -50,28 +50,30 @@
         text-decoration: none;
         display: block;
       }
+      
      
       .content {
         width: 1200px;
         margin: 30px 0px 30px 40px;
       }
-
+      
       .book_cont {
         padding-top: 14px;
       }
-
+      
       .buy-btn,
       .cart-btn {
         padding: 4px 20px;
         margin-right: 4px;
       }
- 
+      
       h4{font-size: 16px;}
       .form-con{
-        border: 1px solid #333;
-        width: 500px;
+          border: 1px solid #333;
+          width: 500px;
         height: 200px;
       }
+      
       .container-size{
           width: 500px;
           height: 100px;
@@ -82,13 +84,13 @@
           margin-left: 200px;
           border-radius: 6px;
       }
-                   
+       
       
     </style>
   </head>
 <body>
 	<my:headerBar></my:headerBar>
-	<%-- <div class="input-group" style="padding:30px">
+    <div class="input-group" style="padding:30px">
     <!-- checkBox-1 -->
     <div class="container container-size"  style="background-color: rgb(224, 224, 224);">
     <div class="row">
@@ -205,26 +207,25 @@
 </div>
 </div>
 <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="selectGenre()">선택</button>
-</div> --%>
-
+</div>
 <!-- Pagination -->
-          <div class="row justify-content-end" style="margin-top: 160px">
+          <div class="row justify-content-end">
             <div class="col-3">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">
-                  <c:url value="${pageContext.request.contextPath }/book/list/new" var="pageLink"></c:url>
-                    <a class="page-link" href="${pageLink }/${b_genre }?page=1" aria-label="Previous">
+                  <c:url value="${pageContext.request.contextPath }/book/list/${genre }" var="pageLink"></c:url>
+                    <a class="page-link" href="${pageLink }?page=1" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
                   <c:forEach begin="1" end="${pages }" varStatus="status" var="pageNumb">
                   	<li class="page-item">
-                  		<a class="page-link" href="${pageLink }/${b_genre }?page=${pageNumb}">${pageNumb }</a>
+                  		<a class="page-link" href="${pageLink }?page=${pageNumb}">${pageNumb }</a>
                   	</li>
                   </c:forEach>
                   <li class="page-item">
-                    <a class="page-link" href="${pageLink }/${b_genre }?page=${pages}" aria-label="Next">
+                    <a class="page-link" href="${pageLink }?page=${pages}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
@@ -232,6 +233,7 @@
               </nav>
             </div>
           </div>
+
           
           <div class="container-md">
             <hr />
@@ -258,26 +260,28 @@
                 </li>
                 <li>
                 ${item.b_code }
-                  <c:if test="${u_id!=null }">
+
+                <c:if test="${u_id !=null}">
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
-                  </a>
+                  </a>      
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
-                  	<c:param name="c_cnt" value="1"/>
+                  	<c:param name="number" value="1"/>
                   </c:url>
-                  <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
+                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
                     구매하기
-                  </a>
-                 </c:if>
-                 <c:if test="${u_id==null }">
-                 	<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
-	                 	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+                  </a>         
+                </c:if>
+                
+                <c:if test="${u_id ==null }">
+                <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
+                	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
 	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
                     구매하기
                   </a>
-                 </c:if>
+                </c:if>
                 </li>
                 <hr />
                 
@@ -303,106 +307,118 @@
 	}
     
     function selectGenre(){
-    	console.log("clicked");
     	let genre = document.getElementById(checkedId).value;
-    	console.log(genre);
-
+		
     /* 	fetch(`\${ctx}/book/list/\${genre}`)
     	.then(res => res.json())
     	.then(data => console.log(data)); */
-    	location.assign(`\${ctx}/book/list/new/\${genre}`);
+    	console.log("this is genre:" + genre);
+    	location.assign(`\${ctx}/book/list/\${genre}`);
     } 
     
-/*     function buyBook(){
-    	console.log(document.querySelector(".buy").value);
-    } */
     
-/*     function wantBook(){
-    	console.log(document.querySelector(".want").value);
-    } */
     
+   /* function buyBook(target){
+    	console.log(target);
+    	
+     	const bookData = target.dataset.item
+     	console.log(bookData);
+    	fetch(`\${ctx}/book/order/\${bookData}`)
+    	.then((res) => console.log(res));*/
+/*     	fetch(`\${ctx}/book/payment`,{
+    		method: "post",
+    		headers:{
+    			"Content-Type": "application/json",
+    		},
+    		body: JSON.stringify({bookData})
+    		})
+    		.then((res) => console.log(res));  
+    }*/
     
     function wantBook(target){
-    	/*     	console.log(target); */
-    	    	console.log(target.dataset.item);
-    	    	const bookData = target.dataset.item; //1
-    	    	const form ={
-    	    			u_id : `<%= session.getAttribute("id")%>`,
-    	    			b_code : `\${bookData}`
-    	    	};
-    	    	
-    	    	fetch(`\${ctx}/book/cart`,{
-    	    		method:"post",
-    	    		headers:{
-    	    			"Content-Type":"application/json",
-    	    		},
-    	    		body: JSON.stringify(form)
-    	    	}).then((res) => res.json())
-    	    	.then((data) => {
-    	    		
-    	    		document.querySelector("#message").style.display = "block";
-    	    		document.querySelector("#message").innerHTML = data.message;
-    	    		setTimeout(() =>{
-    	    			document.querySelector("#message").style.display = "none";
-    	    		},2000);
-    	    		console.log(data.message);
-    	 			return data.message;
-    	    	})
-    	    	.then((msg) =>{
-    	    		const onBasket = '장바구니에 추가완료';
-    	    		const offBasket = '이미 장바구니에 있습니다.';
-    	    		if(msg == onBasket){
-    	    			document.querySelector("#modalComponent").innerHTML=`
-    	    				<!-- Modal -->
-    	    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    	    				  <div class="modal-dialog">
-    	    				    <div class="modal-content">
-    	    				      <div class="modal-header">
-    	    				        <h1 class="modal-title fs-5" id="exampleModalLabel">장바구니에 추가되었습니다.</h1>
-    	    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    	    				      </div>
-    	    				      <div class="modal-body">
-    	    				      장바구니로 이동하시겠습니까?
-    	    				      </div>
-    	    				      <div class="modal-footer">
-    	    				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
-    	    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-    	    				        
-    	    				      </div>
-    	    				    </div>
-    	    				  </div>
-    	    				</div>
-    	    			`;
-    	    		}else if(msg == offBasket){
-    	    			document.querySelector("#modalComponent").innerHTML=`
-    	    				<!-- Modal -->
-    	    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    	    				  <div class="modal-dialog">
-    	    				    <div class="modal-content">
-    	    				      <div class="modal-header">
-    	    				        <h1 class="modal-title fs-5" id="exampleModalLabel">이미 장바구니에 있습니다.</h1>
-    	    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    	    				      </div>
-    	    				      <div class="modal-body">
-    	    				      	장바구니로 이동하시겠습니까?
-    	    				      </div>
-    	    				      <div class="modal-footer">
-    	    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
-    	    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-    	    				      </div>
-    	    				    </div>
-    	    				  </div>
-    	    				</div>
-    	    			`;
-    	    		}
-    	    	})
-    	    	.then(() => {
-    	    		const myModal = new bootstrap.Modal('#basketModal', {});
-    	    		myModal.show();
-    	    	})
-    	    	;
-    	    }
-    	    
-    	    </script>
-    	</body>
-    	</html>
+
+/*     	console.log(target); */
+    	console.log(target.dataset.item);
+    	const bookData = target.dataset.item; //1
+    	const form ={
+    			u_id : '<%=(String)session.getAttribute("id")%>',
+    			b_code : `\${bookData}`
+    	};
+    	
+    	fetch(`\${ctx}/book/cart`,{
+    		method:"post",
+    		headers:{
+    			"Content-Type":"application/json",
+    		},
+    		body: JSON.stringify(form)
+    	}).then((res) => res.json())
+    	.then((data) => {
+    		
+    		document.querySelector("#message").style.display = "block";
+    		document.querySelector("#message").innerHTML = data.message;
+    		setTimeout(() =>{
+    			document.querySelector("#message").style.display = "none";
+    		},2000);
+    		console.log(data.message);
+ 			return data.message;
+    	})
+    	.then((msg) =>{
+    		const onBasket = '장바구니에 추가완료';
+    		const offBasket = '이미 장바구니에 있습니다.';
+    		if(msg == onBasket){
+    			document.querySelector("#modalComponent").innerHTML=`
+    				<!-- Modal -->
+    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    				  <div class="modal-dialog">
+    				    <div class="modal-content">
+    				      <div class="modal-header">
+    				        <h1 class="modal-title fs-5" id="exampleModalLabel">장바구니에 추가되었습니다.</h1>
+    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    				      </div>
+    				      <div class="modal-body">
+    				      장바구니로 이동하시겠습니까?
+    				      </div>
+    				      <div class="modal-footer">
+    				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+    				        
+    				      </div>
+    				    </div>
+    				  </div>
+    				</div>
+    			`;
+    		}else if(msg == offBasket){
+    			document.querySelector("#modalComponent").innerHTML=`
+    				<!-- Modal -->
+    				<div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    				  <div class="modal-dialog">
+    				    <div class="modal-content">
+    				      <div class="modal-header">
+    				        <h1 class="modal-title fs-5" id="exampleModalLabel">이미 장바구니에 있습니다.</h1>
+    				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    				      </div>
+    				      <div class="modal-body">
+    				      	장바구니로 이동하시겠습니까?
+    				      </div>
+    				      <div class="modal-footer">
+    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+    				      </div>
+    				    </div>
+    				  </div>
+    				</div>
+    			`;
+    		}
+    	})
+    	.then(() => {
+    		const myModal = new bootstrap.Modal('#basketModal', {});
+    		myModal.show();
+    	})
+    	;
+    }
+    
+
+
+    </script>
+</body>
+</html>

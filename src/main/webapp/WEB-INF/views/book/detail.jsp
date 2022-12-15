@@ -56,6 +56,9 @@
 .star-rating label:hover, .star-rating label:hover ~ label {
 	color: #f90;
 }
+
+
+
 </style>
 <body>
 	<my:headerBar></my:headerBar>
@@ -96,8 +99,8 @@
 					<div class="mb-3">회원가</div>
 					${book.b_price }
 					<hr>
-					<div class="mb-3">배송비</div>
-					2500원
+					<div class="mb-3">카테고리</div>
+					${book.b_genre }
 					<hr>
 					<div class="mb-3">배송 예정</div>
 					구매 후 3일 이내
@@ -211,29 +214,42 @@
 			</div>
 			<hr style="border: 1px solid black;">
 		</div>
-		<div class="customer-review">
-			<div class="review-1">
-				<div>구매자 리뷰</div>
-				<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Blanditiis vel laudantium sint est quod voluptates, dolores
-					expedita doloribus quam enim amet facere consequatur saepe.
-					Necessitatibus maiores fugit non debitis culpa.</div>
-			</div>
-			<div class="review-1">
-				<div>구매자 리뷰</div>
-				<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Blanditiis vel laudantium sint est quod voluptates, dolores
-					expedita doloribus quam enim amet facere consequatur saepe.
-					Necessitatibus maiores fugit non debitis culpa.</div>
-			</div>
-			<div class="review-1">
-				<div>구매자 리뷰</div>
-				<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Blanditiis vel laudantium sint est quod voluptates, dolores
-					expedita doloribus quam enim amet facere consequatur saepe.
-					Necessitatibus maiores fugit non debitis culpa.</div>
-			</div>
-		</div>
+		<c:forEach var="item" items="${review }">
+			<div class="card">
+			  <div class="card-header">
+			    ${item.u_id }
+			  </div>
+			  <div class="card-body">
+			    <blockquote class="blockquote mb-0">
+			      <p>${item.r_content }</p>
+			      <footer class="blockquote-footer">
+			      	<c:if test="${item.r_star eq 1 }"> <!-- 20퍼 -->
+			 			   	
+			      	</c:if>
+			      	<c:if test="${item.r_star eq 2 }">
+			      		<c:if test="${item.r_star eq 1 }"> <!-- 20퍼 -->
+			      		<div class="wrap-star">
+						    <h2>Width="40%"</h2>
+						    <div class='star-rating'>
+						        <span style ="width:40%"></span>
+						    </div>
+						</div>     	
+			      	</c:if>     	
+			      	</c:if>
+			      	<c:if test="${item.r_star eq 3 }">
+			      		별3개     	
+			      	</c:if>
+			      	<c:if test="${item.r_star eq 4 }">
+			      		별4개     	
+			      	</c:if>
+			      	<c:if test="${item.r_star eq 5 }">
+			      		별5개     	
+			      	</c:if>
+			      </footer>
+			    </blockquote>
+			  </div>
+			</div>	
+		</c:forEach>
 	</div>
 
 
