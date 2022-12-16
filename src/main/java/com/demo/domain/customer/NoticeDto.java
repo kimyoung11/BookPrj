@@ -11,4 +11,7 @@ public class NoticeDto {
 	private String n_content;
 	private LocalDateTime n_date;
 	private String u_id;
+	
+	
+	
 }

@@ -26,6 +26,12 @@ public interface QuestionMapper {
 
 	QuestionDto selectById(int a_id);
 
-	int update(QuestionDto quest);
+	int update(Integer a_id, String a_content);
+
+	int deleteQuest(int q_number);
+
+	int deleteAnswer(int q_number);
+
+	int deleteFiles(int q_number);
 }
 

@@ -48,7 +48,8 @@
 							<select id="selectBox" name="q_option" class=" form-select" aria-label="Default select example">
 								<option value="1:1문의">1:1 문의하기</option>
 								<option value="배송문의">배송 문의하기</option>
-								<option value="반품교환문의">반품ㆍ교환 문의하기</option>
+								<option value="교환문의">교환 문의하기</option>
+								<option value="반품문의">반품 문의하기</option>
 							</select>
 						</div>
 						<!-- selector-end -->
@@ -91,20 +92,17 @@
 								내 문의 보기</button>
 						</div>
 					</form>
-					
-					<button id="aaa" class="btn btn-secondary btn-qusetion">의</button>
-					
 				</div>
 					
-<%-- 댓글 메시지 토스트 --%>
-	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
-	  <div class="d-flex">
-	    <div id="replyMessage1" class="toast-body">
-	     	1:1 문의 등록이 완료되었습니다.
-	    </div>
-	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-	  </div>
-	</div>
+			<%-- 메시지 토스트 --%>
+			<div id="MessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="d-flex">
+			    <div id="questionMessage" class="toast-body">
+			    게시물이 등록되었습니다.
+			    </div>
+			    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			</div>
 	
 
 			</div>
@@ -124,6 +122,7 @@ const UserId = document.querySelector("#getUserId").value;
 
 
 
+
 	/* 빈값일 때 alert창 띄우기, submit  */
 	document.querySelector("#submitButton1").addEventListener("click", function(e) {
 		debugger;
@@ -139,17 +138,14 @@ const UserId = document.querySelector("#getUserId").value;
 			// 본문 textarea 입력한 값 가져와서
 			// 빈칸만 있는지 확인?
 			let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
-			
-			// 빈칸만 있는지 확인?
-			//	let optionValue =  
-			//		document.getElementByName("selectBox")[document.getElementByName("selectBox").selelctedIndex].text
-			
+		
 			// 위 테스트 다 통과하면 submit
 			if (titleValue.trim() != "" 
-					&& contentValue.trim() != "" 
-					/* && optionValue.trim() != "" */ ) {
+					&& contentValue.trim() != "" ) {
 				
 				document.querySelector("#registerForm1").submit();
+
+
 			} else {
 				alert("문의를 작성해주세요.");
 		
@@ -158,39 +154,14 @@ const UserId = document.querySelector("#getUserId").value;
 		} else if(UserId == 'null'){
 				
 					console.log(UserId);
-					location.assign('https://www.naver.com');
+					location.assign('/user/login.do');
 			};
-
 	});
 
-	/* 등록 토스트 */ 
-	/* const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
+	/* 등록 토스트 */
+	const toast = new bootstrap.Toast(document.querySelector("#MessageToast"));
 	
-	document.querySelector("#submitButton1").addEventListener("submit", function() {
-		const content = document.querySelector("#modifyReplyInput").value;
-		const id = this.dataset.replyId;
-		const data = {id, content};
-		
-		fetch(`\${ctx}/reply/modify`, {
-			method : "put",
-			headers : {
-				"Content-Type" : "application/json"
-			},
-			body : JSON.stringify(data)
-		})
-		.then(res => res.json())
-		.then(data => {
-			document.querySelector("#replyMessage1").innerText = data.message;
-			toast.show();
-		})
-		.then(() => listReply());
-	});
-	
-	}
-	
-};
- */
-
+	toast.show();
 
 
 </script>

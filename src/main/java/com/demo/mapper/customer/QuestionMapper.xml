@@ -61,7 +61,6 @@
 		<result column="q_content" property="q_content"/>
 		<result column="q_date" property="q_date"/>
 		<result column="u_id" property="u_id"/>
-		
 		<collection property="fileName" ofType="string">
 			<result property="fileName" column="fileName"/>
 		</collection>
@@ -103,8 +102,7 @@
  		a_id,
  		q_number,
  		a_date,
- 		a_content,
- 		ad_id
+ 		a_content
  	FROM 
  		Answer
  	WHERE
@@ -115,10 +113,28 @@
 <!-- 1:1 문의 답변 수정하기 -->
 <update id="update">
 	UPDATE Answer
-	SET a_content = #{a_content}
+	SET 
+		a_content = #{a_content}
 	WHERE 
 		a_id = #{a_id}
 </update>
+
+<!-- 1:1 문의 삭제 -->
+<delete id="deleteQuest">
+	DELETE FROM Quest
+	WHERE q_number = #{q_number}
+</delete>
+
+<delete id="deleteAnswer">
+	DELETE FROM Answer
+	WHERE q_number = #{q_number}
+</delete>
+
+<delete id="deleteFiles">
+	DELETE FROM File
+	WHERE q_number = #{q_number}
+</delete>
+
 </mapper>
 
 
