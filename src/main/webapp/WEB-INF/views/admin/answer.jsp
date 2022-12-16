@@ -255,7 +255,9 @@ function answerView() {
 						// console.log(this.id + "번 삭제버튼 클릭됨");
 						console.log(this.dataset.answerId + "번 댓글 삭제할 예정, 모달 띄움")
 						document.querySelector("#removeConfirmModalSubmitButton").setAttribute("data-answer-id", this.dataset.answerId);
-						removeAnswer(this.dataset.answerId);
+						document.querySelector("#removeConfirmModalSubmitButton").addEventListener("click", function(){
+							removeAnswer(this.dataset.answerId);
+						})
 					});
 			}
 		});
