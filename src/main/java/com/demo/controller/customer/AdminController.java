@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
 import com.demo.domain.customer.NoticeDto;
@@ -106,7 +107,21 @@ public class AdminController {
 		model.addAttribute("questionList", list);
 
 	}
-
+	
+	/* 1:1 문의 삭제하기 */
+	@GetMapping("removeQuest")
+	public String removeQuest(int q_number, RedirectAttributes rttr) {
+		
+		int cnt = questService.removeQuest(q_number);
+		
+		if(cnt == 1) {
+			rttr.addFlashAttribute("message", "게시물이 삭제되었습니다.");
+		}else {
+			rttr.addFlashAttribute("message", "게시물이 삭제되지 않았습니다.");
+		}
+		
+		return "redirect:/admin/question";
+	}
 	
 
 	/* 1:1문의 내용보기 */
@@ -158,22 +173,27 @@ public class AdminController {
 	}
 	
 	/* 1:1 문의 답변 내용 수정하기 */
-	@PutMapping("modify")
+	@PostMapping("modifyAnswer")
 	@ResponseBody
-	public Map<String, Object> modifyAnswer(@RequestBody QuestionDto quest){
-		Map<String, Object> map = new HashMap<>();
+	public Map<String, Object> modifyAnswer(@RequestBody HashMap<String, Object> answer){
 		
-		int cnt = questService.modify(quest);
+		int a_id = Integer.valueOf((String) answer.get("a_id"));
+		String a_content = (String)answer.get("a_content");
+		int cnt = questService.modify(a_id, a_content);
+		
+		Map<String, Object> map = new HashMap<>();
 		
 		if(cnt == 1) {
 			map.put("message","답변이 변경되었습니다.");
 		} else {
 			map.put("message", "답변이 수정되지 않았습니다.");
 		}
-		
-		
+
 		return map;
 	}
+	
+	
+	
 	
 	
 

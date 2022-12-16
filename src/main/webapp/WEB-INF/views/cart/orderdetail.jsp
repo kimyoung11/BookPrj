@@ -53,10 +53,10 @@
         <hr id="hr_line">
         <p>주문번호 : ${orderDetailList[0].o_number}</p>
         <p>주문일시 : ${orderDetailList[0].o_date }</p>
-        <p>결제금액 : ${orderDetailList[0].o_total }</p>
-        <table class="table">
+        <p>결제금액 : <span id="price">${orderDetailList[0].o_total }</span></p>
+        <table class="table" style="vertical-align: middle;">
         	<thead>
-				<tr>
+				<tr class ="table-info">
 					<th>상품 정보</th>
 					<th>상품명</th>
 					<th>수량</th>
@@ -65,15 +65,28 @@
 				<tbody>
 				<c:forEach items="${orderDetailList}" var="orderDetailList">
 				<tr>
-					<th><img src="${orderDetailList.b_img }" alt=""></th>
-					<th>${orderDetailList.b_title }</th>
-					<th>${orderDetailList.od_count }</th>
-					<th>${orderDetailList.b_price * orderDetailList.od_count}원</th>
+					<td><img src="${orderDetailList.b_img }" alt=""></td>
+					<td>${orderDetailList.b_title }</td>
+					<td>${orderDetailList.od_count }</td>
+					<td id="bookPrice">${orderDetailList.b_price * orderDetailList.od_count}</td>
 				</tr>       	
 				</c:forEach>
 				</tbody>
         	</thead>
         </table>
     </div>
+<script>
+	// 결제금액에 , 원 붙임
+	const a = document.querySelector("#price").innerText
+	document.querySelector("#price").innerText = Number(a).toLocaleString() + "원";
+	
+	// 각 책별 합계금액에 , 원 붙임
+	const b = document.querySelectorAll("#bookPrice")
+	const size = document.querySelectorAll("#bookPrice").length;
+	for(var i = 0; i < size; i++){
+		let c = b[i].innerText;
+		b[i].innerText = Number(c).toLocaleString() + "원";
+	}
+</script>
 </body>
 </html>

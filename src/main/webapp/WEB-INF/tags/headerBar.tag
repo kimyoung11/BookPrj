@@ -15,6 +15,8 @@
 <c:url value="/user/myPage" var="myPage"></c:url>
 <c:url value="/user/logout.do" var="logOut" />
 <c:url value="/user/myPage" var="myPage" />
+<c:url value="/cart/event" var="event" />
+
 
 
 <link rel="stylesheet"
@@ -166,7 +168,7 @@ a {
 							<h6>베스트</h6>
 						</div>
 						<div class="col">
-							<h6>이벤트</h6>
+							<a href="${event }"><h6>이벤트</h6></a>
 						</div>
 						<div class="col">
 							<a href="${customerView }"><h6>고객센터</h6></a>

@@ -85,7 +85,7 @@ public class UserController {
 	 
 	 String u_id = (String)session.getAttribute("id");
 	 UserDto user = service.getUserPageInfo(u_id);
-	 
+	 System.out.println(user.getO_status_ready());
 	 model.addAttribute("user", user);
 	 
 	 }

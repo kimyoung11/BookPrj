@@ -37,6 +37,9 @@ public class QuestionDto {
 	
 	
 	
+	
+	
+	
 //	public String getAgo() {
 //		LocalDateTime now = LocalDateTime.now();
 //		LocalDateTime oneDayBefore = now.minusDays(1);
