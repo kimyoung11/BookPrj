@@ -1,0 +1,105 @@
+.section-title{
+    border-bottom: 3px solid #000000;
+    padding-bottom: 14px;
+    margin-top: 48px;
+    line-height: 1.5;
+    font-size: 14px;
+    position: relative;
+}
+.section-title .tit{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+}
+.container ul{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: top;
+    background: transparent;
+}
+.list-row.my-like .prd-row {
+    padding: 0 10px;
+    margin-top: 22px;
+}
+.list-row .prd-row {
+    width: 25%;
+    box-sizing: border-box;
+    margin-top: 32px;
+    float: left;
+}
+.list-row:after {
+    content: "";
+    display: block;
+    height: 32px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    clear: both;
+}    
+.prd-row {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    min-height: 96px;
+    line-height: 1.5;
+    font-size: 14px;
+    text-align: left;
+    position: relative;
+}
+.prd-row .img-block{
+    display: table-cell;
+    width: 80px;
+    padding-top: 96px;
+    vertical-align: middle;
+}
+.img-block{
+    display: block;
+    padding-top: 120%;
+    position: relative;
+    overflow: hidden;
+}
+.img-block > img {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.prd-row .info {
+    display: table-cell;
+    padding-left: 10px;
+    vertical-align: middle;
+    width: 100%;
+}
+.prd-row .info li {
+    font-size: 14px;
+    line-height: 22px;
+    list-style: none;
+}
+.prd-row .info .genre {
+    font-weight: 400;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.prd-row .info .title {
+    max-height: 44px;
+    font-weight: bold;
+    overflow: hidden;
+}
+.prd-row .info .price {
+    margin-top: 6px;
+    font-weight: normal;
+}
+.prd-row .info .like {
+    color: red;
+    line-height: 16px;
+    padding-top: 5px;
+}
+
+.prd-row .info a {
+    display: inline-block;
+}

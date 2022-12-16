@@ -1,0 +1,150 @@
+.n-table{
+    width: 100%;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.n-table.table-col {
+    border-top: 1px solid #000000;
+}
+.n-table.table-col tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.n-table.table-col th {
+    height: 52px;
+    border-bottom: 1px solid #000000;
+    font-size: 16px;
+    vertical-align: middle;
+    display: table-cell;
+    font-weight: bold;
+    text-align: center
+}
+.n-table.table-col tbody{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.n-table.table-col td{
+    height: 70px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f5f5f5;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-all;
+}
+.prd-row {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    min-height: 96px;
+    line-height: 1.5;
+    font-size: 14px;
+    text-align: left;
+    position: relative;
+}
+.n-table.table-col .prd-row {
+    margin: 10px 0;
+}
+.prd-row .img-block {
+    display: table-cell;
+    width: 80px;
+    padding-top: 96px;
+    vertical-align: middle;
+}
+.n-table a, .n-table button {
+    display: inline-block;
+    vertical-align: middle;
+}
+.img-block {
+    display: block;
+    padding-top: 120%;
+    position: relative;
+    overflow: hidden;
+}
+.img-block > img {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.n-prd-row .info {
+    display: table-cell;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+.prd-row .info li {
+    font-size: 14px;
+    line-height: 22px;
+}
+.prd-row .info a {
+    display: inline-block;
+}
+.prd-row .info .genre {
+    font-weight: 300;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.prd-row .info .title {
+    max-height: 44px;
+    font-weight: bold;
+    overflow: hidden;
+}
+.prd-row .info .star {
+    font-weight: 300;
+    color: #ffd904;
+    overflow: hidden;
+}
+.mypage-cont .my-review .button-block {
+    position: relative;
+    max-width: 152px;
+    margin: 0 auto;
+}
+.mypage-cont .my-review .button-block .review-btn {
+    width: 130px;
+    padding: 3px;
+    background: #f3f3f3;
+    border-color: #f3f3f3;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+#myReviewBtn{
+    margin-right:-2px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right : none;
+}
+#makeReviewBtn{
+    margin-left:-2px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+}
+#rvbtn_group button{
+    width: 150px;
+    height: 50px;
+    border: 1px solid rgb(211, 211, 211);
+    background-color: rgba(0,0,0,0);
+    color: rgb(211, 211, 211);
+    padding: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+#rvbtn_group button:hover{
+    color:black;
+    background-color: #4070f4;
+}

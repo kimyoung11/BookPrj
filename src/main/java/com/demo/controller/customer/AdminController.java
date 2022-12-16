@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
@@ -203,9 +204,11 @@ public class AdminController {
 	}
 
 	@PostMapping("book")
-	public void bookRegister(BookDto bookDto) {
-		int cnt = bookService.insertBook(bookDto);
-		System.out.println(cnt);
+	public void bookRegister(BookDto bookDto,MultipartFile file) {
+		int cnt = bookService.insertBook(bookDto,file);
+		System.out.println("file:" +file);
+		System.out.println("isdfsd"+bookDto); 
+		
 	}
 
 	@GetMapping("bookList")

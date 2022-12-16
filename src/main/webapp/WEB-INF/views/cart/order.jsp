@@ -105,7 +105,7 @@
                     <td class="align-middle">${cart.b_title }</td>
                     <td id="countPlus" class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>
-                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }</td>
+                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }원</td>
                 </tr>
                 </c:forEach>
             	</c:if>
@@ -116,7 +116,7 @@
                     <td class="align-middle">${book.b_title }</td>
                     <td class="align-middle">${cnt }</td>
                     <td class="align-middle">${book.b_price }원</td>
-                    <td class="align-middle">${book.b_price * cnt }</td>
+                    <td class="align-middle">${book.b_price * cnt }원</td>
                 </tr>
             	</c:if>
             </tbody>
@@ -167,7 +167,7 @@
 
     <div style="text-align: center; font-size: 20px; border-top: 1px solid; blue">
     <br>
-    	최종 결제 금액	: <span id="totalPriceHolder">원</span> <br>
+    	최종 결제 금액	: <span id="totalPriceHolder"></span> <br>
     </div>
     <div style="text-align: center;">
     
@@ -195,7 +195,7 @@
 	for (const e of totalP) {
 		totalSum = totalSum + parseInt(e.innerText);
 	}
-	document.getElementById("totalPriceHolder").innerText = totalSum;
+	document.getElementById("totalPriceHolder").innerText = totalSum.toLocaleString() + "원";
 	
 	const count = document.querySelectorAll("#countPlus")
 	let totalCount = 0;
@@ -205,7 +205,9 @@
 	document.querySelector("#orderCountId").value = parseInt(totalCount);
 	
 	const a = document.querySelector("#totalPriceHolder").innerText;
-	document.querySelector("#o_total").value = a;
+	const b = a.replace(/,/g, "");
+	const c = b.replace(/원/g, "");
+	document.querySelector("#o_total").value = c;
 </script>
 </body>
 

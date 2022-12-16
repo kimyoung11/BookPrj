@@ -132,4 +132,9 @@ public class CartController {
 		return "redirect:/cart/ordermanage";
 	}
 	
+	@GetMapping("event")
+	public void event() {
+		
+	}
+	
 }

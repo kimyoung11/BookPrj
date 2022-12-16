@@ -85,7 +85,7 @@
         </div>
         <table class="table">
             <thead>
-                <tr>
+                <tr class ="table-info">
                     <th>주문번호</th>
                     <th>주문일</th>
                     <th>상품명</th>
@@ -93,6 +93,7 @@
                     <th>합계수량</th>
                     <th>금액</th>
                     <th>진행상태</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -104,7 +105,7 @@
                    			<td>${order.b_title }</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
-                   			<td>${order.o_total}원</td>
+                   			<td id="money" class="moneyIndex">${order.o_total}</td>
                    			<td>
                    				<select onchange="osValueChange(this)" data-target-input="#osValueInput${sts.index }">
                    					<option>${order.o_status}</option>
@@ -190,6 +191,17 @@
 	
 	function osValueChange(elem) {
 		document.querySelector(elem.dataset.targetInput).value = elem.value;
+	}
+	
+	
+	
+	
+
+	const size =document.querySelectorAll(".moneyIndex").length;
+	
+	for(var i=0;i<size;i++){
+		let a = document.querySelectorAll("#money")[i].innerText;
+		document.querySelectorAll(".moneyIndex")[i].innerText = Number(a).toLocaleString() + "원";
 	}
 	
 	
