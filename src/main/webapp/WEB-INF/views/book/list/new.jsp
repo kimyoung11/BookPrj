@@ -1,5 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
@@ -246,7 +247,7 @@
             <div class="row content justify-content-center">
             	<c:url value="${pageContext.request.contextPath}/book/detail/${item.b_code}" var="link"></c:url>
               		<a href="${link }" style="width: 159px; height: 234px">
-              			<img src="${item.b_img }" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
+              			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
                 <li style="font-size: 22px">${item.b_title }</li>

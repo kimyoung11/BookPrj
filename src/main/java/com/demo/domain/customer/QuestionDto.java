@@ -16,7 +16,6 @@ public class QuestionDto {
 	private String q_title;
 	private String q_content;
 	private LocalDateTime q_date;
-	private String q_img;
 	private String u_id;
 	private String q_option;
 	

@@ -53,29 +53,29 @@ a {
 		<hr class="line" style="border: solid 1px #000;">
 
 		<%-- ${pageContext.request.contextPath }/customer/notice --%>
-		<form action="" method="post" id="myForm">
+		<form action="" method="post" id="myForm" enctype="multipart/form-data">
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책제목</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_title" class="form-control">
+					<input type="text" name="b_title" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 저자</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_writer" class="form-control">
+					<input type="text" name="b_writer" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 출판일</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_pubDate" class="form-control">
+					<input type="text" name="b_pubDate" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 가격</label>
 				<div class="col-sm-10">
-					<input type="number" name="b_price" class="form-control">
+					<input type="number" name="b_price" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
@@ -97,7 +97,7 @@ a {
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 이미지</label>
 				<div class="col-sm-10">
-					<input type="file" name="b_img" class="form-control" accept="image/png, image/jpg">
+					<input type="file" name="file" class="form-control" accept="image/*" required="required">
 				</div>
 			</div>
 			<hr>
