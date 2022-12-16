@@ -55,37 +55,34 @@ a {
 		<table class="table table-hover" style="margin-top: 50px; line-height: 50px;">
 			<thead style="border-top: solid 1px;">
 				<tr>
-					<th>NO</th>
-					<th>문의유형</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>날짜</th>
-					<th></th>
-					<th></th>
+					<th scope="col">NO</th>
+					<th scope="col">문의유형</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">날짜</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${questionList }" var="question">
 					<tr>
-						<th>${question.q_number }</th>
+						<th scope="row">${question.q_number }</th>
 						<td>${question.q_option }</td>
 						<td class="align-left">
 							${question.q_title }
 						</td>
 						<td>${question.u_id }</td>
 						<td>${question.q_date }</td>
-						
 						<td>
-						<c:url value="/admin/answer" var="answerLink">
-							<c:param name="q_number" value="${question.q_number }"></c:param>
-						</c:url>
-						<a class="btn btn-primary" href="${answerLink }">답변하기</a>
-						</td>
-						<td>
-						<c:url value="/admin/removeQuest" var="removeLink">
-							<c:param name="q_number" value="${question.q_number }"></c:param>
-						</c:url>
-						<a class="btn btn-danger" href="${removeLink }">삭제하기</a>
+							<c:url value="/admin/answer" var="answerLink">
+								<c:param name="q_number" value="${question.q_number }"></c:param>
+							</c:url>
+							<a class="btn btn-primary" href="${answerLink }">답변하기</a>
+
+							<c:url value="/admin/removeQuest" var="removeLink">
+								<c:param name="q_number" value="${question.q_number }"></c:param>
+							</c:url>
+							<a class="btn btn-danger" href="${removeLink }">삭제하기</a>
 						</td>
 					</tr>
 				</c:forEach>
