@@ -66,7 +66,8 @@ a {
 				</div>
 			</div>
 			<hr>
-			<input type="hidden" name="ad_id" value="111"> 
+			                     
+			<input type="hidden" name="u_id" value="<%=(String)session.getAttribute("id")%>"> 
 			<input type="submit" class="btn btn-primary regist-btn" value="등록">
 		</form>
 
