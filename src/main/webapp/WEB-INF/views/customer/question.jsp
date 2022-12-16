@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
@@ -45,10 +46,10 @@
 						<div class="mb-4 row mt-5">
 
 							<select id="selectBox" name="q_option" class=" form-select" aria-label="Default select example">
-
-								<option selected>문의할 사항을 선택하세요.</option>
 								<option value="1:1문의">1:1 문의하기</option>
-								<option value="반품교환문의">반품ㆍ교환 문의하기</option>
+								<option value="배송문의">배송 문의하기</option>
+								<option value="교환문의">교환 문의하기</option>
+								<option value="반품문의">반품 문의하기</option>
 							</select>
 						</div>
 						<!-- selector-end -->
@@ -78,28 +79,30 @@
 						</div>
 						
 						<!-- 유저아이디 넘겨줌 -->						
-						<input type="hidden" name="u_id" value="<%=(String)session.getAttribute("id")%>">
+						<input type="hidden" id="getUserId" name="u_id" value="<%=(String)session.getAttribute("id")%>">
+
 
 						<hr>
 						<div style="text-align: center; margin-top: 30px;">
-							<button id="submitButton1" type=submit class="btn btn-secondary btn-qusetion "
-								style="margin-right: 10px;">문의 등록</button>
-							
-							<button type="button" class="btn btn-secondary btn-qusetion">내
-								문의 보기</button>
+							<!-- 문의 등록 버튼 -->
+								<a type="button" id="submitButton1" class="btn btn-secondary btn-qusetion">문의 등록</a>
+
+							<!-- 내 문의보기 버튼 -->
+								<button id="submitButton2" class="btn btn-secondary btn-qusetion">
+								내 문의 보기</button>
 						</div>
 					</form>
 				</div>
 					
-<%-- 댓글 메시지 토스트 --%>
-	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
-	  <div class="d-flex">
-	    <div id="replyMessage1" class="toast-body">
-	     	1:1 문의 등록이 완료되었습니다.
-	    </div>
-	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-	  </div>
-	</div>
+			<%-- 메시지 토스트 --%>
+			<div id="MessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="d-flex">
+			    <div id="questionMessage" class="toast-body">
+			    게시물이 등록되었습니다.
+			    </div>
+			    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			</div>
 	
 
 			</div>
@@ -107,97 +110,58 @@
 	</div>
 
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous">
+</script>
+
+
 <script>
-
-/* 셀렉트 박스 값 가져오기 */
-
-function getQuest() {
-	const selectBox = $("#selectBox option:selected").text();
-	console.log(selectBox);
-	
-}	
-
-/* function getQuest() {
-	const selectBox = $("#selectBox option:selected").text();
-	console.log(selectBox);
-	
-}	  */
+const UserId = document.querySelector("#getUserId").value;
 
 
 
 
-
-document.querySelector("#submitButton1").addEventListener("click", function(e) {
-	// submit 진행 중지
-	e.preventDefault();
-	
-	// 제목input 입력한 값 가져와서
-	// 빈칸만 있는지 확인?
-	let titleValue = document.querySelector(`#registerForm1 input[name="q_title"]`).value
-	// 본문 textarea 입력한 값 가져와서
-	// 빈칸만 있는지 확인?
-	let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
-	// 작성자 input 값 가져와서
-	// 빈칸만 있는지 확인?
-
-	// let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
+	/* 빈값일 때 alert창 띄우기, submit  */
+	document.querySelector("#submitButton1").addEventListener("click", function(e) {
+		debugger;
+		console.log(UserId);
+		if(UserId != 'null'){
+			// submit 진행 중지
+			console.log(UserId);
+			e.preventDefault();
 			
-	// 위 테스트 다 통과하면 submit
-	if (titleValue.trim() != "" 
-			&& contentValue.trim() != "" ) {
+			// 제목input 입력한 값 가져와서
+			// 빈칸만 있는지 확인?
+			let titleValue = document.querySelector(`#registerForm1 input[name="q_title"]`).value
+			// 본문 textarea 입력한 값 가져와서
+			// 빈칸만 있는지 확인?
+			let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
 		
-		document.querySelector("#registerForm1").submit();
-	} else {
-		문의를 작성해주세요.
+			// 위 테스트 다 통과하면 submit
+			if (titleValue.trim() != "" 
+					&& contentValue.trim() != "" ) {
+				
+				document.querySelector("#registerForm1").submit();
 
-	
-	// let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value
-//	let optionValue =  
-//		document.getElementByName("selectBox")[document.getElementByName("selectBox").selelctedIndex].text
-	
-	// 위 테스트 다 통과하면 submit
-	if (titleValue.trim() != "" 
-			&& contentValue.trim() != "" 
-			/* && optionValue.trim() != "" */ ) {
+
+			} else {
+				alert("문의를 작성해주세요.");
 		
-		document.querySelector("#registerForm1").submit();
-	} else {
-		alert("문의를 작성해주세요.");
+			}	
+			
+		} else if(UserId == 'null'){
+				
+					console.log(UserId);
+					location.assign('/user/login.do');
+			};
+	});
 
-	}
+	/* 등록 토스트 */
+	const toast = new bootstrap.Toast(document.querySelector("#MessageToast"));
 	
-	
-});
-
-
-
-
-//댓글 crud 메시지 토스트
-const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
-
-document.querySelector("#submitButton1").addEventListener("click", function() {
-	const content = document.querySelector("#modifyReplyInput").value;
-	const id = this.dataset.replyId;
-	const data = {id, content};
-	
-	fetch(`\${ctx}/reply/modify`, {
-		method : "put",
-		headers : {
-			"Content-Type" : "application/json"
-		},
-		body : JSON.stringify(data)
-	})
-	.then(res => res.json())
-	.then(data => {
-		document.querySelector("#replyMessage1").innerText = data.message;
-		toast.show();
-	})
-	.then(() => listReply());
-});
+	toast.show();
 
 
 </script>

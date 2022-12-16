@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,35 +52,77 @@ a {
 			<h1 style="font-size: 34px">1:1문의 관리자</h1>
 		</div>
 
-		<table class="table" style="margin-top: 50px; line-height: 50px;">
+		<table class="table table-hover" style="margin-top: 50px; line-height: 50px;">
 			<thead style="border-top: solid 1px;">
 				<tr>
 					<th>NO</th>
-					<th>문의사항</th>
+					<th>문의유형</th>
+					<th>제목</th>
+					<th>작성자</th>
 					<th>날짜</th>
-					<th>유저아이디</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${questionList }" var="question">
 					<tr>
 						<th>${question.q_number }</th>
+						<td>${question.q_option }</td>
 						<td class="align-left">
 							${question.q_title }
 						</td>
-						<td>${question.q_date }</td>
 						<td>${question.u_id }</td>
+						<td>${question.q_date }</td>
+						
 						<td>
 						<c:url value="/admin/answer" var="answerLink">
 							<c:param name="q_number" value="${question.q_number }"></c:param>
 						</c:url>
 						<a class="btn btn-primary" href="${answerLink }">답변하기</a>
 						</td>
+						<td>
+						<c:url value="/admin/removeQuest" var="removeLink">
+							<c:param name="q_number" value="${question.q_number }"></c:param>
+						</c:url>
+						<a class="btn btn-danger" href="${removeLink }">삭제하기</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		</div>
+		
+		
+	<%-- 댓글 메시지 토스트 --%>
+<!-- 	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="d-flex">
+	    <div id="Message1" class="toast-body">
+	      Hello, world! This is a toast message.
+	    </div>
+	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	</div> -->
+	
+	
+		<!-- remove Modal -->
+	<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">삭제 확인</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button id="removeConfirmButton" type="button" class="btn btn-danger">확인</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
 <!-- pagination -->

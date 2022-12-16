@@ -10,5 +10,8 @@ public class NoticeDto {
 	private String n_title;
 	private String n_content;
 	private LocalDateTime n_date;
-	private String ad_id;
+	private String u_id;
+	
+	
+	
 }

@@ -22,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
 import com.demo.domain.book.CartDto;
+import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.book.BookService;
 import com.demo.service.book.CartService;
+import com.demo.service.review.yjh.ReviewService;
 import com.demo.service.user.yjh.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -43,6 +45,9 @@ public class BookController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private ReviewService reviewService;
+	
 	@GetMapping("main")
 	public void main(Model model) {
 		List<BookDto> newBook = bookService.newBookList();
@@ -57,8 +62,8 @@ public class BookController {
 	public Map<String, Object> autocomplete(
 			@RequestParam Map<String, Object> paramMap
 			) {
-		System.out.println("호출됨");
-		System.out.println(paramMap.get("value"));
+//		System.out.println("호출됨");
+//		System.out.println(paramMap.get("value"));
 		String temp = "%"+(String)paramMap.get("value")+"%";
 		List<Map<String,Object>> resultList = bookService.autocomplete(temp);
 		paramMap.put("resultList", resultList);
@@ -68,38 +73,64 @@ public class BookController {
 	
 	
 	@GetMapping("list")
-	public String list(Model model) {//all books page
-		List<BookDto> list = bookService.listBoard();
-		model.addAttribute("bookList", list);
+	public String list(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		//List<BookDto> list = bookService.listBoard();
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.selectAllBook();
+		System.out.println(books);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
 		return "book/list/all";
 	}
 	
-	@GetMapping("listBook")
-	public void showBook(Model model) {
-		System.out.println("SDLFKSDFSDF");
-		PageHelper.startPage(1, 10);
-		Page<BookDto> books = bookService.selectAllBook();
-		System.out.println(books);
-		model.addAttribute("books",books.getResult());
 
-	}
-	
 	
 	@GetMapping("list/new")
-	public String listByDate(Model model) {
-		List<BookDto> list = bookService.getByDate();
-		model.addAttribute("bookList",list);
+	public String listNew(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.getByDate();
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/new";
+	}
+	
+	@GetMapping("list/new/{b_genre}")
+	public String newListByGenre(@PathVariable String b_genre,Model model,@RequestParam(defaultValue = "1") int page) {
+		//System.out.println(b_genre);
+		PageHelper.startPage(page,10);
+		Page<BookDto> books = bookService.getBookByGenre(b_genre);
+		System.out.println("genre" + b_genre);
+		//System.out.println(list);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		model.addAttribute("genre",b_genre);
+		
 		return "book/list/new";
 	}
 	
 	@GetMapping("list/{b_genre}")
-	public String listByGenre(@PathVariable String b_genre,Model model) {
+	public String listByGenre(@PathVariable String b_genre,Model model,@RequestParam(defaultValue = "1") int page) {
 		//System.out.println(b_genre);
-		List<BookDto> list = bookService.getByGenre(b_genre);
+		PageHelper.startPage(page,10);
+		Page<BookDto> books = bookService.getByGenre(b_genre);
 		//System.out.println(list);
-		model.addAttribute("bookList", list);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		model.addAttribute("genre",b_genre);
 		
-		return "book/list/all";
+		return "book/list/genre";
 	}
 		
 	
@@ -110,6 +141,8 @@ public class BookController {
 //		List<BookDto> temp = service.getByCodeAndId(u_id,b_code);
 		BookDto temp = bookService.getByCode(b_code); //1번책
 //		System.out.println(temp);
+		List<ReviewDto> review = reviewService.getByBookCode(b_code);
+		System.out.println("this is review:" + review);
 		
 		int likeStatus = bookService.getLikeCount(b_code, u_id);
 		System.out.println("this is likeStatus:" + likeStatus);
@@ -118,6 +151,7 @@ public class BookController {
 		else if(likeStatus ==1)
 			model.addAttribute("likeStatus", "true");
 		model.addAttribute("book", temp);
+		model.addAttribute("review", review);
 		return "/book/detail";
 	}
 	

@@ -49,6 +49,10 @@ a {
 	text-align: left;
 }
 
+.point {
+	cursor: pointer;
+}
+
 
 </style>
 </head>
@@ -61,7 +65,7 @@ a {
 			<h1 style="font-size: 34px">공지사항</h1>
 		</div>
 
-		<table class="table" style="margin-top: 50px; line-height: 50px;">
+		<table class="table table-hover" style="margin-top: 50px; line-height: 50px;">
 			<thead style="border-top: solid 1px;">
 				<tr>
 					<th>NO</th>
@@ -71,10 +75,10 @@ a {
 			</thead>
 			<tbody>
 				<c:forEach items="${noticeList }" var="notice">
-					<tr>
+					<tr data-value="${notice.n_id }" onclick="clickNotice(this)" class="point">
 						<th>${notice.n_id }</th>
 						<td class="align-left">
-							<div class="noticeTitle" data-value="${notice.n_id }" onclick="clickNotice(this)">${notice.n_title }</div>
+							<div class="noticeTitle">${notice.n_title }</div>
 						</td>
 						<td>${notice.n_date }</td>
 					</tr>
@@ -169,7 +173,6 @@ a {
 	
 	function clickNotice(target){
 		const n_id = target.dataset.value;
-/*  		fetch(`\${ctx}/customer/listContent/\${n_id}`); */
 			location.assign(`\${ctx}/customer/listContent/\${n_id}`); 
 	}
 	</script>

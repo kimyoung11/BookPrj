@@ -24,7 +24,7 @@ public class BookService {
 		return bookMapper.list();
 	}
 	
-	public List<BookDto> getByGenre(String b_genre){
+	public Page<BookDto> getByGenre(String b_genre){
 		return bookMapper.selectByGenre(b_genre);
 	}
 
@@ -33,7 +33,7 @@ public class BookService {
 		return bookMapper.selectByCode(b_code);
 	}
 
-	public List<BookDto> getByDate() {
+	public Page<BookDto> getByDate() {
 		// TODO Auto-generated method stub
 		return bookMapper.selectByDate();
 	}
@@ -95,6 +95,10 @@ public class BookService {
 	
 	public Page<BookDto> selectAllBook() {
 		return bookMapper.selectAllBook();
+	}
+
+	public Page<BookDto> getBookByGenre(String b_genre) {
+		return bookMapper.selectBookByGenre(b_genre);
 	}
 
 }
