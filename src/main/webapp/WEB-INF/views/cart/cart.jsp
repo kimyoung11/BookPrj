@@ -104,7 +104,7 @@ a {
 
 			<div class="card">
 				<div class="card-body">
-					선택된 상품의 합계 금액 = <span id="totalPriceHolder"></span>
+					선택된 상품의 합계 금액 = <span id="totalPriceHolder">원</span>
 				</div>
 			</div>
 
@@ -174,14 +174,29 @@ a {
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
 	<script>
+	const ctx = "${pageContext.request.contextPath}";
+		const firSumPrice = document.querySelectorAll(".totalPrice");
+		for(var i = 0; i < firSumPrice.length; i++){
+			console.log(firSumPrice[i])
+			firSumPrice[i].innerText = Number(firSumPrice[i].innerText).toLocaleString() + "원";
+		}
+	
+		
+		// 페이지 최초 로딩시 선택 합계금액 표시
       	const bprice = document.querySelectorAll(".totalPrice");
       	let bpSum = 0;
-      	for (const e of bprice) {
-      		bpSum = bpSum + parseInt(e.innerText);
-      	}
-      	document.getElementById("totalPriceHolder").innerText = bpSum;
+		for (var i = 0; i < bprice.length; i++) {
+			
+			var aa = bprice[i].innerText;
+			var bb = aa.replace(/,/g, "");
+			var cc = bb.replace(/원/g, "");
+			console.log(cc)
+      		bpSum = bpSum + Number(cc);
+		}
+      	
+      	document.getElementById("totalPriceHolder").innerText = bpSum.toLocaleString() + "원";
       
-      
+      	// 수량 변경버튼 클릭하면 합계금액, 선택합계금액 변경
         function sumAllPrice(elem){
 	 		const a = elem.value;
 	       	const b = elem.dataset.price;
@@ -190,7 +205,7 @@ a {
 	       	// 변경된 수량을 입력
 	       	checkBox.dataset.cartCount = elem.value;
 	       	checkBox.value = a * b;
-	       	document.querySelector(elem.dataset.priceTarget).innerText = checkBox.value;
+	       	document.querySelector(elem.dataset.priceTarget).innerText = Number(checkBox.value).toLocaleString() + "원";
 	       	boxValueChange();
         }
          
@@ -203,11 +218,10 @@ a {
 				console.log(box.value);
 				sum = sum + Number(box.value);
 			}
-			document.getElementById("totalPriceHolder").innerText = sum;
+			document.getElementById("totalPriceHolder").innerText = sum.toLocaleString() + "원";
 		}
         
        	// 선택삭제 기능
-       
        	document.querySelector("#deleteButton").addEventListener("click", function(){
        		// 1. 비어있는 form 가져오기
        		const form = document.forms.deleteForm;
@@ -233,8 +247,7 @@ a {
        	});
        	
        	
-     // 선택 결제 기능
-        
+    	// 선택 결제 기능
        	document.querySelector("#orderButton").addEventListener("click", function(){
        		// 1. 비어있는 form 가져오기
        		const form = document.forms.toOrderForm;
@@ -259,8 +272,11 @@ a {
        		
        		// 5. form 전송하기
        		form.submit();
+       			
+       		})
        		
-       	});
+       		
+       		
        	
       
          

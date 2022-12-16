@@ -1,5 +1,7 @@
 package com.demo.domain.book;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +18,5 @@ public class BookDto {
 	
 	private boolean b_status;
 	private BookLikeDto bookLike_dto;
+	private MultipartFile b_file; 
 }

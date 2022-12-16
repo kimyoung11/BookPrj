@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.demo.domain.ths.CartDto;
 import com.demo.domain.ths.OrdersDto;
@@ -34,6 +35,7 @@ public class CartController {
 		System.out.println(cart);
 		model.addAttribute("cartlist", cart);
 	}
+	
 	
 	// 장바구니 선택 삭제
 	@PostMapping("deleteCart")
@@ -66,6 +68,8 @@ public class CartController {
 		CartDto userData = service.userData(u_id);
 		model.addAttribute("userData", userData);
 		
+		service.changeCount(u_id, b_code, c_count);
+		
 		// System.out.println(u_id);
 		// System.out.println(b_code);
 		// System.out.println(c_count);
@@ -97,23 +101,40 @@ public class CartController {
 
 	
 	@GetMapping("orderdetail")
-	public void orderdetail() {
+	public void ordermanagedetail(HttpSession session, Model model, @RequestParam("o_number") int o_number) {
+		System.out.println(o_number);
+		String u_id = (String) session.getAttribute("id");
+		List<OrdersDto> orderDetailList = service.orderDetailList(u_id, o_number);
+		model.addAttribute("orderDetailList", orderDetailList);
 		
 	}
 	
 	@PostMapping("orderdetail")
-	public String orderdetail2(HttpSession session, @RequestParam List<Integer> b_code , OrdersDto orders) {
+	public String orderdetail2(HttpSession session, @RequestParam List<Integer> b_code ,@RequestParam List<Integer> od_count, OrdersDto orders) {
 		String u_id = (String) session.getAttribute("id");
+		System.out.println(orders);
 		
 		int num = service.insertOrders(orders);
 
 		for(int i=0; i < b_code.size(); i++) {
-			int k = service.insertBook((Integer)orders.getO_number(),u_id, (Integer)b_code.get(i));
+			int k = service.insertBook((Integer)orders.getO_number(),u_id, (Integer)b_code.get(i), (Integer)od_count.get(i));
 		}
 		
 		service.deleteCart(u_id, b_code);
 		return "redirect:/cart/orderend";
 	}
 	
-
+	@PostMapping("orderStatusChange")
+	public String orderStatusChange(@RequestParam("o_status") String o_status, @RequestParam("o_number") int o_number) {
+		System.out.println(o_number);
+		System.out.println(o_status);
+		service.orderStatusChange(o_status, o_number);
+		return "redirect:/cart/ordermanage";
+	}
+	
+	@GetMapping("event")
+	public void event() {
+		
+	}
+	
 }

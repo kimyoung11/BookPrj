@@ -25,7 +25,8 @@
 		q_title,
 		q_content,
 		q_date,
-		u_id
+		u_id,
+		q_option
 	FROM 
 		Quest
 	ORDER BY q_number DESC
@@ -60,7 +61,6 @@
 		<result column="q_content" property="q_content"/>
 		<result column="q_date" property="q_date"/>
 		<result column="u_id" property="u_id"/>
-		
 		<collection property="fileName" ofType="string">
 			<result property="fileName" column="fileName"/>
 		</collection>
@@ -70,8 +70,8 @@
 
 <!-- 1:1문의 답변 추가하기 -->
 <insert id="add">
-	INSERT INTO Answer (q_number, ad_id, u_id, a_content )
-	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content} )
+	INSERT INTO Answer (q_number, u_id, a_content )
+	VALUES (#{q_number}, #{u_id}, #{a_content} )
 </insert>
 
 <!-- 1:1문의 답변 보여주기 -->
@@ -102,8 +102,7 @@
  		a_id,
  		q_number,
  		a_date,
- 		a_content,
- 		ad_id
+ 		a_content
  	FROM 
  		Answer
  	WHERE
@@ -114,10 +113,28 @@
 <!-- 1:1 문의 답변 수정하기 -->
 <update id="update">
 	UPDATE Answer
-	SET a_content = #{a_content}
+	SET 
+		a_content = #{a_content}
 	WHERE 
 		a_id = #{a_id}
 </update>
+
+<!-- 1:1 문의 삭제 -->
+<delete id="deleteQuest">
+	DELETE FROM Quest
+	WHERE q_number = #{q_number}
+</delete>
+
+<delete id="deleteAnswer">
+	DELETE FROM Answer
+	WHERE q_number = #{q_number}
+</delete>
+
+<delete id="deleteFiles">
+	DELETE FROM File
+	WHERE q_number = #{q_number}
+</delete>
+
 </mapper>
 
 

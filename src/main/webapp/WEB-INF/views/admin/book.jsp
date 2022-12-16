@@ -53,41 +53,51 @@ a {
 		<hr class="line" style="border: solid 1px #000;">
 
 		<%-- ${pageContext.request.contextPath }/customer/notice --%>
-		<form action="" method="post">
+		<form action="" method="post" id="myForm" enctype="multipart/form-data">
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책제목</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_title" class="form-control">
+					<input type="text" name="b_title" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 저자</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_writer" class="form-control">
+					<input type="text" name="b_writer" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 출판일</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_pubDate" class="form-control">
+					<input type="text" name="b_pubDate" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 가격</label>
 				<div class="col-sm-10">
-					<input type="number" name="b_price" class="form-control">
+					<input type="number" name="b_price" class="form-control" required="required">
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 장르</label>
 				<div class="col-sm-10">
-					<input type="text" name="b_genre" class="form-control">
+					<select class="form-select" id="myForm" data-placeholder="Choose one thing" name="b_genre">
+				        <option value="소설">소설</option>
+				        <option value="에세이">에세이</option>
+				        <option value="인문">인문</option>
+				        <option value="역사">역사</option>
+				        <option value="만화">만화</option>
+				        <option value="어린이">어린이</option>
+				        <option value="수험서">수험서</option>	
+				        <option value="육아">육아</option>
+				        <option value="예술">예술</option>
+				    </select>
 				</div>
 			</div>
 			<div class="mb-1 row mt-2">
 				<label class="col-sm-1 col-form-label">책 이미지</label>
 				<div class="col-sm-10">
-					<input type="file" name="b_img" class="form-control" accept="image/png, image/jpg">
+					<input type="file" name="file" class="form-control" accept="image/*" required="required">
 				</div>
 			</div>
 			<hr>

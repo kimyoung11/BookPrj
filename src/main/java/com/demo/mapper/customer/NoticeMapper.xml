@@ -7,8 +7,8 @@
 
 <!-- 공지사항 추가 -->
 <insert id="insert" >
-	INSERT INTO Notice (n_title, n_content, ad_id)
-	VALUES (#{n_title}, #{n_content}, #{ad_id})
+	INSERT INTO Notice (n_title, n_content, u_id)
+	VALUES (#{n_title}, #{n_content}, #{u_id})
 </insert>
 
 <!-- 공지사항 list 보여줌 -->
@@ -17,8 +17,7 @@
 		n_id,
 		n_title,
 		n_content,
-		n_date,
-		ad_id
+		n_date
 	FROM  
 		Notice
 	ORDER BY n_id DESC
@@ -37,8 +36,7 @@
 		n_id,
 		n_title,
 		n_content,
-		n_date,
-		ad_id
+		n_date
 	FROM  
 		Notice
 	WHERE

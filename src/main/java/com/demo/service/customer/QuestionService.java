@@ -47,7 +47,7 @@ public class QuestionService {
 			uploadFile(question.getQ_number(), file);
 
 	
-			//		파일 저장 (받은 파일을 목적지로 전달 (목적지는 파일타입 ) 경로명 있어야함  )
+//			파일 저장 (받은 파일을 목적지로 전달 (목적지는 파일타입 ) 경로명 있어야함  )
 
 //			File folder = new File("/Users/jeonglina/Desktop/Study/upload/prj/question/" + question.getQ_number());
 //			folder.mkdirs();
@@ -156,8 +156,20 @@ public class QuestionService {
 	}
 
 	/* 1:1 답변 수정하기 */
-	public int modify(QuestionDto quest) {
-		return mapper.update(quest);
+	public int modify(Integer a_id,
+			String a_content) {
+		return mapper.update(a_id, a_content);
+	}
+
+	/* 1:1 문의 삭제하기 */
+	@Transactional
+	public int removeQuest(int q_number) {
+		
+		mapper.deleteFiles(q_number);
+		
+		mapper.deleteAnswer(q_number);
+		
+		return mapper.deleteQuest(q_number);
 	}
 
 }

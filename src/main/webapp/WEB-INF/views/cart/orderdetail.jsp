@@ -37,7 +37,7 @@
             opacity: 1;
         }
         
-        td {
+        th {
         	vertical-align: middle;
         }
         
@@ -49,29 +49,44 @@
 <body>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/orderdetail"><h2>주문상세</h2></a>
+        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2>주문상세</h2></a>
         <hr id="hr_line">
-        <p>주문번호 : 1</p>
-        <p>주문일시 : 2022.12.12</p> <br>
-        <table class="table">
+        <p>주문번호 : ${orderDetailList[0].o_number}</p>
+        <p>주문일시 : ${orderDetailList[0].o_date }</p>
+        <p>결제금액 : <span id="price">${orderDetailList[0].o_total }</span></p>
+        <table class="table" style="vertical-align: middle;">
         	<thead>
-				<tr>
+				<tr class ="table-info">
 					<th>상품 정보</th>
 					<th>상품명</th>
-					<th>주문수량</th>
-					<th>금액</th>
+					<th>수량</th>
+					<th>합계금액</th>
 				</tr>
+				<tbody>
+				<c:forEach items="${orderDetailList}" var="orderDetailList">
 				<tr>
-					<th>이미지</th>
-					<th>책1</th>
-					<th>2</th>
-					<th>2000</th>
+					<td><img src="${orderDetailList.b_img }" alt=""></td>
+					<td>${orderDetailList.b_title }</td>
+					<td>${orderDetailList.od_count }</td>
+					<td id="bookPrice">${orderDetailList.b_price * orderDetailList.od_count}</td>
 				</tr>       	
+				</c:forEach>
+				</tbody>
         	</thead>
         </table>
-        <div>
-        	<h2>합계 금액 : 9000원</h2>
-        </div>
     </div>
+<script>
+	// 결제금액에 , 원 붙임
+	const a = document.querySelector("#price").innerText
+	document.querySelector("#price").innerText = Number(a).toLocaleString() + "원";
+	
+	// 각 책별 합계금액에 , 원 붙임
+	const b = document.querySelectorAll("#bookPrice")
+	const size = document.querySelectorAll("#bookPrice").length;
+	for(var i = 0; i < size; i++){
+		let c = b[i].innerText;
+		b[i].innerText = Number(c).toLocaleString() + "원";
+	}
+</script>
 </body>
 </html>

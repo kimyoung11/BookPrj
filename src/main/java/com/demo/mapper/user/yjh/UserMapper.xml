@@ -45,8 +45,12 @@
   	<select id="selectUserPageInfo" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT 
   				u_id,
-				(SELECT COUNT(b_code) FROM BookLike) countLike,
-       			(SELECT SUM(c_count) FROM Cart) countCart
+				(SELECT COUNT(b_code) FROM BookLike WHERE u_id = #{u_id}) countLike ,
+       			(SELECT SUM(c_count) FROM Cart WHERE u_id = #{u_id}) countCart,
+       			(select count(*) o_status FROM Orders WHERE o_status = '상품준비중' AND u_id = #{u_id}) o_status_ready,
+       			(select count(*) o_status FROM Orders WHERE o_status = '배송 시작' AND u_id = #{u_id}) o_status_start,
+       			(select count(*) o_status FROM Orders WHERE o_status = '배송중' AND u_id = #{u_id}) o_status_ing,
+       			(select count(*) o_status FROM Orders WHERE o_status = '배송 완료' AND u_id = #{u_id}) o_status_complete
 		FROM 	
 				User 
   		WHERE 	
@@ -54,12 +58,15 @@
   	</select>
   	
   	<select id="selectOrderByUser" resultType="com.demo.domain.user.yjh.UserDto">
-  		SELECT o_number,
-  			   o_date,
-  			   o_status,
-  			   o_count
-  		FROM Orders	   	
-  		WHERE u_id = #{u_id};
+  		SELECT o.o_number o_number,
+		o.o_date o_date,
+		o.o_status o_status,
+		o.o_total o_total,
+		o.o_count o_count,
+		od.b_code b_code
+		FROM Orders o JOIN OrderDetail od ON o.o_number = od.o_number	   	
+		WHERE o.u_id = #{u_id}
+		GROUP BY o.o_number;
   	</select>
   	
   	<select id="selectDetailOrdersByUser" resultType="com.demo.domain.user.yjh.UserDto">
@@ -88,26 +95,29 @@
 			  r.r_content r_content,
 			  r.r_star r_star,
 			  r.r_id r_id,
-		      b.b_title b_title
+		      b.b_title b_title,
+		      b.b_genre b_genre
 		FROM Review r LEFT JOIN Book b ON r.b_code = b.b_code
 		WHERE u_id = #{u_id};
   	</select>
   	
   	<select id="selectMakeReviewListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT 
-  				O.b_code , b.b_title
+  				od.b_code , b.b_title, b.b_genre
 		FROM 
-				OrderDetail O 
-				LEFT OUTER JOIN Review r ON r.b_code = O.b_code
-				LEFT JOIN Book b ON O.b_code = b.b_code
+				OrderDetail od
+				JOIN Book b ON od.b_code = b.b_code                
 		WHERE 
-				O.u_id = #{u_id} AND r.u_id IS NULL;
+				NOT EXISTS (SELECT r.b_code, r.u_id FROM Review r WHERE od.u_id = r.u_id AND od.b_Code = r.b_code)
+                AND od.u_id = #{u_id}
+        GROUP BY od.b_code;		
   	</select>
   	
   	<select id="selectQuestListByUser" resultType="com.demo.domain.user.yjh.UserDto">
   		SELECT q_title,
 	   		   q_content,
-       		   q_date
+       		   q_date,
+       		   q_option
 		FROM Quest
 		WHERE u_id = #{u_id};
   	</select>

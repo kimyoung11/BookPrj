@@ -17,9 +17,9 @@ public interface BookMapper {
 
 	public BookDto selectByCode(int b_code);
 
-	public List<BookDto> selectByGenre(String b_genre);
+	public Page<BookDto> selectByGenre(String b_genre);
 
-	public List<BookDto> selectByDate();
+	public Page<BookDto> selectByDate();
 
 	public int insertLike(int b_code,String u_id);
 
@@ -48,5 +48,7 @@ public interface BookMapper {
 	public int countBook();
 	
 	public Page<BookDto> selectAllBook();
+
+	public Page<BookDto> selectBookByGenre(String b_genre);
 
 }

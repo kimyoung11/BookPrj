@@ -22,287 +22,303 @@
 <%@include file="/WEB-INF/views/css/myPageNav.css"%>
 <%@include file="/WEB-INF/views/css/reviewModal.css"%>
 <%@include file="/WEB-INF/views/css/orderStatus.css"%>
+<%@include file="/WEB-INF/views/css/mypage_b_like.css"%>
+<%@include file="/WEB-INF/views/css/mypage_myreview.css"%>
+<%@include file="/WEB-INF/views/css/mypage_myquest.css"%>
 </style>
 <body>
 
 <!-- 헤더 태그 -->	
 <my:headerBar></my:headerBar>
-<div class="nav-wrapper">
-	<!-- 마이페이지 nav/tab -->
-   <div class="navbar">
-      <ul>
-        <li class="active navli">
-           <a href="#" id="OrderListButton1">
-            나의 쇼핑
-           </a>
-        </li>
-        
-        <li class="navli">
-          <a href="#" id="LikeListButton1">
-          좋아요
-          </a>
-        </li>
-        
-       <li class="navli">
-          <a href="#" id="ReviewListButton1">
-            나의 리뷰
-          </a>
-        </li>
-        
-         <li class="navli">
-           <a href="#" id="QuestListButton1">
-           나의 문의
-           </a>
-         </li>
-       </ul>                        
-        <div class="line">
-           <div class="indicator"></div>
-        </div>
-   </div>     
-</div> 
-
-<div class="container-md bg mt-5" style="width: 1200px">
-		<div class="top-section">
-              <div class="row mb-5">
-              	<!-- 프로필 -->
-				<div class="col profile-card">
-                    <div id="setButton">
-                        <button class="btn btn-white"  id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fa-solid fa-gear"></i>
-                        </button>
-                    </div>
-			        <div class="image">
-			        	<img src="${pageContext.request.contextPath}/content/profile1.jpg" alt="로고사진" class="profile-img" />
-			        </div>
-			        <div class="text-data">
-			            <span class="name">${user.u_id }
-                        </span>   
-			        </div>
-			        <input type="hidden" id="u_id" value="${user.u_id }">  
-			        <div class="analytics">
-			            <div class="data">
-                            <i class="fa-solid fa-heart"></i>
-                            <span class="iconName">좋아요</span>
-                            <span class="number">${user.countLike }</span>
-			            </div>
-			            <div class="data">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="iconName">장바구니</span>
-                            <span class="number">${user.countCart }</span>
-			            </div>
-                        <div class="data">
-                            <i class="fa-solid fa-ticket"></i>
-                            <span class="iconName">쿠폰</span>
-                            <span class="number">2</span>
-			            </div>
-			        </div>
-			    </div>
-			    
-	<!-- 각종 현황 내용 ajax 출력되는 구역 -->
-		<div class="col">
-			     <!--리뷰 버튼 출력 -->
-				 <div class=" rvbtn_group" id="reviewButtonGroup"></div>
-				 <!-- 배송 현황 출력 -->
-				 <div id="orderStatus"></div> 
-				 <!-- 테이블 출력 -->
-				 <div id="tableContainer"></div>
-	    </div>
-			       
-	 </div>
-        
-</div>
-	
-	<!-- 리뷰 작성 모달 -->
-		<div class="modal fade" id="makeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form class="mb-3 reviewModal" id="reviewForm" method="post">
-						<div class="modal-body">
-							<fieldset>
-								<span class="text-bold">별점을 선택해주세요</span> 
-								<input type="radio"name="r_starRadio" value="5" id="rate1"><label for="rate1">★</label>
-								<input type="radio" name="r_starRadio" value="4" id="rate2"><label for="rate2">★</label> 
-								<input type="radio" name="r_starRadio"value="3" id="rate3"><label for="rate3">★</label> 
-								<input type="radio" name="r_starRadio" value="2" id="rate4"><label for="rate4">★</label>
-								<input type="radio" name="r_starRadio" value="1" id="rate5"><label for="rate5">★</label>
-							</fieldset>
-	
-							<div class="mb-3">
-								<label for="message-text" class="col-form-label"></label>
-								<textarea class="form-control" id="reviewContent" placeholder="리뷰를 작성해주세요."></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-							<button id="reviewSendButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">작성</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+		<div class="nav-wrapper">
+			<!-- 마이페이지 nav/tab -->
+		   <div class="navbar">
+		      <ul>
+		        <li class="active navli">
+		           <a href="#" id="OrderListButton1">
+		            나의 쇼핑
+		           </a>
+		        </li>
+		        
+		        <li class="navli">
+		          <a href="#" id="LikeListButton1">
+		          좋아요
+		          </a>
+		        </li>
+		        
+		       <li class="navli">
+		          <a href="#" id="ReviewListButton1">
+		            나의 리뷰
+		          </a>
+		        </li>
+		        
+		         <li class="navli">
+		           <a href="#" id="QuestListButton1">
+		           나의 문의
+		           </a>
+		         </li>
+		       </ul>                        
+		        <div class="line">
+		           <div class="indicator"></div>
+		        </div>
+		   </div>     
+		</div> 
+<div class="container mypage">
+	<main class="content">
 		
-		<!-- 리뷰 수정 모달 -->
-		<div class="modal fade reviewModal" id="modifyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 수정</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form class="mb-3 " id="reviewForm2" method="post">
-						<div class="modal-body">
-							<fieldset>
-								<span class="text-bold">별점을 선택해주세요</span> 
-								<input type="radio" name="modi_r_starRadio" value="5" id="rate11"><label for="rate11">★</label>
-								<input type="radio" name="modi_r_starRadio" value="4" id="rate22"><label for="rate22">★</label> 
-								<input type="radio" name="modi_r_starRadio" value="3" id="rate33"><label for="rate33">★</label> 
-								<input type="radio" name="modi_r_starRadio" value="2" id="rate44"><label for="rate44">★</label>
-								<input type="radio" name="modi_r_starRadio" value="1" id="rate55"><label for="rate55">★</label>
-							</fieldset>
-	
-							<div class="mb-3">
-								<label for="message-text" class="col-form-label"></label>
-								<textarea class="form-control" id="reviewModifyContent" placeholder="리뷰를 작성해주세요."></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-							<button id="reviewModifyButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">수정</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>		
-		<!-- 리뷰 삭제 모달 -->
-		<div class="modal fade reviewModal" id="removeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 삭제</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-		        리뷰를 삭제하시겠습니까?
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button id="reviewRemoveButton" type="button" data-bs-dismiss="modal" class="btn btn-danger">삭제</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>		
-		<!-- 메세지 토스트 -->
-		<div id="messageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
-		  <div class="d-flex">
-		    <div id="message1" class="toast-body">
-		    </div>
-		    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-		  </div>
+		<div class="container-md bg mt-5" style="width: 1200px">
+				<div class="top-section">
+		              <div class="row mb-5">
+		              	<!-- 프로필 -->
+						<div class="col profile-card">
+		                    <div id="setButton">
+		                        <button class="btn btn-white"  id="userInfoModalOpenButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		                            <i class="fa-solid fa-gear"></i>
+		                        </button>
+		                    </div>
+					        <div class="image">
+					        	<img src="${pageContext.request.contextPath}/content/profile1.jpg" alt="로고사진" class="profile-img" />
+					        </div>
+					        <div class="text-data">
+					            <span class="name">${user.u_id }
+		                        </span>   
+					        </div>
+						        <input type="hidden" id="u_id" value="${user.u_id }">
+						        <input type="hidden" id="o_status_ready" value="${user.o_status_ready}">
+						        <input type="hidden" id="o_status_start" value="${user.o_status_start}">  
+						        <input type="hidden" id="o_status_ing" value="${user.o_status_ing}">  
+						        <input type="hidden" id="o_status_complete" value="${user.o_status_complete}">    
+						        <div class="analytics">
+						            <div class="data">
+			                            <i class="fa-solid fa-heart"></i>
+			                            <span class="iconName">좋아요</span>
+			                            <span class="number">${user.countLike }</span>
+						            </div>
+						            <div class="data">
+			                            <i class="fa-solid fa-cart-shopping"></i>
+			                            <span class="iconName">장바구니</span>
+			                            <span class="number">${user.countCart }</span>
+						            </div>
+			                        <div class="data">
+			                            <i class="fa-solid fa-ticket"></i>
+			                            <span class="iconName">쿠폰</span>
+			                            <span class="number">2</span>
+						            </div>
+						        </div>
+					        </div>
+					        <section class="mypage-cont col" id="mypageContent">
+								 <!-- 배송 현황 출력 -->
+								 <div id="orderStatus"></div>
+								  
+								 <div id="dataTextDiv"></div>
+							     <!--리뷰 버튼 출력 -->
+								 <div class=" rvbtn_group" id="reviewButtonGroup"></div>
+								 <!-- 테이블 출력 -->
+								 <div id="tableContainer"></div>
+				   			 </section>
+					   
+					    
+			<!-- 각종 현황 내용 ajax 출력되는 구역 -->
+				
+				
+					       
+			 </div>
+		        
 		</div>
-		
-		<!-- 회원정보수정 모달 -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-scrollable">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">회원정보수정</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body ">
-		        <div class="container-md">
-					<div class="row">
-						<div class="col mt-1">
-							<div style="text-align: left" class="mb-4">
-								<h1 style="font-size: 24px">회원정보 수정</h1>
-							</div>
 			
-							<hr class="line" style="border: solid 1px #000" />
-								<div class="container-sm content-size">
-									<div class="input-group mb-3">
-										<label for="inputID" class="col-3 col-form-label">ID</label>
-										<div class="col-sm-5">
-											<input id="modalUserId" type="text" class="form-control" value="${user.u_id }"
-												readonly />
-										</div>
+			<!-- 리뷰 작성 모달 -->
+				<div class="modal fade" id="makeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form class="mb-3 reviewModal" id="reviewForm" method="post">
+								<div class="modal-body">
+									<fieldset>
+										<span class="text-bold">별점을 선택해주세요</span> 
+										<input type="radio"name="r_starRadio" value="5" id="rate1"><label for="rate1">★</label>
+										<input type="radio" name="r_starRadio" value="4" id="rate2"><label for="rate2">★</label> 
+										<input type="radio" name="r_starRadio"value="3" id="rate3"><label for="rate3">★</label> 
+										<input type="radio" name="r_starRadio" value="2" id="rate4"><label for="rate4">★</label>
+										<input type="radio" name="r_starRadio" value="1" id="rate5"><label for="rate5">★</label>
+									</fieldset>
+			
+									<div class="mb-3">
+										<label for="message-text" class="col-form-label"></label>
+										<textarea class="form-control" id="reviewContent" placeholder="리뷰를 작성해주세요."></textarea>
 									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									<button id="reviewSendButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">작성</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 리뷰 수정 모달 -->
+				<div class="modal fade reviewModal" id="modifyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 수정</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form class="mb-3 " id="reviewForm2" method="post">
+								<div class="modal-body">
+									<fieldset>
+										<span class="text-bold">별점을 선택해주세요</span> 
+										<input type="radio" name="modi_r_starRadio" value="5" id="rate11"><label for="rate11">★</label>
+										<input type="radio" name="modi_r_starRadio" value="4" id="rate22"><label for="rate22">★</label> 
+										<input type="radio" name="modi_r_starRadio" value="3" id="rate33"><label for="rate33">★</label> 
+										<input type="radio" name="modi_r_starRadio" value="2" id="rate44"><label for="rate44">★</label>
+										<input type="radio" name="modi_r_starRadio" value="1" id="rate55"><label for="rate55">★</label>
+									</fieldset>
 			
-									<p>
-										<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-										비밀번호 변경</button>
-									</p>
-									<div class="collapse" id="collapseExample" style="width: 420px;">
-										<div class="card card-body">
-					                      <div class="mb-2 row mt-2">
-					                        <label for="inputPassword" class="col-4 col-form-label">새 비밀번호</label>
-					                        <div class="col-sm-7">
-					                          <input type="password" id="newPasswordInput1" class="form-control" placeholder="새 비밀번호를 입력하세요."/>
-					                        </div>
-					                      </div>
+									<div class="mb-3">
+										<label for="message-text" class="col-form-label"></label>
+										<textarea class="form-control" id="reviewModifyContent" placeholder="리뷰를 작성해주세요."></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									<button id="reviewModifyButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">수정</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>		
+				<!-- 리뷰 삭제 모달 -->
+				<div class="modal fade reviewModal" id="removeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 삭제</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        리뷰를 삭제하시겠습니까?
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				        <button id="reviewRemoveButton" type="button" data-bs-dismiss="modal" class="btn btn-danger">삭제</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>		
+				<!-- 메세지 토스트 -->
+				<div id="messageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+				  <div class="d-flex">
+				    <div id="message1" class="toast-body">
+				    </div>
+				    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+				  </div>
+				</div>
+				
+				<!-- 회원정보수정 모달 -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-scrollable">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">회원정보수정</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body ">
+				        <div class="container-md">
+							<div class="row">
+								<div class="col mt-1">
+									<div style="text-align: left" class="mb-4">
+										<h1 style="font-size: 24px">회원정보 수정</h1>
+									</div>
 					
-					                      <div class="mb-2 row mt-2">
-					                        <label for="inputPassword" class="col-4 col-form-label">비밀번호 확인</label>
-					                        <div class="col-sm-7">
-					                          <input type="password" id="newPasswordInput2" class="form-control" placeholder="비밀번호를 확인하세요."/>
-					                        </div>
-					                      </div>								
+									<hr class="line" style="border: solid 1px #000" />
+										<div class="container-sm content-size">
+											<div class="input-group mb-3">
+												<label for="inputID" class="col-3 col-form-label">ID</label>
+												<div class="col-sm-5">
+													<input id="modalUserId" type="text" class="form-control" value="${user.u_id }"
+														readonly />
+												</div>
+											</div>
+					
+											<p>
+												<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+												비밀번호 변경</button>
+											</p>
+											<div class="collapse" id="collapseExample" style="width: 420px;">
+												<div class="card card-body">
+							                      <div class="mb-2 row mt-2">
+							                        <label for="inputPassword" class="col-4 col-form-label">새 비밀번호</label>
+							                        <div class="col-sm-7">
+							                          <input type="password" id="newPasswordInput1" class="form-control" placeholder="새 비밀번호를 입력하세요."/>
+							                        </div>
+							                      </div>
+							
+							                      <div class="mb-2 row mt-2">
+							                        <label for="inputPassword" class="col-4 col-form-label">비밀번호 확인</label>
+							                        <div class="col-sm-7">
+							                          <input type="password" id="newPasswordInput2" class="form-control" placeholder="비밀번호를 확인하세요."/>
+							                        </div>
+							                      </div>								
+												</div>
+												<div id="passwordText" class="form-text"></div>
+											</div>
 										</div>
-										<div id="passwordText" class="form-text"></div>
 									</div>
-								</div>
-							</div>
-							<hr />
-							<div class="container-sm content-size">
-								<div class="mb-2 row mt-2">
-									<label for="inputName" class="col-3 col-form-label">이름</label>
-									<div class="col-sm-5">
-										<input id="userName" type="text" class="form-control" readonly />
-									</div>
-								</div>
-								<div class="mb-2 row mt-2">
-									<label for="inputEmail" class="col-3 col-form-label">E-MAIL</label>
-									<div class="col-sm-9">
-										<div class="input-group">
-											<input id="emailInput1" type="text" class="form-control" name="u_email" readonly />
-											<button disabled id="emailButton1" type="button" class="btn btn-outline-secondary">
-													중복확인
-											</button>	
+									<hr />
+									<div class="container-sm content-size">
+										<div class="mb-2 row mt-2">
+											<label for="inputName" class="col-3 col-form-label">이름</label>
+											<div class="col-sm-5">
+												<input id="userName" type="text" class="form-control" readonly />
+											</div>
 										</div>
-										<div class="form-check form-switch">
-										  <input class="form-check-input" type="checkbox" role="switch" id="emailCheckSwitch">
-										  <label class="form-check-label" for="flexSwitchCheckDefault">이메일 변경</label>
-										  <div id="emailText" class="form-text"></div>
-										</div>										
-									</div>									
-								</div>
-								<div class="mb-2 row mt-2">
-									<label for="inputPhone" class="col-3 col-form-label">전화번호</label>
-									<div class="col-sm-5">
-										<input type="text" class="form-control" id="userPhone"name="u_phone" />
+										<div class="mb-2 row mt-2">
+											<label for="inputEmail" class="col-3 col-form-label">E-MAIL</label>
+											<div class="col-sm-9">
+												<div class="input-group">
+													<input id="emailInput1" type="text" class="form-control" name="u_email" readonly />
+													<button disabled id="emailButton1" type="button" class="btn btn-outline-secondary">
+															중복확인
+													</button>	
+												</div>
+												<div class="form-check form-switch">
+												  <input class="form-check-input" type="checkbox" role="switch" id="emailCheckSwitch">
+												  <label class="form-check-label" for="flexSwitchCheckDefault">이메일 변경</label>
+												  <div id="emailText" class="form-text"></div>
+												</div>										
+											</div>									
+										</div>
+										<div class="mb-2 row mt-2">
+											<label for="inputPhone" class="col-3 col-form-label">전화번호</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" id="userPhone"name="u_phone" />
+											</div>
+										</div>
+										<div class="mb-2 row mt-2">
+											<label for="inputAddress" class="col-3 col-form-label">주소</label>
+											<div class="col-sm-9">
+											   <input type="text" class="form-control" id="userAddress"name="u_address" />
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="mb-2 row mt-2">
-									<label for="inputAddress" class="col-3 col-form-label">주소</label>
-									<div class="col-sm-9">
-									   <input type="text" class="form-control" id="userAddress"name="u_address" />
-									</div>
-								</div>
+								<hr />
 							</div>
-						<hr />
-					</div>
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary btn-edit" id="editConfirmButton" data-bs-dismiss="modal">수정</button>
+				        <button type="button" class="btn btn-secondary btn-edit" data-bs-dismiss="modal" >취소</button>
+				      </div>
+				    </div>
+				  </div>
 				</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary btn-edit" id="editConfirmButton" data-bs-dismiss="modal">수정</button>
-		        <button type="button" class="btn btn-secondary btn-edit" data-bs-dismiss="modal" >취소</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	</div>
+			</div>
+	</main>	
+</div>	
 	<!-- footer바 태그 -->
 	<my:footer></my:footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"> </script>		
@@ -326,6 +342,11 @@ const allLi = document.querySelectorAll(".navli");
      indicator.style.transform = `translateX(calc(\${index * 100}px))`;     
      });
  });
+ // 배송현황 값
+ const statusReady = document.querySelector("#o_status_ready").value;
+ const statusStart = document.querySelector("#o_status_start").value;
+ const statusIng = document.querySelector("#o_status_ing").value;
+ const statusComplete = document.querySelector("#o_status_complete").value;
  
  // 배송현황 비동기 방식 생성 변수
  const orderStatusDiv = `
@@ -333,19 +354,19 @@ const allLi = document.querySelectorAll(".navli");
 		<div class="orderData">	
 		<div class="tracking">
 			<div class="data">
-				<span class="status-count">0</span>
+				<span class="status-count">\${statusReady}</span>
 				<span class="titleName">상품 준비중</span>
 			</div>
 			<div class="data">
-				<span class="status-count">0</span>
+				<span class="status-count">\${statusStart}</span>
 				<span class="titleName">배송 시작</span>
 			</div>
 			<div class="data">
-				<span class="status-count">2</span>
+				<span class="status-count">\${statusIng}</span>
 				<span class="titleName">배송중</span>
 			</div>
 			<div class="data">
-				<span class="status-count">2</span>
+				<span class="status-count">\${statusComplete}</span>
 				<span class="titleName">배송 완료</span>
 			</div>
 		</div>
@@ -355,20 +376,15 @@ const allLi = document.querySelectorAll(".navli");
 // 내역 없을때
 const dataNullText = `<span style="display: inline-block; padding-top: 30px;">내역이 없습니다.</span>`;
 
-// 테이블 뼈대
-const tableDiv = `
-	<div class="list-section">
-		<table class="table"
-			style="border: 2px solid black; border-radius: 10px">
-			<thead id = "tableHead">				
-			</thead>
-			<tbody id = "tableBody">					
-			</tbody>
-		</table>
-		<div id="dataTextDiv" align="center"> </div>
-	</div>`;
+// 섹션 뼈대
+const sectionDiv = `
+	<!-- 배송 현황 출력 -->
+	 <div id="orderStatus"></div>	 
+    <!--리뷰 버튼 출력 -->
+	 <div class=" rvbtn_group" id="reviewButtonGroup"></div>
+	 `;
 
-// 오더 리스트 테이블 헤더
+// 오더 리스트 테이블
 const orderTable = 
 	`
 		<div id="orderFrame">
@@ -389,28 +405,49 @@ const orderTable =
 	    </div>
 	`;
 
-// 좋아요 리스트 테이블 헤더
-const b_likeTableHead = 
-	`<tr>
-		<th scope="col">좋아요 누른 책</th>
-	</tr>`;
-
-// 작성완료 리뷰 리스트 테이블 헤더
-const reviewTableHead = 
-	`<tr>
-		<th scope="col">책 제목</th>
-		<th scope="col">별점</th>
-		<th scope="col">내용</th>
-		<th scope="col">버튼</th>
-	</tr>`;
-	
-// 작성 가능한 리뷰 리스트 테이블 헤더
-const makeReviewTableHead = 
-	`<tr>
-		<th scope="col">책 제목</th>
-		<th scope="col">리뷰 작성</th>
-	</tr>`;
-	
+// 좋아요 리스트 뼈대
+const b_likeSection = 
+	`<header class="section-title">
+            <h1 class="tit">좋아요</h1>
+        </header>
+        <div id="dataTextDiv"></div>
+        <ul class="my-like list-row" id="b_likeContentLi">
+        </ul>`;
+//리뷰관리 뼈대
+const myReviewSection = `
+		<!--리뷰 버튼 출력 -->
+		<header class="section-title" id="reviewTitle">
+	    </header>
+	    <table class="n-table table-col my-review" id="wrapReviewArea">
+	        
+	    </table>
+	    <div id="dataTextDiv"></div>
+	    `; 
+// 작성한 리뷰 테이블 틀
+const reviewArea = `<thead>
+					    <tr>
+					    <th scope="col">책 정보</th>
+					    <th scope="col">구매일</th>
+					    <th scope="col">리뷰 수정</th>
+					</tr>
+					</thead>
+					<tbody id="myReviewTableBody">
+					
+					</tbody>`;
+//작성한 리뷰 타이틀	
+const myReviewTitle = `<h1 class="tit">내가 작성한 리뷰</h1>`;
+//작성가능한 리뷰 테이블 틀
+const makeReviewArea = `
+	   	        <thead>
+	   	            <tr>
+	   	                <th scope="col">책 정보</th>
+	   	                <th scope="col">구매일</th>
+	   	                <th scope="col">리뷰 작성</th>
+	   	            </tr>
+	   	        </thead>
+	   	        <tbody id="makeReviewTableBody">   	            
+	   	        </tbody>`;
+const makeReviewTitle = `<h1 class="tit">작성 가능한 리뷰</h1>`;	   	    
 // 내 문의 리스트 테이블 헤더
 const questTableHead = 
 	`<tr>
@@ -439,20 +476,20 @@ function orderList(){
 	.then(res => res.json())
 	.then(orderList => {
 		const orderListData = document.querySelector("#orderListData");
+		document.querySelector("#mypageContent").innerHTML = "";
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", sectionDiv);
 		document.querySelector("#reviewButtonGroup").innerHTML = "";
-		document.querySelector("#tableContainer").innerHTML = "";
 		document.querySelector("#orderStatus").innerHTML = "";
 		document.querySelector("#orderStatus").insertAdjacentHTML("beforeend", orderStatusDiv);
-		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", orderTable);		
-		
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", orderTable);		
 		if(orderList != 0){			
 			for (const order of orderList) {
 					const orderTableBody = 
 						`<tr>
 							<td>\${order.o_number}</td>
 							<td>\${order.o_date }</td>
-							<td>\${order.o_date }</td>
-							<td>\${order.o_date }</td>
+							<td>\${order.b_code } 등 \${order.o_count }권</td>
+							<td>\${order.o_total }원</td>
 							<td>\${order.o_status}</td>
 						 </tr>
 						`;
@@ -480,19 +517,25 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 	fetch(`\${ctx}/user/bookLikeList/\${u_id}`)
 	.then(res => res.json())
 	.then(bookLikeList => {
-		const tableContainer = document.querySelector("#tableContainer");
-		document.querySelector("#orderStatus").innerHTML = "";
-		document.querySelector("#reviewButtonGroup").innerHTML = "";
-		document.querySelector("#tableContainer").innerHTML = "";
-		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
-		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", b_likeTableHead);
+		document.querySelector("#mypageContent").innerHTML = "";
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", b_likeSection);
 		if(bookLikeList != 0){
 			for (const b_like of bookLikeList) {
-				const b_likeTableBody = 
-					`<tr>
-						<td>\${b_like.b_title}</td>
-					</tr>`;
-				document.querySelector("#tableBody").insertAdjacentHTML("beforeend", b_likeTableBody);
+				const b_likeContent = 
+					` <li class="prd-row" >
+	                	<a href="" class="img-block">
+	                    	<img src="\${ctx}/content/book1.jpg" >
+		                </a>
+		                <ul class="info">
+		                    <li class="genre">\${b_like.b_genre}</li>
+		                    <li class="title">\${b_like.b_title}
+		                        <a href=""></a>
+		                    </li>
+		                    <li class="price">\${b_like.b_price}원</li>
+		                    <li class="like">♥\${b_like.b_like}</li>
+		                </ul>
+		              </li>`;
+				document.querySelector("#b_likeContentLi").insertAdjacentHTML("beforeend", b_likeContent);
 			}			
 		} else {
 			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
@@ -501,6 +544,7 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 	});
 })
 
+const reviewButtonGroup = `<div class=" rvbtn_group" id="reviewButtonGroup"></div>`;
 // 작성한 리뷰 나오는 함수
 function myReview(){
 	
@@ -513,14 +557,14 @@ function myReview(){
 	fetch(`\${ctx}/user/reviewList/\${u_id}`)
 	.then(res => res.json())
 	.then(reviewList => {
-		const tableContainer = document.querySelector("#tableContainer");
-		document.querySelector("#orderStatus").innerHTML = "";
-		document.querySelector("#reviewButtonGroup").innerHTML = "";
-		document.querySelector("#tableContainer").innerHTML = "";
-		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
+		document.querySelector("#mypageContent").innerHTML = "";
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", reviewButtonGroup);
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", myReviewSection);
+		document.querySelector("#reviewTitle").insertAdjacentHTML("beforeend", myReviewTitle);
+		document.querySelector("#wrapReviewArea").insertAdjacentHTML("beforeend", reviewArea);
 		var reviewButtonDiv = 
 			`
-			<div id="rvbtn_group">
+			<div id="rvbtn_group" style="text-align: center;">
 		        <button id="myReviewBtn" type="button">
 		            내가 작성한 리뷰
 		        </button>
@@ -530,7 +574,7 @@ function myReview(){
 		    </div>     
 			`;
 		document.querySelector("#reviewButtonGroup").insertAdjacentHTML("beforeend", reviewButtonDiv);
-		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);
+		
 		
 		if(reviewList != 0){
 			for(review of reviewList) {
@@ -539,20 +583,32 @@ function myReview(){
 				const reviewTableBody = 
 					`
 					<tr>
-						<td>\${review.b_title}</td>
-						<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
-						<td>\${review.r_content}</td>
-						<td>
-						<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
-							수정
-						</button>
-						<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
-							삭제
-						</button>	
-					</td>
-					</tr>
+		                <td>
+		                    <div class="prd-row">
+		                        <a href="" class="img-block">
+		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                        </a>
+		                        <ul class="info">
+		                            <li class="genre">\${review.b_genre}</li>
+		                            <li class="title">\${review.b_title}
+		                                <a href=""></a>
+		                            </li>
+		                            <li class="star">★★★★★</li>
+		                        </ul>
+		                    </div>
+		                </td>
+		                <td>2022-12-14</td>
+		                <td>
+		                    <div class="button-block">
+		                        <button class="review-btn" id="\${reviewModifyButtonId}" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">수정</button>
+		                    </div>
+		                    <div class="button-block">                
+		                        <button class="review-btn" id="\${reviewRemoveButtonId}" data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">삭제</button>
+		                    </div>
+		                </td>
+		            </tr>
 					`;
-				document.querySelector("#tableBody").insertAdjacentHTML("beforeend",reviewTableBody );
+				document.querySelector("#myReviewTableBody").insertAdjacentHTML("beforeend",reviewTableBody );
 				
 				//리뷰 수정버튼에 내용 넣기
 				document.querySelector("#" + reviewModifyButtonId).addEventListener("click", function(){
@@ -565,18 +621,26 @@ function myReview(){
 				})
 				document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
 			    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
+			    document.getElementById("myReviewBtn").style.color ="white";
+			    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
 			}
 			
 		} else {
 			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
+			document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+		    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
+		    document.getElementById("myReviewBtn").style.color ="white";
+		    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
 		}
 			
 		// 작성한 리뷰 목록 버튼 클릭시
 		document.querySelector("#myReviewBtn").addEventListener("click", function(){
-				
-			document.querySelector("#tableContainer").innerHTML = "";
-			document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
-			document.querySelector("#tableHead").insertAdjacentHTML("beforeend", reviewTableHead);
+			
+			document.querySelector("#reviewTitle").innerHTML = "";
+			document.querySelector("#wrapReviewArea").innerHTML = "";
+			document.querySelector("#dataTextDiv").innerHTML = "";
+			document.querySelector("#reviewTitle").insertAdjacentHTML("beforeend", myReviewTitle);
+			document.querySelector("#wrapReviewArea").insertAdjacentHTML("beforeend", reviewArea);
 			if(reviewList != 0){
 				for(review of reviewList) {
 					const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
@@ -584,22 +648,32 @@ function myReview(){
 					const reviewTableBody = 
 						`
 						<tr>
-							<td>\${review.b_title}</td>
-							<td><i class="fa-sharp fa-solid fa-star" style="color:rgb(239, 220, 11)"></i>\${review.r_star}</td>
-							<td>\${review.r_content}</td>
-							<td>
-								<button id="\${reviewModifyButtonId}" type="button" class="btn btn-primary" 
-									data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">
-									수정
-								</button>
-								<button id="\${reviewRemoveButtonId}" type="button" class="btn btn-danger" 
-									data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">
-									삭제
-								</button>	
-							</td>
-						</tr>
+		                <td>
+		                    <div class="prd-row">
+		                        <a href="" class="img-block">
+		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                        </a>
+		                        <ul class="info">
+		                            <li class="genre">\${review.b_genre}</li>
+		                            <li class="title">\${review.b_title}
+		                                <a href=""></a>
+		                            </li>
+		                            <li class="star">★★★★★</li>
+		                        </ul>
+		                    </div>
+		                </td>
+		                <td>2022-12-14</td>
+		                <td>
+		                    <div class="button-block">
+		                        <button class="review-btn" id="\${reviewModifyButtonId}" data-bs-toggle="modal" data-bs-target="#modifyReviewModal" data-review-id="\${review.r_id}">수정</button>
+		                    </div>
+		                    <div class="button-block">                
+		                        <button class="review-btn" id="\${reviewRemoveButtonId}" data-bs-toggle="modal" data-bs-target="#removeReviewModal" data-review-id="\${review.r_id}">삭제</button>
+		                    </div>
+		                </td>
+		            </tr>
 						`;
-					document.querySelector("#tableBody").insertAdjacentHTML("beforeend",reviewTableBody );
+					document.querySelector("#myReviewTableBody").insertAdjacentHTML("beforeend",reviewTableBody );
 					
 					//리뷰 수정버튼에 내용 넣기
 					document.querySelector("#" + reviewModifyButtonId).addEventListener("click", function(){
@@ -619,6 +693,8 @@ function myReview(){
 			
 			document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
 		    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
+		    document.getElementById("myReviewBtn").style.color ="white";
+		    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
 		})
 			
 		// 작성 가능한 리뷰 목록 클릭
@@ -626,6 +702,8 @@ function myReview(){
 			makeReviewList();
 			document.getElementById("makeReviewBtn").style.backgroundColor ="#4070f4";
 		    document.getElementById("myReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
+		    document.getElementById("makeReviewBtn").style.color ="white";
+		    document.getElementById("myReviewBtn").style.color ="rgb(211, 211, 211)";
 		})
 	});
 }
@@ -651,23 +729,40 @@ function makeReviewList(){
 		fetch(`\${ctx}/user/makeReviewList/\${u_id}`)
 		.then(res => res.json())
 		.then(makeReviewList => {
-			document.querySelector("#tableContainer").innerHTML = "";
-			document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
-			document.querySelector("#tableHead").insertAdjacentHTML("beforeend", makeReviewTableHead);
+			document.querySelector("#reviewTitle").innerHTML = "";
+			document.querySelector("#wrapReviewArea").innerHTML = "";
+			document.querySelector("#dataTextDiv").innerHTML = "";
+			document.querySelector("#reviewTitle").insertAdjacentHTML("beforeend", makeReviewTitle);
+			document.querySelector("#wrapReviewArea").insertAdjacentHTML("beforeend", makeReviewArea);
 			for (const review of makeReviewList) {
 				const reviewB_code = `${review.b_code}`;
 				const reviewButtonId = `reviewButton\${review.b_code}`;
 				const makeReviewTableBody = 				
-					`<tr>
-						<td>\${review.b_title}</td>
-						<td>
-							<button id="\${reviewButtonId}" type="button" class="btn btn-primary" 
-								data-bs-toggle="modal" data-bs-target="#makeReviewModal" data-review-id="\${review.b_code}">
-								리뷰 작성
-							</button>
-						</td>
-					</tr>`;			 
-				document.querySelector("#tableBody").insertAdjacentHTML("beforeend",makeReviewTableBody);
+					`
+					<tr>
+		                <td>
+		                    <div class="prd-row">
+		                        <a href="" class="img-block">
+		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                        </a>
+		                        <ul class="info">
+		                            <li class="genre">\${review.b_genre}</li>
+		                            <li class="title">\${review.b_title}
+		                                <a href=""></a>
+		                            </li>
+		                            <li class="star">★★★★★</li>
+		                        </ul>
+		                    </div>
+		                </td>
+		                <td>2022-12-14</td>
+		                <td>
+		                    <div class="button-block">
+		                        <button class="review-btn" id="\${reviewButtonId}" data-bs-toggle="modal" data-bs-target="#makeReviewModal" data-review-id="\${review.b_code}">작성하기</button>
+		                    </div>
+		                    
+		                </td>
+		            </tr>`;		 
+				document.querySelector("#makeReviewTableBody").insertAdjacentHTML("beforeend",makeReviewTableBody);
 				document.querySelector("#" + reviewButtonId).addEventListener("click", function(){
 					document.querySelector("#reviewSendButton").setAttribute("data-review-id", this.dataset.reviewId);	
 				})
@@ -744,6 +839,30 @@ document.querySelector("#reviewRemoveButton").addEventListener("click" , functio
 	removeReview(this.dataset.reviewId);
 })
 
+// 문의 리스트 뼈대
+const myQuestSection = `
+	<header class="section-title">
+	    <h1 class="tit">나의 문의</h1>
+	    <div class="quest-btn-div">
+	        <button class="quest-btn">문의 작성하기</button>
+	    </div>	        
+	</header>
+	<table class="n-table table-col my-quest" id="wrapQuestArea">
+	    <thead>
+	        <tr>
+	            <th scope="col">문의 유형</th>
+	            <th scope="col">제목</th>
+	            <th scope="col">내용</th>
+	            <th scope="col">작성일</th>
+	        </tr>
+	    </thead>
+	    <tbody id="questTableBody">
+	    </tbody>
+	</table>
+	<div id="dataTextDiv"></div>
+	`;
+
+
 // 문의 리스트 나오기
 document.querySelector("#QuestListButton1").addEventListener("click", function(){
 	
@@ -757,23 +876,21 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 	.then(res => res.json())
 	.then(questList => {
 		const tableContainer = document.querySelector("#tableContainer");
-		document.querySelector("#orderStatus").innerHTML = "";
-		document.querySelector("#reviewButtonGroup").innerHTML = "";
-		document.querySelector("#tableContainer").innerHTML = "";
-		document.querySelector("#tableContainer").insertAdjacentHTML("beforeend", tableDiv);
-		document.querySelector("#tableHead").insertAdjacentHTML("beforeend", questTableHead);
+		document.querySelector("#mypageContent").innerHTML = "";
+		document.querySelector("#mypageContent").insertAdjacentHTML("beforeend", myQuestSection);
 		
 		if(questList != 0){
 			for (const quest of questList) {
 				const questTableBody = 
 					`
 					<tr>
-						<td>\${quest.q_title}</td>
-						<td>\${quest.q_content}</td>
-						<td>\${quest.q_date}</td>
-					</tr>
+			            <td>\${quest.q_option}</td>
+			            <td>\${quest.q_title}</td>
+			            <td>\${quest.q_content}</td>
+			            <td>\${quest.q_date}</td>
+			        </tr>
 					`;
-				document.querySelector("#tableBody").insertAdjacentHTML("beforeend", questTableBody);
+				document.querySelector("#questTableBody").insertAdjacentHTML("beforeend", questTableBody);
 			}			
 		} else {
 			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);

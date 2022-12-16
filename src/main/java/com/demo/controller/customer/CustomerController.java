@@ -75,7 +75,6 @@ public class CustomerController {
 				 MultipartFile[] files,
 				 RedirectAttributes rttr) {
 		
-		
 		// business logic
 		int cnt = questService.questInsert(question, files);
 		
