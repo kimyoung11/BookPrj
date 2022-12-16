@@ -34,6 +34,10 @@ a {
 	color: #333;
 	text-decoration: none;
 }
+
+.btnStyle {
+	margin:10px;
+}
 </style>
 <body>
 	<my:adminHeader></my:adminHeader>
@@ -61,19 +65,7 @@ a {
 		</div>
 
 		<hr>
-		
 
-
-		<!-- 1:1 문의 답변보기 -->
-		<div class="row">
-	  			<div class="col form-floating mb-3">
-					<div id="answerList">
-						<label for="floatingPlaintextInput">Answer</label>
-						
-					</div>
-				</div>
-		</div>
-		
 		
 		<%-- 이미지 출력 --%>
 				<div>
@@ -84,6 +76,16 @@ a {
 					</c:forEach>		
 				</div>
 		
+		
+				<!-- 1:1 문의 답변보기 -->
+		<div class="row">
+	  			<div class="col form-floating mb-3">
+					<div id="answerList">
+						<label for="floatingPlaintextInput">Answer</label>
+						
+					</div>
+				</div>
+		</div>
 		
 		
 		<!-- 1:1 문의 답변달기 -->
@@ -217,7 +219,7 @@ function answerView() {
 			console.log(item.a_id);
 		
 			const editButton = `
-				<div>
+				<div class="btnStyle">
 					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modifyFormModal" data-answer-id="\${item.a_id}" id="\${answerModifyBtnId }">
 						수정 
 					</button>
@@ -229,21 +231,15 @@ function answerView() {
 			
 			`
 			const replyDiv = `
-				<div class="list-group-item d-flex">
-					<div class="me-auto">
-					<label for="floatingPlaintextInput">Answer</label>
-						<div>
-							\${item.a_content}
-						</div>
-						<small class="text-muted">
-							\${item.a_date}
-						</small>
-					</div>
-					\${item.editable ? editButton : ''}
-				</div>`;
+				<div class="alert alert-warning" role="alert">
+				  <h5 class="alert-heading">Answer</h5>
+				  <p>\${item.a_content}</p>
+				  <small><p class="mb-0">\${item.a_date}</p></small>
+				</div> `;
 				
-				answerList.insertAdjacentHTML("beforeend", editButton);
 				answerList.insertAdjacentHTML("beforeend", replyDiv);
+				answerList.insertAdjacentHTML("beforeend", editButton);
+				
 			
 			
 				// 수정 폼 모달에 댓글 내용 넣기
@@ -265,6 +261,7 @@ function answerView() {
 		});
 	}
 
+
 /* 답변 수정할 때 input content 가져오기 */
 function readAnswer(a_id) {
 	console.log(a_id);
@@ -275,7 +272,37 @@ function readAnswer(a_id) {
 	});
 }
 
-/* 답변 삭제하기 삭제 메세지 보여주기 */ 
+
+
+
+//댓글 crud 메시지 토스트
+const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
+
+/* 답변 수정하기, 수정하기 메세지 보여주기 */ 
+document.querySelector("#modifyFormModalSubmitButton").addEventListener("click", function() {
+	
+	const a_content = document.querySelector("#modifyReplyInput").value;
+	const a_id = this.dataset.answerId;
+	const data = {a_id, a_content};
+
+	fetch(`\${ctx}/admin/modifyAnswer`, {
+		method : "post",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify(data)
+	})
+	.then(res => res.json())
+	.then(data => {
+		document.querySelector("#Message1").innerText = data.message;
+		toast.show();
+	})
+	.then(() => answerView());
+});
+
+
+
+/* 답변 삭제하기, 삭제 메세지 보여주기 */ 
 function removeAnswer(answerId) {
 	console.log(answerId);
 	// /reply/remove/{id}, method:"delete"
@@ -292,31 +319,6 @@ function removeAnswer(answerId) {
 
 
 
-
-
-//댓글 crud 메시지 토스트
-const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
-
-//답변 수정하기 수정하기 메세지 보여주기 
-document.querySelector("#modifyFormModalSubmitButton").addEventListener("click", function() {
-	const content = document.querySelector("#modifyReplyInput").value;
-	const id = this.dataset.answerId;
-	const data = {id, content};
-	fetch(`\${ctx}/admin/modify`, {
-		method : "put",
-		headers : {
-			"Content-Type" : "application/json"
-		},
-		body : JSON.stringify(data)
-	})
-	.then(res => res.json())
-	.then(data => {
-		document.querySelector("#Message1").innerText = data.message;
-		toast.show();
-	})
-	
-	.then(() => answerView());
-});
 
 </script>
 	
