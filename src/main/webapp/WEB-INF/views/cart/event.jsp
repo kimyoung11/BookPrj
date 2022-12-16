@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이벤트페이지x</title>    
+    <title>이벤트페이지</title>    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,7 @@
             <div class="row mt-5 justify-content-center">
                 <div class="col">
                         <a href="">
-                            <img class="main-img" src="../image/event-01.png" alt="상단1">
+                            <img class="main-img" src="" alt="상단1">
                         </a>
                 </div>
                 
@@ -69,7 +69,7 @@
                             <img id="eventImg" src="../image/event-02.png" alt="">
                         </a>
                         <p style="margin-top: 10px;">
-                            &lt;&lt;당신의 이해를 돕기 위하여 1권 출간&gt;&gt; <br>
+                            &lt;&lt;당신의 이해를 돕기 위하여&gt;&gt; 1권 출간 <br>
                             2022.01.01~
                         </p>
                 </div>
@@ -89,7 +89,7 @@
                         <img id="eventImg" src="../image/event-02.png" alt="">
                     </a>
                     <p style="margin-top: 10px;">
-                        &lt;와빌의 그재무지 그리스 로마신화 출간 이벤트&gt; <br>
+                        &lt;와빌의 그재무지 그리스 로마신화&gt; 출간 이벤트 <br>
                         2022.01.01~
                     </p>
                 </div>
@@ -101,7 +101,7 @@
                             <img id="eventImg" src="../image/event-02.png" alt="">
                         </a>
                         <p style="margin-top: 10px;">
-                            멤버스 온라인 청구할인! <br>
+                            &lt;&lt;당신의 뇌는 변화가 필요합니다&gt;&gt; 출간 기념 이벤트<br>
                             2022.01.01~
                         </p>
                         
@@ -112,7 +112,7 @@
                             <img id="eventImg" src="../image/event-02.png" alt="">
                         </a>
                         <p style="margin-top: 10px;">
-                            &lt;&lt;당신의 이해를 돕기 위하여 1권 출간&gt;&gt; <br>
+                            캠브리지 겨울방학 이벤트 <br>
                             2022.01.01~
                         </p>
                 </div>
@@ -122,7 +122,7 @@
                         <img id="eventImg" src="../image/event-02.png" alt="">
                     </a>
                     <p style="margin-top: 10px;">
-                        &lt;흑뢰성&gt;요네자와 호노부 친필 사인본 이벤트 <br>
+                        문장의 리스트 <br>
                         2022.01.01~
                     </p>
                 </div>
@@ -132,7 +132,7 @@
                         <img id="eventImg" src="../image/event-02.png" alt="">
                     </a>
                     <p style="margin-top: 10px;">
-                        &lt;와빌의 그재무지 그리스 로마신화 출간 이벤트&gt; <br>
+                        &lt;큰별 작은별&gt; 출간 이벤트 <br>
                         2022.01.01~
                     </p>
                 </div>
@@ -144,7 +144,7 @@
                             <img id="eventImg" src="../image/event-02.png" alt="">
                         </a>
                         <p style="margin-top: 10px;">
-                            멤버스 온라인 청구할인! <br>
+                            이달의 추천 새책 X 따뜻한 무드등 <br>
                             2022.01.01~
                         </p>
                         
@@ -155,7 +155,7 @@
                             <img id="eventImg" src="../image/event-02.png" alt="">
                         </a>
                         <p style="margin-top: 10px;">
-                            &lt;&lt;당신의 이해를 돕기 위하여 1권 출간&gt;&gt; <br>
+                            지적인 셀렉터의 방 - 상위 1% 프리워커 드로우앤드류 <br>
                             2022.01.01~
                         </p>
                 </div>
@@ -165,7 +165,7 @@
                         <img id="eventImg" src="../image/event-02.png" alt="">
                     </a>
                     <p style="margin-top: 10px;">
-                        &lt;흑뢰성&gt;요네자와 호노부 친필 사인본 이벤트 <br>
+                        재미와 감동을 한번에! 코믹 힐링 타임! <br>
                         2022.01.01~
                     </p>
                 </div>
@@ -175,7 +175,7 @@
                         <img id="eventImg" src="../image/event-02.png" alt="">
                     </a>
                     <p style="margin-top: 10px;">
-                      와빌의 그재무지 그리스 로마신화 출간 이벤트 <br>
+                      하루가 특별해지는 순간! 2023 캘린더 <br>
                         2022.01.01~
                     </p>
                 </div>
