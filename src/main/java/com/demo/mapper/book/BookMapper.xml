@@ -64,7 +64,7 @@
 		WHERE b_title LIKE '${b_title}'
 	</select>
 	
-	<insert id="insertBook">
+	<insert id="insertBook" useGeneratedKeys="true" keyProperty="b_code">
 		INSERT INTO Book(b_title, b_writer, b_pubDate, b_price, b_genre, b_img)
 		VALUES (#{b_title},#{b_writer},#{b_pubDate},#{b_price},#{b_genre},#{b_img})
 	</insert>
