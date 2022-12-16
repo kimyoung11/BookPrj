@@ -80,7 +80,7 @@
 						
 						<!-- 유저아이디 넘겨줌 -->						
 						<input type="hidden" id="getUserId" name="u_id" value="<%=(String)session.getAttribute("id")%>">
-						
+
 
 						<hr>
 						<div style="text-align: center; margin-top: 30px;">
