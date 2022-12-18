@@ -442,8 +442,8 @@ section.faq {
        <div id="event-section">
         <div class="container d-flex justify-content-center mb-5">
             <div class="row mt-3">
-                <div class="col"><img src="https://picsum.photos/520/250" style="border-radius: 15px;"></div>
-                <div class="col"><img src="https://picsum.photos/520/250" style="border-radius: 15px;"></div>
+                <div class="col"><img src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
+                <div class="col"><img src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
             </div>
         </div>
       </div>
