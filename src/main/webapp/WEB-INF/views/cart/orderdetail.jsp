@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ page import="java.net.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,7 @@
 				<tbody>
 				<c:forEach items="${orderDetailList}" var="orderDetailList">
 				<tr>
-					<td><img src="${orderDetailList.b_img }" alt=""></td>
+					<td><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${orderDetailList.b_code }/${URLEncoder.encode(orderDetailList.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></td>
 					<td>${orderDetailList.b_title }</td>
 					<td>${orderDetailList.od_count }</td>
 					<td id="bookPrice">${orderDetailList.b_price * orderDetailList.od_count}</td>
