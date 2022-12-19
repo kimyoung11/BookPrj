@@ -51,4 +51,6 @@ public interface BookMapper {
 
 	public Page<BookDto> selectBookByGenre(String b_genre);
 
+	public int deleteBookLike(int b_code);
+
 }
