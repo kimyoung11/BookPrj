@@ -230,8 +230,9 @@ a {
    				minLength:1,
    				select: function(event,ui){
    					bookCode = ui.item.value2;
-   					console.log("****",bookCode);
-   					document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
+   					console.log(ui.item.value);
+   					console.log(bookCode);
+   					//document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
    				},
    				focus: function(event,ui){
    					return false;
