@@ -17,7 +17,7 @@ WHERE o_number = #{o_number}
 
 <select id="selectOrderDetail" resultType="com.demo.domain.ths.OrdersDto">
 SELECT 
-	b_img, b_title, od_count, b_price, o_date, o.o_number, o_total
+	b_img, b_title, od_count, b_price, o_date, o.o_number, o_total, b.b_code
 FROM
 	OrderDetail od JOIN Book b ON od.b_code = b.b_code JOIN Orders o ON o.o_number = od.o_number
 WHERE o.o_number = #{o_number}
