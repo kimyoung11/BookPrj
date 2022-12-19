@@ -60,7 +60,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="userIdInput"
 								name="u_id" />
-							<button id="userIdExistButton" class="btn btn-outline-secondary"
+							<button id="userIdExistButton" class="btn btn-outline-secondary" disabled
 								type=button>중복확인</button>
 						</div>
 						<div id="userIdText" class="form-text text-danger">아이디 중복
@@ -96,21 +96,27 @@
 
 					<!-- 전화번호 -->
 					<div class="mb-3">
-						<label for="" class="form-label">전화번호("-" 제외)</label> 
+						<label for="" class="form-label">전화번호("-" 제외)</label>
 						<div class="input-group">
-							<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="userPhoneInput" name="u_phone" />
-							<button id="userPhoneExistButton" class="btn btn-outline-secondary" type="button">중복확인</button>
-						</div>	
-						<div id="userPhoneText" class="form-text text-danger">전화번호 중복 확인을 해주세요</div>
-					</div>		
-					
-				
+							<input type="text"
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								class="form-control" id="userPhoneInput" name="u_phone" />
+							<button id="userPhoneExistButton" disabled
+								class="btn btn-outline-secondary" type="button">중복확인</button>
+						</div>
+						<div id="userPhoneText" class="form-text text-danger">전화번호
+							중복 확인을 해주세요</div>
+					</div>
+
+
 					<!-- 이메일 -->
 					<div class="mb-3">
-						<label for="" class="form-label">이메일</label> 
-						<div class="input-group">	
-							<input type="email" class="form-control" id="userEmailInput" name="u_email" />
-							<button id="userEmailExistButton" class="btn btn-outline-secondary" type="button">중복확인</button>
+						<label for="" class="form-label">이메일</label>
+						<div class="input-group">
+							<input type="email" class="form-control" id="userEmailInput"
+								name="u_email" />
+							<button id="userEmailExistButton" disabled
+								class="btn btn-outline-secondary" type="button">중복확인</button>
 						</div>
 						<div id="userEmailText" class="form-text text-danger">이메일 중복
 							확인을 해주세요</div>
@@ -180,6 +186,22 @@
 	<script> 
 	const ctx = "${pageContext.request.contextPath}";
 	
+	// 중복확인 버튼
+	
+	// Id
+	document.getElementById('userIdInput').addEventListener('input', function(event) {
+    document.getElementById('userIdExistButton').disabled = !this.value;
+	}, false);
+	
+	// Phone
+	document.getElementById('userPhoneInput').addEventListener('input', function(event) {
+ 	document.getElementById('userPhoneExistButton').disabled = !this.value;
+	}, false);
+	
+	document.getElementById('userEmailInput').addEventListener('input', function(event) {
+	document.getElementById('userEmailExistButton').disabled = !this.value;
+	}, false);
+	
 	// 버튼 사용 가능
 	
 	// 아이디 사용 가능
@@ -243,7 +265,6 @@
 	
 	// 전화번호 중복 확인
 	document.querySelector("#userPhoneExistButton").addEventListener("click", function() {
-		availablePhone = false;
 		// 입력된 userPhone
 		const u_phone = document .querySelector("#userPhoneInput").value;
 		
@@ -273,8 +294,10 @@
 			.then(data => {
 				// 응답 받아서 메세지 출력
 				document.querySelector("#userEmailText").innerText = data.message;
+				
 				if (data.status == "not exist") {
 					availableEmail = true;
+					enableSubmitButton();
 				}
 			}); 		
 	});
@@ -284,29 +307,27 @@
 	const passwordInput1 = document.querySelector("#passwordInput1");
 	const passwordInput2 = document.querySelector("#passwordInput2");
 	const confirmPassword = document.querySelector("#confirmPassword");
+	const passwordCheck = /(?=.*[0-9])(?=.*[a-z])(?=.*\W)(?=\S+$).{8,20}/ ;
 	
 	function matchPassword() {
 		availablePassword = false;
 		
 		const value1 = passwordInput1.value;
 		const value2 = passwordInput2.value;
-	
-	if (value1 == value2) {
+		
+	if ( !passwordCheck.test(value1) || (value1).length<8 ) {
+		confirmPassword.innerText = "비밀번호는 영어, 숫자, 특수문자를 사용하여 8글자 이상으로 조합해주세요."
+	} else if (value1 == value2) {
 		confirmPassword.innerText = "비밀번호가 일치합니다.";
 		availablePassword = true;
 	} else {
 		confirmPassword.innerText = "비밀번호가 일치하지 않습니다.";
-		}
-	
-		enableSubmitButton();
-		
 	}
-	
-	
+	enableSubmitButton();		
+	}
 	
 	passwordInput1.addEventListener("keyup", matchPassword);
 	passwordInput2.addEventListener("keyup", matchPassword);
-	// keyup: 키보드에서 손이 떨어 졌을 떄
 	</script>
 </body>
 </html>
