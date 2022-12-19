@@ -106,4 +106,8 @@
 		SELECT * FROM Book where b_genre =#{b_genre}
 	</select>
 
+	<delete id="deleteBookLike">
+		DELETE FROM BookLike
+		WHERE b_code = #{b_code}
+	</delete>
 </mapper>

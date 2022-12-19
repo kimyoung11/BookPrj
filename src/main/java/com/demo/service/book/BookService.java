@@ -146,4 +146,8 @@ public class BookService {
 	public Page<BookDto> getBookByGenre(String b_genre) {
 		return bookMapper.selectBookByGenre(b_genre);
 	}
+
+	public int removeBookLike(int b_code) {
+		return bookMapper.deleteBookLike(b_code);
+	}
 }

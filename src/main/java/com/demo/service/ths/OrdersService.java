@@ -101,6 +101,10 @@ public class OrdersService {
 			ordersMapper.changeCount(u_id, b_code.get(i), c_count.get(i));
 		}
 	}
+
+	public int removeBook(int b_code) {
+		return ordersMapper.deleteOdBook(b_code);
+	}
 	
 	
 }
