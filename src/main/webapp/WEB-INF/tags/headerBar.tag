@@ -126,7 +126,7 @@ padding-right: 0;
 	<div class="wrapper">
 		<div class="header-wrapper">
 			<div class="row pt-4">
-			
+        
 					<div class="col-1">
 						<a href="${pageContext.request.contextPath}/book/main">
 						<img style="float: right;"
@@ -211,7 +211,6 @@ padding-right: 0;
 						</div>
 					</div>
 				</div>
-
 				
 				
 		 		<div class="col-5 d-flex justify-content-end loginIcon "> 

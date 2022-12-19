@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO { // 인터페이스 구현
 	// 01_2. 회원 로그인 정보
 	@Override
 	public UserVo viewUser(UserVo vo) {
-		return sqlSession .selectOne("user.viewUser", vo);
+		return sqlSession.selectOne("user.viewUser", vo);
 	}
 	
 	// 02. 회원 로그아웃
@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO { // 인터페이스 구현
 	public void logout(HttpSession session) {
 		
 	}
-
+	
 }
 
 
