@@ -220,7 +220,6 @@
                   시대는막을내리고엄청난위기감속에서사람들은다가올미래를두려워한다.자산시장및증시의버블붕괴는마
                 </li>
                 <li>
-                ${item.b_code }
 
                 <c:if test="${u_id !=null}">
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">

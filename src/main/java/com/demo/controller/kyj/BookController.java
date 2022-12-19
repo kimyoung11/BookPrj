@@ -86,8 +86,19 @@ public class BookController {
 		return "book/list/all";
 	}
 	
+	@GetMapping("listKeyword")
+	public String listKeyword(Model model,@RequestParam(defaultValue ="1")int page,String b_keyword) {
+		PageHelper.startPage(page, 10);
+		String new_keyword = "%"+b_keyword+"%";
+		Page<BookDto> books = bookService.getBookByKeyword(new_keyword);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/all";
+	}
 
-	
 	@GetMapping("list/new")
 	public String listNew(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
 		PageHelper.startPage(page, 10);
