@@ -33,9 +33,11 @@
 	
 <div class="align-items-center" id="bestQuestion">
         <div id="faq">
-            <h3>
-                자주 묻는 질문을 확인해보세요.
-            </h3>
+            	<div style="text-align: center;" class="mb-5">
+					<h1 style="font-size: 34px;">자주 묻는 질문을 확인해보세요.</h1>
+				</div>
+				
+
             <ul>
                 <li>
                     <input type="checkbox" checked />

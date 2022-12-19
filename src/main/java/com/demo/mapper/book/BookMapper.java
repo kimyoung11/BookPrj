@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demo.domain.book.BookDto;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 
 @Mapper
@@ -15,9 +17,9 @@ public interface BookMapper {
 
 	public BookDto selectByCode(int b_code);
 
-	public List<BookDto> selectByGenre(String b_genre);
+	public Page<BookDto> selectByGenre(String b_genre);
 
-	public List<BookDto> selectByDate();
+	public Page<BookDto> selectByDate();
 
 	public int insertLike(int b_code,String u_id);
 
@@ -43,7 +45,12 @@ public interface BookMapper {
 
 	public int deleteBook(int b_code);
 
+	public int countBook();
+	
+	public Page<BookDto> selectAllBook();
 
-	
-	
+	public Page<BookDto> selectBookByGenre(String b_genre);
+
+	public int deleteBookLike(int b_code);
+
 }

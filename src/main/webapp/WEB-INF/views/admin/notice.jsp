@@ -53,6 +53,7 @@ a {
 </style>
 </head>
 <body>
+	<my:adminHeader></my:adminHeader>
 	<div id="align-center" class="container">
 			<div id="align-center" class="container">
 		<div style="text-align: center; margin-top: 30px;" class="mb-5">
@@ -60,7 +61,7 @@ a {
 		</div>
 	
 	
-	<table class="table" style="margin-top: 50px; line-height: 50px;">
+	<table class="table table-hover" style="margin-top: 50px; line-height: 50px;">
 			<thead style="border-top: solid 1px;">
 				<tr>
 					<th>NO</th>
@@ -74,7 +75,7 @@ a {
 					<tr>
 						<th>${notice.n_id }</th>
 						<td class="align-left">
-							<div class="noticeTitle" data-value="${notice.n_id }" onclick="clickNotice(this)">${notice.n_title }</div>
+							<div class="noticeTitle">${notice.n_title }</div>
 						</td>
 						<td>${notice.n_date }</td>
 						<td><c:url value="/admin/modify" var="modifyLink">

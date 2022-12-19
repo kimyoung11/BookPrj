@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.mapper.hms.MemberUserMapper">
 	
+
 	<!-- 아이디 찾기 -->
 	<select id="findID" resultType="com.demo.mapper.hms.UserVo">
 	SELECT    
@@ -44,6 +45,9 @@
 	</update> 
 	
 	<!-- userID 중복 확인 -->
+
+	<!-- userID 중복 확인, 찾기 -->
+
 	<select id="selectByUserId" resultType="com.demo.mapper.hms.UserVo">
 	SELECT    
             u_id AS u_id,

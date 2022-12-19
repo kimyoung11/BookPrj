@@ -99,13 +99,13 @@
             </thead>
             <tbody>
             	<c:if test="${fromCart}">
-            	<c:forEach items="${toOrderlist }" var="cart" >
+            	<c:forEach items="${toOrderlist }" var="cart"  varStatus="sts">
                 <tr>
                     <td><a href=""><img class="product_img" src="${cart.b_img }" alt="제품 사진"></a></td>
                     <td class="align-middle">${cart.b_title }</td>
-                    <td class="align-middle">${cart.c_count }</td>
+                    <td id="countPlus" class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>
-                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }</td>
+                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }원</td>
                 </tr>
                 </c:forEach>
             	</c:if>
@@ -116,7 +116,7 @@
                     <td class="align-middle">${book.b_title }</td>
                     <td class="align-middle">${cnt }</td>
                     <td class="align-middle">${book.b_price }원</td>
-                    <td class="align-middle">${book.b_price * cnt }</td>
+                    <td class="align-middle">${book.b_price * cnt }원</td>
                 </tr>
             	</c:if>
             </tbody>
@@ -132,6 +132,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
 
             <div class="col-sm-3 input-group">
+            	
                 <input type="text" class="form-control" aria-label="Recipient's username"
                     aria-describedby="button-addon2" readonly="readonly" value="${userData.u_email }">
             </div>
@@ -169,24 +170,45 @@
     	최종 결제 금액	: <span id="totalPriceHolder"></span> <br>
     </div>
     <div style="text-align: center;">
-    	<form action="/cart/orderend">
-        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
+    
+    	<form action="/cart/orderdetail" method="post" id="orderInsertForm">
+	    	<input type="hidden" name="u_id" value="${userData.u_id }">
+	    	<input type="hidden" name="o_count" id="orderCountId">
+	    	<c:forEach items="${toOrderlist }" var="cart">
+	    	<input type="hidden" name="b_code" value="${cart.b_code }">
+	    	<input type="hidden" name="od_count" value= ${cart.c_count }>
+	    	</c:forEach>
+	    	<input id="o_total" type="hidden" name="o_total">
+	        <button type="submit" class="btn btn-primary order-btn">결제하기</button>
     	</form>
+    	
     </div>
     </tbody>
     </table>
     </div>
 </div>
 </div>
+<my:footer></my:footer>
 <script>
 	const totalP = document.querySelectorAll("#totalPrice");
 	let totalSum = 0;
 	for (const e of totalP) {
 		totalSum = totalSum + parseInt(e.innerText);
 	}
-	document.getElementById("totalPriceHolder").innerText = totalSum + "원";
+	document.getElementById("totalPriceHolder").innerText = totalSum.toLocaleString() + "원";
+	
+	const count = document.querySelectorAll("#countPlus")
+	let totalCount = 0;
+	for (const c of count) {
+		totalCount = totalCount + parseInt(c.innerText)
+	}
+	document.querySelector("#orderCountId").value = parseInt(totalCount);
+	
+	const a = document.querySelector("#totalPriceHolder").innerText;
+	const b = a.replace(/,/g, "");
+	const c = b.replace(/원/g, "");
+	document.querySelector("#o_total").value = c;
 </script>
-<my:footer></my:footer>
 </body>
 
 </html>

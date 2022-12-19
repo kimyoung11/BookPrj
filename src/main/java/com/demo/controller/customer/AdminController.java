@@ -1,27 +1,38 @@
 package com.demo.controller.customer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
+import com.demo.domain.book.BookLikeDto;
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
 import com.demo.domain.customer.QuestionDto;
 import com.demo.service.book.BookService;
+import com.demo.service.book.CartService;
 import com.demo.service.customer.NoticeService;
 import com.demo.service.customer.QuestionService;
+import com.demo.service.review.yjh.ReviewService;
+import com.demo.service.ths.OrdersService;
 
 @Controller
 @RequestMapping("admin")
@@ -35,7 +46,17 @@ public class AdminController {
 
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private OrdersService ordersService;
 
+	
 	@GetMapping("noticeRegister")
 	public void ad_notice() {
 
@@ -100,29 +121,95 @@ public class AdminController {
 		model.addAttribute("questionList", list);
 
 	}
-
+	
+	/* 1:1 문의 삭제하기 */
+	@GetMapping("removeQuest")
+	public String removeQuest(int q_number, RedirectAttributes rttr) {
+		
+		int cnt = questService.removeQuest(q_number);
+		
+		if(cnt == 1) {
+			rttr.addFlashAttribute("message", "게시물이 삭제되었습니다.");
+		}else {
+			rttr.addFlashAttribute("message", "게시물이 삭제되지 않았습니다.");
+		}
+		
+		return "redirect:/admin/question";
+	}
 	
 
 	/* 1:1문의 내용보기 */
 	@GetMapping("answer")
 	public void questContent(int q_number, Model model) {
 		
-		System.out.println(q_number);
 		QuestionDto question = questService.ContentList(q_number);
-		
+		System.out.println(question);
 		model.addAttribute("questContent", question);
 
 	}
-	
-	
+
+	/* 1:1 문의 답변 추가 */
 	@PostMapping("add")
+	@ResponseBody
 	public void add(@RequestBody QuestionDto quest) {
-		System.out.println(quest);
 		questService.answerAdd(quest);
 	}
 	
+	/* 1:1 문의 답변 보여주기 */
+	@GetMapping("answerList/{q_number}")
+	@ResponseBody
+	public List<QuestionDto> answerList(@PathVariable int q_number) {
+		return questService.answerView(q_number);
+	}
 	
+	/* 1:1 문의 답변 삭제하기 */
+	@DeleteMapping("remove/{a_id}")
+	@ResponseBody
+	public Map<String, Object> removeAnswer(@PathVariable int a_id) {
+		Map<String, Object> map = new HashMap<>();
+		System.out.println("1");
+		
+		int cnt = questService.removeById(a_id);
+		if (cnt == 1) {
+			map.put("message", "댓글이 삭제되었습니다.");
+		} else {
+			map.put("message", "댓글이 삭제되지 않았습니다.");
+		}
+		return map;
+	}
+	
+	/* 1:1 문의 답변 내용 가져오기(수정) */
+	@GetMapping("getAnswer/{a_id}")
+	@ResponseBody
+	public QuestionDto get(@PathVariable int a_id) {
+		return questService.getAnswer(a_id);
+		
+	}
+	
+	/* 1:1 문의 답변 내용 수정하기 */
+	@PostMapping("modifyAnswer")
+	@ResponseBody
+	public Map<String, Object> modifyAnswer(@RequestBody HashMap<String, Object> answer){
+		
+		int a_id = Integer.valueOf((String) answer.get("a_id"));
+		String a_content = (String)answer.get("a_content");
+		int cnt = questService.modify(a_id, a_content);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		if(cnt == 1) {
+			map.put("message","답변이 변경되었습니다.");
+		} else {
+			map.put("message", "답변이 수정되지 않았습니다.");
+		}
 
+		return map;
+	}
+	
+	
+	
+	
+	
 
 	/* 책 등록 */
 	@GetMapping("book")
@@ -131,9 +218,11 @@ public class AdminController {
 	}
 
 	@PostMapping("book")
-	public void bookRegister(BookDto bookDto) {
-		int cnt = bookService.insertBook(bookDto);
-		System.out.println(cnt);
+	public void bookRegister(BookDto bookDto,MultipartFile file) {
+		int cnt = bookService.insertBook(bookDto,file);
+		System.out.println("file:" +file);
+		System.out.println("isdfsd"+bookDto); 
+		
 	}
 
 	@GetMapping("bookList")
@@ -164,8 +253,13 @@ public class AdminController {
 	 
 	 @DeleteMapping("deleteBook")
 	 public String deleteBook(@RequestBody Map<String,String> map) {
-		 System.out.println(map.get("b_code").getClass());
-		 int cnt = bookService.removeBook(Integer.parseInt(map.get("b_code")));
+		 //System.out.println(map.get("b_code").getClass());
+		 int b_code = Integer.parseInt(map.get("b_code"));
+		 int bookLikeCnt = bookService.removeBookLike(b_code);
+		 int reviewCnt = reviewService.removeBook(b_code); 
+		 int cartCnt = cartService.removeBook(b_code);
+		 int orderDetailCnt = ordersService.removeBook(b_code);
+		 int bookCnt = bookService.removeBook(b_code);
 		 return "redirect:/admin/bookList";
 	 }
 

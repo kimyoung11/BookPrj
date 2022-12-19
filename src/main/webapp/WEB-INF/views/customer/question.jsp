@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
@@ -41,12 +42,14 @@
 
 				<!-- selected -->
 				<div class="container-sm">
-					<form action="" method="post">
+					<form id="registerForm1" action="" method="post" enctype="multipart/form-data">
 						<div class="mb-4 row mt-5">
-							<select class=" form-select" aria-label="Default select example">
-								<option selected>문의할 사항을 선택하세요.</option>
-								<option value="1">1:1 문의하기</option>
-								<option value="2">반품ㆍ교환 문의하기</option>
+
+							<select id="selectBox" name="q_option" class=" form-select" aria-label="Default select example">
+								<option value="1:1문의">1:1 문의하기</option>
+								<option value="배송문의">배송 문의하기</option>
+								<option value="교환문의">교환 문의하기</option>
+								<option value="반품문의">반품 문의하기</option>
 							</select>
 						</div>
 						<!-- selector-end -->
@@ -69,36 +72,113 @@
 						<div class="mb-3 row">
 							<label for="inputPassword" class="col-sm-1 col-form-label">첨부파일</label>
 							<div class="col-sm-4">
-								<input type="file" class="form-control">
+								<input multiple name="files" accept="image/*" type="file" class="form-control">
 							</div>
 							<span class="guide-top">첨부가능 용량은 파일당 6MB 미만이며, 최대 6개까지 가능합니다.</span> 
 							<span class="guide-bottom">첨부가능 파일 확장자: JPG,PNG,GIF</span>
 						</div>
 						
 						<!-- 유저아이디 넘겨줌 -->						
-						<input type="hidden" name="u_id" value="aa">
+						<input type="hidden" id="getUserId" name="u_id" value="<%=(String)session.getAttribute("id")%>">
+
 
 						<hr>
 						<div style="text-align: center; margin-top: 30px;">
-							<button type=submit class="btn btn-secondary btn-qusetion "
-								style="margin-right: 10px;">문의 등록</button>
-							
-							<button type="button" class="btn btn-secondary btn-qusetion">내
-								문의 보기</button>
+							<!-- 문의 등록 버튼 -->
+								<a type="button" id="submitButton1" class="btn btn-secondary btn-qusetion">문의 등록</a>
+
+							<!-- 내 문의보기 버튼 -->
+								<button id="submitButton2" class="btn btn-secondary btn-qusetion">
+								내 문의 보기</button>
 						</div>
 					</form>
 				</div>
 					
-
+			<%-- 메시지 토스트 --%>
+			<div id="MessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="d-flex">
+			    <div id="questionMessage" class="toast-body">
+			    게시물이 등록되었습니다.
+			    </div>
+			    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			</div>
+	
 
 			</div>
 		</div>
 	</div>
 
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous">
+</script>
+
+
+<script>
+const UserId = document.querySelector("#getUserId").value;
+
+
+
+
+	/* 빈값일 때 alert창 띄우기, submit  */
+	document.querySelector("#submitButton1").addEventListener("click", function(e) {
+		/* debugger;
+		console.log(UserId); */
+	
+		if(UserId != 'null'){
+			// submit 진행 중지
+			console.log(UserId);
+			e.preventDefault();
+			
+			// 제목input 입력한 값 가져와서
+			// 빈칸만 있는지 확인?
+			let titleValue = document.querySelector(`#registerForm1 input[name="q_title"]`).value
+			// 본문 textarea 입력한 값 가져와서
+			// 빈칸만 있는지 확인?
+			let contentValue = document.querySelector(`#registerForm1 textarea[name="q_content"]`).value		
+		
+			// 위 테스트 다 통과하면 submit
+			if (titleValue.trim() != "" 
+					&& contentValue.trim() != "" ) {
+				
+				document.querySelector("#registerForm1").submit();
+
+
+			} else {
+				alert("문의를 작성해주세요.");
+		
+			}	
+			
+		} else if(UserId == 'null'){
+				
+					console.log(UserId);
+					location.assign('/user/login.do');
+			};
+	});
+
+	/* 등록 토스트 */
+	const toast = new bootstrap.Toast(document.querySelector("#MessageToast"));
+	
+	toast.show();
+
+	
+	
+	
+	/* 내 문의 보기 */
+	document.querySelector("#submitButton2").addEventListener("click", function(e){
+		
+		e.preventDefault();
+		
+		if(UserId != 'null'){
+			location.assign('/user/login.do');
+		} else if(UserId == 'null'){
+			location.assign('/user/login.do');
+		};
+	});
+
+</script>
 </body>
 </html>

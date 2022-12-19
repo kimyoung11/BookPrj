@@ -13,6 +13,7 @@
 	integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
 <script>
 	$(document).ready(function() {
 		$("#btnLogin").click(function() {
@@ -42,6 +43,7 @@
 			document.form1.submit();
 		});
 	});
+	
 </script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -124,36 +126,36 @@ li {
 </style>
 </head>
 <body>
-	<c:if test="${u_id == null}">
-		<div class="container-md">
-			<div class="box justify-content-center">
-				<div id="form" class="row justify-content-center">
-					<div class="col-12 col-md-5">
-						<div class="logo">
-							<img src="../image/logo.png" alt="logo">
+<c:if test="${u_id == null}">
+	<div class="container-md">
+		<div class="box justify-content-center">
+			<div id="form" class="row justify-content-center">
+				<div class="col-12 col-md-5">
+					<div class="logo">
+						<img src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
+					</div>
+					
+					<form action="loginCheck.do" name="form1" method="post">
+					
+					
+						<label for="inputPassword5" class="form-label">ID 로그인</label><br>
+						<div class="input-group flex-nowrap ">
+							<span class="input-group-text" id="addon-wrapping"
+								style="background-color: #fff;"><i
+								class="fa-solid fa-user"></i></span> <input type="text"
+								class="form-control pt-3 pb-3" placeholder="아이디" name="u_id"
+								id="u_id" aria-label="Username">
 						</div>
-
-						<form action="loginCheck.do" name="form1" method="post">
-
-
-							<label for="inputPassword5" class="form-label">ID 로그인</label><br>
-							<div class="input-group flex-nowrap ">
-								<span class="input-group-text" id="addon-wrapping"
-									style="background-color: #fff;"><i
-									class="fa-solid fa-user"></i></span> <input type="text"
-									class="form-control pt-3 pb-3" placeholder="아이디" name="u_id"
-									id="u_id" aria-label="Username">
-							</div>
-							<div class="input-group flex-nowrap">
-								<span class="input-group-text" style="background-color: #fff;">
-									<i class="fa-solid fa-lock"></i>
-								</span> <input type="password" class="form-control pt-3 pb-3"
-									placeholder="비밀번호" name="u_pw" id="u_pw" aria-label="Username">
-							</div>
-						</form>
-
-
-
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text" style="background-color: #fff;">
+								<i class="fa-solid fa-lock"></i>
+							</span> <input type="password" class="form-control pt-3 pb-3"
+								placeholder="비밀번호" name="u_pw" id="u_pw" aria-label="Username">
+						</div>
+						
+						
+						
+						
 						<div id="login_button " class="d-grid gap-2 mt-5 mb-2">
 							<button class="btn btn-primary pt-3 pb-3" type="button"
 								class="btnLogin" id="btnLogin">로그인</button>
@@ -180,10 +182,11 @@ li {
 				</div>
 			</div>
 		</div>
-	</c:if>
-	<c:if test="${u_id != null}">
-		<h1>이미 로그인 되었습니다</h1>
-	</c:if>
+	</div>
+</c:if>
+<c:if test="${u_id != null}">
+<h1>이미 로그인 되었습니다</h1>
+</c:if>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"

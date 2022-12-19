@@ -88,34 +88,38 @@ public class UserController {
 	}
 
 	// 마이페이지 유저정보
-	@GetMapping("myPage")
-	public void getUserPageInfo(String id, Model model) {
-
-		UserDto user = service.getUserPageInfo(id);
-
-		model.addAttribute("user", user);
-
-	}
-
-	// 마이페이지 리뷰 리스트
-	@GetMapping("reviewList/{u_id}")
-	@ResponseBody
-	public List<UserDto> getUserReviewList(@PathVariable String u_id) {
-
-		return service.getReviewList(u_id);
-
-	}
-
-	// 마이페이지 작성 가능한 리뷰 리스트
-	@GetMapping("makeReviewList/{u_id}")
-	@ResponseBody
-	public List<UserDto> getUserMakeReviewPage(@PathVariable String u_id) {
-
-		return service.getMakeReviewList(u_id);
-
-	}
 
 	// 마이페이지 문의 리스트
+	 @GetMapping("myPage") 
+	 public void getUserPageInfo(HttpSession session, Model model) {
+	 
+	 String u_id = (String)session.getAttribute("id");
+	 UserDto user = service.getUserPageInfo(u_id);
+	 System.out.println(user.getO_status_ready());
+	 model.addAttribute("user", user);
+	 
+	 }
+	 
+	 // 마이페이지 리뷰 리스트
+	 @GetMapping("reviewList/{u_id}")
+	 @ResponseBody
+	 public List<UserDto> getUserReviewList(@PathVariable String u_id) {
+	 
+		 return service.getReviewList(u_id);
+	 
+	 }
+
+	
+	 // 마이페이지 작성 가능한 리뷰 리스트
+	  @GetMapping("makeReviewList/{u_id}")
+	  @ResponseBody
+	  public List<UserDto> getUserMakeReviewPage(@PathVariable String u_id) {
+	  
+	  return service.getMakeReviewList(u_id);
+	  
+	  }
+	 
+	  // 마이페이지 문의 리스트
 	@GetMapping("questList/{u_id}")
 	@ResponseBody
 	public List<UserDto> getUserQuestList(@PathVariable String u_id) {
@@ -191,7 +195,6 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/book/main");
 		/* mav.addObject("msg", "logout"); */
-
 		return mav;
 	}
 
@@ -375,4 +378,6 @@ public class UserController {
 		emailSender.send(message);
 	}
 	*/
+	
+
 }

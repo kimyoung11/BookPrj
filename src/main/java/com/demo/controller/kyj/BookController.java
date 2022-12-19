@@ -1,19 +1,14 @@
 package com.demo.controller.kyj;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +22,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
 import com.demo.domain.book.CartDto;
+import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.service.book.BookService;
 import com.demo.service.book.CartService;
+import com.demo.service.review.yjh.ReviewService;
 import com.demo.service.user.yjh.UserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 
 @Controller
@@ -46,6 +45,9 @@ public class BookController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private ReviewService reviewService;
+	
 	@GetMapping("main")
 	public void main(Model model) {
 		List<BookDto> newBook = bookService.newBookList();
@@ -60,8 +62,8 @@ public class BookController {
 	public Map<String, Object> autocomplete(
 			@RequestParam Map<String, Object> paramMap
 			) {
-		System.out.println("호출됨");
-		System.out.println(paramMap.get("value"));
+//		System.out.println("호출됨");
+//		System.out.println(paramMap.get("value"));
 		String temp = "%"+(String)paramMap.get("value")+"%";
 		List<Map<String,Object>> resultList = bookService.autocomplete(temp);
 		paramMap.put("resultList", resultList);
@@ -69,75 +71,116 @@ public class BookController {
 		return paramMap;
 	}
 	
-	@GetMapping("list")
-	public String list(Model model) {//all books page
 	
-		List<BookDto> list = bookService.listBoard();
-		model.addAttribute("bookList", list);
+	@GetMapping("list")
+	public String list(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		//List<BookDto> list = bookService.listBoard();
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.selectAllBook();
+		System.out.println(books);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
 		return "book/list/all";
 	}
 	
+
+	
 	@GetMapping("list/new")
-	public String listByDate(Model model) {
-		List<BookDto> list = bookService.getByDate();
-		model.addAttribute("bookList",list);
+	public String listNew(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.getByDate();
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/new";
+	}
+	
+	@GetMapping("list/new/{b_genre}")
+	public String newListByGenre(@PathVariable String b_genre,Model model,@RequestParam(defaultValue = "1") int page) {
+		//System.out.println(b_genre);
+		PageHelper.startPage(page,10);
+		Page<BookDto> books = bookService.getBookByGenre(b_genre);
+		System.out.println("genre" + b_genre);
+		//System.out.println(list);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		model.addAttribute("genre",b_genre);
+		
 		return "book/list/new";
 	}
 	
 	@GetMapping("list/{b_genre}")
-	public String listByGenre(@PathVariable String b_genre,Model model) {
+	public String listByGenre(@PathVariable String b_genre,Model model,@RequestParam(defaultValue = "1") int page) {
 		//System.out.println(b_genre);
-		List<BookDto> list = bookService.getByGenre(b_genre);
+		PageHelper.startPage(page,10);
+		Page<BookDto> books = bookService.getByGenre(b_genre);
 		//System.out.println(list);
-		model.addAttribute("bookList", list);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		model.addAttribute("genre",b_genre);
 		
-		return "book/list/all";
+		return "book/list/genre";
 	}
 		
 	
 	@GetMapping("detail/{b_code}")
 	public String get(@PathVariable int b_code,
-			Model model) {
-		String u_id = "aa";
+			Model model,HttpSession session) {
+		String u_id = (String)session.getAttribute("id");
 //		List<BookDto> temp = service.getByCodeAndId(u_id,b_code);
 		BookDto temp = bookService.getByCode(b_code); //1번책
 //		System.out.println(temp);
+		List<ReviewDto> review = reviewService.getByBookCode(b_code);
+		System.out.println("this is review:" + review);
 		
 		int likeStatus = bookService.getLikeCount(b_code, u_id);
-		System.out.println(likeStatus);
+		System.out.println("this is likeStatus:" + likeStatus);
 		if(likeStatus ==0)
 			model.addAttribute("likeStatus", "false");
 		else if(likeStatus ==1)
 			model.addAttribute("likeStatus", "true");
 		model.addAttribute("book", temp);
+		model.addAttribute("review", review);
 		return "/book/detail";
 	}
 	
 	
 	@GetMapping("order/{b_code}")
-	public String orderBasket(@PathVariable int b_code,Model model, int number) {
-		String u_id="aa";
-		//System.out.println("this is b_code" + b_code);
+	public String orderBasket(@PathVariable int b_code,Model model, int c_cnt,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
+		System.out.println("this is b_code" + b_code);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
 		System.out.println(temp);
 		
 		List<CartDto> temp2 = cartService.getById(u_id);
-		//System.out.println(temp2);
+		System.out.println(temp2);
 		model.addAttribute("user",user);
 		model.addAttribute("book", temp);
-		model.addAttribute("cnt",number);
+		model.addAttribute("cnt",c_cnt);
 		return "/book/order";
 	}
 	
 	
 	@PostMapping("cart")
 	@ResponseBody
-	public Map<String,Object> addToCart(@RequestBody CartDto cart) {
+	public Map<String,Object> addToCart(@RequestBody CartDto cart,HttpSession session) {
+		String u_id = (String)session.getAttribute("id");
 		cart.setC_count(1);
 		CartDto temp = cart;
 		System.out.println(temp);
-		int isInsert = cartService.insertToCart(temp.getC_count(),temp.getU_id(),temp.getB_code());
+		int isInsert = cartService.insertToCart(temp.getC_count(),u_id,temp.getB_code());
 		HashMap<String,Object> hm = new HashMap<>();
 		if(isInsert ==1) {
 			hm.put("message", "장바구니에 추가완료");
@@ -149,9 +192,9 @@ public class BookController {
 	}
 	
 	@GetMapping("cart")
-	public String cartBasket(@RequestParam int b_code, @RequestParam int c_cnt,RedirectAttributes rttr) {
-		String u_id="aa";
-		//System.out.println("실행 된거 맞나?"+ " " + c_cnt); //3번책 7권
+	public String cartBasket(@RequestParam int b_code, @RequestParam int c_cnt,RedirectAttributes rttr,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
+		//System.out.println("실행 된거 맞나?"+ b_code + " " + c_cnt); //3번책 7권
 		rttr.addAttribute("b_code", b_code);
 		int isInsert = cartService.insertToCart(c_cnt,u_id,b_code);
 		if(isInsert ==1) {
@@ -168,9 +211,9 @@ public class BookController {
 	}
 	
 	@GetMapping("order")
-	public void order(@RequestParam int b_code,@RequestParam int c_cnt,Model model) {
-		String u_id="aa";
-		//System.out.println("this is order:" + b_code + " " + c_cnt);
+	public void order(@RequestParam int b_code,@RequestParam int c_cnt,Model model,HttpSession session) {
+		String u_id=(String) session.getAttribute("id");
+		System.out.println("this is order:" + b_code + " " + c_cnt);
 		BookDto temp = bookService.getByCode(b_code);
 		UserDto user = userService.getById(u_id);
 //		System.out.println(user);
@@ -182,10 +225,11 @@ public class BookController {
 	
 	@PostMapping("like")
 	@ResponseBody
-	public Map<String,Object> like1(@RequestBody Map<String, Object> map) {
+	public Map<String,Object> like1(@RequestBody Map<String, Object> map,HttpSession session) {
 		//System.out.println("호출 완료");
-		//System.out.println(map);
-		int likeStatus = bookService.addLike((Integer)map.get("b_code"),(String)map.get("u_id"));
+		String u_id = (String) session.getAttribute("id");
+		System.out.println("this is u_id:" + u_id);
+		int likeStatus = bookService.addLike((Integer)map.get("b_code"),u_id);
 		bookService.addBookLike((Integer)map.get("b_code"));
 		int bookCnt = bookService.getBookLike((Integer)map.get("b_code"));
 		System.out.println(bookCnt);
@@ -203,10 +247,11 @@ public class BookController {
 	
 	@PutMapping("like")
 	@ResponseBody
-	public Map<String,Object> like2(@RequestBody Map<String, Object> map) {
+	public Map<String,Object> like2(@RequestBody Map<String, Object> map,HttpSession session) {
+		String u_id = (String) session.getAttribute("id");
 		System.out.println("호출 완료2");
 		System.out.println(map);
-		int likeStatus = bookService.removeLike((Integer)map.get("b_code"),(String)map.get("u_id"));
+		int likeStatus = bookService.removeLike((Integer)map.get("b_code"),u_id);
 		bookService.addBookLike((Integer)map.get("b_code"));
 		int bookCnt = bookService.getBookLike((Integer)map.get("b_code"));
 		System.out.println(bookCnt); 

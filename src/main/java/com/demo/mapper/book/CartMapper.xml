@@ -12,4 +12,9 @@
 	<insert id="insert">
 		INSERT IGNORE INTO Cart(c_count,u_id,b_code) VALUES (#{c_count},#{u_id},#{b_code})
 	</insert>
+	
+	<delete id="deleteBook">
+		DELETE FROM Cart 
+		WHERE b_code = #{b_code}
+	</delete>
 </mapper>

@@ -1,5 +1,7 @@
 package com.demo.service.review.yjh;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,14 @@ public class ReviewService {
 	public ReviewDto getByR_id(int r_id) {
 		
 		return mapper.selectReview(r_id);
+	}
+
+	public List<ReviewDto> getByBookCode(int b_code) {
+		return mapper.selectByBookCode(b_code);
+	}
+
+	public int removeBook(int b_code) {
+		return mapper.deleteBook(b_code);
 	}
 
 }

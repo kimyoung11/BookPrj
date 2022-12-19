@@ -1,5 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
@@ -95,24 +96,24 @@
     <div class="container container-size"  style="background-color: rgb(224, 224, 224);">
     <div class="row">
         <div class="col-3">
-            <h4>국내도서</h4>
+            <h4>장르선택</h4>
         </div>
          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="장르1" id="option1" onclick="clickCheck(this)"> 
+            <input class="form-check-input" type="checkbox" value="소설" id="option1" onclick="clickCheck(this)"> 
             <label class="form-check-label" for="option1">
-            국내도서
+            소설
             </label>
          </div>
         <div class="form-check col-3">
-        <input class="form-check-input" type="checkbox" value="장르1" id="option2" onclick="clickCheck(this)"> 
+        <input class="form-check-input" type="checkbox" value="에세이" id="option2" onclick="clickCheck(this)"> 
         <label class="form-check-label" for="option2">
-            국내도서
+            에세이
         </label>
       </div>
       <div class="form-check col-3">
-        <input class="form-check-input" type="checkbox" value="장르1" id="option3" onclick="clickCheck(this)">
+        <input class="form-check-input" type="checkbox" value="인문" id="option3" onclick="clickCheck(this)">
         <label class="form-check-label" for="option3">
-            국내도서
+            인문
         </label>
       </div>
 </div>
@@ -120,70 +121,72 @@
     <!-- checkBox-2 -->
     <div class="row">
         <div class="col-3">
-            <h4>외국도서</h4>
+            <h4></h4>
         </div>
         <div class="form-check col-3">
-           <input class="form-check-input" type="checkbox" value="장르2" id="option4" onclick="clickCheck(this)">
+           <input class="form-check-input" type="checkbox" value="역사" id="option4" onclick="clickCheck(this)">
            <label class="form-check-label" for="option4">
-           외국도서
+           역사
            </label>
         </div>
        <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="장르2" id="option5" onclick="clickCheck(this)">
+       <input class="form-check-input" type="checkbox" value="만화" id="option5" onclick="clickCheck(this)">
        <label class="form-check-label" for="option5">
-         외국도서
+         만화
        </label>
      </div>
      <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="장르2" id="option6" onclick="clickCheck(this)">
+       <input class="form-check-input" type="checkbox" value="어린이" id="option6" onclick="clickCheck(this)">
        <label class="form-check-label" for="option6">
-         외국도서
+         어린이
        </label>
      </div>
 </div>
 <!-- checkBox3 -->
 <div class="row ">
     <div class="col-3">
-        <h4>키즈</h4>
+        <h4></h4>
     </div>
     <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="장르3" id="option7" onclick="clickCheck(this)">
+       <input class="form-check-input" type="checkbox" value="수험서" id="option7" onclick="clickCheck(this)">
        <label class="form-check-label" for="option7">
-       키즈
+       수험서
        </label>
     </div>
    <div class="form-check col-3">
-   <input class="form-check-input" type="checkbox" value="장르3" id="option8" onclick="clickCheck(this)">
+   <input class="form-check-input" type="checkbox" value="육아" id="option8" onclick="clickCheck(this)">
    <label class="form-check-label" for="option8">
-       키즈
+       육아
    </label>
  </div>
  <div class="form-check col-3">
-   <input class="form-check-input" type="checkbox" value="장르3" id="option9" onclick="clickCheck(this)">
+   <input class="form-check-input" type="checkbox" value="예술" id="option9" onclick="clickCheck(this)">
    <label class="form-check-label" for="option9">
-       키즈
+       예술
    </label>
  </div>
 </div>
 </div>
 <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="selectGenre()">선택</button>
 </div>
-
 <!-- Pagination -->
           <div class="row justify-content-end">
             <div class="col-3">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                  <c:url value="${pageContext.request.contextPath }/book/list" var="pageLink"></c:url>
+                    <a class="page-link" href="${pageLink }?page=1" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <c:forEach begin="1" end="${pages }" varStatus="status" var="pageNumb">
+                  	<li class="page-item">
+                  		<a class="page-link" href="${pageLink }?page=${pageNumb}">${pageNumb }</a>
+                  	</li>
+                  </c:forEach>
                   <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                    <a class="page-link" href="${pageLink }?page=${pages}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
@@ -206,7 +209,7 @@
             <div class="row content justify-content-center">
             	<c:url value="${pageContext.request.contextPath}/book/detail/${item.b_code}" var="link"></c:url>
               		<a href="${link }" style="width: 159px; height: 234px">
-              			<img src="${item.b_img }" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
+              			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
                 <li style="font-size: 22px">${item.b_title }</li>
@@ -218,15 +221,28 @@
                 </li>
                 <li>
                 ${item.b_code }
+
+                <c:if test="${u_id !=null}">
                   <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
-                  </a>
+                  </a>      
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
-                  	<c:param name="number" value="1"/>
+                  	<c:param name="c_cnt" value="1"/>
                   </c:url>
-                  <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
+                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
+                    구매하기
+                  </a>         
+                </c:if>
+                
+                <c:if test="${u_id ==null }">
+                <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
+                	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+	                 		장바구니
+	                 	</a>
+	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
                     구매하기
                   </a>
+                </c:if>
                 </li>
                 <hr />
                 
@@ -280,11 +296,12 @@
     }*/
     
     function wantBook(target){
+
 /*     	console.log(target); */
     	console.log(target.dataset.item);
     	const bookData = target.dataset.item; //1
     	const form ={
-    			u_id : 'aa',
+    			u_id : '<%=(String)session.getAttribute("id")%>',
     			b_code : `\${bookData}`
     	};
     	

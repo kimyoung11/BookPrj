@@ -89,12 +89,14 @@
     .carousel-container {
             padding: 50px;
         }
-/* 
-        #slider-div .img-wrapper {
-            padding: 15px;
-        } */
+	
+	.img-wrapper > img {
+				width: 268.02px;
+				height: 150px;
+	}
+	
 
-        .slick-arrow:before {
+    .slick-arrow:before {
             color: black;
             
         }
@@ -111,18 +113,22 @@
   display: flex;
   padding: 3rem;
   overflow-x: scroll;
+ margin:0 auto;
+ width:1200px;
+ margin-top:50px;
+ margin-bottom: 50px;
 }
 .card {
   display: flex;
   position: relative;
   flex-direction: column;
   height: 350px;
-  width: 400px;
+  width: 350px;
   min-width: 250px;
   padding: 1.5rem;
   border-radius: 16px;
   background: white;
-  box-shadow: -1rem 0 3rem lightgray;
+  box-shadow: -1rem 0 2rem rgba(0, 0, 0, 0.1);
   transition: 0.2s;
 }
 
@@ -187,10 +193,11 @@
 }
 
 #faq {
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
   padding: 0 15px;
   text-align: center;
+  
 }
 
 section.faq {
@@ -222,7 +229,7 @@ section.faq {
   font-size: 18px;
   line-height: 34px;
   text-align: left;
-  padding: 15px 15px 0;
+  padding: 26px 30px 0;
   text-transform: none;
   font-weight: 300;
   letter-spacing: 1px;
@@ -236,7 +243,7 @@ section.faq {
   color: black;
   text-align: left;
   font-size: 14px;
-  line-height: 1.45;
+ /*  line-height: 1.45; */
   position: relative;
   overflow: hidden;
   max-height: 250px;
@@ -245,9 +252,9 @@ section.faq {
   display: inline-block;
   opacity: 1;
   transform: translate(0, 0);
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 15px;
-  padding: 0 50px 0 15px;
+  padding: 0 25px;
   transition: .3s opacity, .6s max-height;
   hyphens: auto;
   z-index: 2;
@@ -263,31 +270,31 @@ section.faq {
   position: relative;
   overflow: hidden;
   padding: 0;
-  margin: 0;
+  margin-bottom: 10px;
   /*padding-bottom: 4px;*/
   /*padding-top: 18px;*/
   background: #fff;
-  box-shadow: 0 3px 10px -2px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
   -webkit-tap-highlight-color: transparent;
 }
 #faq ul li + li {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 #faq ul li:last-of-type {
   padding-bottom: 0;
 }
 #faq ul li i {
   position: absolute;
-  transform: translate(-6px, 0);
-  margin-top: 28px;
+  transform: translate(-20px, 0);
+  margin-top: 40px;
   right: 15px;
 }
 #faq ul li i:before, ul li i:after {
   content: "";
   position: absolute;
   background-color: lightgray;
-  width: 3px;
-  height: 9px;
+  width: 4px;
+  height: 10px;
 }
 #faq ul li i:before {
   transform: translate(-2px, 0) rotate(45deg);
@@ -335,10 +342,37 @@ section.faq {
   display: inline;
   height: 50px;
 }
+
+.container-fluid{
+--bs-gutter-x:0;	
+}
+
+.subTitle{
+	font-size:24px;
+}
+
+.new-section{
+width:1200px;
+}
+
+.new-section-wrapper{
+	background-color: #f4f7ff;
+}
+
+#bestQuestion{
+	background-color: #f4f7ff;
+}
+
+.question-head{
+padding-top:70px;
+padding-bottom: 40px;
+
+}
+
 </style>
 <body>
 	<my:headerBar></my:headerBar>
-    <div class="container-fluid" style="width: 100%">
+    <div class="container-fluid">
         <div id="carousel-section">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -363,7 +397,7 @@ section.faq {
             </div>
         </div>
        
-        <section class="card-list" style="width: 62.5%; margin: 0 auto;">
+        <section class="card-list">
             <article class="card">
               <header class="card-header">
                 <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
@@ -413,25 +447,24 @@ section.faq {
                 </div>
               </article>
           </section>
-        <div class="new-section-wrapper" style="width: 100%; background-color: lightgray;">
-            <div id="new-section" style="width: 62.5%; margin: 0 auto;">
+        <div class="new-section-wrapper" >
+            <div id="new-section">
                 <!-- stlye 은 slick 영역 확인용 -->
                 <div class="carousel-container">
-                    <h6>NEW 주목받는 신작</h6>
+                    <h6 class="subTitle">NEW 주목받는 신작</h6>
                     <div id="slider-div">
                     	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
 	                    <div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
                     	</c:forEach>
-	                	
                     </div>
                 </div>
             </div>
          </div>
         
-        <div id="new-section" style="width: 62.5%; margin: 0 auto;">
+        <div id="new-section">
             <!-- stlye 은 slick 영역 확인용 -->
             <div class="carousel-container">
-                <h6>스테디셀러</h6>
+                <h6 class="subTitle">스테디셀러</h6>
                 <div id="slider-div2">
                 	<c:forEach items="${ranBookList }" var="book">
 	                	<div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
@@ -451,14 +484,12 @@ section.faq {
 
         <div class="container-fluid align-items-center" id="bestQuestion">
             <div id="faq">
-                <br>
-                <br>
-                <h3 style="padding: 20px;">자주 묻는 질문을 확인해보세요.</h3>
+                <h3 class="question-head">자주 묻는 질문을 확인해보세요.</h3>
                 <ul>
                   <li>
                     <input type="checkbox" checked> 
                     <i></i>
-                    <h2 style="font-weight: 500;">주문취소시 환불은 어떻게 되나요?</h2>
+                    <h2 style="font-weight: 500;">Q. 주문취소시 환불은 어떻게 되나요?</h2>
                     <p> 결제수단별 환불 안내 <br>
 						(1) 신용카드 (간편결제 포함) <br>
 						- 전체 취소 : 카드사 매입전은 당일 취소되며, 카드사 매입 후는 카드사에 따라 2일~ 최대 2주(공휴일 제외) 소요됩니다. <br>
@@ -472,7 +503,7 @@ section.faq {
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">주문하면 얼마 만에 받아볼 수 있나요?</h2>
+                    <h2 style="font-weight: 500;">Q. 주문하면 얼마 만에 받아볼 수 있나요?</h2>
                     <p>
                     고객님께서 주문하신 상품을 실제 받으시는 날은 "예상출고일 + 배송일"입니다. <br>
 					'예상출고일'이란 근무일 기준으로 도서가 준비되는 시간 만을 안내하는 것이며, 배송시간은 예상출고일 외 택배를 통해 고객님께 실제 배달되는 기간을 말합니다. <br>
@@ -486,7 +517,7 @@ section.faq {
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">인터넷 주문도서의 반품이 가능한가요?</h2>
+                    <h2 style="font-weight: 500;">Q. 인터넷 주문도서의 반품이 가능한가요?</h2>
                     <p>
                     	1.고객님의 변심 또는 주문오류로 인한 반품신청일때,
                     	타 도서로의 교환이 불가하며, <br>
@@ -501,7 +532,7 @@ section.faq {
                   <li>
                     <input type="checkbox" checked>
                     <i></i>
-                    <h2 style="font-weight: 500;">현금영수증은 어떻게 신청할 수 있나요?</h2>
+                    <h2 style="font-weight: 500;">Q. 현금영수증은 어떻게 신청할 수 있나요?</h2>
                     <p>
                     인터넷으로 현금성결제수단(온라인송금,실시간계좌이체,예치금 결제)으로 주문하실 경우 주문과정의 결제 화면에서 결제방법 선택 하시면 휴대폰번호나 카드번호,사업자등록번호를 입력하시는 것으로 직접 신청하실 수 있습니다. <br> 
                     ※ 현금영수증의 경우 현금영수증 발급시기는 금권이 오고간 시기 혹은 현금을 입금한 시기에 발생되어야 하며, 발급없이 지나간 건에 대해서는 발급받으실 수 없습니다. <br>
@@ -517,6 +548,7 @@ section.faq {
               <button type="button" class="btn btn-secondary" id="btn-back-to-top2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="fas fa-regular fa-comment fa-xl"></i></button>
         </div>
         <div>
+        </div>
         	
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -533,7 +565,6 @@ section.faq {
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Send message</button>
       </div>
-    </div>
   </div>
 </div>
         
@@ -541,7 +572,11 @@ section.faq {
         <div id="footer">
             <my:footer></my:footer>
         </div>
-		
+        
+        
+        
+    
+<!-- script  -->	
 	<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

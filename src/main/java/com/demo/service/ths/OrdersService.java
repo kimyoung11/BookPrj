@@ -3,8 +3,10 @@ package com.demo.service.ths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.domain.ths.CartDto;
 import com.demo.domain.ths.OrdersDto;
@@ -12,6 +14,7 @@ import com.demo.domain.ths.PageInfo;
 import com.demo.mapper.ths.OrdersMapper;
 
 @Service
+@Transactional
 public class OrdersService {
 	@Autowired
 	private OrdersMapper ordersMapper;
@@ -40,20 +43,20 @@ public class OrdersService {
 		return ordersMapper.select(offset, records, "%" + keyword + "%");
 	}
 
-	public List<CartDto> cartlist() {
-		return ordersMapper.selectCart();
+	public List<CartDto> cartlist(String u_id) {
+		return ordersMapper.selectCart(u_id);
 	}
 
-	public void deleteCart(List<String> u_id, List<Integer> b_code) {
-		for(int i = 0; i < u_id.size(); i++) {
-			ordersMapper.deleteCart(u_id.get(i), b_code.get(i));
+	public void deleteCart(String u_id, List<Integer> b_code) {
+		for(int i = 0; i < b_code.size(); i++) {
+			ordersMapper.deleteCart(u_id, b_code.get(i));
 		}
 	}
 
-	public List<CartDto> cartToOrder(List<String> u_id, List<Integer> b_code, List<Integer> c_count) {
+	public List<CartDto> cartToOrder(String u_id, List<Integer> b_code, List<Integer> c_count) {
 		List<CartDto> result = new ArrayList<>();
-		for(int i = 0; i < u_id.size(); i++) {
-			CartDto dto = ordersMapper.cartToOrder(u_id.get(i), b_code.get(i), c_count.get(i));
+		for(int i = 0; i < b_code.size(); i++) {
+			CartDto dto = ordersMapper.cartToOrder(u_id, b_code.get(i), c_count.get(i));
 			dto.setC_count(c_count.get(i));
 			result.add(dto);
 		}
@@ -67,4 +70,41 @@ public class OrdersService {
 	public void orderDelete(int o_number) {
 		ordersMapper.deleteOrder(o_number);
 	}
+
+	public int insertOrders(OrdersDto orders) {
+		return ordersMapper.insertOrders(orders);
+	}
+
+
+
+	public int insertBook(Integer o_number, String u_id, Integer b_code, Integer od_count) {
+		return ordersMapper.insertBook(o_number ,u_id, b_code, od_count);
+	}
+
+	public void deleteOrderDetail(int o_number) {
+		ordersMapper.deleteOrderDetail(o_number);
+	}
+
+	public List<OrdersDto> orderDetailList(String u_id, int o_number) {
+		System.out.println(u_id);
+		System.out.println(o_number);
+		return ordersMapper.selectOrderDetail(u_id, o_number);
+	}
+
+	public void orderStatusChange(String o_status, int o_number) {
+		ordersMapper.orderStatusChange(o_status, o_number);
+		
+	}
+	
+	public void changeCount(String u_id, List<Integer> b_code, List<Integer> c_count) {
+		for(int i = 0; i < b_code.size(); i++) {
+			ordersMapper.changeCount(u_id, b_code.get(i), c_count.get(i));
+		}
+	}
+
+	public int removeBook(int b_code) {
+		return ordersMapper.deleteOdBook(b_code);
+	}
+	
+	
 }

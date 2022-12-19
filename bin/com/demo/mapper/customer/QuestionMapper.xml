@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.customer.QuestionMapper">
+
+<!-- 1:1 문의 추가 -->
+<insert id="insert">
+	INSERT INTO Quest (q_title, q_content, u_id)
+	VALUES (#{q_title}, #{q_content}, #{u_id})
+</insert>
+
+
+<!-- 1:1문의 리스트 보여주기 -->
+<select id="getList" resultType="com.demo.domain.customer.QuestionDto">
+	SELECT 
+		q_number,
+		q_title,
+		q_content,
+		q_date,
+		u_id
+	FROM 
+		Quest
+	ORDER BY q_number DESC
+	LIMIT #{offset}, #{records}
+</select>
+
+
+<select id="allCount" resultType="int">
+	SELECT COUNT(*) FROM Quest
+</select>
+
+
+<!-- 1:1 문의 콘텐츠 보여줌 -->
+<select id="select" resultType="com.demo.domain.customer.QuestionDto">
+	SELECT
+		q_number,
+		q_title,
+		q_content,
+		q_date,
+		u_id
+	FROM
+		Quest
+	WHERE
+		q_number = #{q_number}
+</select>
+
+
+
+<!-- 1:1문의 답변 추가하기 -->
+<insert id="add">
+	INSERT INTO Answer (q_number, ad_id, u_id, a_content)
+	VALUES (#{q_number}, #{ad_id}, #{u_id}, #{a_content})
+</insert>
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
