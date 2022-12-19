@@ -110,4 +110,14 @@
 		DELETE FROM BookLike
 		WHERE b_code = #{b_code}
 	</delete>
+	
+	<select id="selectBookByKeyword" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book WHERE
+		b_title LIKE #{b_keyword}
+	</select>
+	
+	<update id="deleteBookImg">
+		UPDATE Book SET b_img='' where b_code = ${b_code}
+	</update>
+	
 </mapper>
