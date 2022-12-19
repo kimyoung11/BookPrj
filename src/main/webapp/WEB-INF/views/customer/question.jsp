@@ -125,8 +125,9 @@ const UserId = document.querySelector("#getUserId").value;
 
 	/* 빈값일 때 alert창 띄우기, submit  */
 	document.querySelector("#submitButton1").addEventListener("click", function(e) {
-		debugger;
-		console.log(UserId);
+		/* debugger;
+		console.log(UserId); */
+	
 		if(UserId != 'null'){
 			// submit 진행 중지
 			console.log(UserId);
@@ -163,6 +164,20 @@ const UserId = document.querySelector("#getUserId").value;
 	
 	toast.show();
 
+	
+	
+	
+	/* 내 문의 보기 */
+	document.querySelector("#submitButton2").addEventListener("click", function(e){
+		
+		e.preventDefault();
+		
+		if(UserId != 'null'){
+			location.assign('/user/login.do');
+		} else if(UserId == 'null'){
+			location.assign('/user/login.do');
+		};
+	});
 
 </script>
 </body>

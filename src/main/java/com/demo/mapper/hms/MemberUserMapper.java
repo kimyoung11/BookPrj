@@ -8,12 +8,19 @@ public interface MemberUserMapper {
 	int insert(UserVo vo);
 
 	String loginCheck(UserVo vo);
-	
+
 	UserVo viewUser(UserVo vo);
 
+	UserVo findID(UserVo vo);
+
+	UserVo sendEmail(String u_email);
+
+	UserVo updatePassword(UserVo vo);
+
 	UserVo selectByUserId(String u_id);
-	
+
 	UserVo selectByUserPhone(String u_phone);
-	
+
 	UserVo selectByUserEmail(String u_email);
+
 }

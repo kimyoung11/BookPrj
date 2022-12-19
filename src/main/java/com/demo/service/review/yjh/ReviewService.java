@@ -37,4 +37,8 @@ public class ReviewService {
 		return mapper.selectByBookCode(b_code);
 	}
 
+	public int removeBook(int b_code) {
+		return mapper.deleteBook(b_code);
+	}
+
 }

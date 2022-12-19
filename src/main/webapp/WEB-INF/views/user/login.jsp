@@ -8,7 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+	integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <script>
 	$(document).ready(function() {
@@ -17,7 +21,7 @@
 			// 태크.val("값") : 태그의 값을 변경 
 			var u_id = $("#u_id").val();
 			var u_pw = $("#u_pw").val();
-			
+
 			if (u_id == "" && u_pw == "") {
 				alert("아이디와 비밀번호를 입력해주세요.");
 				$("#u_id").focus(); // 입력포커스 이동
@@ -154,23 +158,27 @@ li {
 						
 						<div id="login_button " class="d-grid gap-2 mt-5 mb-2">
 							<button class="btn btn-primary pt-3 pb-3" type="button"
-								id="btnLogin">로그인</button>
-							
+								class="btnLogin" id="btnLogin">로그인</button>
+
 
 
 
 							<div class="link mt-2">
 								<ul id="test">
 									<li><a href="">비밀번호 찾기</a></li>
-									<li><a href="">아이디 찾기</a></li>
-									<li><a href="${pageContext.request.contextPath}/user/signup">회원가입</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/findID">아이디
+											찾기</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/signup">회원가입</a></li>
 								</ul>
 
 							</div>
 						</div>
-					</form>
-					
-					
+						</form>
+
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -182,7 +190,24 @@ li {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
-
+		crossorigin="anonymous">
+		
+	</script>
+	<script>
+	$(document).ready(function() {
+	    $("#u_id").keyup(function(event) {
+	        if (event.which === 13) {
+	            $("#btnLogin").click();
+	        }
+	    });
+	});
+	$(document).ready(function() {
+	    $("#u_pw").keyup(function(event) {
+	        if (event.which === 13) {
+	            $("#btnLogin").click();
+	        }
+	    });
+	});
+	</script>
 </body>
 </html>

@@ -23,12 +23,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.book.BookDto;
+import com.demo.domain.book.BookLikeDto;
 import com.demo.domain.customer.NoticeDto;
 import com.demo.domain.customer.PageInfo;
 import com.demo.domain.customer.QuestionDto;
 import com.demo.service.book.BookService;
+import com.demo.service.book.CartService;
 import com.demo.service.customer.NoticeService;
 import com.demo.service.customer.QuestionService;
+import com.demo.service.review.yjh.ReviewService;
+import com.demo.service.ths.OrdersService;
 
 @Controller
 @RequestMapping("admin")
@@ -42,7 +46,17 @@ public class AdminController {
 
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private OrdersService ordersService;
 
+	
 	@GetMapping("noticeRegister")
 	public void ad_notice() {
 
@@ -230,17 +244,23 @@ public class AdminController {
 	}
 	 
 	 @PostMapping("modifyBook")
-	 public String modifyBookDto(BookDto bookDto) {
+	 public String modifyBookDto(BookDto bookDto,MultipartFile file) {
 		 System.out.println(bookDto);
-		 int cnt = bookService.modifyBook(bookDto);
+		 System.out.println(file);
+		 int cnt = bookService.modifyBook(bookDto,file);
 		 System.out.println(cnt);
 		 return "redirect:/admin/bookList";
 	 }
 	 
 	 @DeleteMapping("deleteBook")
 	 public String deleteBook(@RequestBody Map<String,String> map) {
-		 System.out.println(map.get("b_code").getClass());
-		 int cnt = bookService.removeBook(Integer.parseInt(map.get("b_code")));
+		 //System.out.println(map.get("b_code").getClass());
+		 int b_code = Integer.parseInt(map.get("b_code"));
+		 int bookLikeCnt = bookService.removeBookLike(b_code);
+		 int reviewCnt = reviewService.removeBook(b_code); 
+		 int cartCnt = cartService.removeBook(b_code);
+		 int orderDetailCnt = ordersService.removeBook(b_code);
+		 int bookCnt = bookService.removeBook(b_code);
 		 return "redirect:/admin/bookList";
 	 }
 

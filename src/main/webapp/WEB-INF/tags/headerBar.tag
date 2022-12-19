@@ -25,29 +25,34 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
+
+
  * {
 	font-family: "Noto Sans KR", sans-serif;
 }
 
 .wrapper {
-	box-shadow: 0px 0px 20px grey;
+	
 	/* position: relative;
 	top: 0;
 	height: 5em;
 	width: 1200px; */
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+	width: 100%;
+	margin: 0 auto;
+	z-index: 10000;
 	
 }
 
 .header-wrapper {
-	width: 1200px;
 	margin: 0 auto;
-	z-index: 10000;
+	width: 1200px;
 	
 	
 }
 
 h6 {
-	font-weight: 600;
+	font-weight: 500;
 }
 
 a {
@@ -56,19 +61,18 @@ a {
 }
 
 .main-menu {
-	margin-left: 74px;
+	margin-left: 120px;
 }
 
 .login-btn {
-	margin-right: 20px;
+margin-right:7px;
 }
 
 .icons {
-	border: 1px solid silver;
 	border-radius: 50px;
-	padding: 15px;
-	box-shadow: 0 0 5px gray;
-	margin-right: 15px;
+	padding: 16px;
+	box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	margin-right: 10px;
 }
 
 .icon-size {
@@ -77,11 +81,44 @@ a {
 	display: block;
 }
 
-.icon-cart .icon-mypage {
-	width: 20px;
-	height: 20px;
+.input-group-text{
+	background-color: #fff;
+}
+.input-group-text{
+	border:none;
 }
 
+.myPage{
+margin-right:50px; 
+}
+
+#autocomplete{
+height: 42px;
+}
+
+/* 로그인버튼 */
+.btn-primary{
+--bs-btn-bg:#2937f0;
+--bs-btn-border-color:#2937f0;
+}
+.btn:hover{
+background-color: #232fcc;
+}
+
+.card-header{
+background-color:white;
+}
+
+.menu-content2{
+margin-top: 14px;
+margin-bottom: 14px;
+padding-bottom: 14px;	
+}
+
+
+.loginIcon{
+padding-right: 0;
+}
 </style>
 
 
@@ -89,32 +126,37 @@ a {
 	<div class="wrapper">
 		<div class="header-wrapper">
 			<div class="row pt-4">
-				<div class="col-3">
-					<a href="${pageContext.request.contextPath}/book/main">
-					<img style="float: right;"
-						src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
-					</a>
-				</div>
-				<div class="col-sm-6">
-						<form id="submitForm" class="input-group">
-							<span class="input-group-text" id="basic-addon1" >도서검색</span> 
-							<input
-								type="text" class="form-control" placeholder="검색어 입력..."
-								id="autocomplete"
-								/>
-							<button class="btn btn-outline-secondary" type="submit"
-								id="button-search">
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
-				</div>
+        
+					<div class="col-1">
+						<a href="${pageContext.request.contextPath}/book/main">
+						<img style="float: right;"
+							src="${pageContext.request.contextPath}/content/logo.png" alt="로고사진" />
+						</a>
+					</div>
+					
+					<div class="col-sm-6">
+							<form id="submitForm" class="d-flex input-group w-auto">
+								<span class="input-group-text" id="basic-addon1" ></span> 
+						      <input
+						      	id="autocomplete"
+						        type="text"
+						        class="form-control rounded"
+						        placeholder="Search"
+						        aria-label="Search"
+						        aria-describedby="search-addon"
+						        onchange="changeFunc(event)"
+						        value=""
+						        name="b_keyword"
+						      />
+						      <button class="input-group-text border-0" id="button-search">
+						        <i class="fas fa-search"></i>
+						      </button>
+						    </form>
+					</div>
+
 				
 				
-				
-				
-				
-				
-					<div class="col-sm-3 d-flex justify-content-end">
+					<div class="col-sm-5 d-flex justify-content-end">
 					<!-- cart -->
 						<c:if test="${u_id != null}">
 							<span class="icons"> 
@@ -134,7 +176,6 @@ a {
 					<!-- mypage -->
 						<c:if test="${u_id != null}">
 							<span class="icons"> 
-
 								<a href="${myPage}" class="icon-size"> 
 
 									<i class="fa-solid fa-user fa-fw icon-mypage" title="마이 페이지"></i>			
@@ -153,11 +194,9 @@ a {
 				</div>
 				
 			
-
-			<div class="row mt-1 pt-2 pb-3">
-				<div class="col-2"></div>
-				<div class="col-6 main-menu">
-					<div class="row text-end">
+	<div class="row justify-content-evenly menu-content2">
+				<div class="col-5 main-menu">
+					<div class="row mt-1">
 						<div class="col">
 							<a href="${listAll}"><h6>전체도서</h6></a>
 						</div>
@@ -176,25 +215,30 @@ a {
 					</div>
 				</div>
 				
-				<div class="col-sm-3 d-flex justify-content-end">
+				
+		 		<div class="col-5 d-flex justify-content-end loginIcon "> 
+				
 					<div class="login-btn">
 					<c:if test="${u_id == null}">
-						<a href="${loginView}">로그인</a>
+						<a class="btn btn-primary btn-sm" href="${loginView}">로그인</a>
 					</c:if>
 					<c:if test="${u_id != null}">
-						<a href="${logOut}">로그아웃</a>
+						<a class="btn btn-primary btn-sm" href="${logOut}">로그아웃</a>
 					</c:if>
 					</div>
 					
 					<div class="register-btn">
 						<c:if test="${u_id == null}">
-							<a href="${signUp}">회원가입</a>
+							<a class="btn btn-primary btn-sm" href="${signUp}">회원가입</a>
 						</c:if>
 					</div>
+					
+
 				</div>
 			</div>
+			</div>
 		</div>
-	</div>
+
 
 	<script>
 		const ctx2 = "${pageContext.request.contextPath}";
@@ -203,6 +247,17 @@ a {
       	document.querySelector("#basic-addon1").addEventListener("click",()=>{
       		console.log("클릭되었습니다");
       	})
+      	
+      	let b_keyword;
+      	
+      	function changeFunc(event){
+      		console.log(event.target.value);
+      		console.log("change func");
+      		document.querySelector("#autocomplete").value=event.target.value;
+      	}
+      	
+      	
+      	document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/listKeyword?page=1`);
       	
    		$(function(){
    			$("#autocomplete").autocomplete({
@@ -230,8 +285,10 @@ a {
    				minLength:1,
    				select: function(event,ui){
    					bookCode = ui.item.value2;
-   					console.log("****",bookCode);
-   					document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
+   					console.log(ui.item.value);
+   					console.log(bookCode);
+   					location.assign(`${ctx}/book/detail/\${bookCode}`);
+   					//document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
    				},
    				focus: function(event,ui){
    					return false;

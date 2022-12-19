@@ -105,4 +105,9 @@ WHERE
 	VALUES (#{o_number}, #{u_id}, #{b_code}, #{od_count})
 </insert>
 
+<delete id="deleteOdBook">
+	DELETE FROM OrderDetail
+	WHERE b_code =#{b_code}
+</delete>
+
 </mapper>
