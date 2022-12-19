@@ -335,6 +335,18 @@ section.faq {
   display: inline;
   height: 50px;
 }
+
+#evtcol{
+	width: 510px;
+	height: 200px;
+}
+
+#eventImg {
+	border-radius: 8px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+} 
 </style>
 <body>
 	<my:headerBar></my:headerBar>
@@ -442,8 +454,8 @@ section.faq {
        <div id="event-section">
         <div class="container d-flex justify-content-center mb-5">
             <div class="row mt-3">
-                <div class="col"><img src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
-                <div class="col"><img src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
             </div>
         </div>
       </div>

@@ -102,7 +102,7 @@
                    		<tr>
                    			<td><a href="/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
                    			<td>${order.o_date }</td>
-                   			<td>${order.b_title }</td>
+                   			<td>${order.b_title } 등 ${order.o_count }권</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
                    			<td id="money" class="moneyIndex">${order.o_total}</td>

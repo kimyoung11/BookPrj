@@ -15,28 +15,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        *{
+         *{
             font-family: 'Noto Sans KR', sans-serif;
         }
+        
         #eventImg {
             border-radius: 8px;
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        } 
+        
         .main-img{
             border-radius: 8px; 
             width: 100%;
             height: 100%;
             object-fit: cover;
-            
         }
-        .col{
+          
+        #evtcol{
         width: 287px;
         height: 200px;
-        
         }
-        
+     
         #space {
         margin-top: 100px;
         }
@@ -51,7 +52,7 @@
           </div>
 
             <div class="row mt-5">
-                <div class="col">
+                <div id="evtcol" class="col">
                         <a href="">
                             <img class="main-img" src="${pageContext.request.contextPath}/content/event/event1.jpg" alt="상단1">
                         </a>
@@ -59,7 +60,7 @@
                         <div>&lt;10대는 진심&gt; 시리즈 출간 이벤트</div>
                 </div>
                 
-                <div class="col">
+                <div id="evtcol" class="col">
                         <a href="">
                             <img class="main-img" src="${pageContext.request.contextPath}/content/event/event2.jpg" alt="상단2">
                         </a>
@@ -69,7 +70,7 @@
             <div id="space"></div>
 
             <div class="row mt-5 ">
-            	<div class="col">
+            	<div id="evtcol" class="col">
 	                <a href="">
 	                    <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event3.png"  alt="">
 	                </a>
@@ -79,7 +80,7 @@
 	                </p>
 	            </div>
                 
-                <div class="col">
+                <div id="evtcol" class="col">
 	                <a href="">
 	                    <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event4.png" alt="">
 	                </a>
@@ -89,7 +90,7 @@
 	                </p>
                 </div>
 
-                <div class="col">
+                <div id="evtcol" class="col">
                     <a href="">
                         <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event5.png" alt="">
                     </a>
@@ -99,7 +100,7 @@
                     </p>
                 </div>
 
-                <div class="col">
+                <div id="evtcol" class="col">
                     <a href="">
                         <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event6.png" alt="">
                     </a>
@@ -111,7 +112,7 @@
             </div>
         	<div id="space"></div>
             <div class="row mt-5">
-                <div class="col">
+                <div id="evtcol" class="col">
                         <a href="">
                             <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event7.png" alt="">
                         </a>
@@ -122,7 +123,7 @@
                         
                 </div>
                 
-                <div class="col">
+                <div id="evtcol" class="col">
                         <a href="">
                             <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event8.png" alt="">
                         </a>
@@ -132,7 +133,7 @@
                         </p>
                 </div>
 
-                <div class="col">
+                <div id="evtcol" class="col">
                     <a href="">
                         <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event9.png" alt="">
                     </a>
@@ -142,7 +143,7 @@
                     </p>
                 </div>
 
-                <div class="col">
+                <div id="evtcol" class="col">
                     <a href="">
                         <img id="eventImg" src="${pageContext.request.contextPath}/content/event/event10.png" alt="">
                     </a>
