@@ -91,13 +91,27 @@
 	      justify-content: space-between;
       }
       
+	    #btn-button:hover{
+		color: white;
+		background-color: #4eac27;
+		border-color: #4eac27;
+		}
+
+		#btn-button{
+		background-color:white;
+		color:#4eac27;
+		border-color: #4eac27;
+		}
+	
+	
+	
     </style>
   </head>
 <body>
 	<my:headerBar></my:headerBar>
-    <div class="input-group" style="padding:30px">
+    <div class="input-group" style="padding:30px; margin-left: 130px;">
     <!-- checkBox-1 -->
-    <div class="container container-size"  style="background-color: rgb(224, 224, 224);">
+    <div class="container container-size"  style="background-color: white; border: 0.5px solid black">
     <div class="row">
         <div class="col-3">
             <h4>장르선택</h4>
@@ -226,7 +240,7 @@
                 <li>
 
                 <c:if test="${u_id !=null}">
-                  <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
+                  <a type="button" id="btn-button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
                   </a>      
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
@@ -239,7 +253,7 @@
                 
                 <c:if test="${u_id ==null }">
                 <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
-                	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+                	<a type="button" id="btn-button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
 	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
@@ -247,9 +261,10 @@
                   </a>
                 </c:if>
                 </li>
-                <hr />
+                
                 
               </ul>
+              <hr />
             </div>
 			</c:forEach>
           </div>
