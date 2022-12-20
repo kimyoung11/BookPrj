@@ -156,6 +156,7 @@ public class BookController {
 		List<ReviewDto> review = reviewService.getByBookCode(b_code);
 		double starAvg = bookService.getByReviewAvg(b_code);
 		double starAvg2 = Math.round(starAvg*10)/10.0;
+		System.out.println("staravg" + starAvg2);
 		int peopleCnt = bookService.getByPeopleCnt(b_code);
 //		System.out.println("this is temp:" + temp);
 		//System.out.println("this is review:" + review);
