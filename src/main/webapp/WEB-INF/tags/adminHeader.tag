@@ -19,7 +19,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">아무거나 컨텐츠</a>
+        <a class="nav-link active" aria-current="page" href="${ordermanage}">관리자 메인</a>
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             공지사항
           </a>
@@ -36,7 +36,24 @@
             <li><a class="dropdown-item" href="${registerBook }">책 등록</a></li>
             <li><a class="dropdown-item" href="${bookList }">책 목록</a></li>
           </ul>
+          <a type="button" class="nav-link active" id="btn-back-to-top" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">관리자 채팅</a>
       </div>
-    </div>
   </div>
 </nav>
+
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="${pageContext.request.contextPath}/book/chat" width="480" height="500" frameborder="0" allowtransparency="true"></iframe> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+  </div>
+</div>
+    </div>

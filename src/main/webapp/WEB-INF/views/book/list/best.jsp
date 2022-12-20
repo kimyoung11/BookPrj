@@ -103,6 +103,9 @@
 		border-color: #4eac27;
 		}
 	
+		.pagination{
+		--bs-pagination-color: #4eac27;
+		}
 	
 	
     </style>
@@ -111,7 +114,7 @@
 	<my:headerBar></my:headerBar>
 
  <!-- Pagination -->
-          <div class="row justify-content-end" style="margin-top: 160px">
+          <div class="row justify-content-center" style="margin-top: 160px">
             <div class="col-3">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
@@ -151,12 +154,10 @@
               			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
-                <li class="likeco"><div style="font-size: 22px">${item.b_title }</div><div><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
-                <li>${item.b_writer } <span>${item.b_pubDate }</span></li>
-                <li style="font-size: 18px">${item.b_price }</li>
-                <li style="margin-bottom: 20px">
-                  RABBITJUMP더높은도약을준비하는검은토끼의해세계화의종말,갈등과분열,그리고전쟁.수십년간이어져온평화와공존의
-                  시대는막을내리고엄청난위기감속에서사람들은다가올미래를두려워한다.자산시장및증시의버블붕괴는마
+                <li class="likeco"><div style="font-size: 22px; font-weight: 500;">${item.b_title }</div><div><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
+                <li class="mt-3" style="float: right">${item.b_writer } <span>${item.b_pubDate }</span></li>
+                <li style="font-size: 18px" class="item-price mt-5">${item.b_price }</li>
+                <li style="margin-bottom:20px">
                 </li>
                 <li>
 
@@ -167,7 +168,7 @@
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
                   	<c:param name="c_cnt" value="1"/>
                   </c:url>
-                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}">
+                   <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}" id="btn-button2">
                     구매하기
                   </a>         
                 </c:if>
@@ -177,7 +178,7 @@
                 	<a type="button" id="btn-button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
-	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
+	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}" id="btn-button2">
                     구매하기
                   </a>
                 </c:if>
@@ -189,6 +190,8 @@
             </div>
 			</c:forEach>
           </div>
+               
+          <my:footer></my:footer>
                
           
           
@@ -316,7 +319,10 @@
     	;
     }
     
-
+    let itemPrice = document.querySelectorAll(".item-price");
+    for(let i=0;i<itemPrice.length;i++){
+		itemPrice[i].innerText = Number(itemPrice[i].innerText).toLocaleString() + " 원";	
+	}
 
     </script>
 </body>
