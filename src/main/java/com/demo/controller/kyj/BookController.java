@@ -291,5 +291,17 @@ public class BookController {
 	private String chat(Locale locale,Model model) {
 		return "chat";
 	}
+	
+	@GetMapping("list/best")
+	public String listBest(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.getByLike();
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/best";
+	}
 
 }
