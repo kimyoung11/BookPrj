@@ -79,14 +79,15 @@ public class CustomerController {
 		int cnt = questService.questInsert(question, files);
 		
 		
-		if (cnt == 1) {
-			rttr.addFlashAttribute("message", "새 게시물이 등록되었습니다.");
-		} else {
-			rttr.addFlashAttribute("message", "새 게시물이 등록되지 않았습니다.");
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 				
-		// /board/list로 redirect
+		System.out.println(cnt);
 		return "redirect:/customer/question";
+
 		
 	}
 

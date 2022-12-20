@@ -57,4 +57,9 @@ public interface BookMapper {
 
 	public int deleteBookImg(int b_code);
 
+	public double selectByReviewAvg(int b_code);
+
+	public int selectByPeopleCnt(int b_code);
+
+
 }
