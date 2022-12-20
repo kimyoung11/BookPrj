@@ -32,13 +32,15 @@
 
 	<div class="container-md">
 		<div class="row">
-			<div class="col mt-5">
+			<div class="col content1">
 
+				
 				<div style="text-align: center;" class="mb-5">
 					<h1 style="font-size: 34px;">문의를 작성해주세요.</h1>
 				</div>
 
-				<hr class="line" style="border: solid 1px #000;">
+				<hr>
+
 
 				<!-- selected -->
 				<div class="container-sm">
@@ -81,9 +83,9 @@
 						<!-- 유저아이디 넘겨줌 -->						
 						<input type="hidden" id="getUserId" name="u_id" value="<%=(String)session.getAttribute("id")%>">
 
-
+				</div>
 						<hr>
-						<div style="text-align: center; margin-top: 30px;">
+						<div class="questBtn">
 							<!-- 문의 등록 버튼 -->
 								<a type="button" id="submitButton1" class="btn btn-secondary btn-qusetion">문의 등록</a>
 
@@ -92,13 +94,13 @@
 								내 문의 보기</button>
 						</div>
 					</form>
-				</div>
+
 					
 			<%-- 메시지 토스트 --%>
 			<div id="MessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
 			  <div class="d-flex">
 			    <div id="questionMessage" class="toast-body">
-			    게시물이 등록되었습니다.
+			     등록되었습니다.
 			    </div>
 			    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 			  </div>
@@ -145,6 +147,11 @@ const UserId = document.querySelector("#getUserId").value;
 					&& contentValue.trim() != "" ) {
 				
 				document.querySelector("#registerForm1").submit();
+				
+				/* 등록 토스트 */
+				const toast = new bootstrap.Toast(document.querySelector("#MessageToast"));
+				console.log(document.querySelector("#MessageToast").innerText);
+				toast.show();
 
 
 			} else {
@@ -159,12 +166,11 @@ const UserId = document.querySelector("#getUserId").value;
 			};
 	});
 
-	/* 등록 토스트 */
-	const toast = new bootstrap.Toast(document.querySelector("#MessageToast"));
-	
-	toast.show();
 
 	
+
+
+
 	
 	
 	/* 내 문의 보기 */

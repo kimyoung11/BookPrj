@@ -98,15 +98,17 @@ height: 42px;
 
 /* 로그인버튼 */
 .btn-primary{
---bs-btn-bg:#2937f0;
---bs-btn-border-color:#2937f0;
+--bs-btn-bg:#4eac27;
+--bs-btn-border-color:#4eac27;
 }
 .btn:hover{
-background-color: #232fcc;
+background-color: #489f23;
+border-color:#489f23;
 }
 
 .card-header{
 background-color:white;
+
 }
 
 .menu-content2{
@@ -118,6 +120,10 @@ padding-bottom: 14px;
 
 .loginIcon{
 padding-right: 0;
+}
+
+a:hover{
+color:#4eac27;
 }
 </style>
 

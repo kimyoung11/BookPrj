@@ -369,11 +369,11 @@ width:1200px;
 }
 
 .new-section-wrapper{
-	background-color: #f4f7ff;
+	background-color: #f5faf3;
 }
 
 #bestQuestion{
-	background-color: #f4f7ff;
+	background-color: #f5faf3;
 }
 
 .question-head{

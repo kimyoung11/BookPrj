@@ -110,7 +110,7 @@ section.faq {
 	margin: 0;
 	padding-bottom: 4px;
 	padding-top: 18px;
-	background: rgb(233, 237, 245);
+	background: #f5faf3;
 	box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.1);
 	-webkit-tap-highlight-color: transparent;
 }
@@ -174,4 +174,10 @@ section.faq {
 
 #faq ul li input[type="checkbox"]:checked ~i:after {
 	transform: translate(-2px, 0) rotate(-45deg);
+}
+
+.headTitle {
+	font-size :32px;
+	font-weight:450;
+	
 }

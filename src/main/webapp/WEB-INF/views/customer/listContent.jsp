@@ -55,7 +55,7 @@
 	        </div>
 	        <hr>
 	        <div class="view_body">
-	            	<p>${noticeContent.n_content }</p>
+	            	<p style=" white-space: pre;">${noticeContent.n_content }</p>
 	        </div>
 
         <hr>
