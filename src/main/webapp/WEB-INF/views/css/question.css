@@ -43,3 +43,16 @@ margin-bottom: 20px;}
 #submitButton1{
 	margin-right: 5px;
 }
+.questBtn{
+	text-align: center; 
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.btn-secondary{
+	--bs-btn-bg:#4eac27;
+	--bs-btn-border-color:#4eac27;
+}
+.content1{
+	padding-top:40px;
+	
+}

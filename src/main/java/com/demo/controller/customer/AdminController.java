@@ -114,6 +114,7 @@ public class AdminController {
 		
 		int cnt = questService.removeQuest(q_number);
 		
+		
 		if(cnt == 1) {
 			rttr.addFlashAttribute("message", "게시물이 삭제되었습니다.");
 		}else {
@@ -153,9 +154,11 @@ public class AdminController {
 	@ResponseBody
 	public Map<String, Object> removeAnswer(@PathVariable int a_id) {
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("1");
 		
 		int cnt = questService.removeById(a_id);
+		
+		System.out.println(cnt);
+		
 		if (cnt == 1) {
 			map.put("message", "댓글이 삭제되었습니다.");
 		} else {
@@ -233,7 +236,6 @@ public class AdminController {
 	 public String modifyBookDto(BookDto bookDto) {
 		 System.out.println(bookDto);
 		 int cnt = bookService.modifyBook(bookDto);
-		 System.out.println(cnt);
 		 return "redirect:/admin/bookList";
 	 }
 	 

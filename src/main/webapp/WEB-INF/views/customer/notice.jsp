@@ -52,6 +52,10 @@ a {
 .point {
 	cursor: pointer;
 }
+.active>.page-link, .page-link.active{
+background-color: #4eac27;
+border-color:#4eac27;
+}
 
 
 </style>
@@ -61,7 +65,7 @@ a {
 	<my:subMenu active="notice"></my:subMenu>
 
 	<div id="align-center" class="container">
-		<div style="text-align: center; margin-top: 30px;" class="mb-5">
+		<div style="text-align: center; margin-top: 40px;" class="mb-5">
 			<h1 style="font-size: 34px">공지사항</h1>
 		</div>
 
