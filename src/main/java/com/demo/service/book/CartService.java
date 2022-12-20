@@ -24,6 +24,10 @@ public class CartService {
 		return cartMapper.insert(c_count,u_id,b_code);
 	}
 
+	public int removeBook(int b_code) {
+		return cartMapper.deleteBook(b_code);
+	}
+
 
 
 

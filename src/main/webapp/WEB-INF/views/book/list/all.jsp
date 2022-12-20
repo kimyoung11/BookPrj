@@ -85,15 +85,33 @@
           margin-left: 200px;
           border-radius: 6px;
       }
-       
       
+      .likeco{
+	      display: flex;
+	      justify-content: space-between;
+      }
+      
+	    #btn-button:hover{
+		color: white;
+		background-color: #4eac27;
+		border-color: #4eac27;
+		}
+
+		#btn-button{
+		background-color:white;
+		color:#4eac27;
+		border-color: #4eac27;
+		}
+	
+	
+	
     </style>
   </head>
 <body>
 	<my:headerBar></my:headerBar>
-    <div class="input-group" style="padding:30px">
+    <div class="input-group" style="padding:30px; margin-left: 130px;">
     <!-- checkBox-1 -->
-    <div class="container container-size"  style="background-color: rgb(224, 224, 224);">
+    <div class="container container-size"  style="background-color: white; border: 0.5px solid black">
     <div class="row">
         <div class="col-3">
             <h4>장르선택</h4>
@@ -212,7 +230,7 @@
               			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
-                <li style="font-size: 22px">${item.b_title }</li>
+                <li class="likeco"><div style="font-size: 22px">${item.b_title }</div><div><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
                 <li>${item.b_writer } <span>${item.b_pubDate }</span></li>
                 <li style="font-size: 18px">${item.b_price }</li>
                 <li style="margin-bottom: 20px">
@@ -220,10 +238,9 @@
                   시대는막을내리고엄청난위기감속에서사람들은다가올미래를두려워한다.자산시장및증시의버블붕괴는마
                 </li>
                 <li>
-                ${item.b_code }
 
                 <c:if test="${u_id !=null}">
-                  <a type="button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
+                  <a type="button" id="btn-button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
                   </a>      
                   <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
@@ -236,7 +253,7 @@
                 
                 <c:if test="${u_id ==null }">
                 <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
-                	<a type="button" class="btn btn-secondary cart-btn want" href="${loginLink }">
+                	<a type="button" id="btn-button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
 	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}">
@@ -244,9 +261,10 @@
                   </a>
                 </c:if>
                 </li>
-                <hr />
+                
                 
               </ul>
+              <hr />
             </div>
 			</c:forEach>
           </div>

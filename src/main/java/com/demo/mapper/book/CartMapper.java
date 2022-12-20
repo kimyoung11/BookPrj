@@ -13,5 +13,7 @@ public interface CartMapper {
 
 	public int insert(int c_count, String u_id, int b_code);
 
+	public int deleteBook(int b_code);
+
 
 }

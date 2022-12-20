@@ -34,4 +34,9 @@
   		WHERE b_code =#{b_code};
   	</select>
   	
+  	<delete id="deleteBook">
+  		DELETE FROM Review
+  		WHERE b_code = #{b_code};
+  	</delete>
+  	
   </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
@@ -77,7 +78,9 @@
         .content{
             width: 1100px;
             margin: 0 auto;
-            margin-top: 30px;}
+            margin-top: 30px;
+        }
+        
     </style>
 </head>
 
@@ -101,7 +104,7 @@
             	<c:if test="${fromCart}">
             	<c:forEach items="${toOrderlist }" var="cart"  varStatus="sts">
                 <tr>
-                    <td><a href=""><img class="product_img" src="${cart.b_img }" alt="제품 사진"></a></td>
+                    <td><a href=""><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></a></td>
                     <td class="align-middle">${cart.b_title }</td>
                     <td id="countPlus" class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>

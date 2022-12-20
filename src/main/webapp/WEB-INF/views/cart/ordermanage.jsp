@@ -32,7 +32,7 @@
         #hr_line {
             height: 3px;
             padding: 0;
-            background-color: green;
+            background-color: #4EAC27;
             color: green;
             opacity: 1;
         }
@@ -42,32 +42,60 @@
         }
         
         select {
-        width: 100px;
-        border-radius: 5px;
-        border-width: 1px;
-        height: 40px;
-        margin: 0;
-        padding: 0;
+	        width: 100px;
+	        border-radius: 5px;
+	        border-width: 1px;
+	        height: 40px;
+	        margin: 0;
+        	padding: 0;
         }
         
         #selectButton{
-        width: 50px;
-        border-radius: 5px;
-        border: 0.5px;
-        height: 40px;
-        margin: 0;
-        padding: 0;
-        color: white;
-        background-color: #0d6efd;
+	        width: 50px;
+	        border-radius: 5px;
+	        border: 0.5px;
+	        height: 40px;
+	        margin: 0;
+	        padding: 0;
+	        color: white;
+	        background-color: #4EAC27;
         }
+        
+        .trcolor{
+       		background-color: #F5FAF3;
+        }
+        
+        #tit:hover {
+			color: #4EAC27;
+		}
+		
+		#odbtn:hover {
+			color: #4EAC27;
+		}
+		
+		#fabtn{
+			background-color: #EEEEEE;
+		}
+		
+		.faicon{
+			color: black;
+			background-color: #EEEEEE;
+		}
+		
+		.page-item.active .faicon{
+			background-color: #FFFFFF;
+			color: #000000;
+			border-color: #EEEEEE;
+		}
+        
+        
     </style>
 </head>
 <body>
 	<my:adminHeader></my:adminHeader>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/ordermanage"><h2>주문관리</h2></a>
-        <hr id="hr_line">
+        <a href="/cart/ordermanage"><h2 id="tit">주문관리</h2></a>
         <div style= "vertical-align: middle; text-align: right">
             <form action="${orderList }">
             
@@ -85,7 +113,7 @@
         </div>
         <table class="table">
             <thead>
-                <tr class ="table-info">
+                <tr class ="trcolor">
                     <th>주문번호</th>
                     <th>주문일</th>
                     <th>상품명</th>
@@ -100,9 +128,9 @@
                 <tr>
                    <c:forEach items="${orders }" var="order" varStatus="sts">
                    		<tr>
-                   			<td><a href="/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
+                   			<td><a id="odbtn" href="/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
                    			<td>${order.o_date }</td>
-                   			<td>${order.b_title }</td>
+                   			<td>${order.b_title } 등 ${order.o_count }권</td>
                    			<td>${order.u_name}</td>
                    			<td>${order.o_count}</td>
                    			<td id="money" class="moneyIndex">${order.o_total}</td>
@@ -157,9 +185,9 @@
     <nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	  	
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
 		
-	 	<li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left"></i></a></li>	
+	 	<li class="page-item"><a id="fabtn"class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
 	  
 	 	
 	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
@@ -170,10 +198,10 @@
 	    <li class="page-item
 	    	<%-- 현재 페이지에 active 클래스 추가 --%>
 	    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
-	    "><a class="page-link" href="${pageLink }">${pageNumber }</a></li>
+	    "><a class="page-link faicon"  href="${pageLink }">${pageNumber }</a></li>
 	    </c:forEach>
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right"></i></a></li>
-	    <li class="page-item"><a class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right faicon"></i></a></li>
 	
 	  </ul>
 	</nav>

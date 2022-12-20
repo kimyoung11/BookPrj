@@ -34,6 +34,11 @@
 			<!-- 마이페이지 nav/tab -->
 		   <div class="navbar">
 		      <ul>
+		         <li class="navli">
+		           <a href="#" id="QuestListButton1">
+		           나의 문의
+		           </a>
+		         </li>
 		        <li class="active navli">
 		           <a href="#" id="OrderListButton1">
 		            나의 쇼핑
@@ -52,11 +57,6 @@
 		          </a>
 		        </li>
 		        
-		         <li class="navli">
-		           <a href="#" id="QuestListButton1">
-		           나의 문의
-		           </a>
-		         </li>
 		       </ul>                        
 		        <div class="line">
 		           <div class="indicator"></div>
@@ -77,7 +77,7 @@
 		                        </button>
 		                    </div>
 					        <div class="image">
-					        	<img src="${pageContext.request.contextPath}/content/profile1.jpg" alt="로고사진" class="profile-img" />
+					        	<img src="${pageContext.request.contextPath}/content/person.png" alt="로고사진" class="profile-img" />
 					        </div>
 					        <div class="text-data">
 					            <span class="name">${user.u_id }
@@ -102,7 +102,7 @@
 			                        <div class="data">
 			                            <i class="fa-solid fa-ticket"></i>
 			                            <span class="iconName">쿠폰</span>
-			                            <span class="number">2</span>
+			                            <span class="number">0</span>
 						            </div>
 						        </div>
 					        </div>
@@ -292,6 +292,7 @@
 												</div>										
 											</div>									
 										</div>
+										
 										<div class="mb-2 row mt-2">
 											<label for="inputPhone" class="col-3 col-form-label">전화번호</label>
 											<div class="col-sm-5">
@@ -304,6 +305,12 @@
 											   <input type="text" class="form-control" id="userAddress"name="u_address" />
 											</div>
 										</div>
+										<!-- <div class="mb-2 row mt-2">
+											<label for="inputPhoto" class="col-3 col-form-label">프로필 사진</label>
+											<div class="col-sm-5">
+												<input type="file" accept="image/*" class="form-control" id="userPhoto"name="u_photo" />
+											</div>
+										</div> -->
 									</div>
 								<hr />
 							</div>
@@ -316,6 +323,49 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<!-- 문의 보기 모달 -->
+				<div class="modal fade questModal" id="questModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">1:1문의답변</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="container">
+						
+								<div class="row justify-content-between">
+									<div class="col-4" id= "questTitle">
+									</div>
+									<div class="col-4" id= "questDate">
+										
+									</div>
+								</div>
+								<hr>
+								<div class="view_body" id= "questContent">
+									
+								</div>
+						
+								<hr>
+						
+								
+								<%-- 이미지 출력 --%>
+										<div id= "questFile">													
+										</div>
+																
+								<!-- 1:1 문의 답변보기 -->
+								<div class="row">
+							  			<div class="col form-floating mb-3">
+											<div id="questAnswer">							
+											</div>
+										</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
 			</div>
 	</main>	
 </div>	
@@ -394,7 +444,7 @@ const orderTable =
 	                <tr>
 	                    <th>주문번호</th>
 	                    <th>주문일자</th>
-	                    <th style="width: 500px;">상품정보</th>
+	                    <th style="width: 500px;">상품정보(주문상세)</th>
 	                    <th>구매금액</th>
 	                    <th>주문처리상태</th>
 	                </tr>
@@ -447,19 +497,13 @@ const makeReviewArea = `
 	   	        </thead>
 	   	        <tbody id="makeReviewTableBody">   	            
 	   	        </tbody>`;
+	   	        
 const makeReviewTitle = `<h1 class="tit">작성 가능한 리뷰</h1>`;	   	    
-// 내 문의 리스트 테이블 헤더
-const questTableHead = 
-	`<tr>
-		<th scope="col">문의 제목</th>
-		<th scope="col">문의 내용</th>
-		<th scope="col">작성일</th>
-	</tr>`;
 
 // ↓↓↓↓↓↓↓ 마이 페이지 각종 리스트 비동기 실행 함수들 ↓↓↓↓↓↓↓↓
 	
 // 페이지 실행시 주문리스트 바로 출력
-orderList();
+//orderList();
 
 //리뷰 crud 메세지 toast
 const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
@@ -467,7 +511,7 @@ const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
 // 주문 배송 페이지 나오기
 function orderList(){
 	
-	document.getElementById("OrderListButton1").style.color ="#4070f4";
+	document.getElementById("OrderListButton1").style.color ="#4eac27";
     document.getElementById("LikeListButton1").style.color ="black";
     document.getElementById("ReviewListButton1").style.color ="black";
     document.getElementById("QuestListButton1").style.color ="black";
@@ -485,11 +529,11 @@ function orderList(){
 		if(orderList != 0){			
 			for (const order of orderList) {
 					const orderTableBody = 
-						`<tr>
+						`<tr > 
 							<td>\${order.o_number}</td>
-							<td>\${order.o_date }</td>
-							<td>\${order.b_code } 등 \${order.o_count }권</td>
-							<td>\${order.o_total }원</td>
+							<td>\${order.o_date}</td>
+							<td style="cursor:pointer;" id="orDetailPage" onclick="location.href='\${ctx}/cart/orderdetail?o_number=\${order.o_number}'">\${order.b_title} 등 \${order.o_count}권</td>
+							<td>\${(order.o_total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
 							<td>\${order.o_status}</td>
 						 </tr>
 						`;
@@ -508,7 +552,7 @@ document.querySelector("#OrderListButton1").addEventListener("click", function()
 // 좋아요 페이지 나오기
 document.querySelector("#LikeListButton1").addEventListener("click", function(){
 	
-	this.style.color ="#4070f4";
+	this.style.color ="#4eac27";
     document.getElementById("OrderListButton1").style.color ="black";
     document.getElementById("ReviewListButton1").style.color ="black";
     document.getElementById("QuestListButton1").style.color ="black";
@@ -523,15 +567,15 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 			for (const b_like of bookLikeList) {
 				const b_likeContent = 
 					` <li class="prd-row" >
-	                	<a href="" class="img-block">
-	                    	<img src="\${ctx}/content/book1.jpg" >
+						<a href="\${ctx}/book/detail/\${b_like.b_code}" class="img-block">
+						<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${b_like.b_code }/\${b_like.b_img}" >
 		                </a>
 		                <ul class="info">
 		                    <li class="genre">\${b_like.b_genre}</li>
 		                    <li class="title">\${b_like.b_title}
 		                        <a href=""></a>
 		                    </li>
-		                    <li class="price">\${b_like.b_price}원</li>
+		                    <li class="price">\${(b_like.b_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</li>
 		                    <li class="like">♥\${b_like.b_like}</li>
 		                </ul>
 		              </li>`;
@@ -543,14 +587,18 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 		
 	});
 })
-
+var oneStar = `★`; 
+var twoStar = `★★`; 
+var threeStar = `★★★`; 
+var fourStar = `★★★★`; 
+var fiveStar = `★★★★★`;
 const reviewButtonGroup = `<div class=" rvbtn_group" id="reviewButtonGroup"></div>`;
 // 작성한 리뷰 나오는 함수
 function myReview(){
 	
 	document.getElementById("OrderListButton1").style.color ="black";
     document.getElementById("LikeListButton1").style.color ="black";
-    document.getElementById("ReviewListButton1").style.color ="#4070f4";
+    document.getElementById("ReviewListButton1").style.color ="#4eac27";
     document.getElementById("QuestListButton1").style.color ="black";
 	
 	
@@ -575,9 +623,20 @@ function myReview(){
 			`;
 		document.querySelector("#reviewButtonGroup").insertAdjacentHTML("beforeend", reviewButtonDiv);
 		
-		
 		if(reviewList != 0){
 			for(review of reviewList) {
+				var r_star = ``;
+				if(`\${review.r_star}` == 5){
+					r_star = fiveStar;
+				} else if(`\${review.r_star}` == 4){
+					r_star = fourStar;
+				} else if(`\${review.r_star}` == 3){
+					r_star = threeStar;
+				} else if(`\${review.r_star}` == 2){
+					r_star = twoStar;
+				} else if(`\${review.r_star}` == 1){
+					r_star = oneStar;
+				}
 				const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
 				const reviewRemoveButtonId = `reviewRemoveButton\${review.r_id}`;
 				const reviewTableBody = 
@@ -585,15 +644,15 @@ function myReview(){
 					<tr>
 		                <td>
 		                    <div class="prd-row">
-		                        <a href="" class="img-block">
-		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                    	<a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
+		                       	 <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
 		                        </a>
 		                        <ul class="info">
 		                            <li class="genre">\${review.b_genre}</li>
 		                            <li class="title">\${review.b_title}
 		                                <a href=""></a>
 		                            </li>
-		                            <li class="star">★★★★★</li>
+		                            <li class="star">\${r_star}</li>
 		                        </ul>
 		                    </div>
 		                </td>
@@ -619,7 +678,7 @@ function myReview(){
 				document.querySelector("#" + reviewRemoveButtonId).addEventListener("click", function(){
 					document.querySelector("#reviewRemoveButton").setAttribute("data-review-id", this.dataset.reviewId);
 				})
-				document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+				document.getElementById("myReviewBtn").style.backgroundColor ="#4eac27";
 			    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 			    document.getElementById("myReviewBtn").style.color ="white";
 			    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
@@ -627,7 +686,7 @@ function myReview(){
 			
 		} else {
 			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
-			document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+			document.getElementById("myReviewBtn").style.backgroundColor ="#4eac27";
 		    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 		    document.getElementById("myReviewBtn").style.color ="white";
 		    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
@@ -643,6 +702,18 @@ function myReview(){
 			document.querySelector("#wrapReviewArea").insertAdjacentHTML("beforeend", reviewArea);
 			if(reviewList != 0){
 				for(review of reviewList) {
+					var r_star = ``;
+					if(`\${review.r_star}` == 5){
+						r_star = fiveStar;
+					} else if(`\${review.r_star}` == 4){
+						r_star = fourStar;
+					} else if(`\${review.r_star}` == 3){
+						r_star = threeStar;
+					} else if(`\${review.r_star}` == 2){
+						r_star = twoStar;
+					} else if(`\${review.r_star}` == 1){
+						r_star = oneStar;
+					}
 					const reviewModifyButtonId = `reviewModifyButton\${review.r_id}`;
 					const reviewRemoveButtonId = `reviewRemoveButton\${review.r_id}`;
 					const reviewTableBody = 
@@ -650,15 +721,15 @@ function myReview(){
 						<tr>
 		                <td>
 		                    <div class="prd-row">
-		                        <a href="" class="img-block">
-		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                    	<a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
+		                    	<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
 		                        </a>
 		                        <ul class="info">
 		                            <li class="genre">\${review.b_genre}</li>
 		                            <li class="title">\${review.b_title}
 		                                <a href=""></a>
 		                            </li>
-		                            <li class="star">★★★★★</li>
+		                            <li class="star">\${r_star}</li>
 		                        </ul>
 		                    </div>
 		                </td>
@@ -691,7 +762,7 @@ function myReview(){
 			}
 			
 			
-			document.getElementById("myReviewBtn").style.backgroundColor ="#4070f4";
+			document.getElementById("myReviewBtn").style.backgroundColor ="#4eac27";
 		    document.getElementById("makeReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 		    document.getElementById("myReviewBtn").style.color ="white";
 		    document.getElementById("makeReviewBtn").style.color ="rgb(211, 211, 211)";
@@ -700,7 +771,7 @@ function myReview(){
 		// 작성 가능한 리뷰 목록 클릭
 		document.querySelector("#makeReviewBtn").addEventListener("click", function(){
 			makeReviewList();
-			document.getElementById("makeReviewBtn").style.backgroundColor ="#4070f4";
+			document.getElementById("makeReviewBtn").style.backgroundColor ="#4eac27";
 		    document.getElementById("myReviewBtn").style.backgroundColor ="rgba(0,0,0,0)";
 		    document.getElementById("makeReviewBtn").style.color ="white";
 		    document.getElementById("myReviewBtn").style.color ="rgb(211, 211, 211)";
@@ -742,15 +813,14 @@ function makeReviewList(){
 					<tr>
 		                <td>
 		                    <div class="prd-row">
-		                        <a href="" class="img-block">
-		                       	 <img src="\${ctx}/content/book1.jpg" >
+		                        <a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
+		                        <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
 		                        </a>
 		                        <ul class="info">
 		                            <li class="genre">\${review.b_genre}</li>
 		                            <li class="title">\${review.b_title}
 		                                <a href=""></a>
 		                            </li>
-		                            <li class="star">★★★★★</li>
 		                        </ul>
 		                    </div>
 		                </td>
@@ -844,7 +914,7 @@ const myQuestSection = `
 	<header class="section-title">
 	    <h1 class="tit">나의 문의</h1>
 	    <div class="quest-btn-div">
-	        <button class="quest-btn">문의 작성하기</button>
+	        <button onclick="location.href='\${ctx}/customer/question'" class="quest-btn">문의 작성하기</button>
 	    </div>	        
 	</header>
 	<table class="n-table table-col my-quest" id="wrapQuestArea">
@@ -852,7 +922,7 @@ const myQuestSection = `
 	        <tr>
 	            <th scope="col">문의 유형</th>
 	            <th scope="col">제목</th>
-	            <th scope="col">내용</th>
+	            <th scope="col">처리상태</th>
 	            <th scope="col">작성일</th>
 	        </tr>
 	    </thead>
@@ -865,11 +935,13 @@ const myQuestSection = `
 
 // 문의 리스트 나오기
 document.querySelector("#QuestListButton1").addEventListener("click", function(){
-	
+	myQuestion();
+});
+function myQuestion(){
 	document.getElementById("OrderListButton1").style.color ="black";
     document.getElementById("LikeListButton1").style.color ="black";
     document.getElementById("ReviewListButton1").style.color ="black";
-    document.getElementById("QuestListButton1").style.color ="#4070f4";
+    document.getElementById("QuestListButton1").style.color ="#4eac27";
 	
 	const u_id = document.querySelector("#u_id").value;
 	fetch(`\${ctx}/user/questList/\${u_id}`)
@@ -881,12 +953,23 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 		
 		if(questList != 0){
 			for (const quest of questList) {
+				const questReadButtonId = `questButton\${quest.q_number}`;
+				var questAnsBtn = ``;
+				if(`\${quest.a_content}` != `null`){
+					questAnsBtn = `	답변완료 <br>								
+									<button onclick="window.open('\${ctx}/user/userAnswer?q_number=\${quest.q_number}','top=100px','left=100px','height=800px','width=1200px','menubar=no','toolbar=no','location=no','status=no','scrollbar=no')" id="\${questReadButtonId}" 
+									class="quest-btn" style = "border-radius: 5px; border-color: whitesmoke; margin-top: 3px;">답변 확인</button>`;
+				} else {
+					questAnsBtn = `답변 대기중`;
+				}
 				const questTableBody = 
 					`
 					<tr>
 			            <td>\${quest.q_option}</td>
-			            <td>\${quest.q_title}</td>
-			            <td>\${quest.q_content}</td>
+			            <td>\${quest.q_title}</a></td>
+			            <td>
+				            \${questAnsBtn}
+			            </td>
 			            <td>\${quest.q_date}</td>
 			        </tr>
 					`;
@@ -896,7 +979,38 @@ document.querySelector("#QuestListButton1").addEventListener("click", function()
 			document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
 		}
 	});
-})
+};
+
+/* //문의 확인 모달에 데이터 들어간다
+function readQuestModal(q_number){
+	fetch(`\${ctx}/user/getQuest/\${q_number}`)
+	.then(res => res.json())
+	.then(quest => {
+		const questTitle = `<p>제목: \${quest.q_title}</p>`;
+		const questDate = `<span>작성일: \${quest.q_date}</span>`;
+		const questContent = `<p>내용: \${quest.q_content }</p>`;
+		const questFile = `		
+						<div>
+							<img class="img-fluid img-thumbnail" style="width:50px height:100px" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/question/\${quest.q_number}/\${quest.f_name}" alt="">
+						</div>
+							 `;
+		const questAnswer = `
+							<label for="floatingPlaintextInput">답변</label>
+							<p>\${quest.a_content}</p>
+			  					<small><p class="mb-0">\${quest.a_date}
+			  				</p></small>`;
+		document.querySelector("#questTitle").innerHTML = "";
+		document.querySelector("#questTitle").insertAdjacentHTML("beforeend", questTitle);
+		document.querySelector("#questDate").innerHTML = "";
+		document.querySelector("#questDate").insertAdjacentHTML("beforeend", questDate);
+		document.querySelector("#questContent").innerHTML = "";
+		document.querySelector("#questContent").insertAdjacentHTML("beforeend", questContent);
+		document.querySelector("#questFile").innerHTML = "";
+		document.querySelector("#questFile").insertAdjacentHTML("beforeend", questFile);
+		document.querySelector("#questAnswer").innerHTML = "";
+		document.querySelector("#questAnswer").insertAdjacentHTML("beforeend", questAnswer);
+	})	
+} */
 
 //리뷰 수정 모달에 데이터 들어간다
 function readReviewAndSetModalForm(r_id){
@@ -1050,6 +1164,7 @@ document.querySelector("#emailCheckSwitch").addEventListener("change",function()
 		emailInput1.setAttribute("readonly","");		
 	}
 })
+myQuestion();
 // 모달 내용 초기화
 $("#makeReviewModal").on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();

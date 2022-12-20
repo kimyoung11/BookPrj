@@ -30,6 +30,46 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.front-stars, .back-stars, .star-rating {
+  display: flex;
+}
+
+.star-rating {
+  align-items: center;
+  font-size: 3em;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.back-stars {
+  color:lightgrey;
+  position: relative;
+  text-shadow: 4px 4px 10px #843a3a;
+}
+
+.front-stars {
+  color:rgb(250 208 0 / 99%);
+  overflow: hidden;
+  position: absolute;
+  text-shadow: 2px 2px 5px #d29b09;
+  top: 0;
+  transition: all 0.5s;
+}
+
+.percent {
+  color:rgb(250 208 0 / 99%);
+  font-size: 1.5em;
+}
+#btn-button:hover{
+	color: white;
+	background-color: #4eac27;
+	border-color: #4eac27;
+}
+
+#btn-button{
+	color:#4eac27;
+	border-color: #4eac27;
+}
 
 </style>
 <body>
@@ -40,18 +80,18 @@
 		<div class="book-info">
 			<div class="row">
 				<div class="col-4">
-					<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" class="mt-2">
+					<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" class="mt-2" style="height: 480px; width: 320px;">
 				</div>
 				<div class="col-8 mt-3">
 					<div class="row">
-						<h4 class="mb-3 col">${book.b_title }</h4>
+						<h3 class="mb-5 col">${book.b_title }</h3>
 						<c:if test="${u_id!=null }">
 							<div class="col-1 likeIcon">
 								<c:if test="${likeStatus }">
-									<i class="fa-solid fa-heart fa-xl"></i>
+									<i class="fa-solid fa-heart fa-xl"  style="color:#4eac27"></i>
 								</c:if>
 								<c:if test="${!likeStatus }">
-									<i class="fa-regular fa-heart fa-xl"></i>
+									<i class="fa-regular fa-heart fa-xl" style="color:#4eac27"></i>
 								</c:if>
 							</div>
 						</c:if>
@@ -66,18 +106,20 @@
 							</div>
 						</c:if>
 
-						${likeCount } ${bookCnt } <span id="likeContainer">
-							${book.b_like } </span>
+						<span id="likeContainer">
+							</span>
 					</div>
-					<div class="mb-3">회원가</div>
-					${book.b_price }
+					<div class="mb-3" style="font-weight: 500">회원가</div>
+					${book.b_price } 원
 					<hr>
-					<div class="mb-3">카테고리</div>
+					<div class="mb-3" style="font-weight: 500">카테고리</div>
 					${book.b_genre }
 					<hr>
-					<div class="mb-3">배송 예정</div>
+					<div class="mb-3" style="font-weight: 500">배송 예정</div>
 					구매 후 3일 이내
-					<div class="mb-3">
+					<hr>
+					<div class="mb-3 row justify-content-end">
+						<div class="col">
 						<c:url value="${pageContext.request.contextPath}/book/order"
 							var="link"></c:url>
 						<form class="d-flex mb-3" action="${link }" style="float: right;"
@@ -89,12 +131,13 @@
 								onchange='
 							document.querySelector("#buyInput").value = this.value'>
 						</form>
+						</div>
 					</div>
-					<hr>
-					<div>
+					<div class="row">
+						<div class="col">
 						<c:if test="${u_id != null }">
 							<button type="button" class="btn btn-dark mb-1 buy"
-								style="width: 100%;" value="${book.b_code }" onclick="buyBook()">바로
+								style="width: 100%; background: #4eac27; border: none;" value="${book.b_code }" onclick="buyBook()">바로
 								구매하기</button>
 						</c:if>
 						<c:if test="${u_id ==null }">
@@ -104,6 +147,20 @@
 		                 		바로 구매하기
 		                 	</a>
 						</c:if>
+						</div>
+						<div class="col">
+						<c:if test="${u_id != null }">
+						<button type="button" class="btn btn-light" id="btn-button"
+							style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
+						</c:if>
+						<c:if test = "${u_id ==null }">
+							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+	                 	<a type="button" class="btn btn-light" id="btn-button"
+							style="width: 100%;" href="${loginLink }">
+	                 		장바구니
+	                 	</a>
+						</c:if>
+						</div>
 					</div>
 					<div>
 						<c:url value="${pageContext.request.contextPath }/book/cart"
@@ -112,20 +169,9 @@
 							id="submitForm2">
 							<input type="hidden" value="${book.b_code }" name="b_code">
 							<input id="buyInput" class="cntValidate" type="hidden"
-								style="width: 100px; text-align: center" placeholder="수량 입력"
+								style="width: 100px;" text-align: center" placeholder="수량 입력"
 								name="c_cnt" required="required">
 						</form>
-						<c:if test="${u_id != null }">
-						<button type="button" class="btn btn-dark want"
-							style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
-						</c:if>
-						<c:if test = "${u_id ==null }">
-							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
-	                 	<a type="button" class="btn btn-dark want"
-							style="width: 100%;" href="${loginLink }">
-	                 		장바구니
-	                 	</a>
-						</c:if>
 					</div>
 				</div>
 			</div>
@@ -134,7 +180,7 @@
 	${message }
 	</div>
 		<div class="book-detail mt-3 mb-5">
-			<h6>도서 상세정보</h6>
+			<h6 style="font-weight: 500">도서 상세정보</h6>
 			<hr style="border: 1px solid black;">
 			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
 				Praesentium ab soluta atque dolorum natus, ducimus incidunt
@@ -142,7 +188,7 @@
 				accusantium vel minus rerum.</div>
 		</div>
 		<div class="book-category mt-3 mb-5">
-			<h6>카테고리 분류</h6>
+			<h6 style="font-weight: 500">카테고리 분류</h6>
 			<hr style="border: 1px solid black;">
 			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
 				Praesentium ab soluta atque dolorum natus, ducimus incidunt
@@ -150,7 +196,7 @@
 				accusantium vel minus rerum.</div>
 		</div>
 		<div class="book-introduce mt-3 mb-5">
-			<h6>책 소개</h6>
+			<h6 style="font-weight: 500">책 소개</h6>
 			<hr style="border: 1px solid black;">
 			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
 				Praesentium ab soluta atque dolorum natus, ducimus incidunt
@@ -158,7 +204,7 @@
 				accusantium vel minus rerum.</div>
 		</div>
 		<div class="book-detail-page mt-3 mb-5">
-			<h6>상세 페이지</h6>
+			<h6 style="font-weight: 500">상세 페이지</h6>
 			<hr style="border: 1px solid black;">
 			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
 				Praesentium ab soluta atque dolorum natus, ducimus incidunt
@@ -166,35 +212,46 @@
 				accusantium vel minus rerum.</div>
 		</div>
 		<div class="book-review mt-3">
-			<h6>고객 리뷰</h6>
+			<h6 style="font-weight: 500">고객 리뷰</h6>
 			<hr style="border: 1px solid black;">
 			<div class="d-flex justify-content-center align-item-center">
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
+				<div class="star-rating">
+				    <div class="back-stars">
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        
+				        <div class="front-stars" style="width:  ${reviewAvg*20}%">
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				        </div>
+				    </div>
+				</div>  
 			</div>
-			<div class="d-flex justify-content-center mt-3">
-				<span class="starValue">회원이 평가한 평균별점 :5점</span>
+			<div class="d-flex justify-content-center mt-3 mb-5">
+				<span class="starValue"><span style="font-size: 20px; font-weight: 700">${peopleCnt}</span>명의 회원이 평가한 평균별점 :<span style="font-size: 20px; font-weight: 700">${reviewAvg }</span></span>
 			</div>
-			<hr style="border: 1px solid black;">
 		</div>
 		<c:forEach var="item" items="${review }">
-			<div class="card">
+			<div class="card mb-2">
 			  <div class="card-header">
-			    ${item.u_id }
+			    <div><i class="fa-solid fa-user"></i> : ${item.u_id }</div>
 			  </div>
 			  <div class="card-body">
 			    <blockquote class="blockquote mb-0">
-			      <p>${item.r_content } 댓글 내용이요~~~~~~~~~~~~~@!!@#!@#!@#!@$!@$!@$@!$@$!@$!@21342134234234234235!@#!@(*!@&$(*!@&$(*!@&$(*!@&$(*&!@(*))))))$@!$!@$!@$!@$!@$!@$!@$!@$!@$!@$~~~!</p>
+			      <p style="font-size:13px;">${item.r_content }</p>
 			      	<div class="review" style="float: right">
 			      		<span style="font-size: 11px; font-weight: 700">별점:</span>
 			      		<c:forEach begin="1" end="${item.r_star }">
 			      			<i class="fas fa-star" style="color:rgb(250 208 0 / 99%);"></i>
 			      		</c:forEach>
 			      		<c:forEach begin="1" end="${5-item.r_star }">
-			      			<i class="fas fa-star"></i>
+			      			<i class="fas fa-star" style="color:lightgrey"></i>
 			      		</c:forEach>
 			      	</div>
 			    </blockquote>
@@ -225,7 +282,7 @@
 		}
 		console.log(data);
 		if(toggle === true){
-			likeIcon.innerHTML =`<i class="fa-regular fa-heart fa-xl"></i>`;
+			likeIcon.innerHTML =`<i class="fa-regular fa-heart fa-xl" style="color:#4eac27"></i>`;
 			fetch(`${ctx}/book/like`,{
 				method : "put",
 				headers :{
@@ -237,7 +294,7 @@
 			.then(() => toggle = !toggle)
 		/* 	.then(location.reload()); */ 
 		}else{
-			likeIcon.innerHTML =`<i class="fa-solid fa-heart fa-xl"></i>`;
+			likeIcon.innerHTML =`<i class="fa-solid fa-heart fa-xl" style="color:#4eac27"></i>`;
 			fetch(`${ctx}/book/like`, {
 				method : "post",
 				headers : {

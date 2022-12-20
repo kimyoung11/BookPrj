@@ -1,5 +1,6 @@
 package com.demo.domain.customer;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +16,7 @@ public class QuestionDto {
 	private int q_number;
 	private String q_title;
 	private String q_content;
-	private LocalDateTime q_date;
+	private LocalDate q_date;
 	private String u_id;
 	private String q_option;
 	
@@ -29,7 +30,7 @@ public class QuestionDto {
 	
 	/* 날짜 json 스트링 형식으로 변경 */
 	@JsonFormat(shape = Shape.STRING)
-	private LocalDateTime a_date;
+	private LocalDate a_date;
 	
 	
 	/* file */
