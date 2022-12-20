@@ -16,4 +16,5 @@ public class OrdersDto {
 	private String b_img;
 	private int od_count;
 	private int o_total;
+	private int b_code;
 }

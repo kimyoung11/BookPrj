@@ -32,6 +32,8 @@ public interface OrdersMapper {
 	int orderStatusChange(String o_status, int o_number);
 
 	int changeCount(String u_id, Integer b_code, Integer c_count);
+
+	int deleteOdBook(int b_code);
 	
 }
 	

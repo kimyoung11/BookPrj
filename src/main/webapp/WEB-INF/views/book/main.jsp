@@ -1,5 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
@@ -343,6 +344,18 @@ section.faq {
   height: 50px;
 }
 
+#evtcol{
+	width: 510px;
+	height: 200px;
+}
+
+#eventImg {
+	border-radius: 8px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+} 
+
 .container-fluid{
 --bs-gutter-x:0;	
 }
@@ -368,6 +381,7 @@ padding-top:70px;
 padding-bottom: 40px;
 
 }
+
 
 </style>
 <body>
@@ -454,7 +468,11 @@ padding-bottom: 40px;
                     <h6 class="subTitle">NEW 주목받는 신작</h6>
                     <div id="slider-div">
                     	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
-	                    <div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
+	                    <div class="img-wrapper">	
+	                    	<a href="/book/detail/${book.b_code }">
+	                    		<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" style="width: 250px; height: 300px;" class="bookTarget"/>
+	                    	</a>
+	                    </div>
                     	</c:forEach>
                     </div>
                 </div>
@@ -467,7 +485,11 @@ padding-bottom: 40px;
                 <h6 class="subTitle">스테디셀러</h6>
                 <div id="slider-div2">
                 	<c:forEach items="${ranBookList }" var="book">
-	                	<div class="img-wrapper"><a href="/book/detail/${book.b_code }"><img src="${book.b_img }" alt=""></a></div>
+	                	<div class="img-wrapper">
+	                		<a href="/book/detail/${book.b_code }">
+	                			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" style="width: 250px; height: 300px;" class="bookTarget"/>
+	                		</a>
+	                	</div>
                 	</c:forEach>
                </div>
            </div>
@@ -476,8 +498,8 @@ padding-bottom: 40px;
        <div id="event-section">
         <div class="container d-flex justify-content-center mb-5">
             <div class="row mt-3">
-                <div class="col"><img src="https://picsum.photos/520/250" style="border-radius: 15px;"></div>
-                <div class="col"><img src="https://picsum.photos/520/250" style="border-radius: 15px;"></div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
             </div>
         </div>
       </div>
