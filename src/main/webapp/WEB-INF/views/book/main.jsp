@@ -566,7 +566,7 @@ padding-bottom: 40px;
                   <br>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top"><i class="fas fa-arrow-up"></i></button>
+              <button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top"><i class="fa fa-arrow-up"></i></button>
               <button type="button" class="btn btn-secondary" id="btn-back-to-top2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="fas fa-regular fa-comment fa-xl"></i></button>
         </div>
         <div>
@@ -585,7 +585,6 @@ padding-bottom: 40px;
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
       </div>
   </div>
 </div>
