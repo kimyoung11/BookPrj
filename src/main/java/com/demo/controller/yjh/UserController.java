@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.domain.customer.QuestionDto;
+import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.mapper.hms.UserVo;
 import com.demo.service.hms.MemberUserService;
@@ -95,9 +97,17 @@ public class UserController {
 	 
 	 String u_id = (String)session.getAttribute("id");
 	 UserDto user = service.getUserPageInfo(u_id);
-	 System.out.println(user.getO_status_ready());
 	 model.addAttribute("user", user);
 	 
+	 }
+	 
+	// 마이페이지 문의 확인
+	 @GetMapping("userAnswer")
+	 public void getQuest(int q_number, Model model) {
+		 
+		 QuestionDto quest = service.getAnswer(q_number);
+		 
+		 model.addAttribute("questContent", quest);
 	 }
 	 
 	 // 마이페이지 리뷰 리스트
@@ -108,7 +118,7 @@ public class UserController {
 		 return service.getReviewList(u_id);
 	 
 	 }
-
+	 
 	
 	 // 마이페이지 작성 가능한 리뷰 리스트
 	  @GetMapping("makeReviewList/{u_id}")

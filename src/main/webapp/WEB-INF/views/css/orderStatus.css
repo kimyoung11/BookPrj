@@ -49,7 +49,7 @@
 #productInfo{
     border: solid 1px #e0e0eb;
     border-collapse: collapse;
-    background-color: #f5f5f0;
+    background-color: #f5faf3;
     width: 100%;
     font-size: 12px;
 }
@@ -57,6 +57,9 @@
     border: solid 1px #e0e0eb;
     text-align: center;
     padding: 15px 0;
+}
+#orDetailPage:hover{
+	background-color: #4eac27;
 }
 #productInfo td {
     border: solid 1px #e0e0eb;

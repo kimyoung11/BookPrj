@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.demo.domain.customer.QuestionDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.mapper.user.yjh.UserMapper;
 
@@ -35,6 +36,10 @@ public class UserService {
 	
 	public UserDto getDetailOrderByUser(String id) {
 		return userMapper.selectDetailOrdersByUser(id);
+	}
+	
+	public QuestionDto getAnswer(int q_number) {
+		return userMapper.selectAnswer(q_number);
 	}
 	
 	public List<UserDto> getOrderByUser(String u_id) {
