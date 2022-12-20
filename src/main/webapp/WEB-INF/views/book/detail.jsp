@@ -187,7 +187,7 @@
 			  </div>
 			  <div class="card-body">
 			    <blockquote class="blockquote mb-0">
-			      <p>${item.r_content } 댓글 내용이요~~~~~~~~~~~~~@!!@#!@#!@#!@$!@$!@$@!$@$!@$!@21342134234234234235!@#!@(*!@&$(*!@&$(*!@&$(*!@&$(*&!@(*))))))$@!$!@$!@$!@$!@$!@$!@$!@$!@$!@$~~~!</p>
+			      <p>${item.r_content }</p>
 			      	<div class="review" style="float: right">
 			      		<span style="font-size: 11px; font-weight: 700">별점:</span>
 			      		<c:forEach begin="1" end="${item.r_star }">
