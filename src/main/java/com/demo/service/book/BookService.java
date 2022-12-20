@@ -173,4 +173,13 @@ public class BookService {
 	public Page<BookDto> getBookByKeyword(String b_keyword) {
 		return bookMapper.selectBookByKeyword(b_keyword);
 	}
+
+	public double getByReviewAvg(int b_code) {
+		return bookMapper.selectByReviewAvg(b_code);
+	}
+
+	public int getByPeopleCnt(int b_code) {
+		return bookMapper.selectByPeopleCnt(b_code);
+	}
+
 }

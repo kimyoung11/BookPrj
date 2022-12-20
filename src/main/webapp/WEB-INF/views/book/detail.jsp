@@ -30,6 +30,36 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.front-stars, .back-stars, .star-rating {
+  display: flex;
+}
+
+.star-rating {
+  align-items: center;
+  font-size: 3em;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.back-stars {
+  color:lightgrey;
+  position: relative;
+  text-shadow: 4px 4px 10px #843a3a;
+}
+
+.front-stars {
+  color:rgb(250 208 0 / 99%);
+  overflow: hidden;
+  position: absolute;
+  text-shadow: 2px 2px 5px #d29b09;
+  top: 0;
+  transition: all 0.5s;
+}
+
+.percent {
+  color:rgb(250 208 0 / 99%);
+  font-size: 1.5em;
+}
 
 </style>
 <body>
@@ -169,14 +199,26 @@
 			<h6>고객 리뷰</h6>
 			<hr style="border: 1px solid black;">
 			<div class="d-flex justify-content-center align-item-center">
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
-				<i class="fas fa-star fa-2xl" style="color:rgb(250 208 0 / 99%);"></i>
+				<div class="star-rating">
+				    <div class="back-stars">
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        <i class="fa fa-star" aria-hidden="true"></i>
+				        
+				        <div class="front-stars" style="width:  ${reviewAvg*20}%">
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				            <i class="fa fa-star" aria-hidden="true"></i>
+				        </div>
+				    </div>
+				</div>  
 			</div>
 			<div class="d-flex justify-content-center mt-3">
-				<span class="starValue">회원이 평가한 평균별점 :5점</span>
+				<span class="starValue"><span style="font-size: 20px; font-weight: 700">${peopleCnt}</span>명의 회원이 평가한 평균별점 :<span style="font-size: 20px; font-weight: 700">${reviewAvg }</span></span>
 			</div>
 			<hr style="border: 1px solid black;">
 		</div>
@@ -194,7 +236,7 @@
 			      			<i class="fas fa-star" style="color:rgb(250 208 0 / 99%);"></i>
 			      		</c:forEach>
 			      		<c:forEach begin="1" end="${5-item.r_star }">
-			      			<i class="fas fa-star"></i>
+			      			<i class="fas fa-star" style="color:lightgrey"></i>
 			      		</c:forEach>
 			      	</div>
 			    </blockquote>
