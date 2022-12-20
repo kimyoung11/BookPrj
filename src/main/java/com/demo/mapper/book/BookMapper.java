@@ -61,5 +61,7 @@ public interface BookMapper {
 
 	public int selectByPeopleCnt(int b_code);
 
+	public Page<BookDto> selectByLike();
+
 
 }

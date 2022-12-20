@@ -182,4 +182,8 @@ public class BookService {
 		return bookMapper.selectByPeopleCnt(b_code);
 	}
 
+	public Page<BookDto> getByLike() {
+		return bookMapper.selectByLike();
+	}
+
 }

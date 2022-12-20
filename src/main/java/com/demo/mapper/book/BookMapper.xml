@@ -4,6 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.demo.mapper.book.BookMapper">
+
+	<select id="selectByLike" resultType="com.demo.domain.book.BookDto">
+	SELECT b_code, b_title, b_writer, b_pubDate, b_price, b_genre, b_img, b_like,
+	(SELECT AVG(r_star) FROM Review r WHERE b_code = b.b_code) star FROM Book b  
+	GROUP BY b_code ORDER BY star DESC
+	</select>
+	
 	<select id="selectRanBook" resultType="com.demo.domain.book.BookDto">
 		SELECT b_img, b_code
 		FROM Book
