@@ -18,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -126,8 +127,26 @@ public class BookService {
 		return bookMapper.selectBookList();
 	}
 
-	public int modifyBook(BookDto bookDto) {
+	public int modifyBook(BookDto bookDto,MultipartFile file) {
+		System.out.println("code" + bookDto.getB_code());
+		int b_code = bookDto.getB_code();
+		if(file != null) {
+			int cnt = bookMapper.deleteBookImg(b_code); //book b_img 컬럼 데이터 삭제
+			bookDto.setB_img(file.getOriginalFilename());
+			System.out.println(bookDto);
+			deleteFile(b_code,file);
+			uploadFile(b_code, file);
+		}
+		System.out.println(bookDto);
 		return bookMapper.updateBook(bookDto);
+	}
+	private void deleteFile(int id, MultipartFile file) {
+		String key = "book/" + id + "/" + file.getOriginalFilename();
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		s3Client.deleteObject(deleteObjectRequest);
 	}
 
 	public int removeBook(int b_code) {
@@ -146,4 +165,21 @@ public class BookService {
 	public Page<BookDto> getBookByGenre(String b_genre) {
 		return bookMapper.selectBookByGenre(b_genre);
 	}
+
+	public int removeBookLike(int b_code) {
+		return bookMapper.deleteBookLike(b_code);
+	}
+
+	public Page<BookDto> getBookByKeyword(String b_keyword) {
+		return bookMapper.selectBookByKeyword(b_keyword);
+	}
+
+	public double getByReviewAvg(int b_code) {
+		return bookMapper.selectByReviewAvg(b_code);
+	}
+
+	public int getByPeopleCnt(int b_code) {
+		return bookMapper.selectByPeopleCnt(b_code);
+	}
+
 }

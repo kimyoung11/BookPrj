@@ -1,5 +1,6 @@
 package com.demo.controller.kyj;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -86,8 +87,19 @@ public class BookController {
 		return "book/list/all";
 	}
 	
+	@GetMapping("listKeyword")
+	public String listKeyword(Model model,@RequestParam(defaultValue ="1")int page,String b_keyword) {
+		PageHelper.startPage(page, 10);
+		String new_keyword = "%"+b_keyword+"%";
+		Page<BookDto> books = bookService.getBookByKeyword(new_keyword);
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/all";
+	}
 
-	
 	@GetMapping("list/new")
 	public String listNew(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
 		PageHelper.startPage(page, 10);
@@ -142,7 +154,12 @@ public class BookController {
 		BookDto temp = bookService.getByCode(b_code); //1번책
 //		System.out.println(temp);
 		List<ReviewDto> review = reviewService.getByBookCode(b_code);
-		System.out.println("this is review:" + review);
+		double starAvg = bookService.getByReviewAvg(b_code);
+		double starAvg2 = Math.round(starAvg*10)/10.0;
+		int peopleCnt = bookService.getByPeopleCnt(b_code);
+//		System.out.println("this is temp:" + temp);
+		//System.out.println("this is review:" + review);
+		
 		
 		int likeStatus = bookService.getLikeCount(b_code, u_id);
 		System.out.println("this is likeStatus:" + likeStatus);
@@ -152,6 +169,8 @@ public class BookController {
 			model.addAttribute("likeStatus", "true");
 		model.addAttribute("book", temp);
 		model.addAttribute("review", review);
+		model.addAttribute("peopleCnt",peopleCnt);
+		model.addAttribute("reviewAvg",starAvg2);
 		return "/book/detail";
 	}
 	

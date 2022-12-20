@@ -16,6 +16,8 @@ public interface ReviewMapper {
 
 	List<ReviewDto> selectByBookCode(int b_code);
 
+	int deleteBook(int b_code);
+
 	
 
 }

@@ -106,4 +106,27 @@
 		SELECT * FROM Book where b_genre =#{b_genre}
 	</select>
 
+	<delete id="deleteBookLike">
+		DELETE FROM BookLike
+		WHERE b_code = #{b_code}
+	</delete>
+	
+	<select id="selectBookByKeyword" resultType="com.demo.domain.book.BookDto">
+		SELECT * FROM Book WHERE
+		b_title LIKE #{b_keyword}
+	</select>
+	
+	<update id="deleteBookImg">
+		UPDATE Book SET b_img='' where b_code = #{b_code}
+	</update>
+	
+	<select id="selectByReviewAvg" resultType="double">
+		SELECT AVG(r.r_star) from Book b 
+		LEFT JOIN Review r on b.b_code = r.b_code
+		WHERE b.b_code = #{b_code}
+	</select>
+	
+	<select id="selectByPeopleCnt" resultType="int">
+		select COUNT(b.b_code) from Book b join Review r on b.b_code = r.b_code where b.b_code = #{b.b_code};
+	</select>
 </mapper>
