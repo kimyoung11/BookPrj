@@ -130,7 +130,6 @@ public class AdminController {
 	public void questContent(int q_number, Model model) {
 		
 		QuestionDto question = questService.ContentList(q_number);
-		System.out.println(question);
 		model.addAttribute("questContent", question);
 
 	}
