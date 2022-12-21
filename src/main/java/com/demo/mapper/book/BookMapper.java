@@ -53,4 +53,15 @@ public interface BookMapper {
 
 	public int deleteBookLike(int b_code);
 
+	public Page<BookDto> selectBookByKeyword(String b_keyword);
+
+	public int deleteBookImg(int b_code);
+
+	public double selectByReviewAvg(int b_code);
+
+	public int selectByPeopleCnt(int b_code);
+
+	public Page<BookDto> selectByLike();
+
+
 }

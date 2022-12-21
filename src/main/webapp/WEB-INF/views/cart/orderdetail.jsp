@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ page import="java.net.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,19 +45,25 @@
         p {
         	text-align: left;
         }
+        
+        #tit:hover {
+		color: #4EAC27;
+		}
+		.trcolor{
+        background-color: #F5FAF3;
+        }
 </style>
 </head>
 <body>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2>주문상세</h2></a>
-        <hr id="hr_line">
+        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2 id="tit">주문상세</h2></a>
         <p>주문번호 : ${orderDetailList[0].o_number}</p>
         <p>주문일시 : ${orderDetailList[0].o_date }</p>
         <p>결제금액 : <span id="price">${orderDetailList[0].o_total }</span></p>
         <table class="table" style="vertical-align: middle;">
         	<thead>
-				<tr class ="table-info">
+				<tr class="trcolor">
 					<th>상품 정보</th>
 					<th>상품명</th>
 					<th>수량</th>
@@ -65,7 +72,7 @@
 				<tbody>
 				<c:forEach items="${orderDetailList}" var="orderDetailList">
 				<tr>
-					<td><img src="${orderDetailList.b_img }" alt=""></td>
+					<td><a href="/book/detail/${orderDetailList.b_code }" target="_blank"><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${orderDetailList.b_code }/${URLEncoder.encode(orderDetailList.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></a></td>
 					<td>${orderDetailList.b_title }</td>
 					<td>${orderDetailList.od_count }</td>
 					<td id="bookPrice">${orderDetailList.b_price * orderDetailList.od_count}</td>

@@ -48,7 +48,28 @@ a {
 .align-left {
 	text-align: left;
 }
+.modifyBtn{
+	padding: 8px 30px;
+}
+.btn-primary{
+--bs-btn-bg:#eee;
+--bs-btn-border-color:#eee;
+color:#555;
+}
+.btn:hover{
+background-color:#4eac27;
+border-color:#4eac27;
+}
+.active>.page-link, .page-link.active{
+background-color:#4eac27;
+border-color:#4eac27;
 
+}
+
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+background-color:#4eac27;
+border-color:#4eac27
+}
 
 </style>
 </head>
@@ -81,7 +102,7 @@ a {
 						<td><c:url value="/admin/modify" var="modifyLink">
 							<c:param name="n_id" value="${notice.n_id }"></c:param>
 							</c:url>
-						<a class="btn btn-primary" href="${modifyLink }">수정</a>
+						<a class="btn btn-primary modifyBtn" href="${modifyLink }">공지수정</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -161,6 +182,10 @@ a {
 			</div>
 		</div>
 	</div>
-</div>								
+</div>	
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>							
 </body>
 </html>

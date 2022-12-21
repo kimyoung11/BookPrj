@@ -52,6 +52,13 @@ a {
 .point {
 	cursor: pointer;
 }
+.active>.page-link, .page-link.active{
+background-color: #4eac27;
+border-color:#4eac27;
+}
+.noticeTitle{
+text-align: center;
+}
 
 
 </style>
@@ -61,13 +68,13 @@ a {
 	<my:subMenu active="notice"></my:subMenu>
 
 	<div id="align-center" class="container">
-		<div style="text-align: center; margin-top: 30px;" class="mb-5">
-			<h1 style="font-size: 34px">공지사항</h1>
+		<div style="text-align: center; margin-top: 40px;" class="mb-5">
+			<h1 style="font-size: 34px">새로운 공지를 확인하세요.</h1>
 		</div>
 
 		<table class="table table-hover" style="margin-top: 50px; line-height: 50px;">
 			<thead style="border-top: solid 1px;">
-				<tr>
+				<tr >
 					<th>NO</th>
 					<th>공지사항</th>
 					<th>날짜</th>

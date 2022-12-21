@@ -255,14 +255,16 @@ function answerView() {
 						// console.log(this.id + "번 삭제버튼 클릭됨");
 						console.log(this.dataset.answerId + "번 댓글 삭제할 예정, 모달 띄움")
 						document.querySelector("#removeConfirmModalSubmitButton").setAttribute("data-answer-id", this.dataset.answerId);
-						document.querySelector("#removeConfirmModalSubmitButton").addEventListener("click", function(){
-							removeAnswer(this.dataset.answerId);
-						})
+						
 					});
-			}
-		});
-	}
+				}
+			});
+		}
 
+// 댓글 삭제 모달 확인 버튼 이벤트 등록 
+document.querySelector("#removeConfirmModalSubmitButton").addEventListener("click", function(){
+	removeAnswer(this.dataset.answerId);
+})
 
 /* 답변 수정할 때 input content 가져오기 */
 function readAnswer(a_id) {
@@ -297,6 +299,7 @@ document.querySelector("#modifyFormModalSubmitButton").addEventListener("click",
 	.then(res => res.json())
 	.then(data => {
 		document.querySelector("#Message1").innerText = data.message;
+		
 		toast.show();
 	})
 	.then(() => answerView());
@@ -314,8 +317,8 @@ function removeAnswer(answerId) {
 	.then(res => res.json())
 	.then(data => {
 		document.querySelector("#Message1").innerText = data.message;
-		toast.show();
 	})
+	.then(() => toast.show())
 	.then(() => answerView());	
 }
 

@@ -31,6 +31,19 @@
             color: #333;
             text-decoration: none;
         }
+        .noticeTitle{
+        	font-size: 22px;
+        	font-weight: 500;
+        }
+        .contentTitle{
+         padding: 5px 150px;
+        }
+        .view_body{
+         padding: 30px 150px;
+        }
+        .contentDate{
+        color:#777;
+        }
         </style>
     </head>
 <body>
@@ -39,23 +52,23 @@
 
 	
     <div class="container">
-    		<div style="text-align: center; margin-top: 30px;" class="mb-5">
+    		<div style="text-align: center; margin-top: 40px;" class="mb-5">
 			<h1 style="font-size: 34px">공지사항</h1>
 		</div>
     
         <hr style="border:1px solid #000;">
 
-	        <div class="row justify-content-between">
-	            <div class="col-4">
-	            	<p>${noticeContent.n_title }</p></div>
-	            <div class="col-4">
-	            <span>${noticeContent.n_date }</span>
+	        <div class="row justify-content-between contentTitle">
+	            <div class="col-5 noticeTitle">
+	            	${noticeContent.n_title }</div>
+	            <div class="col-2 contentDate">
+	            ${noticeContent.n_date }
 	        </div>
 	        
 	        </div>
 	        <hr>
 	        <div class="view_body">
-	            	<p>${noticeContent.n_content }</p>
+	            	<p style=" white-space: pre;">${noticeContent.n_content }</p>
 	        </div>
 
         <hr>

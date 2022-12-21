@@ -7,7 +7,7 @@
 
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
-<c:url value="/book/list" var="listBest" />
+<c:url value="/book/list/best" var="listBest" />
 <c:url value="/cart/cart" var="cartView" />
 <c:url value="/user/login.do" var="loginView" />
 <c:url value="/customer/asked" var="customerView" />
@@ -98,15 +98,17 @@ height: 42px;
 
 /* 로그인버튼 */
 .btn-primary{
---bs-btn-bg:#2937f0;
---bs-btn-border-color:#2937f0;
+--bs-btn-bg:#4eac27;
+--bs-btn-border-color:#4eac27;
 }
 .btn:hover{
-background-color: #232fcc;
+background-color: #489f23;
+border-color:#489f23;
 }
 
 .card-header{
 background-color:white;
+
 }
 
 .menu-content2{
@@ -118,6 +120,10 @@ padding-bottom: 14px;
 
 .loginIcon{
 padding-right: 0;
+}
+
+a:hover{
+color:#4eac27;
 }
 </style>
 
@@ -144,6 +150,9 @@ padding-right: 0;
 						        placeholder="Search"
 						        aria-label="Search"
 						        aria-describedby="search-addon"
+						        onchange="changeFunc(event)"
+						        value=""
+						        name="b_keyword"
 						      />
 						      <button class="input-group-text border-0" id="button-search">
 						        <i class="fas fa-search"></i>
@@ -201,7 +210,7 @@ padding-right: 0;
 							<a href="${listNew}"><h6>최신신작</h6></a>
 						</div>
 						<div class="col">
-							<h6>베스트</h6>
+							<a href="${listBest}"><h6>베스트</h6></a>
 						</div>
 						<div class="col">
 							<a href="${event }"><h6>이벤트</h6></a>
@@ -245,6 +254,17 @@ padding-right: 0;
       		console.log("클릭되었습니다");
       	})
       	
+      	let b_keyword;
+      	
+      	function changeFunc(event){
+      		console.log(event.target.value);
+      		console.log("change func");
+      		document.querySelector("#autocomplete").value=event.target.value;
+      	}
+      	
+      	
+      	document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/listKeyword?page=1`);
+      	
    		$(function(){
    			$("#autocomplete").autocomplete({
    				source : function(request, response) {
@@ -273,6 +293,7 @@ padding-right: 0;
    					bookCode = ui.item.value2;
    					console.log(ui.item.value);
    					console.log(bookCode);
+   					location.assign(`${ctx}/book/detail/\${bookCode}`);
    					//document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
    				},
    				focus: function(event,ui){

@@ -40,6 +40,28 @@ a {
 	color: #333;
 	text-decoration: none;
 }
+
+.btncolor1{
+background-color: #fff;
+border-color: #4EAC27;
+color: #4EAC27;
+}
+.btncolor1:hover,
+.btncolor1:active{
+background-color: #489f23;
+
+}
+
+.btncolor2{
+background-color: #4EAC27;
+border-color: #4EAC27;
+}
+.btncolor2:hover,
+.btncolor2:active{
+background-color: #489f23;
+}
+
+
 </style>
 </head>
 <body>
@@ -67,10 +89,12 @@ a {
 						<td class="align-left">${item.b_title }</td>
 						<td>${item.b_writer }</td>
 						<td>${item.b_price }</td>
-						<td><img src="${item.b_img }" alt="책" style="width: 50px; height: 60px;"></td>
+						<td>
+						<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="책" style="width: 50px; height: 60px;"/>
+						</td>
 				 		<td>
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyModal" data-book-code="${item.b_code }">책 정보 수정</button>
-							<button type="button" class="btn btn-primary modifyButton" onclick="clickModify(this)" data-book-code="${item.b_code }">삭제</button>
+							<button type="button" class="btn btn-primary btncolor1" data-bs-toggle="modal" data-bs-target="#modifyModal" data-book-code="${item.b_code }">책 정보 수정</button>
+							<button type="button" class="btn btn-primary modifyButton btncolor2" onclick="clickModify(this)" data-book-code="${item.b_code }">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -84,7 +108,7 @@ a {
 					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					      </div>
 					      <div class="modal-body">
-					        <form action="${pageContext.request.contextPath}/admin/modifyBook" method="post" id="modifyForm">
+					        <form action="${pageContext.request.contextPath}/admin/modifyBook" method="post" id="modifyForm" enctype="multipart/form-data">
 					        	<label for="recipient-name" class="col-form-label">등록번호:</label>
 					        	<input type="text" class="form-control" value="${item.b_code }" readonly="readonly" style="background-color: lightgrey;" required="required">
 					     	    <input type="hidden" class="form-control" name="b_code" value="${item.b_code }" required="required" id="bookCode">
@@ -106,11 +130,21 @@ a {
 					          </div>
 					          <div class="mb-3">
 					            <label for="message-text" class="col-form-label">책장르:</label>
-					            <input type="text" class="form-control" name="b_genre" required="required">
+					            <select class="form-select" id="myForm" data-placeholder="Choose one thing" name="b_genre">
+							        <option value="소설">소설</option>
+							        <option value="에세이">에세이</option>
+							        <option value="인문">인문</option>
+							        <option value="역사">역사</option>
+							        <option value="만화">만화</option>
+							        <option value="어린이">어린이</option>
+							        <option value="수험서">수험서</option>	
+							        <option value="육아">육아</option>
+							        <option value="예술">예술</option>
+							    </select>
 					          </div>
 					          <div class="mb-3">
 					            <label for="message-text" class="col-form-label">책사진:</label>
-					            <input type="file" class="form-control" name="b_img" accept="image/png, image/jpg">
+					           		<input type="file" name="file" class="form-control" accept="image/*" required="required">
 					          </div>
 					        </form>
 					        

@@ -128,6 +128,7 @@ public class AdminController {
 		
 		int cnt = questService.removeQuest(q_number);
 		
+		
 		if(cnt == 1) {
 			rttr.addFlashAttribute("message", "게시물이 삭제되었습니다.");
 		}else {
@@ -143,7 +144,6 @@ public class AdminController {
 	public void questContent(int q_number, Model model) {
 		
 		QuestionDto question = questService.ContentList(q_number);
-		System.out.println(question);
 		model.addAttribute("questContent", question);
 
 	}
@@ -167,9 +167,11 @@ public class AdminController {
 	@ResponseBody
 	public Map<String, Object> removeAnswer(@PathVariable int a_id) {
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("1");
 		
 		int cnt = questService.removeById(a_id);
+		
+		System.out.println(cnt);
+		
 		if (cnt == 1) {
 			map.put("message", "댓글이 삭제되었습니다.");
 		} else {
@@ -244,9 +246,10 @@ public class AdminController {
 	}
 	 
 	 @PostMapping("modifyBook")
-	 public String modifyBookDto(BookDto bookDto) {
+	 public String modifyBookDto(BookDto bookDto,MultipartFile file) {
 		 System.out.println(bookDto);
-		 int cnt = bookService.modifyBook(bookDto);
+		 System.out.println(file);
+		 int cnt = bookService.modifyBook(bookDto,file);
 		 System.out.println(cnt);
 		 return "redirect:/admin/bookList";
 	 }

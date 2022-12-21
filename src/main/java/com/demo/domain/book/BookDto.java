@@ -14,6 +14,7 @@ public class BookDto {
 	private String b_genre;
 	private String b_img;
 	private int b_like;
+	private double star;
 	
 	
 	private boolean b_status;
