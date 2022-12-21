@@ -275,10 +275,13 @@
               			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
-                <li class="likeco"><div style="font-size: 22px; font-weight: 500;">${item.b_title }</div><div><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
+                <li class="likeco"><div style="font-size: 22px; font-weight: 500;">${item.b_title }</div><div style="font-size: 20px"><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
                 <li class="mt-3" style="float: right">${item.b_writer } <span>${item.b_pubDate }</span></li>
                 <li style="font-size: 18px" class="item-price mt-5">${item.b_price }</li>
-                <li style="margin-bottom:20px">
+                <li style="margin-bottom:35px">
+                세계화의 종말, 갈등과 분열, 그리고 전쟁. 수십 년간 이어져 온 평화와 공존의 시대는 막을 내리고 엄청난 위기감 <br>
+                속에서 사람들은 다가올 미래를 두려워한다. 
+                자산시장 및 증시의 버블붕괴는 마치 2008년 글로벌 경제위기 ...
                 </li>
                 <li>
 

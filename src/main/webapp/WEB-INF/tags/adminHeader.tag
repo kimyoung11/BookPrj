@@ -19,13 +19,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="${ordermanage}">관리자 메인</a>
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            공지사항
-          </a>
-          <a class="nav-link" href="${registerNotice }">공지사항 작성</a>
-          <a class="nav-link" href="${noticeList }">공지사항 관리</a>
-
+        <a class="nav-link" href="${registerNotice }">공지사항 작성</a>
+        <a class="nav-link" href="${noticeList }">공지사항 관리</a>
         <a class="nav-link" href="${questionList }">문의 관리</a>
         <a class="nav-link" href="${ordermanage }">주문 관리</a>
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
