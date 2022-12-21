@@ -27,7 +27,6 @@
 <%@include file="/WEB-INF/views/css/mypage_myquest.css"%>
 </style>
 <body>
-
 <!-- 헤더 태그 -->	
 <my:headerBar></my:headerBar>
 		<div class="nav-wrapper">
@@ -64,8 +63,7 @@
 		   </div>     
 		</div> 
 <div class="container mypage">
-	<main class="content">
-		
+	<main class="content">		
 		<div class="container-md bg mt-5" style="width: 1200px">
 				<div class="top-section">
 		              <div class="row mb-5">
@@ -116,16 +114,8 @@
 								 <!-- 테이블 출력 -->
 								 <div id="tableContainer"></div>
 				   			 </section>
-					   
-					    
-			<!-- 각종 현황 내용 ajax 출력되는 구역 -->
-				
-				
-					       
-			 </div>
-		        
-		</div>
-			
+			 </div>		        
+		</div>			
 			<!-- 리뷰 작성 모달 -->
 				<div class="modal fade" id="makeReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -232,8 +222,7 @@
 								<div class="col mt-1">
 									<div style="text-align: left" class="mb-4">
 										<h1 style="font-size: 24px">회원정보 수정</h1>
-									</div>
-					
+									</div>					
 									<hr class="line" style="border: solid 1px #000" />
 										<div class="container-sm content-size">
 											<div class="input-group mb-3">
@@ -242,8 +231,7 @@
 													<input id="modalUserId" type="text" class="form-control" value="${user.u_id }"
 														readonly />
 												</div>
-											</div>
-					
+											</div>					
 											<p>
 												<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 												비밀번호 변경</button>
@@ -305,12 +293,6 @@
 											   <input type="text" class="form-control" id="userAddress"name="u_address" />
 											</div>
 										</div>
-										<!-- <div class="mb-2 row mt-2">
-											<label for="inputPhoto" class="col-3 col-form-label">프로필 사진</label>
-											<div class="col-sm-5">
-												<input type="file" accept="image/*" class="form-control" id="userPhoto"name="u_photo" />
-											</div>
-										</div> -->
 									</div>
 								<hr />
 							</div>
@@ -332,32 +314,20 @@
 								<h1 class="modal-title fs-5" id="exampleModalLabel">1:1문의답변</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="container">
-						
+							<div class="container">						
 								<div class="row justify-content-between">
-									<div class="col-4" id= "questTitle">
-									</div>
-									<div class="col-4" id= "questDate">
-										
-									</div>
+									<div class="col-4" id= "questTitle"></div>
+									<div class="col-4" id= "questDate"></div>
 								</div>
 								<hr>
-								<div class="view_body" id= "questContent">
-									
-								</div>
-						
-								<hr>
-						
-								
+								<div class="view_body" id= "questContent"></div>
+								<hr>														
 								<%-- 이미지 출력 --%>
-										<div id= "questFile">													
-										</div>
-																
+								<div id= "questFile"></div>														
 								<!-- 1:1 문의 답변보기 -->
 								<div class="row">
 							  			<div class="col form-floating mb-3">
-											<div id="questAnswer">							
-											</div>
+											<div id="questAnswer"></div>
 										</div>
 								</div>
 							</div>
@@ -372,12 +342,10 @@
 	<!-- footer바 태그 -->
 	<my:footer></my:footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"> </script>		
-
 <script>
 const ctx = "${pageContext.request.contextPath}";
 
 const u_id = document.querySelector("#u_id").value; 
-console.log(u_id);
 
 //navbar 이동
 const navBar = document.querySelector(".navbar");
@@ -400,27 +368,30 @@ const allLi = document.querySelectorAll(".navli");
  
  // 배송현황 비동기 방식 생성 변수
  const orderStatusDiv = `
- 		<h5 style="font-weight: bold; margin-top: -25px;" class="mb-3">주문/배송 내역</h5>
+ 		<div>
+ 			<h5 style="font-weight: bold; margin-top: -25px;" class="mb-3">주문/배송 내역</h5>
+ 			<p style="text-align-last: end; font-size: small; font-family: emoji; margin-bottom: 1px;">(최근 한 달 이내 배송현황)</p>
+ 		</div>
 		<div class="orderData">	
-		<div class="tracking">
-			<div class="data">
-				<span class="status-count">\${statusReady}</span>
-				<span class="titleName">상품 준비중</span>
+			<div class="tracking">
+				<div class="data">
+					<span class="status-count">\${statusReady}</span>
+					<span class="titleName">상품 준비중</span>
+				</div>
+				<div class="data">
+					<span class="status-count">\${statusStart}</span>
+					<span class="titleName">배송 시작</span>
+				</div>
+				<div class="data">
+					<span class="status-count">\${statusIng}</span>
+					<span class="titleName">배송중</span>
+				</div>
+				<div class="data">
+					<span class="status-count">\${statusComplete}</span>
+					<span class="titleName">배송 완료</span>
+				</div>
 			</div>
-			<div class="data">
-				<span class="status-count">\${statusStart}</span>
-				<span class="titleName">배송 시작</span>
-			</div>
-			<div class="data">
-				<span class="status-count">\${statusIng}</span>
-				<span class="titleName">배송중</span>
-			</div>
-			<div class="data">
-				<span class="status-count">\${statusComplete}</span>
-				<span class="titleName">배송 완료</span>
-			</div>
-		</div>
-	</div>`;
+		</div>`;
 
 // ↓↓↓↓↓↓↓ 테이블 비동기 방식으로 변경하기 위한 테이블 생성 변수들 ↓↓↓↓↓↓↓↓
 // 내역 없을때
@@ -501,9 +472,6 @@ const makeReviewArea = `
 const makeReviewTitle = `<h1 class="tit">작성 가능한 리뷰</h1>`;	   	    
 
 // ↓↓↓↓↓↓↓ 마이 페이지 각종 리스트 비동기 실행 함수들 ↓↓↓↓↓↓↓↓
-	
-// 페이지 실행시 주문리스트 바로 출력
-//orderList();
 
 //리뷰 crud 메세지 toast
 const toast = new bootstrap.Toast(document.querySelector("#messageToast"));
@@ -805,38 +773,42 @@ function makeReviewList(){
 			document.querySelector("#dataTextDiv").innerHTML = "";
 			document.querySelector("#reviewTitle").insertAdjacentHTML("beforeend", makeReviewTitle);
 			document.querySelector("#wrapReviewArea").insertAdjacentHTML("beforeend", makeReviewArea);
-			for (const review of makeReviewList) {
-				const reviewB_code = `${review.b_code}`;
-				const reviewButtonId = `reviewButton\${review.b_code}`;
-				const makeReviewTableBody = 				
-					`
-					<tr>
-		                <td>
-		                    <div class="prd-row">
-		                        <a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
-		                        <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
-		                        </a>
-		                        <ul class="info">
-		                            <li class="genre">\${review.b_genre}</li>
-		                            <li class="title">\${review.b_title}
-		                                <a href=""></a>
-		                            </li>
-		                        </ul>
-		                    </div>
-		                </td>
-		                <td>2022-12-14</td>
-		                <td>
-		                    <div class="button-block">
-		                        <button class="review-btn" id="\${reviewButtonId}" data-bs-toggle="modal" data-bs-target="#makeReviewModal" data-review-id="\${review.b_code}">작성하기</button>
-		                    </div>
-		                    
-		                </td>
-		            </tr>`;		 
-				document.querySelector("#makeReviewTableBody").insertAdjacentHTML("beforeend",makeReviewTableBody);
-				document.querySelector("#" + reviewButtonId).addEventListener("click", function(){
-					document.querySelector("#reviewSendButton").setAttribute("data-review-id", this.dataset.reviewId);	
-				})
-			}
+			if(makeReviewList != 0){
+				for (const review of makeReviewList) {
+					const reviewB_code = `${review.b_code}`;
+					const reviewButtonId = `reviewButton\${review.b_code}`;
+					const makeReviewTableBody = 				
+						`
+						<tr>
+			                <td>
+			                    <div class="prd-row">
+			                        <a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
+			                        <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
+			                        </a>
+			                        <ul class="info">
+			                            <li class="genre">\${review.b_genre}</li>
+			                            <li class="title">\${review.b_title}
+			                                <a href=""></a>
+			                            </li>
+			                        </ul>
+			                    </div>
+			                </td>
+			                <td>2022-12-14</td>
+			                <td>
+			                    <div class="button-block">
+			                        <button class="review-btn" id="\${reviewButtonId}" data-bs-toggle="modal" data-bs-target="#makeReviewModal" data-review-id="\${review.b_code}">작성하기</button>
+			                    </div>
+			                    
+			                </td>
+			            </tr>`;		 
+					document.querySelector("#makeReviewTableBody").insertAdjacentHTML("beforeend",makeReviewTableBody);
+					document.querySelector("#" + reviewButtonId).addEventListener("click", function(){
+						document.querySelector("#reviewSendButton").setAttribute("data-review-id", this.dataset.reviewId);	
+					})
+				}
+			} else {
+				document.querySelector("#dataTextDiv").insertAdjacentHTML("beforeend", dataNullText);
+			}	
 		}); 
 }
 
@@ -980,37 +952,6 @@ function myQuestion(){
 		}
 	});
 };
-
-/* //문의 확인 모달에 데이터 들어간다
-function readQuestModal(q_number){
-	fetch(`\${ctx}/user/getQuest/\${q_number}`)
-	.then(res => res.json())
-	.then(quest => {
-		const questTitle = `<p>제목: \${quest.q_title}</p>`;
-		const questDate = `<span>작성일: \${quest.q_date}</span>`;
-		const questContent = `<p>내용: \${quest.q_content }</p>`;
-		const questFile = `		
-						<div>
-							<img class="img-fluid img-thumbnail" style="width:50px height:100px" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/question/\${quest.q_number}/\${quest.f_name}" alt="">
-						</div>
-							 `;
-		const questAnswer = `
-							<label for="floatingPlaintextInput">답변</label>
-							<p>\${quest.a_content}</p>
-			  					<small><p class="mb-0">\${quest.a_date}
-			  				</p></small>`;
-		document.querySelector("#questTitle").innerHTML = "";
-		document.querySelector("#questTitle").insertAdjacentHTML("beforeend", questTitle);
-		document.querySelector("#questDate").innerHTML = "";
-		document.querySelector("#questDate").insertAdjacentHTML("beforeend", questDate);
-		document.querySelector("#questContent").innerHTML = "";
-		document.querySelector("#questContent").insertAdjacentHTML("beforeend", questContent);
-		document.querySelector("#questFile").innerHTML = "";
-		document.querySelector("#questFile").insertAdjacentHTML("beforeend", questFile);
-		document.querySelector("#questAnswer").innerHTML = "";
-		document.querySelector("#questAnswer").insertAdjacentHTML("beforeend", questAnswer);
-	})	
-} */
 
 //리뷰 수정 모달에 데이터 들어간다
 function readReviewAndSetModalForm(r_id){
