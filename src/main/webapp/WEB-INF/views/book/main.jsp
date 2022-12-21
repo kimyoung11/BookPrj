@@ -35,6 +35,7 @@
         height: 400px;
     } */
 
+
     .bestphoto {
         width: 200px;
         height: 250px;
@@ -88,7 +89,9 @@
 
 
     .carousel-container {
-            padding: 50px;
+            width:1200px;
+            margin: 0 auto;
+            padding: 70px 0px 70px 30px;
         }
 	
 	.img-wrapper > img {
@@ -102,7 +105,9 @@
             
         }
 
-
+.slick-prev{
+left:-60px;
+}
     #footer {
         background-color: black;
         color: white;
@@ -116,8 +121,8 @@
   overflow-x: scroll;
  margin:0 auto;
  width:1200px;
- margin-top:50px;
- margin-bottom: 50px;
+ margin-top:30px;
+ margin-bottom: 30px;
 }
 .card {
   display: flex;
@@ -160,10 +165,11 @@
 
 .card-author {
   position: relative;
-  display: grid;
+/*   display: grid;
   grid-template-columns: 75px 1fr;
-  align-items: center;
+  align-items: center; */
   margin: 2rem 0 0;
+  padding-left:1rem;
 }
 .author-avatar img {
   display: block;
@@ -345,7 +351,7 @@ section.faq {
 }
 
 #evtcol{
-	width: 510px;
+	
 	height: 200px;
 }
 
@@ -362,6 +368,7 @@ section.faq {
 
 .subTitle{
 	font-size:24px;
+	margin-bottom: 30px;
 }
 
 .new-section{
@@ -382,6 +389,24 @@ padding-bottom: 40px;
 
 }
 
+.slick-arrow:before{
+	color:#4eac27;
+	
+}
+
+.slick-prev:before, .slick-next:before{
+font-size:28px;
+}
+
+.eventPage{
+width:1200px;
+margin-bottom: 20px;
+}
+
+.bookTitle{
+font-size: 19px;
+margin-bottom: 2px;
+}
 
 </style>
 <body>
@@ -417,10 +442,9 @@ padding-bottom: 40px;
                 <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
               </header>
               <div class="card-author">
-                <div>책제목</div>
+                <div class="bookTitle" >이토록 평범한 미래</div>
                 <div class="author-name">
-                  <div class="author-name-prefix">저자</div>
-                  Hanibal Girmay
+                  오은영 
                 </div>
               </div>
             </article>
@@ -428,12 +452,22 @@ padding-bottom: 40px;
                 <header class="card-header">
                   <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
                 </header>
-                <div class="card-author">
-                  <div>책제목</div>
-                  <div class="author-name">
-                    <div class="author-name-prefix">저자</div>
-                    Hanibal Girmay
-                  </div>
+              <div class="card-author">
+                <div class="bookTitle" >이토록 평범한 미래</div>
+                <div class="author-name">
+                  오은영 
+                </div>
+                </div>
+              </article>
+              <article class="card">
+                <header class="card-header">
+                  <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
+                </header>
+                 <div class="card-author">
+                <div class="bookTitle" >이토록 평범한 미래</div>
+                <div class="author-name">
+                  오은영 
+                </div>
                 </div>
               </article>
               <article class="card">
@@ -441,23 +475,10 @@ padding-bottom: 40px;
                   <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
                 </header>
                 <div class="card-author">
-                  <div>책제목</div>
-                  <div class="author-name">
-                    <div class="author-name-prefix">저자</div>
-                    Hanibal Girmay
-                  </div>
-                </div>
-              </article>
-              <article class="card">
-                <header class="card-header">
-                  <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
-                </header>
-                <div class="card-author">
-                  <div>책제목</div>
-                  <div class="author-name">
-                    <div class="author-name-prefix">저자</div>
-                    Hanibal Girmay
-                  </div>
+	                <div class="bookTitle" >이토록 평범한 미래</div>
+	                <div class="author-name">
+	                  오은영 
+	                </div>
                 </div>
               </article>
           </section>
@@ -468,12 +489,12 @@ padding-bottom: 40px;
                     <h6 class="subTitle">NEW 주목받는 신작</h6>
                     <div id="slider-div">
                     	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
-	                    <div class="img-wrapper">	
-	                    	<a href="/book/detail/${book.b_code }">
-	                    		<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" style="width: 250px; height: 300px;" class="bookTarget"/>
+                    		 <div class="img-wrapper">	
+	                    	<a href="/book/detail/${book.b_code }" style="text-align: center;">
+	                    		<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" style="text-align: center;" class="bookTarget"/>
 	                    	</a>
-	                    </div>
-                    	</c:forEach>
+	                    	</div>
+						</c:forEach>
                     </div>
                 </div>
             </div>
@@ -487,7 +508,7 @@ padding-bottom: 40px;
                 	<c:forEach items="${ranBookList }" var="book">
 	                	<div class="img-wrapper">
 	                		<a href="/book/detail/${book.b_code }">
-	                			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" style="width: 250px; height: 300px;" class="bookTarget"/>
+	                			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt=""  class="bookTarget"/>
 	                		</a>
 	                	</div>
                 	</c:forEach>
@@ -497,7 +518,7 @@ padding-bottom: 40px;
 
        <div id="event-section">
         <div class="container d-flex justify-content-center mb-5">
-            <div class="row mt-3">
+            <div class="row eventPage">
                 <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
                 <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
             </div>
