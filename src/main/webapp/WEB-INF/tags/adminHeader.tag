@@ -23,10 +23,9 @@
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             공지사항
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="${registerNotice }">공지사항 작성</a></li>
-            <li><a class="dropdown-item" href="${noticeList }">공지사항 관리</a></li>
-          </ul>
+          <a class="nav-link" href="${registerNotice }">공지사항 작성</a>
+          <a class="nav-link" href="${noticeList }">공지사항 관리</a>
+
         <a class="nav-link" href="${questionList }">문의 관리</a>
         <a class="nav-link" href="${ordermanage }">주문 관리</a>
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
