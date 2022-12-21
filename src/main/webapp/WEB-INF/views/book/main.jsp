@@ -410,8 +410,8 @@ margin-bottom: 2px;
 
 </style>
 <body>
-	<my:headerBar></my:headerBar>
 	<%@include file="../user/mainPopup.jsp" %>
+	<my:headerBar></my:headerBar>
     <div class="container-fluid">
         <div id="carousel-section">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

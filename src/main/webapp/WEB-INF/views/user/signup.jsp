@@ -63,7 +63,7 @@
 							<button id="userIdExistButton" class="btn btn-outline-secondary" disabled
 								type=button>중복확인</button>
 						</div>
-						<div id="userIdText" class="form-text text-danger">아이디 중복
+						<div id="userIdText" class="form-text" style="color: red;">아이디 중복
 							확인을 해주세요</div>
 					</div>
 
@@ -75,7 +75,7 @@
 							type="password" class="form-control" id="passwordInput1"
 							name="u_pw" />
 
-						<div id="confirmPassword" class="form-text text-danger">암호
+						<div id="confirmPassword" class="form-text" style="color: red;" >암호
 							확인 결과...</div>
 					</div>
 
@@ -104,7 +104,7 @@
 							<button id="userPhoneExistButton" disabled
 								class="btn btn-outline-secondary" type="button">중복확인</button>
 						</div>
-						<div id="userPhoneText" class="form-text text-danger">전화번호
+						<div id="userPhoneText" class="form-text" style="color: red;">전화번호
 							중복 확인을 해주세요</div>
 					</div>
 
@@ -118,7 +118,7 @@
 							<button id="userEmailExistButton" disabled
 								class="btn btn-outline-secondary" type="button">중복확인</button>
 						</div>
-						<div id="userEmailText" class="form-text text-danger">이메일 중복
+						<div id="userEmailText" class="form-text" style="color: red;">이메일 중복
 							확인을 해주세요</div>
 					</div>
 
@@ -255,6 +255,9 @@
 			.then(data => {
 				// 응답 받아서 메세지 출력
 				document.querySelector("#userIdText").innerText = data.message;
+				if(data.message == "사용가능한 아이디입니다."){
+					document.getElementById("userIdText").style.color ="#4eac27";					
+				}
 				if (data.status == "not exist") {
 					availableId = true;
 					enableSubmitButton();
@@ -274,7 +277,9 @@
 			.then(data => {
 				// 응답 받아서 메세지 출력
 				document.querySelector("#userPhoneText").innerText = data.message;
-				
+				if(data.message == "사용가능한 전화번호입니다."){
+					document.getElementById("userPhoneText").style.color ="#4eac27";					
+				}
 				if (data.status == "not exist") {
 					availablePhone = true;
 					enableSubmitButton();
@@ -294,7 +299,9 @@
 			.then(data => {
 				// 응답 받아서 메세지 출력
 				document.querySelector("#userEmailText").innerText = data.message;
-				
+				if(data.message == "사용가능한 이메일입니다."){
+					document.getElementById("userEmailText").style.color ="#4eac27";					
+				}
 				if (data.status == "not exist") {
 					availableEmail = true;
 					enableSubmitButton();
@@ -319,6 +326,7 @@
 		confirmPassword.innerText = "비밀번호는 영어, 숫자, 특수문자를 사용하여 8글자 이상으로 조합해주세요."
 	} else if (value1 == value2) {
 		confirmPassword.innerText = "비밀번호가 일치합니다.";
+		document.getElementById("confirmPassword").style.color ="#4eac27";
 		availablePassword = true;
 	} else {
 		confirmPassword.innerText = "비밀번호가 일치하지 않습니다.";
