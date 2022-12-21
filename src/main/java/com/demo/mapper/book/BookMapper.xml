@@ -128,7 +128,7 @@
 	</update>
 	
 	<select id="selectByReviewAvg" resultType="double">
-		SELECT AVG(r.r_star) from Book b 
+		SELECT IFNULL(AVG(r.r_star), 0) from Book b 
 		LEFT JOIN Review r on b.b_code = r.b_code
 		WHERE b.b_code = #{b_code}
 	</select>

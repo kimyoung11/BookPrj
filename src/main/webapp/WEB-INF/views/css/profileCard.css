@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f4f4f4;
+    background-color: #f5faf3;
 }
 .container.mypage {
     width: auto;
@@ -33,7 +33,7 @@
 #setButton .btn{
     position: relative;
     border: none;
-    color: #fff;
+    color: #f5faf3;
     bottom: 5px;
     font-size: 20px;
     margin-left:160px;
@@ -45,7 +45,7 @@
     max-width: 200px;
     width: 30%;
     height: 50%;
-    background: #fff;
+    background: #f5faf3;
     border-radius: 24px;
     padding: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -59,14 +59,14 @@
     height: 36%;
     width: 100%;
     border-radius: 24px 24px 0 0;
-    background-color: #4070f4;
+    background-color: #4eac27;
 }
 .image {
     position: relative;
     height: 150px;
     width: 150px;
     border-radius: 50%;
-    background-color: #4070f4;
+    background-color: #4eac27;
     padding: 3px;
     margin-bottom: 10px;
 }
@@ -75,7 +75,7 @@
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #fff;
+    border: 3px solid #f5faf3;
 }
 /* .profile-card .text-data{
     display: flex;
