@@ -54,7 +54,7 @@
 
             <div class="row mt-5">
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg">
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" target="_blank">
                             <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" alt="제품 사진"/>
                         </a>
                         
@@ -62,7 +62,7 @@
                 </div>
                 
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg">
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" target="_blank">
                         	<img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" alt="제품 사진"/>
                         </a>
                         <div>&lt;오늘, 새롭게 살 수 있는 이유&gt; 기대평 이벤트</div>
@@ -72,7 +72,7 @@
 
             <div class="row mt-5 ">
             	<div id="evtcol" class="col">
-	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event3.png">
+	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event3.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event3.png" alt="제품 사진"/>
                     </a>
 	                <p style="margin-top: 10px;">
@@ -82,7 +82,7 @@
 	            </div>
                 
                 <div id="evtcol" class="col">
-	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png">
+	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" alt="제품 사진"/>
                     </a>
 	                <p style="margin-top: 10px;">
@@ -92,7 +92,7 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png">
+                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" alt="제품 사진"/>
                     </a>
                     <p style="margin-top: 10px;">
@@ -102,7 +102,7 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event6.png">
+                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event6.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event6.png" alt="제품 사진"/>
                    </a>
                     <p style="margin-top: 10px;">
@@ -114,7 +114,7 @@
         	<div id="space"></div>
             <div class="row mt-5">
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event7.png">
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event7.png" target="_blank">
                         	<img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event7.png" alt="제품 사진"/>
                         </a>
                         <p style="margin-top: 10px;">
@@ -125,7 +125,7 @@
                 </div>
                 
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event8.png">
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event8.png" target="_blank">
                         	<img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event8.png" alt="제품 사진"/>
                         </a>
                         <p style="margin-top: 10px;">
@@ -135,7 +135,7 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                     <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event9.png">
+                     <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event9.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event9.png" alt="제품 사진"/>
                      </a>
                     <p style="margin-top: 10px;">
@@ -145,7 +145,7 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                     <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event10.png">
+                     <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event10.png" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event10.png" alt="제품 사진"/>
                      </a>
                     <p style="margin-top: 10px;">
