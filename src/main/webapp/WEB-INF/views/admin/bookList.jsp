@@ -40,6 +40,28 @@ a {
 	color: #333;
 	text-decoration: none;
 }
+
+.btncolor1{
+background-color: #fff;
+border-color: #4EAC27;
+color: #4EAC27;
+}
+.btncolor1:hover,
+.btncolor1:active{
+background-color: #489f23;
+
+}
+
+.btncolor2{
+background-color: #4EAC27;
+border-color: #4EAC27;
+}
+.btncolor2:hover,
+.btncolor2:active{
+background-color: #489f23;
+}
+
+
 </style>
 </head>
 <body>
@@ -71,8 +93,8 @@ a {
 						<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="책" style="width: 50px; height: 60px;"/>
 						</td>
 				 		<td>
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyModal" data-book-code="${item.b_code }">책 정보 수정</button>
-							<button type="button" class="btn btn-primary modifyButton" onclick="clickModify(this)" data-book-code="${item.b_code }">삭제</button>
+							<button type="button" class="btn btn-primary btncolor1" data-bs-toggle="modal" data-bs-target="#modifyModal" data-book-code="${item.b_code }">책 정보 수정</button>
+							<button type="button" class="btn btn-primary modifyButton btncolor2" onclick="clickModify(this)" data-book-code="${item.b_code }">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
