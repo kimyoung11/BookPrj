@@ -320,7 +320,6 @@
 				},
 				body : JSON.stringify(data)
 			}).then((res) => res.json())
-			.then((res) => document.getElementById("likeContainer").innerText = res.bookCnt)
 			.then(() => toggle = !toggle)
 		/* 	.then(location.reload()); */ 
 		}else{
@@ -332,7 +331,6 @@
 				},
 				body : JSON.stringify(data)
 			}).then((res) => res.json())
-			.then((res) => document.getElementById("likeContainer").innerText = res.bookCnt)
 			.then(() => toggle = !toggle)
 			/* .then(location.reload()); */
 		}

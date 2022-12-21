@@ -232,36 +232,11 @@
 </div>
 <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="selectGenre()">선택</button>
 </div> --%>
-
-<!-- Pagination -->
-          <div class="row justify-content-center" style="margin-top: 160px">
-            <div class="col-3">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                  <c:url value="${pageContext.request.contextPath }/book/list/new" var="pageLink"></c:url>
-                    <a class="page-link" href="${pageLink }/${b_genre }?page=1" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <c:forEach begin="1" end="${pages }" varStatus="status" var="pageNumb">
-                  	<li class="page-item">
-                  		<a class="page-link" href="${pageLink }/${b_genre }?page=${pageNumb}">${pageNumb }</a>
-                  	</li>
-                  </c:forEach>
-                  <li class="page-item">
-                    <a class="page-link" href="${pageLink }/${b_genre }?page=${pages}" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
           
           <div class="container-md">
-            <hr />
-            
+            <div style="text-align: center; margin-top:20px;" class="mb-5">
+            <h1 style="font-size: 34px">최신 신작</h1>
+          	</div>
             <div id="message">
             
             </div>
@@ -276,8 +251,8 @@
               		</a>
               	<ul class="col book_cont">
                 <li class="likeco"><div style="font-size: 22px; font-weight: 500;">${item.b_title }</div><div style="font-size: 20px"><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
-                <li class="mt-3" style="float: right">${item.b_writer } <span>${item.b_pubDate }</span></li>
-                <li style="font-size: 18px" class="item-price mt-5">${item.b_price }</li>
+                <li class="mt-3" >${item.b_writer }</li>
+                <li style="font-size: 18px" class="item-price mt-1">${item.b_price }</li>
                 <li style="margin-bottom:35px">
                 세계화의 종말, 갈등과 분열, 그리고 전쟁. 수십 년간 이어져 온 평화와 공존의 시대는 막을 내리고 엄청난 위기감 <br>
                 속에서 사람들은 다가올 미래를 두려워한다. 

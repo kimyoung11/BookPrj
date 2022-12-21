@@ -216,14 +216,13 @@ li {
 							<label for="inputPassword5" class="form-label">ID 로그인</label><br>
 							
 							<div class="input-group flex-nowrap ">
-								<span class="input-group-text" id="addon-wrapping"
-									style="background-color: #fff;"><i
+								<span class="input-group-text" id="addon-wrapping"><i
 									class="fa-solid fa-user"></i></span> <input type="text"
-									  placeholder="아이디" name="u_id"
+									  placeholder="아이디" name="u_id" class="form-control pt-3 pb-3"
 									id="u_id" aria-label="Username">
 							</div>
 							<div class="input-group flex-nowrap">
-								<span class="input-group-text" style="background-color: #fff;">
+								<span class="input-group-text">
 									<i class="fa-solid fa-lock"></i>
 								</span> <input type="password" class="form-control pt-3 pb-3"
 									placeholder="비밀번호" name="u_pw" id="u_pw" aria-label="Username">
