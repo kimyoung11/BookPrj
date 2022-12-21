@@ -13,9 +13,9 @@ public interface MemberUserMapper {
 
 	UserVo findID(UserVo vo);
 
-	UserVo sendEmail(String u_email);
+	UserVo findPassword(UserVo vo);
 
-	UserVo updatePassword(UserVo vo);
+	int updatePassword(UserVo vo);
 
 	UserVo selectByUserId(String u_id);
 

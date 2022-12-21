@@ -21,8 +21,8 @@
         AND u_phone = #{u_phone}
 	</select>
 	
-	<!-- 이메일 발송 -->
-	<select id="sendEmail" resultType="com.demo.mapper.hms.UserVo">
+	<!-- 비밀번호 찾기 -->
+	<select id="findPassword" resultType="com.demo.mapper.hms.UserVo">
 	SELECT    
             u_id AS u_id,
             u_pw AS u_pw,
@@ -33,18 +33,17 @@
         FROM 
         	User
         WHERE 
-        	u_email = #{u_email} 
+        	u_id = #{u_id} 
+        AND u_email = #{u_email}
 	</select>
 
 	<!-- 비밀번호 수정 -->
 	<update id = "updatePassword">
 	UPDATE User
-			u_pw = #{u_pw} 
+		SET	u_pw = #{u_pw} 
 		WHERE
-			u_pw = #{u_pw} 
+			u_id = #{u_id} 
 	</update> 
-	
-	<!-- userID 중복 확인 -->
 
 	<!-- userID 중복 확인, 찾기 -->
 
