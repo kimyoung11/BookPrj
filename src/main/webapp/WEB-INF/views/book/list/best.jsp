@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>전체도서</title>
+    <title>베스트</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -91,13 +91,7 @@
 	      justify-content: space-between;
       }
       
-        #btn-button:hover{
-		color: white;
-		background-color: #4eac27;
-		border-color: #4eac27;
-		}
-		
-		#btn-button2:active{
+	    #btn-button:hover{
 		color: white;
 		background-color: #4eac27;
 		border-color: #4eac27;
@@ -107,106 +101,25 @@
 		background-color:white;
 		color:#4eac27;
 		border-color: #4eac27;
-		}  
-		
+		}
+	
 		.pagination{
 		--bs-pagination-color: #4eac27;
 		}
 	
-		.form-check-input:checked{
-			background-color:#4eac27;
-			border-color:#4eac27;
-		}
 	
     </style>
   </head>
 <body>
 	<my:headerBar></my:headerBar>
-    <div class="input-group" style="margin:30px; margin-left: 100px;">
-    <!-- checkBox-1 -->
-    <div class="container container-size" style="border: 0.5px solid #4eac27; opacity: 0.7;">
-    <div class="row">
-        <div class="col-3">
-            <h4>장르선택</h4>
-        </div>
-         <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="소설" id="option1" onclick="clickCheck(this)"> 
-            <label class="form-check-label" for="option1">
-            소설
-            </label>
-         </div>
-        <div class="form-check col-3">
-        <input class="form-check-input" type="checkbox" value="에세이" id="option2" onclick="clickCheck(this)"> 
-        <label class="form-check-label" for="option2">
-            에세이
-        </label>
-      </div>
-      <div class="form-check col-3">
-        <input class="form-check-input" type="checkbox" value="인문" id="option3" onclick="clickCheck(this)">
-        <label class="form-check-label" for="option3">
-            인문
-        </label>
-      </div>
-</div>
 
-    <!-- checkBox-2 -->
-    <div class="row">
-        <div class="col-3">
-            <h4></h4>
-        </div>
-        <div class="form-check col-3">
-           <input class="form-check-input" type="checkbox" value="역사" id="option4" onclick="clickCheck(this)">
-           <label class="form-check-label" for="option4">
-           역사
-           </label>
-        </div>
-       <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="만화" id="option5" onclick="clickCheck(this)">
-       <label class="form-check-label" for="option5">
-         만화
-       </label>
-     </div>
-     <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="어린이" id="option6" onclick="clickCheck(this)">
-       <label class="form-check-label" for="option6">
-         어린이
-       </label>
-     </div>
-</div>
-<!-- checkBox3 -->
-<div class="row ">
-    <div class="col-3">
-        <h4></h4>
-    </div>
-    <div class="form-check col-3">
-       <input class="form-check-input" type="checkbox" value="수험서" id="option7" onclick="clickCheck(this)">
-       <label class="form-check-label" for="option7">
-       수험서
-       </label>
-    </div>
-   <div class="form-check col-3">
-   <input class="form-check-input" type="checkbox" value="육아" id="option8" onclick="clickCheck(this)">
-   <label class="form-check-label" for="option8">
-       육아
-   </label>
- </div>
- <div class="form-check col-3">
-   <input class="form-check-input" type="checkbox" value="예술" id="option9" onclick="clickCheck(this)">
-   <label class="form-check-label" for="option9">
-       예술
-   </label>
- </div>
-</div>
-</div>
-<button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="selectGenre()">선택</button>
-</div>
-<!-- Pagination -->
-          <div class="row justify-content-center">
+ <!-- Pagination -->
+          <div class="row justify-content-center" style="margin-top: 160px">
             <div class="col-3">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">
-                  <c:url value="${pageContext.request.contextPath }/book/list" var="pageLink"></c:url>
+                  <c:url value="${pageContext.request.contextPath }/book/list/best" var="pageLink"></c:url>
                     <a class="page-link" href="${pageLink }?page=1" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -225,11 +138,9 @@
               </nav>
             </div>
           </div>
-
           
           <div class="container-md">
             <hr />
-            
             <div id="message">
             
             </div>
@@ -281,6 +192,7 @@
           </div>
                
           <my:footer></my:footer>
+               
           
           
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -411,6 +323,7 @@
     for(let i=0;i<itemPrice.length;i++){
 		itemPrice[i].innerText = Number(itemPrice[i].innerText).toLocaleString() + " 원";	
 	}
+
     </script>
 </body>
 </html>

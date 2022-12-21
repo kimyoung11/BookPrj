@@ -1,5 +1,6 @@
 package com.demo.controller.kyj;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -153,7 +154,13 @@ public class BookController {
 		BookDto temp = bookService.getByCode(b_code); //1번책
 //		System.out.println(temp);
 		List<ReviewDto> review = reviewService.getByBookCode(b_code);
-		System.out.println("this is review:" + review);
+		double starAvg = bookService.getByReviewAvg(b_code);
+		double starAvg2 = Math.round(starAvg*10)/10.0;
+		System.out.println("staravg" + starAvg2);
+		int peopleCnt = bookService.getByPeopleCnt(b_code);
+//		System.out.println("this is temp:" + temp);
+		//System.out.println("this is review:" + review);
+		
 		
 		int likeStatus = bookService.getLikeCount(b_code, u_id);
 		System.out.println("this is likeStatus:" + likeStatus);
@@ -163,6 +170,8 @@ public class BookController {
 			model.addAttribute("likeStatus", "true");
 		model.addAttribute("book", temp);
 		model.addAttribute("review", review);
+		model.addAttribute("peopleCnt",peopleCnt);
+		model.addAttribute("reviewAvg",starAvg2);
 		return "/book/detail";
 	}
 	
@@ -282,6 +291,18 @@ public class BookController {
 	@GetMapping
 	private String chat(Locale locale,Model model) {
 		return "chat";
+	}
+	
+	@GetMapping("list/best")
+	public String listBest(Model model,@RequestParam(defaultValue = "1") int page) {//all books page
+		PageHelper.startPage(page, 10);
+		Page<BookDto> books = bookService.getByLike();
+		model.addAttribute("pageNum", books.getPageNum());
+		model.addAttribute("pageSize", books.getPageSize());
+		model.addAttribute("pages", books.getPages());
+		model.addAttribute("total",books.getTotal());
+		model.addAttribute("bookList", books.getResult());
+		return "book/list/best";
 	}
 
 }

@@ -45,19 +45,25 @@
         p {
         	text-align: left;
         }
+        
+        #tit:hover {
+		color: #4EAC27;
+		}
+		.trcolor{
+        background-color: #F5FAF3;
+        }
 </style>
 </head>
 <body>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2>주문상세</h2></a>
-        <hr id="hr_line">
+        <a href="/cart/orderdetail?o_number=${orderDetailList[0].o_number }"><h2 id="tit">주문상세</h2></a>
         <p>주문번호 : ${orderDetailList[0].o_number}</p>
         <p>주문일시 : ${orderDetailList[0].o_date }</p>
         <p>결제금액 : <span id="price">${orderDetailList[0].o_total }</span></p>
         <table class="table" style="vertical-align: middle;">
         	<thead>
-				<tr class ="table-info">
+				<tr class="trcolor">
 					<th>상품 정보</th>
 					<th>상품명</th>
 					<th>수량</th>

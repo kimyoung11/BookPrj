@@ -7,7 +7,7 @@
 
 <c:url value="/book/list" var="listAll" />
 <c:url value="/book/list/new" var="listNew" />
-<c:url value="/book/list" var="listBest" />
+<c:url value="/book/list/best" var="listBest" />
 <c:url value="/cart/cart" var="cartView" />
 <c:url value="/user/login.do" var="loginView" />
 <c:url value="/customer/asked" var="customerView" />
@@ -210,7 +210,7 @@ color:#4eac27;
 							<a href="${listNew}"><h6>최신신작</h6></a>
 						</div>
 						<div class="col">
-							<h6>베스트</h6>
+							<a href="${listBest}"><h6>베스트</h6></a>
 						</div>
 						<div class="col">
 							<a href="${event }"><h6>이벤트</h6></a>
