@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.domain.customer.QuestionDto;
+import com.demo.domain.review.yjh.ReviewDto;
 import com.demo.domain.user.yjh.UserDto;
 import com.demo.mapper.hms.UserVo;
 import com.demo.service.hms.MemberUserService;
@@ -95,9 +97,17 @@ public class UserController {
 	 
 	 String u_id = (String)session.getAttribute("id");
 	 UserDto user = service.getUserPageInfo(u_id);
-	 System.out.println(user.getO_status_ready());
 	 model.addAttribute("user", user);
 	 
+	 }
+	 
+	// 마이페이지 문의 확인
+	 @GetMapping("userAnswer")
+	 public void getQuest(int q_number, Model model) {
+		 
+		 QuestionDto quest = service.getAnswer(q_number);
+		 
+		 model.addAttribute("questContent", quest);
 	 }
 	 
 	 // 마이페이지 리뷰 리스트
@@ -108,7 +118,7 @@ public class UserController {
 		 return service.getReviewList(u_id);
 	 
 	 }
-
+	 
 	
 	 // 마이페이지 작성 가능한 리뷰 리스트
 	  @GetMapping("makeReviewList/{u_id}")
@@ -170,20 +180,37 @@ public class UserController {
 
 	// 02. 로그인 처리
 
+//	@RequestMapping("loginCheck.do")
+//	public ModelAndView loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
+//		boolean result = memberUserService.loginCheck(vo, session);
+//		ModelAndView mav = new ModelAndView();
+//		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
+//			mav.setViewName("redirect:/book/main");
+//			/* mav.addObject("id", vo.getu_id()); */
+//			session.setAttribute("id", vo.getu_id());
+//		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
+//			mav.setViewName("redirect:/user/login.do");
+//			/* mav.addObject("msg", "failure"); */
+//		}
+//		return mav;
+//	}
+	
 	@RequestMapping("loginCheck.do")
-	public ModelAndView loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
+	public String loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
-		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("redirect:/book/main");
-			/* mav.addObject("id", vo.getu_id()); */
+		if(vo.getu_id().equals("admin")) {
+			return "redirect:/admin/notice";
+		}
+		else if (result == true) { // 로그인 성공 시 // main.jsp로 이동
 			session.setAttribute("id", vo.getu_id());
+			return "redirect:/book/main";
 		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
-			mav.setViewName("redirect:/user/login.do");
+			return "redirect:/user/login.do";
 			/* mav.addObject("msg", "failure"); */
 		}
-		return mav;
 	}
+	
 	// 로그인 버튼 클릭시 loginCheck.do에서 요청이 오고 controller에서 처리
 	// 사용자가 받아온 값을 vo를 통해 mapper에 넘기고 반환값을 vo에 담는다
 

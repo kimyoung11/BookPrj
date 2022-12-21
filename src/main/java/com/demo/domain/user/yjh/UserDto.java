@@ -45,9 +45,18 @@ public class UserDto {
     private String b_genre;
     private int b_like;
 	
+    private int q_number;
 	private String q_title;
 	private String q_content;
 	private String q_option;
 	@JsonFormat(shape = Shape.STRING)
-	private LocalDateTime q_date;
+	private LocalDate q_date;
+	
+	private int a_id;
+	private String a_content;
+	@JsonFormat(shape = Shape.STRING)
+	private LocalDate a_date; 
+	
+	private int f_id;
+	private String fileName;
 }

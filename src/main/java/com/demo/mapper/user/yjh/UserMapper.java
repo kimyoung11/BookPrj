@@ -2,6 +2,7 @@ package com.demo.mapper.user.yjh;
 
 import java.util.List;
 
+import com.demo.domain.customer.QuestionDto;
 import com.demo.domain.user.yjh.UserDto;
 
 public interface UserMapper {
@@ -11,6 +12,8 @@ public interface UserMapper {
 	UserDto selectUserInfo(String u_id);
 
 	UserDto selectUserPageInfo(String id);
+	
+	QuestionDto selectAnswer(int q_number);
 	
 	int countLikeByUserId(String u_id);
 	
