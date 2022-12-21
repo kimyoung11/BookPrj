@@ -103,6 +103,7 @@
 		border-color: #4eac27;
 		}
 	
+
 		.pagination{
 		--bs-pagination-color: #4eac27;
 		}
@@ -114,6 +115,7 @@
 	<my:headerBar></my:headerBar>
 
  <!-- Pagination -->
+
           <div class="row justify-content-center" style="margin-top: 160px">
             <div class="col-3">
               <nav aria-label="Page navigation example">
@@ -181,6 +183,7 @@
                 	<a type="button" id="btn-button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
+
 	                 <a type="button" class="btn btn-primary buy-btn buy" href="${loginLink}" id="btn-button2">
                     구매하기
                   </a>
@@ -196,6 +199,7 @@
                
           <my:footer></my:footer>
                
+
           
           
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -322,6 +326,7 @@
     	;
     }
     
+
     let itemPrice = document.querySelectorAll(".item-price");
     for(let i=0;i<itemPrice.length;i++){
 		itemPrice[i].innerText = Number(itemPrice[i].innerText).toLocaleString() + " 원";	

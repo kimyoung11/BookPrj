@@ -40,6 +40,7 @@ a {
 
 .table {
 	margin: 30px 0;
+	table-layout: fixed;
 }
 
 .table>tbody {
