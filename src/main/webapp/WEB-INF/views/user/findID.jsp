@@ -63,8 +63,10 @@ li {
 }
 
 .logo {
-	text-align: center;
-	margin-bottom: 30px;
+	font-size: 30px;
+	margin: 0;
+	justify-content: center;
+	margin: 50px 0px;
 }
 
 #login_button {
@@ -89,6 +91,20 @@ li {
 	width: 1px;
 	height: 15px;
 	background-color: black;
+}
+
+.form-collection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.join-btn {
+	padding: 10px 40px;
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 50px;
+	justify-content: center;
 }
 
 #modal.modal-overlay {
@@ -156,8 +172,15 @@ li {
 <body>
 
 
+
+
+
 	<form method="post" action="findID" name="findID">
+	
 		<div class="container-md">
+		<div class="row logo">아이디 찾기</div>
+			
+			
 			<div class="box justify-content-center">
 				<div id="form" class="row justify-content-center">
 					<div class="col-12 col-md-5">
@@ -170,20 +193,21 @@ li {
 							</div>
 						</div>
 						<br>
-						
-							<div class="form-label-group">
-								<label for="u_phone" class="form-label">전화번호</label> <br>
-								<div class="input-group flex-nowrap"> 
-								<input type="text"
-									id="u_phone" class="form-control pt-3 pb-3" name="u_phone" />
+
+						<div class="form-label-group">
+							<label for="u_phone" class="form-label">전화번호</label> <br>
+							<div class="input-group flex-nowrap">
+								<input type="text" id="u_phone" class="form-control pt-3 pb-3"
+									name="u_phone" />
 							</div>
 						</div>
 						<br>
-						<div>
-							<input class="btn btn-primary pt-3 pb-3" type="submit"
-								id="submitButton" disabled>
+						<div class="row justify-content-center">
+							<div class="col-4">
+								<input class="btn btn-primary pt-3 pb-3" type="submit"
+									value="찾아보기" id="submitButton" disabled>
+							</div>
 						</div>
-
 						<!-- 이름과 전화번호가 일치하지 않을 때-->
 						<%-- <c:if test="${check == 1}">
 							<script>
