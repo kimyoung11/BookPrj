@@ -61,8 +61,10 @@ li {
 }
 
 .logo {
-	text-align: center;
-	margin-bottom: 30px;
+	font-size: 30px;
+	margin: 0;
+	justify-content: center;
+	margin: 50px 0px;
 }
 
 #login_button {
@@ -152,6 +154,7 @@ li {
 <body>
 	<form method="post" action="findPassword" name="findPassword">
 		<div class="container-md">
+		<div class="row logo">비밀번호 찾기</div>
 			<div class="box justify-content-center">
 				<div id="form" class="row justify-content-center">
 					<div class="col-12 col-md-5">
@@ -174,10 +177,11 @@ li {
 								
 						</div></div>
 						<br>
-						<div>
-							<input class="btn btn-primary pt-3 pb-3" type="submit" id="submitButton" disabled>
+						<div class="row justify-content-center">
+						<div class="col-4">
+							<input class="btn btn-primary pt-3 pb-3" value="수정하기" type="submit" id="submitButton" disabled>
 						</div>
-
+						</div>
 						<!-- 이름과 전화번호가 일치하지 않을 때-->
 						<c:if test="${check == 1}">
 						<div id="modal" class="modal-overlay">
@@ -203,7 +207,7 @@ li {
 								<div class="modal-window">
 									<div class="close-area">×</div>
 									<div class="content word">
-							<label>찾으시는 비밀번호 &lt;${u_pw}&gt; 입니다.</label>
+							<%-- <label>찾으시는 비밀번호 &lt;${u_pw}&gt; 입니다.</label> --%>
 							<!-- <div>
 								<input type="button" value="OK" onclick="closethewindow()">
 							</div> -->
@@ -214,15 +218,18 @@ li {
 								<input
 									type="password" class="form-control" id="passwordInput2"
 									 />
-								<div id="confirmPassword" class="form-text text-danger">암호
+								<div id="confirmPassword" class="form-text" style="color: red;">암호
 							확인 결과...</div>
 					</div>
+								<div class="row justify-content-center">
+						<div class="col-4">
 								<input disabled type="button" id="submitButton2" value="수정하기" class="btn btn-primary join-btn"
 									onclick="updatePassword()" />
 									</div>
 								</div>
 							</div>
-							
+							</div>
+								</div>
 						</c:if>
 					</div>
 				</div>
@@ -309,6 +316,7 @@ li {
    			confirmPassword.innerText = "비밀번호는 영어, 숫자, 특수문자를 사용하여 8글자 이상으로 조합해주세요."
    		} else if (value1 == value2) {
    			confirmPassword.innerText = "비밀번호가 일치합니다.";
+   			document.getElementById("confirmPassword").style.color ="#4eac27";
    			availablePassword = true;
    		} else {
    			confirmPassword.innerText = "비밀번호가 일치하지 않습니다.";
