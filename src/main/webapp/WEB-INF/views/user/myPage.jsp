@@ -1005,7 +1005,7 @@ document.querySelector("#editConfirmButton").addEventListener("click", function(
 		document.querySelector("#message1").innerText = data.message;
 		toast.show();
 	})
-	.then(() => myReview());
+	.then(() => myQuestion());
 })
 
 // 수정버튼 활성/비활성

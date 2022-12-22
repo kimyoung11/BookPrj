@@ -52,8 +52,10 @@
 
 	
     <div class="container">
+ 			
     		<div style="text-align: center; margin-top: 40px;" class="mb-5">
 			<h1 style="font-size: 34px">공지사항</h1>
+			<a href="${pageContext.request.contextPath }/customer/notice" style="float: left; border: 1px solid #4eac27;">목록</a>
 		</div>
     
         <hr style="border:1px solid #000;">
