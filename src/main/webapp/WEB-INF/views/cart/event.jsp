@@ -92,7 +92,7 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jsp" target="_blank">
+                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" target="_blank">
                         <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" alt="제품 사진"/>
                     </a>
                     <p style="margin-top: 10px;">
