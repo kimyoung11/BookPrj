@@ -65,13 +65,13 @@ public class MemberUserService { // 인터페이스 구현
 		return mapper.findID(vo);
 	}
 
-	// 08. 이메일 발송
-	public UserVo sendEmail(String u_email) {
-		return mapper.sendEmail(u_email);
+	// 08. 비밀번호 찾기, 수정
+	public UserVo findPassword(UserVo vo) {
+		return mapper.findPassword(vo);
 	}
 
 	// 09. 비밀번호 수정
-	public UserVo updatePassword(UserVo vo) {
+	public int updatePassword(UserVo vo) {
 		return mapper.updatePassword(vo);
 	}
 

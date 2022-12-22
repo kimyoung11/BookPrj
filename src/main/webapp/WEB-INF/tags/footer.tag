@@ -8,9 +8,9 @@
             <div class="row w-50 ms-auto mx-auto">
               <div style="margin-top: 30px"></div>
               <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
-              <div class="col">개인정보취급</div>
+              <div class="col">고객센터</div>
+              <div class="col">회사정보</div>
+              <div class="col">근무시간</div>
             </div>
           </section>
           <!-- Section: Links  -->

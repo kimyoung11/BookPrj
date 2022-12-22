@@ -180,20 +180,37 @@ public class UserController {
 
 	// 02. 로그인 처리
 
+//	@RequestMapping("loginCheck.do")
+//	public ModelAndView loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
+//		boolean result = memberUserService.loginCheck(vo, session);
+//		ModelAndView mav = new ModelAndView();
+//		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
+//			mav.setViewName("redirect:/book/main");
+//			/* mav.addObject("id", vo.getu_id()); */
+//			session.setAttribute("id", vo.getu_id());
+//		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
+//			mav.setViewName("redirect:/user/login.do");
+//			/* mav.addObject("msg", "failure"); */
+//		}
+//		return mav;
+//	}
+	
 	@RequestMapping("loginCheck.do")
-	public ModelAndView loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
+	public String loginCheck(@ModelAttribute UserVo vo, HttpSession session) {
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
-		if (result == true) { // 로그인 성공 시 // main.jsp로 이동
-			mav.setViewName("redirect:/book/main");
-			/* mav.addObject("id", vo.getu_id()); */
+		if(vo.getu_id().equals("admin")) {
+			return "redirect:/admin/notice";
+		}
+		else if (result == true) { // 로그인 성공 시 // main.jsp로 이동
 			session.setAttribute("id", vo.getu_id());
+			return "redirect:/book/main";
 		} else { // 로그인 실패 시 // login.jsp로 이동 mav.setViewName("user/login");
-			mav.setViewName("redirect:/user/login.do");
+			return "redirect:/user/login.do";
 			/* mav.addObject("msg", "failure"); */
 		}
-		return mav;
 	}
+	
 	// 로그인 버튼 클릭시 loginCheck.do에서 요청이 오고 controller에서 처리
 	// 사용자가 받아온 값을 vo를 통해 mapper에 넘기고 반환값을 vo에 담는다
 
@@ -298,96 +315,107 @@ public class UserController {
 			model.addAttribute("check", 0);
 			model.addAttribute("u_id", UserVo.getu_id());
 		}
+		
 		return "user/findID";
 	}
 
-	// 09_1. 아이디 확인, 인증번호 발송
+	// 09. 비밀번호 찾기
+	@GetMapping("findPassword")
+	public void findPassword() {
 
-	@RequestMapping("sendEmail")
-	public ModelAndView sendEmail(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String u_id = (String) request.getParameter("u_id"); // HTTP 요청 수신
-		String u_email = (String) request.getParameter("u_email");
-
-		UserVo vo = memberUserService.sendEmail(u_email);
-
-		if (vo != null) { // id가 일치시
-			Random r = new Random();
-			int num = r.nextInt(999999); // 랜덤난수설정
-
-			if (vo.getu_id().equals(u_id)) {
-				session.setAttribute("u_email", vo.getu_email());
-
-				SimpleMailMessage message = new SimpleMailMessage();
-
-				message.setFrom("BookPrj0802@gmail.com"); // setFrom(String from) 발신자 설정
-				message.setTo("u_email"); // setTo(String to) 수신자 설정
-				message.setSubject("비밀번호 변경 인증번호"); // setSubject(String subject) 메일 제목 설정
-				message.setText("안녕하세요 고객님" // setText(String text) 메일 내용 설정
-						+ System.getProperty("line.separator") + "비밀번호찾기(변경) 인증번호는 " + num + " 입니다.");
-
-				emailSender.send(message);
-				
-				try {
-					
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-
-				ModelAndView mv = new ModelAndView();
-				mv.setViewName("user/findPassword");
-				mv.addObject("num", num);
-				return mv;
-			} else {
-				ModelAndView mv = new ModelAndView();
-				mv.setViewName("user/sendEmail");
-				return mv;
-			}
-		} else {
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("user/sendEmail");
-			return mv;
-		}
 	}
 
-	// 9_2. 이메일 인증번호 동일한지 확인
 	@RequestMapping("findPassword")
-	public String pw_set(@RequestParam("email_injeung") String email_injeung,		
-			@RequestParam("num") String num) throws IOException {
-		
-		if (email_injeung.equals(num)) {
-			return "user/updatePassword";
-		} else {
-			return "user/sendEmail";
-		}
-	}
-/*
-	// 9_3. 비밀번호 변경
+	public String findfindPasswordAction(UserVo vo, Model model) {
+		UserVo UserVo = memberUserService.findPassword(vo);
 
-	@RequestMapping("updatePassword")
-	public String updatePassword(UserVo vo, HttpSession session) throws IOException {
-		UserVo result = memberUserService.updatePassword(vo);
-		if (result == 1) {
-			return "user/login.do";
+		if (UserVo == null) {
+			model.addAttribute("check", 1);
 		} else {
-			System.out.println("pw_update" + result);
-			return "user/updatePassword";
+			model.addAttribute("check", 0);
+			model.addAttribute("u_id", UserVo.getu_id());
+			model.addAttribute("u_pw", UserVo.getu_pw());
 		}
-	}}
-	*/
-/*
-	@Autowired 
-	private JavaMailSender emailSender;
-
-	@RequestMapping("test")
-	public void test() {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("BookPrj0802@gmail.com");
-		message.setTo("BookPrj0802@gmail.com");
-		message.setSubject("인증");
-		message.setText("테스트 용");
-		emailSender.send(message);
+		return "user/findPassword";
 	}
-	*/
 	
+	// 비밀번호 수정
+	@PutMapping("findPassword")
+	@ResponseBody
+	public Map<String, Object> findPassword(@RequestBody UserVo vo) {
+
+		Map<String, Object> map = new HashMap<>();
+
+		int cnt = memberUserService.updatePassword(vo);
+
+			map.put("message", "비밀번호가 수정되었습니다.");
+		
+		return map;
+	}
+	
+
+	/*
+	 * // 09_1. 아이디 확인, 인증번호 발송
+	 * 
+	 * @RequestMapping("sendEmail") public ModelAndView sendEmail(HttpSession
+	 * session, HttpServletRequest request, HttpServletResponse response) throws
+	 * IOException { String u_id = (String) request.getParameter("u_id"); // HTTP 요청
+	 * 수신 String u_email = (String) request.getParameter("u_email");
+	 * 
+	 * UserVo vo = memberUserService.sendEmail(u_email);
+	 * 
+	 * if (vo != null) { // id가 일치시 Random r = new Random(); int num =
+	 * r.nextInt(999999); // 랜덤난수설정
+	 * 
+	 * if (vo.getu_id().equals(u_id)) { session.setAttribute("u_email",
+	 * vo.getu_email());
+	 * 
+	 * SimpleMailMessage message = new SimpleMailMessage();
+	 * 
+	 * message.setFrom("BookPrj0802@gmail.com"); // setFrom(String from) 발신자 설정
+	 * message.setTo("u_email"); // setTo(String to) 수신자 설정
+	 * message.setSubject("비밀번호 변경 인증번호"); // setSubject(String subject) 메일 제목 설정
+	 * message.setText("안녕하세요 고객님" // setText(String text) 메일 내용 설정 +
+	 * System.getProperty("line.separator") + "비밀번호찾기(변경) 인증번호는 " + num + " 입니다.");
+	 * 
+	 * emailSender.send(message);
+	 * 
+	 * try {
+	 * 
+	 * } catch (Exception e) { System.out.println(e.getMessage()); }
+	 * 
+	 * ModelAndView mv = new ModelAndView(); mv.setViewName("user/findPassword");
+	 * mv.addObject("num", num); return mv; } else { ModelAndView mv = new
+	 * ModelAndView(); mv.setViewName("user/sendEmail"); return mv; } } else {
+	 * ModelAndView mv = new ModelAndView(); mv.setViewName("user/sendEmail");
+	 * return mv; } }
+	 * 
+	 * // 9_2. 이메일 인증번호 동일한지 확인
+	 * 
+	 * @RequestMapping("findPassword") public String
+	 * pw_set(@RequestParam("email_injeung") String email_injeung,
+	 * 
+	 * @RequestParam("num") String num) throws IOException {
+	 * 
+	 * if (email_injeung.equals(num)) { return "redirect:/user/updatePassword"; }
+	 * else { return "redirect:/user/sendEmail"; } }
+	 * 
+	 * // 9_3. 비밀번호 변경
+	 * 
+	 * @RequestMapping("updatePassword") public String updatePassword(UserVo vo,
+	 * HttpSession session) throws IOException { UserVo result =
+	 * memberUserService.updatePassword(vo); if (result == 1) { return
+	 * "user/login.do"; } else { System.out.println("pw_update" + result); return
+	 * "user/updatePassword"; } }}
+	 * 
+	 * 
+	 * @Autowired private JavaMailSender emailSender;
+	 * 
+	 * @RequestMapping("test") public void test() { SimpleMailMessage message = new
+	 * SimpleMailMessage(); message.setFrom("BookPrj0802@gmail.com");
+	 * message.setTo("BookPrj0802@gmail.com"); message.setSubject("인증");
+	 * message.setText("테스트 용"); emailSender.send(message); }
+	 * 
+	 */
 
 }

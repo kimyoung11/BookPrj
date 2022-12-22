@@ -66,10 +66,21 @@
 	border-color: #4eac27;
 }
 
+#btn-button2:active{
+		color: white;
+		background-color: #4eac27;
+		border-color: #4eac27;
+		}
+	
 #btn-button{
 	color:#4eac27;
 	border-color: #4eac27;
 }
+
+	.pagination{
+		--bs-pagination-color: #4eac27;
+		}
+
 
 </style>
 <body>
@@ -110,10 +121,10 @@
 							</span>
 					</div>
 					<div class="mb-3" style="font-weight: 500">회원가</div>
-					${book.b_price } 원
+					<span id="priceInput">${book.b_price }</span>
 					<hr>
 					<div class="mb-3" style="font-weight: 500">카테고리</div>
-					${book.b_genre }
+					국내도서 > ${book.b_genre }
 					<hr>
 					<div class="mb-3" style="font-weight: 500">배송 예정</div>
 					구매 후 3일 이내
@@ -137,13 +148,13 @@
 						<div class="col">
 						<c:if test="${u_id != null }">
 							<button type="button" class="btn btn-dark mb-1 buy"
-								style="width: 100%; background: #4eac27; border: none;" value="${book.b_code }" onclick="buyBook()">바로
+								style="width: 100%; background: #4eac27; border: none; background-color:#4eac27;" value="${book.b_code }" onclick="buyBook()">바로
 								구매하기</button>
 						</c:if>
 						<c:if test="${u_id ==null }">
 							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
 		                 	<a type="button" class="btn btn-dark mb-1 buy"
-								style="width: 100%;" href="${loginLink }">
+								style="width: 100%; background: #4eac27; border: none; background-color:#4eac27;" href="${loginLink }">
 		                 		바로 구매하기
 		                 	</a>
 						</c:if>
@@ -177,39 +188,54 @@
 			</div>
 		</div>
 		<div>
-	${message }
 	</div>
 		<div class="book-detail mt-3 mb-5">
-			<h6 style="font-weight: 500">도서 상세정보</h6>
+			<h6 style="font-weight: 500;">도서 상세정보</h6>
 			<hr style="border: 1px solid black;">
-			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Praesentium ab soluta atque dolorum natus, ducimus incidunt
-				cupiditate sunt culpa quisquam qui omnis, cum velit sint molestiae
-				accusantium vel minus rerum.</div>
+			<div align="right">
+				<br>
+				쪽수,무게,크기 : 260쪽 | 308g | 128*188*20mm <br>
+				ISBN13 : 912938123 <br>
+				ISBN10 : 123918232
+			</div>
 		</div>
 		<div class="book-category mt-3 mb-5">
 			<h6 style="font-weight: 500">카테고리 분류</h6>
 			<hr style="border: 1px solid black;">
-			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Praesentium ab soluta atque dolorum natus, ducimus incidunt
-				cupiditate sunt culpa quisquam qui omnis, cum velit sint molestiae
-				accusantium vel minus rerum.</div>
+			<div>국내도서 > ${book.b_genre }</div>
 		</div>
 		<div class="book-introduce mt-3 mb-5">
 			<h6 style="font-weight: 500">책 소개</h6>
 			<hr style="border: 1px solid black;">
-			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Praesentium ab soluta atque dolorum natus, ducimus incidunt
-				cupiditate sunt culpa quisquam qui omnis, cum velit sint molestiae
-				accusantium vel minus rerum.</div>
+			<div class="row">
+			<img class="col-4" src="${pageContext.request.contextPath}/content/book1.jpg" alt="책사진" height="332px;"/>
+			<pre class="col-6" style="font-size: 15px;">
+			
+	아프고 다친 채로도 살아갈 수 있는 세계를 꿈꾸며
+	“패배자”들을 향해 뛰는 심장으로 써내려간 뜨거운 글쓰기
+	
+	슬픔의 자리에서 비로소 열리는
+	가능성에 관하여
+	
+	“인생의 예기치 않은 사건 앞에서,
+	책 속의 말들이 다 무너지는 걸 목도하고도
+	다시 책 앞에 선 사람의 이야기”
+	_김애란(소설가)
+	
+	슬픔에게 건네는 온기 어린 마침표
+			</pre></div>
 		</div>
 		<div class="book-detail-page mt-3 mb-5">
 			<h6 style="font-weight: 500">상세 페이지</h6>
 			<hr style="border: 1px solid black;">
-			<div>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Praesentium ab soluta atque dolorum natus, ducimus incidunt
-				cupiditate sunt culpa quisquam qui omnis, cum velit sint molestiae
-				accusantium vel minus rerum.</div>
+			<div style="padding-top: 20px; padding-bottom: 30px;"><p>나를 이렇게 대한 여자는 네가 처음이야.” 왜 12시였을까. 왜 그렇게 황급히 떠났을까. 내 아내가 되고 싶어 온 게 아닌가? <br>
+			아름다운 여인은 많았지만 너무 뻔했어요. 다들 좀 비슷비슷하달까. 아무도 나를 완전히 사로잡지는 못했죠. <br>
+			그런데 그녀가 왔다간 다음, 나는 예전의 내 자리로 돌아갈 수가 없게 됐어요. <br>아, 그녀는 내가 뭐에 미치는지 너무 잘 알았던 게 아닐까요? 
+			묘하게 엇박이 나던 춤은 도대체 어디서 배운 거지? <br> ---「〈신데렐라〉 왕자, 그 후의 인터뷰」중에서</p>
+
+			<p>왕자는 바다에 빠졌고 인어공주는 사랑에 빠졌다. 어딘가에 빠졌다는 것은 그 어딘가로부터 빠져나와야 할 것 같은 기분이 들게 한다. <br>
+			그런데 그 깊이가 만만치 않다. 충분히 일어서서 걸어 나올 수 있는 깊이였다는 것은 시간이 지나고 나서야 알게 될 뿐이다. <br>
+			---「〈인어공주〉 나는 나를 파괴할 권리가 있다」중에서</p>
 		</div>
 		<div class="book-review mt-3">
 			<h6 style="font-weight: 500">고객 리뷰</h6>
@@ -271,6 +297,10 @@
 	<script>
 	
 	const ctx = "${pageContext.request.contextPath}";
+	
+	
+	let priceInput = document.querySelector("#priceInput");
+	priceInput.innerText = Number(priceInput.innerText).toLocaleString()+" 원";
 
 	let likeIcon = document.querySelector(".likeIcon");
 	let toggle = ${likeStatus};
@@ -290,7 +320,6 @@
 				},
 				body : JSON.stringify(data)
 			}).then((res) => res.json())
-			.then((res) => document.getElementById("likeContainer").innerText = res.bookCnt)
 			.then(() => toggle = !toggle)
 		/* 	.then(location.reload()); */ 
 		}else{
@@ -302,7 +331,6 @@
 				},
 				body : JSON.stringify(data)
 			}).then((res) => res.json())
-			.then((res) => document.getElementById("likeContainer").innerText = res.bookCnt)
 			.then(() => toggle = !toggle)
 			/* .then(location.reload()); */
 		}
@@ -353,7 +381,7 @@
 		 
 };
 	 
-	 
+	 	
 	 function buyBook(){ //바로구매
 		 const c_cnt =document.querySelector(".cntValidate").value;
 		 console.log(c_cnt);

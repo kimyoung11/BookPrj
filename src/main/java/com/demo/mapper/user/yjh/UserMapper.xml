@@ -47,10 +47,10 @@
   				u_id,
 				(SELECT COUNT(b_code) FROM BookLike WHERE u_id = #{u_id}) countLike ,
        			(SELECT SUM(c_count) FROM Cart WHERE u_id = #{u_id}) countCart,
-       			(select count(*) o_status FROM Orders WHERE o_status = '상품준비중' AND u_id = #{u_id}) o_status_ready,
-       			(select count(*) o_status FROM Orders WHERE o_status = '배송시작' AND u_id = #{u_id}) o_status_start,
-       			(select count(*) o_status FROM Orders WHERE o_status = '배송중' AND u_id = #{u_id}) o_status_ing,
-       			(select count(*) o_status FROM Orders WHERE o_status = '배송완료' AND u_id = #{u_id}) o_status_complete
+       			(SELECT COUNT(*) o_status FROM Orders WHERE o_status = '상품준비중' AND u_id = #{u_id} AND o_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH) AND NOW()) o_status_ready,
+                (SELECT COUNT(*) o_status FROM Orders WHERE o_status = '배송시작' AND u_id = #{u_id} AND o_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH) AND NOW()) o_status_start,
+       			(SELECT COUNT(*) o_status FROM Orders WHERE o_status = '배송중' AND u_id = #{u_id} AND o_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH) AND NOW()) o_status_ing,
+       			(SELECT COUNT(*) o_status FROM Orders WHERE o_status = '배송완료' AND u_id = #{u_id} AND o_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH) AND NOW()) o_status_complete
 		FROM 	
 				User 
   		WHERE 	
@@ -128,33 +128,24 @@
 		WHERE q.u_id = #{u_id};
   	</select>
   	
-  	<!-- <select id="selectAnswer" resultMap="questionMap">
-  		SELECT 	q.q_number, q.q_title, q.q_content, q.q_date, q.q_option,
-				a.a_date, a.a_content,
-		        f.f_name fileName
-		FROM Quest q LEFT JOIN Answer a ON q.q_number = a.q_number
-					 LEFT JOIN File f ON q.q_number = f.q_number
-		WHERE q.q_number = #{q_number};
-  	</select> -->
-  	
   	<!-- 1:1 문의 콘텐츠 보여줌 -->
-<select id="selectAnswer" resultMap="questionMap">
-	SELECT
-		q.q_number,
-		q.q_title,
-		q.q_content,
-		q.q_date,
-		q.u_id,
-		f.f_id fileId,
-		f.f_name fileName,
-        a.a_content,
-        a.a_date
-	FROM
-		Quest q LEFT JOIN File f ON q.q_number = f.q_number
-				LEFT JOIN Answer a ON q.q_number = a.q_number
-	WHERE
-		q.q_number = #{q_number}
-</select>
+	<select id="selectAnswer" resultMap="questionMap">
+		SELECT
+			q.q_number,
+			q.q_title,
+			q.q_content,
+			q.q_date,
+			q.u_id,
+			f.f_id fileId,
+			f.f_name fileName,
+	        a.a_content,
+	        a.a_date
+		FROM
+			Quest q LEFT JOIN File f ON q.q_number = f.q_number
+					LEFT JOIN Answer a ON q.q_number = a.q_number
+		WHERE
+			q.q_number = #{q_number}
+	</select>
 
 <resultMap type="com.demo.domain.customer.QuestionDto" id="questionMap">
 		<id column="q_number" property="q_number"></id>
