@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팝업 공지사항</title>
+<title>Book</title>
 </head>
 <style>
 .mainPopup img{

@@ -1,5 +1,6 @@
 package com.demo.controller.customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,38 @@ public class CustomerController {
 
 		// business logic (게시물 db에서 가져오기)
 		NoticeDto notice = service.listContent(n_id);
+		
+		List<Integer> n_idList = service.getN_idList();
+		
+		List<String> n_titleList = service.getN_title();
+		
+		int prev = 0;
+		int next = 0;
+		String prevTitle = "";
+		String nextTitle = "";
+		
+		for(int i=0;i<n_idList.size();i++) {
+			if(n_idList.get(i) == n_id) {
+				if(i<1) {
+					prev=-1;
+				}else {
+					prev = n_idList.get(i-1);
+					prevTitle = n_titleList.get(i-1);
+				}
+				if(i ==n_idList.size()-1) {
+					next=-1;
+				}else {
+					next=n_idList.get(i+1);
+					nextTitle = n_titleList.get(i+1);
+				}
+			}
+		}
 
+		model.addAttribute("prev",prev);
 		model.addAttribute("noticeContent", notice);
-
+		model.addAttribute("next",next);
+		model.addAttribute("prevTitle",prevTitle);
+		model.addAttribute("nextTitle",nextTitle);
 		return "customer/listContent";
 
 	}
@@ -85,7 +115,6 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 				
-		System.out.println(cnt);
 		return "redirect:/customer/question";
 
 		

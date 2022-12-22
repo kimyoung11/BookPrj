@@ -927,12 +927,9 @@ function myQuestion(){
 			for (const quest of questList) {
 				const questReadButtonId = `questButton\${quest.q_number}`;
 				var questAnsBtn = ``;
-				/* function openAnswer(){
-					  window.open('\${ctx}/user/userAnswer?q_number=\${quest.q_number}', "_blank", "width=500, height=500")
-					} */
 				if(`\${quest.a_content}` != `null`){
 					questAnsBtn = `	답변완료 <br>								
-									<button onclick='window.open("\${ctx}/user/userAnswer?q_number=\${quest.q_number}", "_blank", "width=600, height=800")' id="\${questReadButtonId}" 
+									<button onclick='window.open("\${ctx}/user/userAnswer?q_number=\${quest.q_number}", "_blank", "width=600, height=800, top=100px,left=100px,menubar=no,toolbar=no,location=no,status=no,scrollbar=no")' id="\${questReadButtonId}" 
 									class="quest-btn" style = "border-radius: 5px; border-color: whitesmoke; margin-top: 3px;">답변 확인</button>`;
 				} else {
 					questAnsBtn = `답변 대기중`;
@@ -978,7 +975,6 @@ function readUserInfoAndSetModal(u_id){
 		
 	})	
 }
-/* 'top=100px','left=100px','height=300', 'width=400','menubar=no','toolbar=no','location=no','status=no','scrollbar=no' */
 readUserInfoAndSetModal(u_id);
 	
 let availablePassword = true;
