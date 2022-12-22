@@ -1,5 +1,6 @@
 package com.demo.controller.kyj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,10 @@ public class BookController {
 		
 		List<BookDto> ranBook = bookService.ranBookList();
 		model.addAttribute("ranBookList", ranBook);
+		
+		List<BookDto> bestBook = bookService.bestBook();
+		model.addAttribute("bestBook", bestBook);
+		
 	}
 	
 	@GetMapping("autoComplete")

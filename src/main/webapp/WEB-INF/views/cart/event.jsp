@@ -54,16 +54,16 @@
 
             <div class="row mt-5">
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" target="_blank">
-                            <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" alt="제품 사진"/>
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" target="_blank">
+                            <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" alt="제품 사진"/>
                         </a>
                         
                         <div>&lt;10대는 진심&gt; 시리즈 출간 이벤트</div>
                 </div>
                 
                 <div id="evtcol" class="col">
-                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" target="_blank">
-                        	<img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" alt="제품 사진"/>
+                        <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" target="_blank">
+                        	<img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" alt="제품 사진"/>
                         </a>
                         <div>&lt;오늘, 새롭게 살 수 있는 이유&gt; 기대평 이벤트</div>
                 </div>
@@ -82,8 +82,8 @@
 	            </div>
                 
                 <div id="evtcol" class="col">
-	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" target="_blank">
-                        <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event4.png" alt="제품 사진"/>
+	                <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" target="_blank">
+                        <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event1.jpg" alt="제품 사진"/>
                     </a>
 	                <p style="margin-top: 10px;">
 	                    &lt;&lt;당신의 이해를 돕기 위하여&gt;&gt; 1권 출간 <br>
@@ -92,8 +92,8 @@
                 </div>
 
                 <div id="evtcol" class="col">
-                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" target="_blank">
-                        <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event5.png" alt="제품 사진"/>
+                    <a href="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" target="_blank">
+                        <img class="main-img" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/event/event2.jpg" alt="제품 사진"/>
                     </a>
                     <p style="margin-top: 10px;">
                         &lt;흑뢰성&gt;요네자와 호노부 친필 사인본 이벤트 <br>
