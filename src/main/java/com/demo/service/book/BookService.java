@@ -186,4 +186,12 @@ public class BookService {
 		return bookMapper.selectByLike();
 	}
 
+	public List<BookDto> bestBook() {
+		return bookMapper.selectBestBook();
+	}
+
+	public List<Double> getRankBook() {
+		return bookMapper.selectRankBook();
+	}
+
 }

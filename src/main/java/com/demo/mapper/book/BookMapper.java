@@ -63,5 +63,9 @@ public interface BookMapper {
 
 	public Page<BookDto> selectByLike();
 
+	public List<BookDto> selectBestBook();
+
+	public List<Double> selectRankBook();
+
 
 }
