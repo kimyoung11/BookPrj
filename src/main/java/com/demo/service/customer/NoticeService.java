@@ -36,7 +36,16 @@ public class NoticeService {
 	public NoticeDto get(int n_id) {
 		return mapper.select(n_id);
 	}
-
+	
+	// 공지사항 이전글 다음글
+	public List<Integer> getN_idList(){
+		return mapper.selectN_idList();
+	}
+	// 공지사항 이전글 다음글 제목
+	
+	public List<String> getN_title(){
+		return mapper.selectN_title();
+	}
 
 	/* LIST pagination */
 	public List<NoticeDto> listNotice(int page, PageInfo pageInfo) {

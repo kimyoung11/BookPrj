@@ -12,6 +12,8 @@ public interface NoticeMapper {
 	/* list content 보여주기 */
 	NoticeDto select(int n_id);
 	
+	// 이전글 다음글 제목 보여주기
+	List<String> selectN_title();
 
 	/* pagination */
 	List<NoticeDto> noticeList(int offset, int records);
@@ -21,5 +23,7 @@ public interface NoticeMapper {
 	int update(NoticeDto notice);
 
 	int delete(int id);
+	
+	List<Integer> selectN_idList();
 
 }

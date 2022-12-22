@@ -42,7 +42,14 @@
 	WHERE
 		n_id = #{n_id}
 </select>
-
+<!-- 이전글 다음글 -->
+<select id="selectN_idList" resultType="int">
+	SELECT n_id FROM Notice;
+</select>
+<!-- 이전글 다음글 제목 -->
+<select id="selectN_title" resultType="String">
+SELECT n_title FROM Notice;
+</select>
 
 <!-- 공지사항 수정하기 -->
 <update id="update">

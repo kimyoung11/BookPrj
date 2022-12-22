@@ -71,29 +71,35 @@
 	            	<p style=" white-space: pre;">${noticeContent.n_content }</p>
 	        </div>
 
-        <hr>
+        
         <div class="view_footer">
             <div class="row">
+            <c:if test="${prev !=-1 }">
                 <div class="col">
                 이전글
                 <i class="fa-solid fa-caret-up"></i>
             </div>
             <div class="col">
-            <a href="#">링크로 이동</a>
+            	<a href="${pageContext.request.contextPath }/customer/listContent/${prev}">${prevTitle}</a>
             </div>
+            </c:if>
         </div>
         <hr>
         <div class="row">
+        	<c:if test="${next !=-1 }">
             <div class="col">
                 다음글
                 <i class="fa-solid fa-caret-down"></i>
             </div>
             <div class="col">
-            <a href="#">링크로 이동</a>
+            	<a href="${pageContext.request.contextPath }/customer/listContent/${next}">${nextTitle}</a>
             </div>
+            </c:if>
         </div>
         </div>
-        <hr>
+        <br>
+        <br>
+      <!--   <hr> -->
     </div>
 
 </body>
