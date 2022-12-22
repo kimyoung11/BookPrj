@@ -67,9 +67,9 @@ a {
 				</div>
 			</div>
 			<hr>
-			<c:if test="${u_id != admin}">  
+			<%-- <c:if test="${u_id != admin}"> --%>  
 			<input type="hidden" name="u_id" value="<%=(String)session.getAttribute("id")%>"> 
-			</c:if>
+			<%-- </c:if> --%>
 			<input type="submit" class="btn btn-primary regist-btn" value="등록">
 		</form>
 

@@ -23,9 +23,10 @@ SELECT b_code, b_title, b_writer, b_pubDate, b_price, b_genre, b_img, b_like,
 (SELECT avg(r_star) FROM Review r WHERE b_code = b.b_code) star FROM Book b  
 GROUP BY b_code ORDER BY star DESC;
 
+SELECT * FROM Notice;
+desc Notice;
 
-
-
+ALTER TABLE Notice ADD FOREIGN KEY (u_id) REFERENCES User(u_id); 
 
 
 select b_img, b_title, b_price, c_count, u_id, b.b_code FROM
