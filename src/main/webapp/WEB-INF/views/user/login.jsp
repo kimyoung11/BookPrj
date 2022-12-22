@@ -232,8 +232,8 @@ li {
 
 
 							<div id="login_button " class="d-grid gap-2 mt-5 mb-2">
-								<button class="btn btn-primary pt-3 pb-3" type="button"
-									class="btnLogin" id="btnLogin">로그인</button>
+								<button class="btn pt-3 pb-3" type="button"
+									class="btnLogin" id="btnLogin" style="background-Color:#4eac27; color: white; font-weight: 500">로그인</button>
 								<div class="link mt-2">
 									<ul id="test">
 										<li><a
