@@ -200,6 +200,7 @@ public class UserController {
 		boolean result = memberUserService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if(vo.getu_id().equals("admin")) {
+			session.setAttribute("id", vo.getu_id());
 			return "redirect:/admin/notice";
 		}
 		else if (result == true) { // 로그인 성공 시 // main.jsp로 이동
