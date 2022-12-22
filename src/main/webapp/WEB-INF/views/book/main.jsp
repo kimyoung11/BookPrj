@@ -3,6 +3,7 @@
     <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -93,6 +94,11 @@
             margin: 0 auto;
             padding: 70px 0px 70px 30px;
         }
+    .event-title{
+    	width:1200px;
+        margin: 0 auto;
+        padding: 0px 0px 0px 30px;
+    }
 	
 	.img-wrapper > img {
 				width: 268.02px;
@@ -438,50 +444,21 @@ margin-bottom: 2px;
         </div>
        
         <section class="card-list">
-            <article class="card">
-              <header class="card-header">
-                <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
-              </header>
-              <div class="card-author">
-                <div class="bookTitle" >이토록 평범한 미래</div>
-                <div class="author-name">
-                  오은영 
-                </div>
-              </div>
-            </article>
-            <article class="card">
-                <header class="card-header">
-                  <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
-                </header>
-              <div class="card-author">
-                <div class="bookTitle" >이토록 평범한 미래</div>
-                <div class="author-name">
-                  오은영 
-                </div>
-                </div>
-              </article>
-              <article class="card">
-                <header class="card-header">
-                  <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
-                </header>
-                 <div class="card-author">
-                <div class="bookTitle" >이토록 평범한 미래</div>
-                <div class="author-name">
-                  오은영 
-                </div>
-                </div>
-              </article>
-              <article class="card">
-                <header class="card-header">
-                  <div class="img-wrapper"><img src="https://picsum.photos/200/150"></div>
-                </header>
-                <div class="card-author">
-	                <div class="bookTitle" >이토록 평범한 미래</div>
+            <c:forEach var="bookList" items="${bestBook }" begin="0" end="3">
+	            <article class="card">
+	              <header class="card-header">
+	                <div class="img-wrapper"><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${bookList.b_code }/${URLEncoder.encode(bookList.b_img,'utf-8')}" style="width: 200" height="150"></div>
+	              </header>
+	              <div class="card-author">
+	                <div class="bookTitle" >${bookList.b_title }</div>
 	                <div class="author-name">
-	                  오은영 
+	                  ${bookList.b_writer } 
 	                </div>
-                </div>
-              </article>
+	                  평점 : <i style="color: rgb(250 208 0 / 99%)" class="fa-solid fa-star"></i><span class="rankSpan">${bookList.star }</span>
+	              </div>
+	            </article>
+            </c:forEach>
+            
           </section>
         <div class="new-section-wrapper" >
             <div id="new-section">
@@ -516,12 +493,14 @@ margin-bottom: 2px;
                </div>
            </div>
        </div>
-
+		<div class="event-title">
+        	<h6 class="subTitle">진행중인 이벤트</h6>
+		</div>
        <div id="event-section">
         <div class="container d-flex justify-content-center mb-5">
             <div class="row eventPage">
-                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event1.jpg" style="border-radius: 15px;"></div>
-                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event2.jpg" style="border-radius: 15px;"></div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event4.png" style="border-radius: 15px;">&lt;오늘, 새롭게 살 수 있는 이유&gt; 기대평 이벤트</div>
+                <div id="evtcol" class="col"><img id="eventImg" src="${pageContext.request.contextPath}/content/event/event5.png" style="border-radius: 15px;">&lt;&lt;당신의 이해를 돕기 위하여&gt;&gt; 1권 출간</div>
             </div>
         </div>
       </div>
@@ -625,8 +604,7 @@ margin-bottom: 2px;
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/content/slick/slick.min.js"></script>
-      
-        <script>
+			<script>
             $(function () {
                 $('#slider-div').slick({
                     infinite: true,
@@ -672,6 +650,11 @@ margin-bottom: 2px;
             document.documentElement.scrollTop = 0;
             }
 
+            
+            let temp = document.querySelectorAll(".rankSpan");
+            for(let i=0;i<temp.length;i++){
+            	document.querySelectorAll(".rankSpan")[i].innerText =Math.round(Number(temp[i].innerText) * 10) / 10;
+            }
         </script>
 </body>
 
