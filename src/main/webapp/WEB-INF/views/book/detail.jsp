@@ -131,7 +131,7 @@
 					<hr>
 					<div class="mb-3 row justify-content-end">
 						<div class="col">
-						<c:url value="${pageContext.request.contextPath}/book/order"
+						<c:url value="${pageContext.request.contextPath}/order"
 							var="link"></c:url>
 						<form class="d-flex mb-3" action="${link }" style="float: right;"
 							id="submitForm1">
@@ -152,7 +152,7 @@
 								구매하기</button>
 						</c:if>
 						<c:if test="${u_id ==null }">
-							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+							<c:url value="/user/login.do" var="loginLink"></c:url>
 		                 	<a type="button" class="btn btn-dark mb-1 buy"
 								style="width: 100%; background: #4eac27; border: none; background-color:#4eac27;" href="${loginLink }">
 		                 		바로 구매하기
@@ -165,7 +165,7 @@
 							style="width: 100%;" value="${book.b_code }" onclick="wantBook()">장바구니</button>
 						</c:if>
 						<c:if test = "${u_id ==null }">
-							<c:url value="${pageContext.request.contextPath }/user/login.do" var="loginLink"></c:url>
+							<c:url value="/user/login.do" var="loginLink"></c:url>
 	                 	<a type="button" class="btn btn-light" id="btn-button"
 							style="width: 100%;" href="${loginLink }">
 	                 		장바구니
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 					<div>
-						<c:url value="${pageContext.request.contextPath }/book/cart"
+						<c:url value="${pageContext.request.contextPath }/cart"
 							var="link2"></c:url>
 						<form class="d-flex mb-3" action="${link2 }" style="float: right;"
 							id="submitForm2">
@@ -365,7 +365,7 @@
  				      장바구니로 이동하시겠습니까?
  				      </div>
  				      <div class="modal-footer">
- 				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+ 				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/book/cart/cart'">예</button>
  				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
  				        
  				      </div>

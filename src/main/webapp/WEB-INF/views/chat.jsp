@@ -33,9 +33,10 @@
     	</div>
 </body>
     <script type="text/javascript">
+    const ctx2 = "${pageContext.request.contextPath}";
         var textarea = document.getElementById("messageWindow");
         //endpoint로 데이터 넘어가
-        var webSocket = new WebSocket('ws://localhost:8080/websocket');
+        var webSocket = new WebSocket('ws://${ctx2}/book/websocket');
         var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {
       onError(event)

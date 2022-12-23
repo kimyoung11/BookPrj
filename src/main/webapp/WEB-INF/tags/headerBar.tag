@@ -293,7 +293,7 @@ color:#4eac27;
    					bookCode = ui.item.value2;
    					console.log(ui.item.value);
    					console.log(bookCode);
-   					location.assign(`${ctx}/book/detail/\${bookCode}`);
+   					location.assign(`${ctx}/book/book/detail/\${bookCode}`);
    					//document.querySelector("#submitForm").setAttribute("action",`\${ctx2}/book/detail/\${bookCode}`);
    				},
    				focus: function(event,ui){

@@ -103,6 +103,7 @@ public class BookService {
 
 			// 키 생성
 			String key = "book/" + id + "/" + file.getOriginalFilename();
+			System.out.println("upload" + key);
 			
 			// putObjectRequest
 			PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -130,18 +131,23 @@ public class BookService {
 	public int modifyBook(BookDto bookDto,MultipartFile file) {
 		System.out.println("code" + bookDto.getB_code());
 		int b_code = bookDto.getB_code();
-		if(file != null) {
-			int cnt = bookMapper.deleteBookImg(b_code); //book b_img 컬럼 데이터 삭제
+		System.out.println("SDFSDF:"+bookDto);
+		String img_name = bookMapper.selectImgByCode(b_code);
+		int cnt = bookMapper.deleteBookImg(b_code); //book b_img 컬럼 데이터 삭제
+		deleteFile(b_code,img_name);
+		if(file != null && file.getSize() > 0) {
+			uploadFile(b_code,file);
 			bookDto.setB_img(file.getOriginalFilename());
 			System.out.println(bookDto);
-			deleteFile(b_code,file);
-			uploadFile(b_code, file);
+
 		}
-		System.out.println(bookDto);
+		System.out.println("thisdsfas" + bookDto);
 		return bookMapper.updateBook(bookDto);
 	}
-	private void deleteFile(int id, MultipartFile file) {
-		String key = "book/" + id + "/" + file.getOriginalFilename();
+	private void deleteFile(int id, String filename) {
+		String key = "book/" + id + "/" + filename;
+		System.out.println("delete" + key);
+		System.out.println(bucketName);
 		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
 				.bucket(bucketName)
 				.key(key)
