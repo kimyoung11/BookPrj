@@ -174,7 +174,7 @@
     </div>
     <div style="text-align: center;">
     
-    	<form action="/cart/orderdetail" method="post" id="orderInsertForm">
+    	<form action="/book/cart/orderdetail" method="post" id="orderInsertForm">
 	    	<input type="hidden" name="u_id" value="${userData.u_id }">
 	    	<input type="hidden" name="o_count" id="orderCountId">
 	    	<c:forEach items="${toOrderlist }" var="cart">

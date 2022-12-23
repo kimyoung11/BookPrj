@@ -24,7 +24,7 @@
 	<div style="margin-top: 300px; text-align: center;">
 		<h1>주문이 완료되었습니다!</h1>
 		<br>
-		<form action="/book/list">
+		<form action="/book/book/list">
 			<button type ="submit" class="btn" style="background-Color: #4eac27; color: white; font-weight: 500 ">다른 책 구매하러가기</button>
 		</form>
 	</div>
