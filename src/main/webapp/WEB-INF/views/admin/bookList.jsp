@@ -170,7 +170,7 @@ background-color: #489f23;
  	function clickModify(target){
 		const b_code =target.dataset.bookCode;
 		console.log(b_code);
-		 fetch(`${ctx}/admin/deleteBook`,{
+		 fetch(`${ctx}/book/admin/deleteBook`,{
 			method : 'delete',
 			headers :{
 				'Content-Type' : 'application/json',

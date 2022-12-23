@@ -187,7 +187,7 @@
 	  	
 	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
 		
-	 	<li class="page-item"><a id="fabtn"class="page-link" href="/book/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
+	 	<li class="page-item"><a id="fabtn"class="page-link" href="/book /cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
 	  
 	 	
 	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
