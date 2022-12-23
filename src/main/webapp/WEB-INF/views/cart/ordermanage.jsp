@@ -95,7 +95,7 @@
 	<my:adminHeader></my:adminHeader>
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
-        <a href="/cart/ordermanage"><h2 id="tit">주문관리</h2></a>
+        <a href="/book/cart/ordermanage"><h2 id="tit">주문관리</h2></a>
         <div style= "vertical-align: middle; text-align: right">
             <form action="${orderList }">
             
@@ -128,7 +128,7 @@
                 <tr>
                    <c:forEach items="${orders }" var="order" varStatus="sts">
                    		<tr>
-                   			<td><a id="odbtn" href="/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
+                   			<td><a id="odbtn" href="/book/cart/orderdetail?o_number=${order.o_number }">${order.o_number }</a></td>	
                    			<td>${order.o_date }</td>
                    			<td>${order.b_title } 등 ${order.o_count }권</td>
                    			<td>${order.u_name}</td>
@@ -144,13 +144,13 @@
                    				</select> 
                    			</td>
                    			<td style="display: flex;">
-	                   			<form action="/cart/orderStatusChange" method="post">
+	                   			<form action="/book/cart/orderStatusChange" method="post">
 	                   				<input type="hidden" name="o_number" value="${order.o_number }">
 	                   				<input id="osValueInput${sts.index }" type="hidden" name="o_status">
 	                   				<button style="margin-right: 10px" class="btn btn-outline-primary">상태변경</button>
 	                   			</form>
 	                   			
-	                   			<form action="/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
+	                   			<form action="/book/cart/orderDelete" method="post" id="deleteFrom${sts.index }">
                    				<input name="o_number" type="hidden" value="${order.o_number }">
                    				<button class="btn btn-outline-danger" onclick= "setFormId(this)" type="button" data-bs-toggle="modal" data-bs-target="#orderDeleteModal" data-form = "deleteFrom${sts.index }">삭제</button>
                    			</form>
@@ -185,9 +185,9 @@
     <nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	  	
-	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
 		
-	 	<li class="page-item"><a id="fabtn"class="page-link" href="/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
+	 	<li class="page-item"><a id="fabtn"class="page-link" href="/book/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
 	  
 	 	
 	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
@@ -200,8 +200,8 @@
 	    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
 	    "><a class="page-link faicon"  href="${pageLink }">${pageNumber }</a></li>
 	    </c:forEach>
-	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right faicon"></i></a></li>
-	    <li class="page-item"><a id="fabtn" class="page-link" href="/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right faicon"></i></a></li>
 	
 	  </ul>
 	</nav>
