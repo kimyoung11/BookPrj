@@ -65,7 +65,7 @@ a {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" id="modifyForm">
+        <form action="${pageContext.request.contextPath}/book/book/admin/modifyBook" method="post" id="modifyForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">책제목:</label>
             <input type="text" class="form-control" id="b_title">

@@ -206,7 +206,7 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">
-                  <c:url value="${pageContext.request.contextPath }/book/list" var="pageLink"></c:url>
+                  <c:url value="${pageContext.request.contextPath }/list" var="pageLink"></c:url>
                     <a class="page-link" href="${pageLink }?page=1" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -257,7 +257,7 @@
                   <a type="button" id="btn-button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
                   </a>      
-                  <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
+                  <c:url value="${pageContext.request.contextPath }/order/${item.b_code }" var="link">
                   	<c:param name="c_cnt" value="1"/>
                   </c:url>
                    <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}" id="btn-button2">
@@ -394,7 +394,7 @@
     				      	장바구니로 이동하시겠습니까?
     				      </div>
     				      <div class="modal-footer">
-    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/book/cart/cart'">예</button>
     				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
     				      </div>
     				    </div>
