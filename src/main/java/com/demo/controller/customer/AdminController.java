@@ -65,16 +65,16 @@ public class AdminController {
 	/* 공지사항 추가 */
 	@PostMapping("noticeRegister")
 	public String noticeInsert(NoticeDto notice) {
-
 		service.noticeRegister(notice);
-
+		
 		return "redirect:/admin/notice";
 
 	}
 
 	/* 공지사항 리스트 보여주기 */
 	@GetMapping("notice")
-	public void notice(@RequestParam(name = "page", defaultValue = "1") int page, PageInfo pageInfo, Model model) {
+	public void notice(@RequestParam(name = "page", defaultValue = "1") int page, PageInfo pageInfo, Model model, HttpSession session) {
+		System.out.println("세션아이디입니다" + session.getAttribute("id"));
 		// business logic
 		List<NoticeDto> list = service.listNotice(page, pageInfo);
 
