@@ -131,7 +131,7 @@
 					<hr>
 					<div class="mb-3 row justify-content-end">
 						<div class="col">
-						<c:url value="${pageContext.request.contextPath}/book/order"
+						<c:url value="${pageContext.request.contextPath}/order"
 							var="link"></c:url>
 						<form class="d-flex mb-3" action="${link }" style="float: right;"
 							id="submitForm1">
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 					<div>
-						<c:url value="${pageContext.request.contextPath }/book/cart"
+						<c:url value="${pageContext.request.contextPath }/cart"
 							var="link2"></c:url>
 						<form class="d-flex mb-3" action="${link2 }" style="float: right;"
 							id="submitForm2">
@@ -313,7 +313,7 @@
 		console.log(data);
 		if(toggle === true){
 			likeIcon.innerHTML =`<i class="fa-regular fa-heart fa-xl" style="color:#4eac27"></i>`;
-			fetch(`${ctx}/book/like`,{
+			fetch(`${ctx}/book/book/like`,{
 				method : "put",
 				headers :{
 					"Content-Type" : "Application/json"
@@ -324,7 +324,7 @@
 		/* 	.then(location.reload()); */ 
 		}else{
 			likeIcon.innerHTML =`<i class="fa-solid fa-heart fa-xl" style="color:#4eac27"></i>`;
-			fetch(`${ctx}/book/like`, {
+			fetch(`${ctx}/book/book/like`, {
 				method : "post",
 				headers : {
 					"Content-Type" : "Application/json"
@@ -365,7 +365,7 @@
  				      장바구니로 이동하시겠습니까?
  				      </div>
  				      <div class="modal-footer">
- 				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+ 				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/book/cart/cart'">예</button>
  				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
  				        
  				      </div>

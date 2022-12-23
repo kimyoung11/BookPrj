@@ -157,7 +157,7 @@
 	    </div>
 
      <div style="text-align: center;">
-    	<form action="/cart/orderdetail" method="post">
+    	<form action="/book/cart/orderdetail" method="post">
     		<input type="hidden" name="u_id" value="${user.u_id}">
     		<input type="hidden" name="o_count" value="${cnt}">
     		<input type="hidden" name="b_code" value="${book.b_code }">

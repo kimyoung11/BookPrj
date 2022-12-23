@@ -29,13 +29,15 @@
 	        <textarea id="messageWindow" rows="10" cols="50" readonly="readonly"></textarea>
 	        <br/>
 	        <input id="inputMessage" type="text" onkeyup="if(window.event.keyCode==13){send()}"/>
-	        <input type="submit" value="send" onclick="send()" />
+	        <input type="submit" value="send" onclick="send()"/>
     	</div>
 </body>
     <script type="text/javascript">
+    
+    	const ctx = "${pageContext.request.contextPath}";
         var textarea = document.getElementById("messageWindow");
         //endpoint로 데이터 넘어가
-        var webSocket = new WebSocket('ws://localhost:8080/websocket');
+        var webSocket = new WebSocket('${ctx}/book/websocket');
         var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {
       onError(event)
