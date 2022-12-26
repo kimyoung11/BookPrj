@@ -85,7 +85,7 @@ a {
 								data-cart-count="${cart.c_count }"
 								value="${cart.b_price * cart.c_count}" onchange="boxValueChange()" id="selectbox${status.index }" name="pricecheck" type="checkbox" checked></td>
 
-							<td><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt=""style="width: 80px; height: 100px;"></td>
+							<td><img src="${imgUrl}/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt=""style="width: 80px; height: 100px;"></td>
 
 							<td>${cart.b_title }</td>
 

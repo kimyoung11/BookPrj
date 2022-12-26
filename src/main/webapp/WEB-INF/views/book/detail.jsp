@@ -91,7 +91,7 @@
 		<div class="book-info">
 			<div class="row">
 				<div class="col-4">
-					<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" class="mt-2" style="height: 480px; width: 320px;">
+					<img src="${imgUrl}/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="" class="mt-2" style="height: 480px; width: 320px;">
 				</div>
 				<div class="col-8 mt-3">
 					<div class="row">

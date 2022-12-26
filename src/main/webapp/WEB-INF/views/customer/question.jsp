@@ -162,7 +162,7 @@ const UserId = document.querySelector("#getUserId").value;
 		} else if(UserId == 'null'){
 				
 					console.log(UserId);
-					location.assign('/user/login.do');
+					location.assign('/book/user/login.do');
 			};
 	});
 
@@ -179,9 +179,9 @@ const UserId = document.querySelector("#getUserId").value;
 		e.preventDefault();
 		
 		if(UserId != 'null'){
-			location.assign('/user/login.do');
+			location.assign('/book/user/login.do');
 		} else if(UserId == 'null'){
-			location.assign('/user/login.do');
+			location.assign('/book/user/login.do');
 		};
 	});
 

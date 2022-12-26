@@ -447,7 +447,7 @@ margin-bottom: 2px;
             <c:forEach var="bookList" items="${bestBook }" begin="0" end="3">
 	            <article class="card">
 	              <header class="card-header">
-	                <div class="img-wrapper"><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${bookList.b_code }/${URLEncoder.encode(bookList.b_img,'utf-8')}" style="width: 200" height="150"></div>
+	                <div class="img-wrapper"><img src="${imgUrl}/book/${bookList.b_code }/${URLEncoder.encode(bookList.b_img,'utf-8')}" style="width: 200" height="150"></div>
 	              </header>
 	              <div class="card-author">
 	                <div class="bookTitle" >${bookList.b_title }</div>
@@ -469,7 +469,7 @@ margin-bottom: 2px;
                     	<c:forEach begin="0" end="9" items="${newBookList }" var="book">
                     		 <div class="img-wrapper">	
 	                    	<a href="/book/book/detail/${book.b_code }" style="text-align: center;">
-	                    		<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" style="text-align: center;" class="bookTarget"/>
+	                    		<img src="${imgUrl}/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" style="text-align: center;" class="bookTarget"/>
 	                    	</a>
 	                    	</div>
 						</c:forEach>
@@ -486,7 +486,7 @@ margin-bottom: 2px;
                 	<c:forEach items="${ranBookList }" var="book">
 	                	<div class="img-wrapper">
 	                		<a href="/book/book/detail/${book.b_code }">
-	                			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt=""  class="bookTarget"/>
+	                			<img src="${imgUrl}/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt=""  class="bookTarget"/>
 	                		</a>
 	                	</div>
                 	</c:forEach>

@@ -65,7 +65,7 @@ a {
 				<div>
 					<c:forEach items="${questContent.fileName }" var="name">
 						<div>
-							<img class="img-fluid img-thumbnail" style="width:500px; height:300px;" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/question/${questContent.q_number }/${name}" alt="">
+							<img class="img-fluid img-thumbnail" style="width:500px; height:300px;" src="${imgUrl}/question/${questContent.q_number }/${name}" alt="">
 						</div>
 					</c:forEach>		
 				</div>
