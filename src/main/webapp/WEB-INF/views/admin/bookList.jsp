@@ -90,7 +90,7 @@ background-color: #489f23;
 						<td>${item.b_writer }</td>
 						<td>${item.b_price }</td>
 						<td>
-						<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="책" style="width: 50px; height: 60px;"/>
+						<img src="${imgUrl}/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="책" style="width: 50px; height: 60px;"/>
 						</td>
 				 		<td>
 							<button type="button" class="btn btn-primary btncolor1" data-bs-toggle="modal" data-bs-target="#modifyModal" data-book-code="${item.b_code }">책 정보 수정</button>

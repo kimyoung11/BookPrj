@@ -37,7 +37,7 @@
         var textarea = document.getElementById("messageWindow");
         //endpoint로 데이터 넘어가
 
-        var webSocket = new WebSocket('ws://${ctx2}/book/websocket');
+        var webSocket = new WebSocket('${ctx2}/book/websocket','ws://');
 
         var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {

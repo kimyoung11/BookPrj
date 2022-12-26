@@ -536,7 +536,7 @@ document.querySelector("#LikeListButton1").addEventListener("click", function(){
 				const b_likeContent = 
 					` <li class="prd-row" >
 						<a href="\${ctx}/book/detail/\${b_like.b_code}" class="img-block">
-						<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${b_like.b_code }/\${b_like.b_img}" >
+						<img src="${imgUrl}/book/\${b_like.b_code }/\${b_like.b_img}" >
 		                </a>
 		                <ul class="info">
 		                    <li class="genre">\${b_like.b_genre}</li>
@@ -613,7 +613,7 @@ function myReview(){
 		                <td>
 		                    <div class="prd-row">
 		                    	<a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
-		                       	 <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
+		                       	 <img src="${imgUrl}/book/\${review.b_code }/\${review.b_img}" >
 		                        </a>
 		                        <ul class="info">
 		                            <li class="genre">\${review.b_genre}</li>
@@ -690,7 +690,7 @@ function myReview(){
 		                <td>
 		                    <div class="prd-row">
 		                    	<a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
-		                    	<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
+		                    	<img src="${imgUrl}/book/\${review.b_code }/\${review.b_img}" >
 		                        </a>
 		                        <ul class="info">
 		                            <li class="genre">\${review.b_genre}</li>
@@ -783,7 +783,7 @@ function makeReviewList(){
 			                <td>
 			                    <div class="prd-row">
 			                        <a href="\${ctx}/book/detail/\${review.b_code}" class="img-block">
-			                        <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/\${review.b_code }/\${review.b_img}" >
+			                        <img src="${imgUrl}/book/\${review.b_code }/\${review.b_img}" >
 			                        </a>
 			                        <ul class="info">
 			                            <li class="genre">\${review.b_genre}</li>
