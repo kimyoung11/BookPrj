@@ -71,4 +71,63 @@ WHERE
 	c.u_id = "2" AND c.b_code = "1";
     
 
-    
+  SELECT
+            m.user_id, name, phone, auth
+        FROM
+            member m JOIN authority a ON a.user_id = m.user_id
+        WHERE
+            m.user_id = "admin";
+            
+		SELECT
+            auth
+        FROM
+            authority
+        WHERE
+            user_id = 'admin' AND auth = '관리자';
+            
+SELECT * FROM buyer;
+SELECT * FROM product;
+INSERT INTO price (buyer_code, product_code, price, currency, adduser, start_date, end_date)
+VALUES ('AA1894', '45', 1000, '원', 'user1', '2023-01-01', '2023-02-02');
+
+
+SELECT
+            m.user_id, phone, name, adddate, GROUP_CONCAT(auth)
+        FROM
+            member m JOIN authority a ON m.user_id = a.user_id 
+        WHERE
+            delyn = 'N' GROUP BY user_id;
+            
+
+select *from product;
+
+select * from category_main;
+
+SELECT * FROM category_middle;
+
+SELECT * FROM category_sub;
+
+SELECT 
+p.name,
+p.category_id,
+cm.id,
+cma.id,
+cs.id
+FROM product p JOIN category_sub cs ON p.category_id = cs.id JOIN category_middle cm ON cs.middle_id = cm.id JOIN category_main cma ON cm.main_id = cma.id
+where cma.id =2 and cm.id=4 and cs.id=10;
+select category_id from product;
+
+select * from category_main where id = 1;
+
+SELECT * from category_main or category_middle WHERE id = 1;
+
+create table persistent_logins
+(
+username varchar(64) not null ,
+series varchar(64) primary key ,
+token varchar(64) not null ,
+last_used timestamp not null
+);
+
+commit;
+select * from persistent_logins;

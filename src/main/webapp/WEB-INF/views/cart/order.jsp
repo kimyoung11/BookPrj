@@ -110,10 +110,10 @@
             	<c:forEach items="${toOrderlist }" var="cart"  varStatus="sts">
                 <tr>
                     <td><a href=""><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></a></td>
-                    <td class="align-middle">${cart.b_title }</td>
+                    <td class="align-middle payTitle">${cart.b_title }</td>
                     <td id="countPlus" class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>
-                    <td id="totalPrice" class="align-middle">${cart.b_price * cart.c_count }원</td>
+                    <td id="totalPrice" class="align-middle payPrice">${cart.b_price * cart.c_count }원</td>
                 </tr>
                 </c:forEach>
             	</c:if>
@@ -224,16 +224,19 @@ IMP.init('imp76552181');
 </script>
 <script>
     function payment() {
+    	payPrice = document.querySelector('#totalPrice').innerText.replace(/원/g, "");
+    	payTitles = document.querySelector('.payTitle').innerText;
+    	
       IMP.request_pay({ // param
           pg: "html5_inicis",
           pay_method: "card",
           merchant_uid: "ORD20180131-0000011",
-          name: "노르웨이 회전 의자",
-          amount: 64900,
-          buyer_email: "gildong@gmail.com",
-          buyer_name: "홍길동",
-          buyer_tel: "010-4242-4242",
-          buyer_addr: "서울특별시 강남구 신사동",
+          name: payTitles,
+          amount: Number(payPrice),
+          buyer_email: "${userData.u_email}",
+          buyer_name: "${userData.u_name}",
+          buyer_tel: "${userData.u_phone}",
+          buyer_addr: "${userData.u_address}",
           buyer_postcode: "01181"
       }, function (rsp) { // callback
           if (rsp.success) {
