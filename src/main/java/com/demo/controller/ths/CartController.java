@@ -1,6 +1,8 @@
 package com.demo.controller.ths;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -137,4 +139,11 @@ public class CartController {
 		
 	}
 	
+	@GetMapping("payNumber")
+	@ResponseBody
+	public Map<String,Integer> payNumber() {
+		Map<String,Integer> map = new HashMap<>();
+		map.put("num", service.makePayNumber() + 1);
+		return map;
+	}
 }

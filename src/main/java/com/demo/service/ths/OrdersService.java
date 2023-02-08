@@ -105,6 +105,10 @@ public class OrdersService {
 	public int removeBook(int b_code) {
 		return ordersMapper.deleteOdBook(b_code);
 	}
+
+	public int makePayNumber() {
+		return ordersMapper.makePayNumber();
+	}
 	
 	
 }

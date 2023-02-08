@@ -110,4 +110,8 @@ WHERE
 	WHERE b_code =#{b_code}
 </delete>
 
+<select id="makePayNumber" resultType="int">
+	SELECT MAX(o_number) FROM Orders
+</select>
+
 </mapper>

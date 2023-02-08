@@ -34,6 +34,8 @@ public interface OrdersMapper {
 	int changeCount(String u_id, Integer b_code, Integer c_count);
 
 	int deleteOdBook(int b_code);
+
+	int makePayNumber();
 	
 }
 	

@@ -218,21 +218,43 @@
 	document.querySelector("#o_total").value = c;
 </script>
 
+
+
+
 <script>
 var IMP = window.IMP;
 IMP.init('imp76552181');
 </script>
 <script>
+	var payNumber;
     function payment() {
-    	payPrice = document.querySelector('#totalPrice').innerText.replace(/원/g, "");
     	payTitles = document.querySelector('.payTitle').innerText;
+    	var nameSpace = "";
+    	if (totalCount == 1) {
+    		nameSpace = payTitles;
+  	  	} else {
+  			nameSpace = payTitles + ' 등 ' + totalCount + '권';
+  	  	}
     	
+	$.ajax({
+		type : 'get',
+		url : '${pageContext.request.contextPath}/cart/payNumber',
+		async : true,
+		success : function(result) { // 결과 성공 콜백함수
+	        console.log(result["num"]);
+			payNumber = result["num"];
+	    },
+	    error : function(request, status, error) { // 결과 에러 콜백함수
+	        console.log(error)
+	    }
+	})
+
       IMP.request_pay({ // param
           pg: "html5_inicis",
           pay_method: "card",
-          merchant_uid: "ORD20180131-0000011",
-          name: payTitles,
-          amount: Number(payPrice),
+          merchant_uid: payNumber,
+          name: nameSpace,
+          amount: 100,
           buyer_email: "${userData.u_email}",
           buyer_name: "${userData.u_name}",
           buyer_tel: "${userData.u_phone}",
@@ -240,13 +262,14 @@ IMP.init('imp76552181');
           buyer_postcode: "01181"
       }, function (rsp) { // callback
           if (rsp.success) {
-              
               // 결제 성공 시 로직,
-              console.log("결제성공")
+              alert("결제 성공")
+        	  document.forms.orderInsertForm.submit();
+              payNumber = payNumber+1;
           } else {
-              
               // 결제 실패 시 로직,
-              console.log("결제실패")
+              alert("결제에 실패했습니다.")
+              console.log(payNumber);
           }
       });
     }
