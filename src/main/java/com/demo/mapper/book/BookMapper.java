@@ -66,6 +66,7 @@ public interface BookMapper {
 	public List<BookDto> selectBestBook();
 
 	public List<Double> selectRankBook();
-
+	
+	public String selectImgByCode(int b_code);
 
 }

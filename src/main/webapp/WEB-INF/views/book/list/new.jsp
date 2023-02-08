@@ -245,9 +245,9 @@
 			</div>
 			<c:forEach var="item" items="${bookList }">
             <div class="row content justify-content-center">
-            	<c:url value="${pageContext.request.contextPath}/book/detail/${item.b_code}" var="link"></c:url>
+            	<c:url value="${pageContext.request.contextPath}/detail/${item.b_code}" var="link"></c:url>
               		<a href="${link }" style="width: 159px; height: 234px">
-              			<img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
+              			<img src="${imgUrl}/book/${item.b_code }/${URLEncoder.encode(item.b_img,'utf-8')}" alt="" style="width: 159px; height: 230px;" class="bookTarget"/>
               		</a>
               	<ul class="col book_cont">
                 <li class="likeco"><div style="font-size: 22px; font-weight: 500;">${item.b_title }</div><div style="font-size: 20px"><i class="fa-solid fa-heart"></i>${item.b_like }</div></li> 
@@ -264,7 +264,7 @@
                   <a type="button" id="btn-button" class="btn btn-secondary cart-btn want" onclick="wantBook(this)" value="${item.b_code }" data-item="${item.b_code}">
                     장바구니
                   </a>      
-                  <c:url value="${pageContext.request.contextPath }/book/order/${item.b_code }" var="link">
+                  <c:url value="${pageContext.request.contextPath }/order/${item.b_code }" var="link">
                   	<c:param name="c_cnt" value="1"/>
                   </c:url>
                    <a type="button" class="btn btn-primary buy-btn buy" href="${link}" value="${item.b_code }" data-item="${item.b_code}" id="btn-button2">
@@ -273,7 +273,7 @@
                 </c:if>
                 
                 <c:if test="${u_id ==null }">
-                <c:url value="${pageContext.request.contextPath}/user/login.do" var="loginLink"></c:url>
+                <c:url value="/user/login.do" var="loginLink"></c:url>
                 	<a type="button" id="btn-button" class="btn btn-secondary cart-btn want" href="${loginLink }">
 	                 		장바구니
 	                 	</a>
@@ -369,7 +369,7 @@
     	    				      장바구니로 이동하시겠습니까?
     	    				      </div>
     	    				      <div class="modal-footer">
-    	    				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    	    				     	<button id="deleteButton"  type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/book/cart/cart'">예</button>
     	    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
     	    				        
     	    				      </div>
@@ -391,7 +391,7 @@
     	    				      	장바구니로 이동하시겠습니까?
     	    				      </div>
     	    				      <div class="modal-footer">
-    	    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/cart/cart'">예</button>
+    	    				      	<button type="button" class="btn btn-primary" onclick ="location.href = '${ctx}/book/cart/cart'">예</button>
     	    				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
     	    				      </div>
     	    				    </div>

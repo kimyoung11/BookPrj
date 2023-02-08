@@ -139,6 +139,10 @@
 		UPDATE Book SET b_img='' where b_code = #{b_code}
 	</update>
 	
+	<select id="selectImgByCode" resultType="string">
+		SELECT b_img from Book where b_code = #{b_code}
+	</select>
+	
 	<select id="selectByReviewAvg" resultType="double">
 		SELECT IFNULL(AVG(r.r_star), 0) from Book b 
 		LEFT JOIN Review r on b.b_code = r.b_code

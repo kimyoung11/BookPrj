@@ -247,10 +247,10 @@ public class AdminController {
 	 
 	 @PostMapping("modifyBook")
 	 public String modifyBookDto(BookDto bookDto,MultipartFile file) {
-		 System.out.println(bookDto);
+		 System.out.println("THIS IS" + bookDto);
 		 System.out.println(file);
 		 int cnt = bookService.modifyBook(bookDto,file);
-		 System.out.println(cnt);
+		 System.out.println("this is cntASDFSD" + cnt);
 		 return "redirect:/admin/bookList";
 	 }
 	 

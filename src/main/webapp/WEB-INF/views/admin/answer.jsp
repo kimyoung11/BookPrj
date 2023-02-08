@@ -71,7 +71,7 @@ a {
 				<div>
 					<c:forEach items="${questContent.fileName }" var="name">
 						<div>
-							<img class="img-fluid img-thumbnail" src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/question/${questContent.q_number }/${URLEncoder.encode(name, 'utf-8')}" alt="">
+							<img class="img-fluid img-thumbnail" src="${imgUrl}/question/${questContent.q_number }/${URLEncoder.encode(name, 'utf-8')}" alt="">
 						</div>
 					</c:forEach>		
 				</div>

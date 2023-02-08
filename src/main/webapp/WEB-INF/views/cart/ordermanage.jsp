@@ -96,6 +96,7 @@
 	<div style="margin-top: 100px"></div>
     <div class="container-md" style="text-align: center;">
         <a href="/book/cart/ordermanage"><h2 id="tit">주문관리</h2></a>
+        <a href="/book/cart/ordermanage"><h2 id="tit">주문관리</h2></a>
         <div style= "vertical-align: middle; text-align: right">
             <form action="${orderList }">
             
@@ -186,7 +187,9 @@
 	  <ul class="pagination justify-content-center">
 	  	
 	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=1&q=${param.q}"><i class="fa-solid fa-angles-left faicon"></i></a></li>
 		
+	 	<li class="page-item"><a id="fabtn"class="page-link" href="/book/cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
 	 	<li class="page-item"><a id="fabtn"class="page-link" href="/book /cart/ordermanage?page=${pageInfo.prePageNumber }&q=${param.q}"><i class="fa-solid fa-angle-left faicon"></i></a></li>	
 	  
 	 	
@@ -200,6 +203,8 @@
 	    	${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
 	    "><a class="page-link faicon"  href="${pageLink }">${pageNumber }</a></li>
 	    </c:forEach>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right faicon"></i></a></li>
+	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right faicon"></i></a></li>
 	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.nextPageNumber }&q=${param.q}"><i class="fa-solid fa-angle-right faicon"></i></a></li>
 	    <li class="page-item"><a id="fabtn" class="page-link" href="/book/cart/ordermanage?page=${pageInfo.lastPageNumber }&q=${param.q}"><i class="fa-solid fa-angles-right faicon"></i></a></li>
 	

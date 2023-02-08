@@ -33,6 +33,7 @@
     	</div>
 </body>
     <script type="text/javascript">
+    const ctx2 = "${pageContext.request.contextPath}";
         var textarea = document.getElementById("messageWindow");
         //endpoint로 데이터 넘어가
         var webSocket = new WebSocket('ws://43.200.245.253/book/websocket');

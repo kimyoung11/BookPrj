@@ -100,7 +100,7 @@
             <tbody>
                 <tr>
                     <td>
-                    <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/>
+                    <img src="${imgUrl}/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/>
                     </td>
                     <td class="align-middle">${book.b_title }</td>
                     <td class="align-middle">${cnt }</td>
@@ -157,7 +157,7 @@
 	    </div>
 
      <div style="text-align: center;">
-    	<form action="/cart/orderdetail" method="post">
+    	<form action="/book/cart/orderdetail" method="post">
     		<input type="hidden" name="u_id" value="${user.u_id}">
     		<input type="hidden" name="o_count" value="${cnt}">
     		<input type="hidden" name="b_code" value="${book.b_code }">

@@ -109,8 +109,8 @@
             	<c:if test="${fromCart}">
             	<c:forEach items="${toOrderlist }" var="cart"  varStatus="sts">
                 <tr>
-                    <td><a href=""><img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></a></td>
-                    <td class="align-middle payTitle">${cart.b_title }</td>
+                    <td><a href=""><img src="${imgUrl}/book/${cart.b_code }/${URLEncoder.encode(cart.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/></a></td>
+                    <td class="align-middle">${cart.b_title }</td>
                     <td id="countPlus" class="align-middle">${cart.c_count }</td>
                     <td class="align-middle">${cart.b_price }원</td>
                     <td id="totalPrice" class="align-middle payPrice">${cart.b_price * cart.c_count }원</td>
