@@ -102,7 +102,7 @@
                     <td>
                     <img src="https://bookproject-20221208.s3.ap-northeast-2.amazonaws.com/book/${book.b_code }/${URLEncoder.encode(book.b_img,'utf-8')}" alt="제품 사진" style="width: 100px; height: 150px;" class="product_img"/>
                     </td>
-                    <td class="align-middle">${book.b_title }</td>
+                    <td class="align-middle payTitle">${book.b_title }</td>
                     <td class="align-middle">${cnt }</td>
                     <td class="align-middle">${book.b_price }원</td>
                     <td class="align-middle">${book.b_price * cnt }</td>
@@ -163,7 +163,7 @@
     		<input type="hidden" name="b_code" value="${book.b_code }">
     		<input type="hidden" name="od_count" value="${cnt}">
     		<input type="hidden" name="o_total" value="${book.b_price * cnt }">
-        	<button type="submit" class="btn btn-primary order-btn">결제하기</button>
+        	<button type="button" onclick="payment()" class="btn btn-primary order-btn">결제하기</button>
     	</form>
 
     </div> 
@@ -197,6 +197,56 @@
         </footer>
         <!-- Footer -->
     </div>
+ 
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>   
+<script>
+	var IMP = window.IMP;
+	IMP.init('imp76552181');
+</script>
+<script>
+	var payNumber;
+    function payment() {
+    	payTitles = document.querySelector('.payTitle').innerText;
+    	
+	$.ajax({
+		type : 'get',
+		url : '${pageContext.request.contextPath}/cart/payNumber',
+		async : true,
+		success : function(result) { // 결과 성공 콜백함수
+	        console.log(result["num"]);
+			payNumber = result["num"];
+	    },
+	    error : function(request, status, error) { // 결과 에러 콜백함수
+	        console.log(error)
+	    }
+	})
+
+      IMP.request_pay({ // param
+          pg: "html5_inicis",
+          pay_method: "card",
+          merchant_uid: payNumber,
+          name: payTitles,
+          amount: 100,
+          buyer_email: "${userData.u_email}",
+          buyer_name: "${userData.u_name}",
+          buyer_tel: "${userData.u_phone}",
+          buyer_addr: "${userData.u_address}",
+          buyer_postcode: "01181"
+      }, function (rsp) { // callback
+          if (rsp.success) {
+              // 결제 성공 시 로직,
+              alert("결제 성공")
+        	  document.forms.orderInsertForm.submit();
+              payNumber = payNumber+1;
+          } else {
+              // 결제 실패 시 로직,
+              alert("결제에 실패했습니다.")
+              console.log(payNumber);
+          }
+      });
+    }
+  </script>
 </body>
 
 </html>
