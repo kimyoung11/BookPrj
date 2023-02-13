@@ -423,13 +423,13 @@ margin-bottom: 2px;
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${pageContext.request.contextPath}/content/head1.jpg" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/content/main1.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/content/head2.jpg" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/content/main2.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/content/head3.jpg" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/content/main3.jpg" class="d-block w-100" alt="...">
                 </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
